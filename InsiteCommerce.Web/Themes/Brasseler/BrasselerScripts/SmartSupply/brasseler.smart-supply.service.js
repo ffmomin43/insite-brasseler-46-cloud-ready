@@ -1,5 +1,3 @@
-var CartSubscriptionDto = InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.CartSubscriptionDto;
-var CartModelBrasseler = InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.CartModel_Brasseler;
 var CartModels = insite.cart;
 var insite;
 (function (insite) {

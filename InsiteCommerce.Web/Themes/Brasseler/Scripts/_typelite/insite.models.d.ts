@@ -1970,3 +1970,220 @@ declare module Insite.Core.Plugins.Inventory {
 	}
 }
 
+declare module InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels {
+    interface UserPaymentProfileModel extends Insite.Core.WebApi.BaseModel {
+        id: string;
+        userProfileId: System.Guid;
+        description: string;
+        cardType: string;
+        expirationDate: string;
+        maskedCardNumber: string;
+        cardIdentifier: string;
+    }
+    interface UserPaymentProfileCollectionModel extends Insite.Core.WebApi.BaseModel {
+        listUserPaymentProfileModel: InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.UserPaymentProfileModel[];
+    }
+    interface CartModel_Brasseler extends Insite.Cart.WebApi.V1.ApiModels.CartModel {
+        cartSubscriptionDto: InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.CartSubscriptionDto;
+    }
+}
+
+declare module InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos {
+    interface CartSubscriptionDto {
+        customerOrderId: System.Guid;
+        frequency: number;
+        paymentMethod: string;
+        nextDelieveryDate: Date;
+        activationDate: Date;
+        deActivationDate: Date;
+        parentCustomerOrderId: System.Guid;
+        shipNow: boolean;
+        isModified: boolean;
+    }
+}
+
+declare module InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos {
+    interface GetOutstandingInvoicesDto {
+        companyNumber: string;
+        customerNumber: string;
+        invoiceNumberInq: string;
+        toInvoiceNumber: string;
+        maxInvoices: string;
+        invoiceType: string;
+        flag: string;
+        fromInvDate: string;
+        toInvDate: string;
+        fromAgeDate: string;
+        toAgeDate: string;
+        fromInvAmount: string;
+        toInvAmount: string;
+    }
+}
+
+declare module InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos {
+    interface GetOutstandingOrderDto {
+        getOrderInfo: string;
+        companyNumber: string;
+        customerNumber: string;
+        lookupType: string;
+        orderNumber: string;
+        orderGenerationNumber: string;
+        guestFlag: string;
+        historySequenceNumber: string;
+        includeHistory: string;
+    }
+}
+
+declare module InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels {
+    interface OutstandingOrderModel extends Insite.Core.WebApi.BaseModel {
+        order: InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.OutstandingOrder;
+    }
+
+    interface OutstandingOrder extends Insite.Core.WebApi.BaseModel {
+        orderHeader: InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.OrderHeaderModel;
+        orderDetail: InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.OrderDetailModel[];
+    }
+    interface OrderHeaderModel extends Insite.Core.WebApi.BaseModel {
+        companyNumber: string;
+        customerNumber: string;
+        orderNumber: string;
+        orderGenerationNumber: string;
+        orderType: string;
+        orderStatus: string;
+        customerName: string;
+        customerAddress1: string;
+        customerAddress2: string;
+        customerAddress3: string;
+        customerAddress4: string;
+        billToCity: string;
+        billToStateProvince: string;
+        billToZipCode: string;
+        billToCountry: string;
+        billToContact: string;
+        shipToNumber: string;
+        shipToName: string;
+        shipToAddress1: string;
+        shipToAddress2: string;
+        shipToAddress3: string;
+        shipToAddress4: string;
+        shipToCity: string;
+        shipToStateProvince: string;
+        shipToZipCode: string;
+        shipToCountry: string;
+        contact: string;
+        parentOrderNumber: string;
+        entryDateCentury: string;
+        acknowledgePrintCentury: string;
+        pickSlipPrintCentury: string;
+        shipConfirmCentury: string;
+        invoicePrintCentury: string;
+        quoteReviewCentury: string;
+        requestedShipCentury: string;
+        invoiceCentury: string;
+        cancelDateCentury: string;
+        entryDate: string;
+        acknowledgePrintDate: string;
+        pickSlipPrintDate: string;
+        shipConfirmDate: string;
+        invoicePrintDate: string;
+        quoteReviewDate: string;
+        requestedShipDate: string;
+        completeShipCode: string;
+        backorderCode: string;
+        invoiceDate: string;
+        customerPurchaseOrder: string;
+        itemSalesAmount: string;
+        totalSpecialCharges: string;
+        discountAmountTrading: string;
+        salesTaxAmount: string;
+        federalExciseAmount: string;
+        totalContainerCharge: string;
+        invoiceAmount: string;
+        totalOrderValue: string;
+        carrierCode: string;
+        cancelDate: string;
+        proNumber: string;
+        billOfLadingNumber: string;
+        warehouseId: string;
+        invoiceNumber: string;
+        historySequenceNumber: string;
+        holdCode: string;
+        workStationId: string;
+        currencyCode: string;
+        exchangeCode: string;
+        boxIndicatorCode: string;
+        sMSPrefix: string;
+        blanketOrderCode: string;
+        creditCardKeySeq: string;
+    }
+
+    export interface OrderDetailModel extends Insite.Core.WebApi.BaseModel {
+        CompanyNumber: string;
+        CustomerNumber: string;
+        OrderNumber: string;
+        OrderGenerationNumber: string;
+        OrderSequenceNumber: string;
+        ItemNumber: string;
+        LineItemType: string;
+        ItemDescription1: string;
+        ItemDescription2: string;
+        QuantityOrdered: string;
+        QuantityShipped: string;
+        QuantityBackOrdered: string;
+        UnitOfMeasure: string;
+        CustomerOrderUM: string;
+        PricingUM: string;
+        CustomerPricingUM: string;
+        ListPrice: string;
+        ActualSellPrice: string;
+        TotalLineAmount: string;
+        Century: string;
+        ReplacementReasonCode: string;
+        DueDate: string;
+        OriginalItemNumber: string;
+        EntrySequenceNumber: string;
+        WarehouseID: string;
+        LineValue: string;
+    }
+
+}
+
+declare module InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos {
+    interface AROpenInvoicesResultDto {
+        arOpenInvoices: InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.AROpenInvoicesDto;
+        pagination: Insite.Core.WebApi.PaginationModel;
+        pagedOpenInvoices: InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.AROpenInvoicesDto;
+    }
+
+    interface AROpenInvoicesDto {
+        invoice: InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.Invoices[];
+        moreRecords: string;
+    }
+
+    interface Invoices {
+        invoiceNumber: number;
+        invoiceType: string;
+        invoiceDisputeCode: string;
+        financeChargeFlag: string;
+        invoiceCentury: string;
+        invoiceDate: Date;
+        ageCentury: string;
+        ageDate: string;
+        invoiceBalance: number;
+        tradeInvoiceAmount: string;
+        tradeInvoiceBalanceAmt: string;
+        currencySymbol: string;
+        lastTransactionCentury: string;
+        lastTransactionDate: string;
+        payDays: number;
+        orderNumber: string;
+        customerPO: string;
+        invoiceAmount: number;
+        checked: boolean;
+        amountPaid: number;
+        shipTo: string;
+        dueDate: Date;
+        refreshed: boolean;
+    }
+}
+
