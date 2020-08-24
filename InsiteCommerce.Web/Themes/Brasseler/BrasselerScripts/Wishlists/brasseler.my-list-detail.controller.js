@@ -76,6 +76,8 @@ var insite;
                 "searchService",
                 "productPriceService",
                 "paginationService",
+                "$templateCache",
+                "scheduleReminderPopupService",
                 "createListPopupService",
                 "deleteListPopupService",
                 "copyToListPopupService"

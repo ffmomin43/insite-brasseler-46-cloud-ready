@@ -29,9 +29,9 @@ namespace InSiteCommerce.Brasseler.Services.Handlers
             if (parameter.SiteContext.BillTo == null)
                 return result;
             if (parameter.SiteContext.BillTo != null && parameter.SiteContext.ShipTo != null)
-                result.CustomerRestrictionGroupIds = new HashSet<Guid>(result.WebsiteRestrictionGroupQuery.Where(o => o.Customers.Any(p => p.Id == parameter.SiteContext.ShipTo.Id)).Select(o => o.Id));
+                result.CustomerRestrictionGroupIds = new HashSet<Guid>(result.WebsiteRestrictionGroupQuery.Where(o => o.RestrictionGroupCustomers.Any(p => p.Id == parameter.SiteContext.ShipTo.Id)).Select(o => o.Id));
             else if (parameter.SiteContext.BillTo != null)
-                result.CustomerRestrictionGroupIds = new HashSet<Guid>(result.WebsiteRestrictionGroupQuery.Where(o => o.Customers.Any(p => p.Id == parameter.SiteContext.BillTo.Id)).Select(o => o.Id));
+                result.CustomerRestrictionGroupIds = new HashSet<Guid>(result.WebsiteRestrictionGroupQuery.Where(o => o.RestrictionGroupCustomers.Any(p => p.Id == parameter.SiteContext.BillTo.Id)).Select(o => o.Id));
             return result;
         }
     }

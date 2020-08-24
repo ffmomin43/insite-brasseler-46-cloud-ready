@@ -282,7 +282,7 @@ namespace InSiteCommerce.Brasseler.Plugins.Promotions
             {
                 appliedPromotion.OrderLineId = new Guid?(orderLine.Id);
                 appliedPromotion.OrderLine = orderLine;
-                appliedPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(appliedPromotion));
+                appliedPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(appliedPromotion,string.Empty));
 
                 //BUSA_1242: Prod Category Level Promotion is inserted in customerorderpromotion table with 0 amount
                 if (appliedPromotion.Amount <= 0) 
@@ -306,7 +306,7 @@ namespace InSiteCommerce.Brasseler.Plugins.Promotions
                     OrderLineId = new Guid?(orderLine.Id),
                     OrderLine = orderLine
                 };
-                customerOrderPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(customerOrderPromotion));
+                customerOrderPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(customerOrderPromotion,string.Empty));
 
                 //BUSA_1242: Prod Category Level Promotion is inserted in customerorderpromotion table with 0 amount
                 if (customerOrderPromotion.Amount <= 0 && customerOrderPromotion.Promotion.PromotionResults.Where(x => x.PromotionResultType == "DiscountProductsInCategory").Any())

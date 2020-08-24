@@ -58,7 +58,7 @@ namespace Insite.Catalog.Services.Handlers.GetAutocompleteHandler
             if (!settings.CanSeeProducts)
                 return this.CreateErrorServiceResult<GetAutocompleteResult>(result, SubCode.Forbidden, MessageProvider.Current.Forbidden);
             int maximumNumber = Math.Max(Math.Min(this.autocompleteSettings.ProductLimit, this.MaximumAutocompleteResults), this.MinimumAutocompleteResults);
-            IProductSearchResult autocompleteSearchResults = this.productSearchProvider.GetAutocompleteSearchResults(parameter.Query, maximumNumber);
+            ProductSearchResult autocompleteSearchResults = this.productSearchProvider.GetAutocompleteSearchResults(parameter.Query, maximumNumber);
             result.Products = autocompleteSearchResults.Products.Select<ProductSearchResultDto, GetProductAutocompleteItemResult>((Func<ProductSearchResultDto, GetProductAutocompleteItemResult>)(o =>
             {
                 GetProductAutocompleteItemResult autocompleteItemResult = new GetProductAutocompleteItemResult();

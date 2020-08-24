@@ -17,6 +17,7 @@ using Insite.Data.Repositories.Interfaces;
 using Insite.Core.SystemSetting.Groups.Catalog;
 using Insite.Data.Entities.Dtos;
 using InSiteCommerce.Brasseler.SystemSetting.Groups;
+using Insite.Core.Interfaces.Plugins.Caching;
 
 namespace InSiteCommerce.Brasseler.Plugins.Pricing
 {
@@ -27,8 +28,23 @@ namespace InSiteCommerce.Brasseler.Plugins.Pricing
         List<string> priceBasisList = null;
         protected readonly Lazy<CustomSettings> customSettings;
 
-        public PricingServiceBrasseler(IUnitOfWorkFactory unitOfWorkFactory, ICurrencyFormatProvider currencyFormatProvider, IOrderLineUtilities orderLineUtilities, IPricingServiceFactory pricingServiceFactory, PricingSettings pricingSettings)
-      : base(unitOfWorkFactory, currencyFormatProvider, orderLineUtilities, pricingServiceFactory, pricingSettings)
+        public PricingServiceBrasseler(
+            IUnitOfWorkFactory unitOfWorkFactory, 
+            
+            ICurrencyFormatProvider currencyFormatProvider, 
+            IOrderLineUtilities orderLineUtilities, 
+            IPricingServiceFactory pricingServiceFactory,
+            IPerRequestCacheManager perRequestCacheManager,
+            IPriceMatrixUtilities priceMatrixUtilities,
+            PricingSettings pricingSettings)
+      : base(
+            unitOfWorkFactory, 
+            currencyFormatProvider, 
+            orderLineUtilities, 
+            pricingServiceFactory,
+            perRequestCacheManager,
+            priceMatrixUtilities,
+            pricingSettings)
         {
             customSettings = new Lazy<CustomSettings>();
         }

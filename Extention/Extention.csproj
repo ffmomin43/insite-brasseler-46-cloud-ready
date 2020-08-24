@@ -814,7 +814,6 @@
     <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\DailySubscriptionRefreshPostProcessor.cs" />
     <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ERPPriceMatrixRefreshPostprocessor.cs" />
     <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\InvoiceRefreshPostProcessor.cs" />
-    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\JobPostprocessorDataExporter_Brasseler.cs" />
     <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\NewUserCountPostprocessor.cs" />
     <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\OrderRefreshPostProcessor.cs" />
     <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\OrderShipmentRefreshPostProcessor.cs" />

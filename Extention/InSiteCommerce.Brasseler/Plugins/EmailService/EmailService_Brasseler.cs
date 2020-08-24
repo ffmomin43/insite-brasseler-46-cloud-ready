@@ -1,6 +1,7 @@
 ﻿using Insite.Common;
 using Insite.Core.Interfaces.Data;
 using Insite.Core.Interfaces.Dependency;
+using Insite.Core.Interfaces.Plugins.Caching;
 using Insite.Core.Interfaces.Plugins.Emails;
 using Insite.Core.Localization;
 using Insite.Core.Plugins.EntityUtilities;
@@ -19,7 +20,18 @@ namespace InSiteCommerce.Brasseler.Plugins.EmailService
     {
         protected readonly CustomSettings CustomSettings;
 
-        public EmailService_Brasseler(IEmailTemplateUtilities emailTemplateUtilities, IContentManagerUtilities contentManagerUtilities, IEntityTranslationService entityTranslationService, EmailsSettings emailsSettings, Lazy<IEmailTemplateRenderer> emailTemplateRenderer) : base(emailTemplateUtilities, contentManagerUtilities, entityTranslationService, emailsSettings, emailTemplateRenderer)
+        public EmailService_Brasseler(IEmailTemplateUtilities emailTemplateUtilities,
+                                      IContentManagerUtilities contentManagerUtilities,
+                                      IEntityTranslationService entityTranslationService,
+                                      EmailsSettings emailsSettings,
+                                      Lazy<IEmailTemplateRenderer> emailTemplateRenderer,
+                                      Lazy<IPerRequestCacheManager> perRequestCacheManager)
+            : base(emailTemplateUtilities,
+                   contentManagerUtilities,
+                   entityTranslationService,
+                   emailsSettings,
+                   emailTemplateRenderer,
+                   perRequestCacheManager)
         {
             this.CustomSettings = new CustomSettings();
         }

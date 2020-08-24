@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 /*
  * The class displays Custom Navigation using dotliquid tag "BrasselerNavigationMenu"  
@@ -41,7 +42,8 @@ namespace InSiteCommerce.Brasseler.Tags
             var contentController = pageContext.GetType().GetProperty("Controller", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).GetValue(pageContext) as Controller;
 
 
-            ViewContext viewContext = new ViewContext(contentController.ControllerContext, (IView)new NavigationMenuTag.FakeView(), contentController.ViewData, contentController.TempData, TextWriter.Null);
+            ViewContext viewContext = new ViewContext(contentController.ControllerContext, 
+                (IView)new View(), contentController.ViewData, contentController.TempData, TextWriter.Null);
             ViewRenderer viewRenderer = new ViewRenderer((ControllerContext)viewContext);
             HtmlHelper htmlHelper = new HtmlHelper(viewContext, (IViewDataContainer)new ViewPage());
             IContentHelper instance = DependencyLocator.Current.GetInstance<IContentHelper>();

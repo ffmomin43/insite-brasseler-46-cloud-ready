@@ -61,7 +61,7 @@ namespace Insite.Plugins.PromotionEngines.PromotionResultServices
             CustomerOrderPromotion customerOrderPromotion = customerOrder.CustomerOrderPromotions.FirstOrDefault<CustomerOrderPromotion>((Func<CustomerOrderPromotion, bool>)(p => p.PromotionId == this.PromotionResult.PromotionId));
             if (customerOrderPromotion == null)
                 return;
-            customerOrderPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(customerOrderPromotion));
+            customerOrderPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(customerOrderPromotion, string.Empty));
         }
 
         public override decimal AmountOffShipping(CustomerOrder customerOrder)
