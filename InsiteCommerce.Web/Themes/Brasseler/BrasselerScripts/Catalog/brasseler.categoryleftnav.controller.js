@@ -37,7 +37,7 @@ var insite;
                 return _this;
             }
             BrasselerCategoryLeftNavController.prototype.brasselerInit = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
                 this.originalAttributes = this.products.attributeTypeFacets;
             };
             BrasselerCategoryLeftNavController.prototype.isAuthenticated = function () {

@@ -1,0 +1,49 @@
+﻿
+<div class="accordion buymore Buy-More-And-Save" ng-if="(breakPrices && breakPrices.length > 1)">
+    <input type="checkbox" id="quantityBreakPricing_{{::(productId)}}" class="accord-check" ng-click="vm.ShowRelatedProducts(cart,cartLine)" />
+    <label for="quantityBreakPricing_{{::(productId)}}" class="accord-head" id="quantityBreakPricing_{{::(productId)}}">
+        [% translate 'BUY MORE, SAVE MORE! Take advantage of volume discount pricing.' %]
+    </label>
+
+    <article class="small-12 accord-content">
+        <div>
+            <div class="small-12">
+                <table class="isc-pricebreaks u-border-none">
+                    <tbody>
+                        <tr ng-repeat="bp in breakPrices | orderBy:'breakQty'" ng-if="bp.breakQty != 1">
+                            <td class="col-1" ng-if="bp.breakQty > 1"> Buy {{bp.breakQty}} [% translate 'total pieces' %] of selected {{volumeGrpDescription}}, {{bp.savingsMessage}}</td>
+                        </tr>
+                        <tr ng-repeat="bp in vm.brkPrices|orderBy:'breakQty'">
+                            <td class="col-1" ng-if="bp.breakQty > 0"> Buy {{bp.breakQty}} [% translate 'total pieces' %] more of selected {{volumeGrpDescription}}, {{bp.savingsMessage}}</td>
+                        </tr>
+                        <tr class="mixandMatch" ng-if="breakPrices.length >2">
+                            <td>[% translate '*Mix & Match, volume discount applied at checkout' %]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="small-12 related-products" ng-if="relatedProducts.length>0">
+                <div class="u-qualifying-products">
+                    [% translate 'Qualifying Products' %]
+                </div>
+                <table class="u-border-none width99 u-line-height">
+                    <thead class="pdp-table-heading u-line-height">
+                        <tr class="u-line-height">
+                            <th class="u-line-height large-3 medium-4 ">Product #</th>
+                            <th class="u-line-height">Description</th>
+                        </tr>
+
+                    </thead>
+                    <tbody class="pdp-table-body u-line-height">
+                        [%comment%]Below
+                        <tr> for PDP[%endcomment%]
+                        <tr ng-repeat="rp in relatedProducts">
+                            <td class="u-line-height"><a href="/Product/{{rp.name}}">{{rp.name}}</a></td>
+                            <td class="u-line-height" ng-bind="rp.description"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+</div>

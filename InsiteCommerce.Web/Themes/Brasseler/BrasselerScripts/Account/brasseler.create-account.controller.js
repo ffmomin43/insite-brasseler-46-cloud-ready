@@ -18,9 +18,10 @@ var insite;
         "use strict";
         var BrasselerCreateAccountController = /** @class */ (function (_super) {
             __extends(BrasselerCreateAccountController, _super);
-            function BrasselerCreateAccountController(accountService, sessionService, coreService, settingsService, queryString, accessToken, spinnerService, $q, $http, ipCookie) {
-                var _this = _super.call(this, accountService, sessionService, coreService, settingsService, queryString, accessToken, spinnerService, $q) || this;
+            function BrasselerCreateAccountController(accountService, cartService, sessionService, coreService, settingsService, queryString, accessToken, spinnerService, $q, $http, ipCookie) {
+                var _this = _super.call(this, accountService, cartService, sessionService, coreService, settingsService, queryString, accessToken, spinnerService, $q) || this;
                 _this.accountService = accountService;
+                _this.cartService = cartService;
                 _this.sessionService = sessionService;
                 _this.coreService = coreService;
                 _this.settingsService = settingsService;
@@ -40,7 +41,7 @@ var insite;
             }
             BrasselerCreateAccountController.prototype.init = function () {
                 var _this = this;
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
                 this.accountService.getAccountSettings().then(function (settings) {
                     if (settings.properties["actonFormPostUrl"] != null) {
                         _this.actonFormPostUrl = settings.properties["actonFormPostUrl"];
@@ -149,6 +150,7 @@ var insite;
             };
             BrasselerCreateAccountController.$inject = [
                 "accountService",
+                "cartService",
                 "sessionService",
                 "coreService",
                 "settingsService",

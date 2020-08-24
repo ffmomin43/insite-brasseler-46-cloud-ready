@@ -16,8 +16,8 @@
         getReplacementProductData(productId: string): ng.IPromise<ProductModel> {
             var query = "?parameter.replaceProducts=true";
             var uri = this.productServiceUri + productId + query;
-            var deferred = this.$q.defer();
-            this.$http.get(uri, { bypassErrorInterceptor: true })
+            var deferred = this.$q.defer<ProductModel>();
+            this.$http.get<ProductModel>(uri, { bypassErrorInterceptor: true })
                 .success(function (result) {
                     return deferred.resolve(result);
                 })

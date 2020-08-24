@@ -50,6 +50,7 @@ module insite.cart {
             "sessionService",
             "$localStorage",
             "spinnerService",
+            "$attrs",
             "$rootScope"
         ];
         constructor(
@@ -67,13 +68,15 @@ module insite.cart {
             protected sessionService: account.SessionService,
             protected $localStorage: common.IWindowStorage,
             protected spinnerService: core.ISpinnerService,
+            protected $attrs: ICheckoutAddressControllerAttributes,
             protected $rootScope: ng.IRootScopeService) {
-            super($scope, $window, cartService, customerService, websiteService, coreService, queryString, accountService, settingsService, $timeout, $q, sessionService, $localStorage, $rootScope);
-            super.init();
+            super($scope, $window, cartService, customerService, websiteService, coreService, queryString, accountService, settingsService, $timeout, $q, sessionService, $localStorage, $attrs, $rootScope);
+            
             this.init();
         }
 
         init() {
+            this.$onInit()
             if (this.spinnerService != undefined) {
                 this.spinnerService.show();
             }

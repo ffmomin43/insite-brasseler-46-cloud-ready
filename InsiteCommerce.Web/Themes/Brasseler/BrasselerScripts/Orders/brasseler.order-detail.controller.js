@@ -33,7 +33,7 @@ var insite;
                 _this.sessionService = sessionService;
                 _this.cartService = cartService;
                 _this.addToWishlistPopupService = addToWishlistPopupService;
-                _super.prototype.init.call(_this);
+                _super.prototype.$onInit.call(_this);
                 return _this;
             }
             BrasselerOrderDetailController.prototype.addLineCollectionFailed = function (error) {
@@ -61,7 +61,7 @@ var insite;
                 }
                 this.btFormat = this.formatCityCommaStateZip(this.order.billToCity, this.order.billToState, this.order.billToPostalCode);
                 this.stFormat = this.formatCityCommaStateZip(this.order.shipToCity, this.order.shipToState, this.order.shipToPostalCode);
-                this.getRealTimeInventory();
+                //this.getRealTimeInventory();
             };
             BrasselerOrderDetailController.$inject = ["orderService", "settingsService", "queryString", "coreService", "sessionService", "cartService", "addToWishlistPopupService"];
             return BrasselerOrderDetailController;

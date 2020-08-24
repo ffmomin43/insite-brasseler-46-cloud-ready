@@ -328,7 +328,7 @@ namespace Insite.Plugins.PromotionEngines.PromotionResultServices
             {
                 appliedPromotion.OrderLineId = new Guid?(orderLine.Id);
                 appliedPromotion.OrderLine = orderLine;
-                appliedPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(appliedPromotion));
+                appliedPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(appliedPromotion, string.Empty));
             }
             else
             {
@@ -341,7 +341,7 @@ namespace Insite.Plugins.PromotionEngines.PromotionResultServices
                     OrderLineId = new Guid?(orderLine.Id),
                     OrderLine = orderLine
                 };
-                customerOrderPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(customerOrderPromotion));
+                customerOrderPromotion.Amount = new Decimal?(this.PromotionProvider.GetAppliedAmount(customerOrderPromotion,string.Empty));
                 customerOrder.CustomerOrderPromotions.Add(customerOrderPromotion);
             }
         }

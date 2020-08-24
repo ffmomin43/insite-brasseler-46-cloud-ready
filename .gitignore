@@ -75,8 +75,6 @@ artifacts/
 *.svclog
 *.scc
 
-# Chutzpah Test files
-_Chutzpah*
 
 # Visual C++ cache files
 ipch/
@@ -209,6 +207,19 @@ FakesAssemblies/
 # Visual Studio 6 build log
 *.plg
 
+#Map file
+*.js.map
+*controller.js
+*.directive.js
+*.directives.js
+*.model.js
+*.models.js
+*.service.js
+*.factory.js
+*.module.js
+*.css.map
+*.map
+
 # Visual Studio 6 workspace options file
 *.opt
 /Safic.Web.Design/Styles
@@ -271,3 +282,66 @@ FakesAssemblies/
 /InSiteCommerce.Web/DataSet/Internal/ArchiveDataSets/Internal_Rebuild Database Table Index_3726_20171016_081832.xml.zip
 /InSiteCommerce.Web/DataSet/Internal/ArchiveDataSets/Internal_Rebuild Database Table Index_3727_20171017_042614.xml.zip
 /InSiteCommerce.Web/DataSet/Internal/ArchiveDataSets/Internal_Rebuild Database Table Index_3727_20171017_042614.xml.zip
+InsiteCommerce.Web/Themes/Brasseler/Scripts/Common/insite.base-upload.js
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/select-pick-up-location.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/rfq.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/quick-order-2.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/product-list.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/product-detail.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/product-comparison.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/product-category.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/news-page.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/news-list.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-wishlist.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-user-setup.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-user-administration.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-static-list.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-settings.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-saved-payments.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-saved-orders.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-saved-order-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-rma.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-requisition-approval.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-recently-purchased.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-quote-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-product-lines.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-order-upload.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-order-history.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-order-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-order-approval.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-order-approval-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-my-quotes.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-my-lists.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-my-list-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-job-quotes.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-invoice-history.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-invoice-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-frequently-purchased.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-dashboard.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-cart-reminder-unsubscribe.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-budget-management.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-brands.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-brand-gallery.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-brand-details.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-brand-categories.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-assign-edit-shipto.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/ma-addresses.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/expired-link.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/dealer-locator.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/create-account.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/compare-hopper.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/checkout-review-pay.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/checkout-order-confirm.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/checkout-cart.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/checkout-addresses.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/change-cust-ship-to.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/category-list.css
+InsiteCommerce.Web/Themes/Brasseler/Styles/base.css
+InsiteCommerce.Web/App_Data/insiteidentity.pfx
+InsiteCommerce.Web/App_Data/insiteidentity.pfx
+InsiteCommerce.Web/config/appSettings.config
+*.config
+InsiteCommerce.Web/Themes/Brasseler/Styles/template/sign-in.css
+InsiteCommerce.Web/App_Data/insiteidentity.pfx
+
+*.map

@@ -70,8 +70,7 @@ var insite;
     insite.Config = Config;
     angular
         .module("insite")
-        .config(["$httpProvider", "$sceDelegateProvider", "$compileProvider", "$stateProvider", "$urlRouterProvider", "$locationProvider", "$provide",
-        function ($httpProvider, $sceDelegateProvider, $compileProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide) {
+        .config(["$httpProvider", "$sceDelegateProvider", "$compileProvider", "$stateProvider", "$urlRouterProvider", "$locationProvider", "$provide", function ($httpProvider, $sceDelegateProvider, $compileProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide) {
             return new Config($httpProvider, $sceDelegateProvider, $compileProvider, $stateProvider, $urlRouterProvider, $locationProvider, $provide);
         }]);
 })(insite || (insite = {}));

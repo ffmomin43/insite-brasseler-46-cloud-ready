@@ -1,0 +1,14 @@
+﻿<div>
+    <div ng-repeat="language in vm.canadaLanguages">
+        <input type="radio" ng-model="vm.preferedLanguage" name="languagePrefered" value="{{language.id}}" >
+        <span ng-bind="language.language"></span>
+    </div>
+    <div>
+        <button id="cancelSelectLanguageButton" ng-click="vm.resetLanguage()" class="btn primary">
+            [% translate "Cancel" %]
+        </button>
+        <button id="selectLanguageButton" ng-click="vm.setProfileLanguage()" class="btn primary">
+            [% translate "Save Changes" %]
+        </button>
+    </div>
+</div>

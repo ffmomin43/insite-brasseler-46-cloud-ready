@@ -3,7 +3,10 @@
     import SessionModel = Insite.Account.WebApi.V1.ApiModels.SessionModel;
 
     export class QueryStringFilterBrasseler implements cart.IQueryStringFilter {
-        orderNumber: string;
+        orderNumber: string
+        status: string;
+        shipToId: string;
+        sort: string
     }
 
     export class BrasselerOrderDetailController extends OrderDetailController {
@@ -23,7 +26,7 @@
             protected cartService: cart.ICartService,
             protected addToWishlistPopupService: wishlist.AddToWishlistPopupService) {
             super(orderService, settingsService, queryString, coreService, sessionService, cartService, addToWishlistPopupService)
-            super.init();
+            super.$onInit();
         }
 
         protected addLineCollectionFailed(error: any): void {
@@ -53,7 +56,7 @@
             }
             this.btFormat = this.formatCityCommaStateZip(this.order.billToCity, this.order.billToState, this.order.billToPostalCode);
             this.stFormat = this.formatCityCommaStateZip(this.order.shipToCity, this.order.shipToState, this.order.shipToPostalCode);
-            this.getRealTimeInventory();
+            //this.getRealTimeInventory();
         }
 
     }

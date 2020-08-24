@@ -51,8 +51,7 @@ var insite;
         core.AuthenticationInterceptor = AuthenticationInterceptor;
         angular
             .module("insite")
-            .factory("authenticationInterceptor", ["$window", "$q", "spinnerService",
-            function ($window, $q, spinnerService) {
+            .factory("authenticationInterceptor", ["$window", "$q", "spinnerService", function ($window, $q, spinnerService) {
                 return new AuthenticationInterceptor($window, $q, spinnerService);
             }]);
     })(core = insite.core || (insite.core = {}));

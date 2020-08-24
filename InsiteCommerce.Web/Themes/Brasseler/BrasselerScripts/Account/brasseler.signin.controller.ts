@@ -56,7 +56,7 @@
             protected $q: ng.IQService) {
             super($scope, $window, accountService, sessionService, customerService, coreService, spinnerService, $attrs, settingsService, cartService, queryString, accessToken, $timeout, $localStorage, wishListService, $q);
             super.resetPassword.bind(this);
-            super.init();
+            super.$onInit();
         }
 
         resetForgotPasswordPopup(): boolean {

@@ -38,7 +38,7 @@
         }
 
         init(): void {
-            super.init();
+            super.$onInit();
         }
 
         addToCart(product: ProductDto) {

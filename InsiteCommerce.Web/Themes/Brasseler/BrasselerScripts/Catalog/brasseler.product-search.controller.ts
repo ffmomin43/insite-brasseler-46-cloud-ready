@@ -10,7 +10,8 @@
             "settingsService",
             "$state",
             "queryString",
-            "$scope"
+            "$scope",
+            "$window"
         ];
 
         constructor(
@@ -21,13 +22,14 @@
             protected settingsService: core.ISettingsService,
             protected $state: angular.ui.IStateService,
             protected queryString: common.IQueryStringService,
-            protected $scope: ng.IScope) {
-            super($element, $filter, coreService, searchService, settingsService, $state, queryString, $scope);
+            protected $scope: ng.IScope,
+            protected $window: ng.IWindowService) {
+            super($element, $filter, coreService, searchService, settingsService, $state, queryString, $scope, $window);
             this.brasselerInit();
         }
 
         brasselerInit() {
-            super.init();
+            super.$onInit();
         }
 
         protected getAutocompleteProductTemplate(suggestion: any, pattern: string): string {

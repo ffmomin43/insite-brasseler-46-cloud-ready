@@ -48,7 +48,9 @@
             "settingsService",
             "queryString",
             "$localStorage",
-            "websiteService"
+            "websiteService",
+            "deliveryMethodPopupService",
+            "selectPickUpLocationPopupService"
         ];
 
         constructor(
@@ -63,10 +65,12 @@
             protected settingsService: core.ISettingsService,
             protected queryString: common.IQueryStringService,
             protected $localStorage: common.IWindowStorage,
-            protected websiteService: websites.IWebsiteService) {
+            protected websiteService: websites.IWebsiteService,
+            protected deliveryMethodPopupService: account.IDeliveryMethodPopupService,
+            protected selectPickUpLocationPopupService: account.ISelectPickUpLocationPopupService) {
 
             super($scope, $window, cartService, promotionService, sessionService, coreService, spinnerService,
-                $attrs, settingsService, queryString, $localStorage, websiteService);
+                $attrs, settingsService, queryString, $localStorage, websiteService, deliveryMethodPopupService, selectPickUpLocationPopupService);
             //super.init();
         }
 
@@ -81,7 +85,7 @@
             this.freeShipping = false;
             this.spinnerService.show();
             this.cartService.forceRecalculation = false;
-            super.init();
+            super.$onInit();
         }
 
         getCart(isInit?: boolean): void {
@@ -141,10 +145,10 @@
                         selectedMethod = paymentMethod.name || this.cart.paymentMethod.name;
                     }
                 }
-                //BUSA-1350: chrome performance issue, no need for this call its already getting called from super.getCartCompleted method.
-                //this.promotionService.getCartPromotions("current").then((result: PromotionCollectionModel) => {
-                //    this.promotions = result.promotions;
-                //});
+
+                this.promotionService.getCartPromotions("current").then((result: PromotionCollectionModel) => {
+                    this.promotions = result.promotions;
+                });
 
                 if (this.cart.properties["subscriptionFrequency"] != null) {
                     this.subscriptionFrequency = JSON.parse(this.cart.properties["subscriptionFrequency"]);

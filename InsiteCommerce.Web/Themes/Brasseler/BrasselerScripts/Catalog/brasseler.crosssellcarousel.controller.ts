@@ -20,7 +20,7 @@
             protected $rootScope: ng.IRootScopeService,
             protected sessionService: account.ISessionService) {
             super(cartService, productService, $timeout, addToWishlistPopupService, settingsService, $scope);
-            //this.init(); //BUSA-1350: to reduce the multiple api calls
+            this.init();
         }
 
         init() {
@@ -34,7 +34,7 @@
                     }
                 });
             }
-            super.init();
+            super.$onInit();
         }
 
         addToCart(product: ProductDto) {

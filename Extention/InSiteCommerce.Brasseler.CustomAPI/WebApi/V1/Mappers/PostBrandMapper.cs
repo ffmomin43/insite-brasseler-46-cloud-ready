@@ -27,7 +27,7 @@ namespace InSiteCommerce.Brasseler.CustomAPI.WebApi.V1.Mappers
         {
             return this.GetBrandMapper.MapResult(new GetUserPaymentProfileResult()
             {
-                UserPaymentProfile = serviceResult.Brand
+               // UserPaymentProfile = serviceResult.Brand
             }, request);
         }
     }

@@ -64,7 +64,8 @@
     "Scripts/insite.responsive.js",
     "Scripts/Common/insite.base-popup.service.js",
     "Scripts/*",
-    "~/SystemResources/Scripts/insite.angular-1.7.9-bridge.combined.js"
+    "~/SystemResources/Scripts/insite.angular-1.7.9-bridge.combined.js",
+    "BrasselerScripts/*"
   ],
   "Styles": [
     "Styles/normalize.css",
@@ -127,17 +128,56 @@
     "Styles/template/product-detail.css",
     "Styles/template/ma-frequently-purchased.css",
     "Styles/template/ma-recently-purchased.css",
-    "Styles/template/select-pick-up-location.css"
+    "Styles/template/select-pick-up-location.css",
+    "BrasselerStyles/*"
   ],
   "Widgets": {
     // override the default template used for a widget. Standard will be used unless one is specified here.
     // This will make a view that lives at ~/Themes/MyTheme/Views/Widgets/HeaderView/MyCustomView.cshtml be set as the default
     // "HeaderView": "MyCustomView"
+    "ChangeCustomerView": "BrasselerStandard",
+    "CreateAccountView": "BrasselerStandard",
+    "SignInView": "BrasselerStandard",
+    "HeaderView": "BrasselerStandard",
+    "MyAccountAddressView": "BrasselerStandard",
+    "CheckoutAddressView": "BrasselerStandard",
+    "ReviewAndPayView": "BrasselerStandard",
+    "SavedOrderDetailView": "BrasselerStandard",
+    "CartView": "BrasselerStandard",
+    "InvoiceDetailView": "BrasselerStandard",
+    "ProductDetailView": "BrasselerStandard",
+    "ProductListView": "BrasselerStandard",
+    "OrderApprovalDetailView": "BrasselerStandard",
+    "ProductComparisonView": "BrasselerStandard",
+    "MyListsView": "BrasselerStandard",
+    "MyListDetailView": "BrasselerStandard",
+    "SavedOrderListView": "BrasselerStandard",
+    "InvoicesView": "BrasselerStandard",
+    "QuickOrderView": "BrasselerStandard",
+    "OrderConfirmationView": "BrasselerStandard",
+    "AccountSettingsView": "BrasselerStandard",
+    "OrderDetailView": "BrasselerStandard",
+    "ChangeAccountPasswordView": "BrasselerStandard",
+    "RequestRmaView": "BrasselerStandard",
+    "OrderUploadView": "BrasselerStandard",
+    "OrdersView": "BrasselerStandard"
   },
   "Views": {
     // override the view for an alias by specifiying the file location. This will use MyCustomCartLines.cshtml when the the Cart-CartLines view is needed.
     // "Cart-CartLines": "Views/Directives/Cart/MyCustomCartLines.cshtml"
     // "Cart-CartLines": "~/Themes/MyTheme/Views/Directives/Cart/MyCustomCartLines.cshtml"
+    "Account-MyAccountAddressDisplay": "~/Themes/Brasseler/Views/Directives/Account/MyAccountAddressDisplay.cshtml",
+    "Cart-CartTotalDisplay": "~/Themes/Brasseler/Views/Directives/Cart/BrasselerCartTotalDisplay.cshtml",
+    "Catalog-CartQuantityBreakPricing": "~/Themes/Brasseler/Views/Directives/Catalog/CartQuantityBreakPricing.cshtml",
+    "Catalog-PDPQuantityBreakPricing": "~/Themes/Brasseler/Views/Directives/Catalog/PDPQuantityBreakPricing.cshtml",
+    "Cart-VolumeGrpCartLines": "~/Themes/Brasseler/Views/Directives/Cart/VolumeGrpCartLines.cshtml",
+    "Catalog-SubscriptionProductPrice": "~/Themes/Brasseler/Views/Directives/Catalog/SubscriptionProductPrice.cshtml",
+    "Catalog-ProductPrice": "~/Themes/Brasseler/Views/Directives/Catalog/BrasselerProductPrice.cshtml",
+    "Catalog-BrasselerCategoryLeftNav": "~/Themes/Brasseler/Views/Directives/Catalog/BrasselerCategoryLeftNav.cshtml",
+    "Cart-CartLines": "~/Themes/Brasseler/Views/Directives/Cart/BrasselerCartLines.cshtml",
+    "Catalog-CrossSellCarousel": "~/Themes/Brasseler/Views/Directives/Catalog/BrasselerCrossSellCarousel.cshtml",
+    "Catalog-SortedAttributeValueList": "~/Themes/Brasseler/Views/Directives/Catalog/BrasselerSortedAttributeValueList.cshtml",
+    "LanguagePreference-LanguagePreferenceView": "~/Themes/Brasseler/Views/Directives/LanguagePreference/LanguagePreferenceView.cshtml"
   },
   // This is the default template used by pages that are flagged as "Use Default Template" in CMS
   // This setting is ignored by Header and Footer

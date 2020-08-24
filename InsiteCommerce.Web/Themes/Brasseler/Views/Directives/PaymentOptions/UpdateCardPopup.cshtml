@@ -1,0 +1,33 @@
+﻿<div>
+    <div id="UpdateCardPopup_{{userpaymentprofileid}}" class="reveal-modal UpdateCardPopup" data-reveal data-reveal-init>
+        <div class="modal-wrap small-12 medium-6">
+            <p class="messaging">
+                <span> [% translate 'Update Details' %]</span>
+            </p>
+            <a id="UpdateCardPopupCloseButton" class="close-reveal-modal">&#215;</a>
+            <div class="exp-date">
+                [% translate 'Expiration Date' %]
+                <div class="row">
+                    <div class="small-12  medium-6 columns exp-month">
+                        <select id="expirationMonth" name="expirationMonth"
+                                data-rule-required="true" data-msg-required="[% translate 'Expiration month is required.' %]"
+                                ng-model="cm.cart.paymentOptions.creditCard.expirationMonth"
+                                ng-options="month.value as month.key for month in cm.cart.paymentOptions.expirationMonths"></select>
+                        <span class="field-validation-valid" data-valmsg-for="expirationMonth" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="small-12  medium-6 columns exp-year">
+                        <select id="expirationYear" name="expirationYear"
+                                data-rule-required="true" data-msg-required="[% translate ' Expiration year is required.' %]"
+                                ng-model="cm.cart.paymentOptions.creditCard.expirationYear"
+                                ng-options="year.value as year.key for year in cm.cart.paymentOptions.expirationYears"></select>
+                        <span class="field-validation-valid" data-valmsg-for="expirationYear" data-valmsg-replace="true"></span>
+                    </div>
+                    <span style="color:red" class="error-message" ng-if="cm.updateCardError">[% translate 'Please select Expiry Date greater than current date' %]</span>
+                </div>
+            </div>
+            <div>
+                <a id="EditCreditCardButton" href="" ng-hide="cm.submitting" ng-click="cm.updateCard(userpaymentprofileid,'[% urlForPage 'BrasselerPaymentOptionsPage' %]')" class="btn primary" style="background-color:#00359c">[% translate 'Save' %]</a>
+            </div>
+        </div>
+    </div>
+</div>

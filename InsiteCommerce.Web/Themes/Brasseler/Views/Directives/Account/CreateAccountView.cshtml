@@ -1,0 +1,111 @@
+﻿<div class="row" ng-controller="TopNavController as cm">
+    <div class="medium-12 large-12 columns ca-form">
+        <form id="createAccountForm">
+            <div class="login-left">
+                <div class="login-box">
+                    <h2>[% translate 'Account Identification' %]</h2>
+                    <ul>
+                        <h5>[% translate 'Customer Number ' %]<span class="redTxt">*</span></h5>
+                        <li><input type="radio" id="radio2" name="radioGroup" ng-value="true" ng-click="vm.customerSelection()" ng-model="vm.dontHaveCM" /> <span>[% translate 'I don't have a customer number' %]</span></li>
+                        <li><input type="radio" id="radio1" name="radioGroup" ng-value="true" ng-click="vm.customerSelection()" ng-model="vm.haveCM" /> <span>[% translate 'I have a customer number' %]</span></li>
+                        <div ng-if="vm.haveCustomer">
+                            <li class="indent">
+                                <div>
+                                    <span style="font-weight:bold">[% translate 'Customer Number' %]</span>
+                                    <input id="CustomerNumber" type="text" data-rule-required="true"
+                                           data-msg-required="[% translate 'Customer Number is required' %]" />
+                                </div>
+                            </li>
+                            <li class="indent">
+                                <div>
+                                    <span style="font-weight:bold">[% translate 'Billing Zip or Postal Code' %]</span>
+                                    <!--BUSA-827 : Space In Postal Code For Canada-->
+                                    <div ng-if="cm.session.currency.currencyCode=='CAD'">
+                                        <input name="ZipCode1" id="ZipCode" type="text" data-rule-required="true"
+                                               data-msg-required="[% translate 'Zip code is required' %]" placeholder="[% translate 'Enter postal code as 'xxx xxx'' %]" />
+                                    </div>
+                                    <div ng-if="cm.session.currency.currencyCode!='CAD'">
+                                        <input name="ZipCode1" id="ZipCode" type="text" data-rule-required="true"
+                                               data-msg-required="[% translate 'Zip code is required' %]" />
+                                    </div>
+                                    <!--BUSA-827 : Space In Postal Code For Canada-->
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="ZipCode1" data-valmsg-replace="true"></span>
+                            </li>
+                        </div>
+                        <label ng-if="!vm.isCustomerSelected" class="error">[% translate 'Choose one option' %]</label>
+                    </ul>
+                    <div class="error">
+                        <span id="createError" class="field-validation-error" ng-if="vm.createError && vm.errorOnAccIden" ng-bind="vm.createError"></span>
+                    </div>
+                </div>
+                <div class="login-box">
+                    <h2>[% translate 'Your Information' %]</h2>
+                    <ul>
+                        <li>
+                            <label> [% translate 'Your Name ' %] <span class="mand">*</span></label>
+                            <div class="name-wid1">
+                                <input type="text" placeholder="[% translate 'First' %]" id="CreateNewAccountInfo_FirstName" name="CreateNewAccountInfo.FirstName"
+                                       data-rule-required="true"
+                                       data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Firstname' EscapeSingleQuotes %]')}}"
+                                       ng-model="vm.firstName" />
+                            </div>
+                            <div class="name-wid2">
+                                <input type="text" placeholder="[% translate 'Last' %]" id="CreateNewAccountInfo_LastName" name="CreateNewAccountInfo.LastName"
+                                       data-rule-required="true"
+                                       data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Lastname' EscapeSingleQuotes %]')}}"
+                                       ng-model="vm.lastName" />
+                            </div>
+                            <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.FirstName" data-valmsg-replace="true"></span>
+                            <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.LastName" data-valmsg-replace="true"></span>
+                        </li>
+                        <li>
+                            <label>[% translate 'Email ' %] <span class="mand">*</span></label>
+                            <input type="text" id="CreateNewAccountInfo_EmailAddress" name="CreateNewAccountInfo.EmailAddress"
+                                   data-rule-required="true"
+                                   data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes%]'.replace('{0}', '[% translate 'Email Address' EscapeSingleQuotes %]')}}"
+                                   data-rule-email="true"
+                                   data-msg-email="{{::'[% siteMessage 'Field_Invalid' EscapeSingleQuotes%]'.replace('{0}', '[% translate 'Email Address' EscapeSingleQuotes %]')}}"
+                                   ng-model="vm.email">
+                            <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.EmailAddress" data-valmsg-replace="true"></span>
+                        </li>
+                        <li style="font:normal" class="newsletter" ng-if="vm.settings.allowSubscribeToNewsLetter">
+                            <span class="input-lbl">
+                                <input type="checkbox" id="CreateNewAccountInfo_NewsletterSubscription" name="CreateNewAccountInfo.NewsletterSubscription" ng-model="vm.isSubscribed">
+                                <input type="hidden" name="CreateNewAccountInfo.NewsletterSubscription" value="false">
+                                [% siteMessage 'SignIn_Sign_Up_Newsletter' %]
+                            </span>
+                        </li>
+                        <li>
+                            <label>[% translate 'Password ' %]<span class="mand">*</span></label> <span>[% translate 'Must contain 7-12 characters, at least one number, and one special character $ ! % ' %]</span>
+                            <input type="password" maxlength="12" id="CreateNewAccountInfo_Password" name="CreateNewAccountInfo.Password" ng-blur="vm.isValidPassword()"
+                                   data-rule-required="true"
+                                   data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]')}}"
+                                   data-rule-minlength="{{settings.passwordMinimumLength}}"
+                                   data-msg-minlength="{{'[% siteMessage 'ChangePasswordInfo_Password_Too_Short' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength)}}"
+                                   ng-model="vm.password" />
+                            <label ng-if="!vm.isValidPassword() && vm.password.length > 7" class="error">[% translate 'Invalid password' %]</label>
+                            <!-- BUSA-1092 Added eye icon on password field -->
+                            <span id="eyeIconPassword" class="fa fa-fw fa-eye-slash toggle-password-field toggle-pass" ng-click="vm.togglePasswordField('CreateNewAccountInfo_Password', 'eyeIconPassword')"></span>
+                        </li>
+                        <li>
+                            <label>[% translate 'Confirm Password ' %]<span class="mand">*</span></label>
+                            <input type="password" maxlength="12" id="CreateNewAccountInfo_ConfirmPassword" name="CreateNewAccountInfo.ConfirmPassword"
+                                   data-rule-required="true"
+                                   data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Confirm Password' EscapeSingleQuotes %]')}}"
+                                   data-rule-equalto="#CreateNewAccountInfo_Password"
+                                   data-msg-equalto="[% siteMessage 'CreateNewAccountInfo_PasswordCombination_DoesNotMatch' %]"
+                                   ng-model="vm.confirmPassword" />
+                            <!-- BUSA-1092 Added eye icon on password field -->
+                            <span id="eyeIconConfirmPassword" class="fa fa-fw fa-eye-slash toggle-password-field" ng-click="vm.togglePasswordField('CreateNewAccountInfo_ConfirmPassword', 'eyeIconConfirmPassword')"></span>
+                        </li>
+                    </ul>
+                </div>
+                <span><a ng-click="vm.clear()" class="clear">[% translate 'Clear' %]</a><input type="button" value="[% translate 'Submit' %]" class="submit-btn" ng-click="vm.createAccount()" /></span>
+                <div class="error">
+                    <span id="createError1" class="field-validation-error" ng-if="vm.createError && !vm.errorOnAccIden" ng-bind="vm.createError"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

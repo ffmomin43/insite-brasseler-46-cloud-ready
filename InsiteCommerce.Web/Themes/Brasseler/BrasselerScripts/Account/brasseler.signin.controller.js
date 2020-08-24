@@ -41,7 +41,7 @@ var insite;
                 _this.pageSkipper = true;
                 _this.migratedUser = false;
                 _super.prototype.resetPassword.bind(_this);
-                _super.prototype.init.call(_this);
+                _super.prototype.$onInit.call(_this);
                 return _this;
             }
             BrasselerSignInController.prototype.resetForgotPasswordPopup = function () {

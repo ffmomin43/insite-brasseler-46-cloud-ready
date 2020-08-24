@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerProductSearchController = /** @class */ (function (_super) {
             __extends(BrasselerProductSearchController, _super);
-            function BrasselerProductSearchController($element, $filter, coreService, searchService, settingsService, $state, queryString, $scope) {
-                var _this = _super.call(this, $element, $filter, coreService, searchService, settingsService, $state, queryString, $scope) || this;
+            function BrasselerProductSearchController($element, $filter, coreService, searchService, settingsService, $state, queryString, $scope, $window) {
+                var _this = _super.call(this, $element, $filter, coreService, searchService, settingsService, $state, queryString, $scope, $window) || this;
                 _this.$element = $element;
                 _this.$filter = $filter;
                 _this.coreService = coreService;
@@ -28,11 +28,12 @@ var insite;
                 _this.$state = $state;
                 _this.queryString = queryString;
                 _this.$scope = $scope;
+                _this.$window = $window;
                 _this.brasselerInit();
                 return _this;
             }
             BrasselerProductSearchController.prototype.brasselerInit = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerProductSearchController.prototype.getAutocompleteProductTemplate = function (suggestion, pattern) {
                 var shortDescription = suggestion.title.replace(new RegExp(pattern, "gi"), "<strong>$1<\/strong>");
@@ -72,7 +73,8 @@ var insite;
                 "settingsService",
                 "$state",
                 "queryString",
-                "$scope"
+                "$scope",
+                "$window"
             ];
             return BrasselerProductSearchController;
         }(catalog.ProductSearchController));

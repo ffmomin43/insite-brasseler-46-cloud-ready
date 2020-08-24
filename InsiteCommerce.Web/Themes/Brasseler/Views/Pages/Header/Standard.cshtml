@@ -1,0 +1,42 @@
+﻿@using Insite.Account.Content
+@using Insite.Common.Dependencies
+@using Insite.Common.Extensions
+@using Insite.WebFramework.Mvc.Extensions
+@using InSiteCommerce.Brasseler.ContentLibrary.Pages
+@using Insite.Core.Context
+@using Insite.Core.Interfaces.Data
+@using Insite.Data.Repositories.Interfaces
+@using InSiteCommerce.Brasseler.SystemSetting.Groups;
+@model Insite.ContentLibrary.Pages.Header
+
+@if (!ExcludeCmsCss)
+{
+    @Html.Raw(Model.Css)
+}
+
+@if (!ExcludeCmsJs)
+{
+    @Html.Script(@<text>@Html.Raw(Model.JavaScript)</text>)
+}
+
+[% comment %]Changes to not redirect new Webshop user to My Account [% endcomment %]
+@{ var customSetting = new CustomSettings();
+}
+
+@if (SiteContext.Current.UserProfile == null && (HttpContext.Current.Request.Path.ToLower() == "/quickorder" || HttpContext.Current.Request.Path.ToLower() == "/orderupload"))
+{
+    var returnUrls = HttpContext.Current.Request.Path;
+    Response.Redirect(Url.ContentPage<SignInPage>() + "?returnUrl=" + Url.Encode(returnUrls));
+}
+
+@if (@SiteContext.Current.UserProfile != null && @SiteContext.Current.BillTo != null)
+{
+    if (@SiteContext.Current.BillTo.CustomerNumber.Length >= 1 && (@SiteContext.Current.BillTo.CustomerNumber.Substring(1) == customSetting.Brasseler_GuestCustomerNumber))
+    {
+        if (HttpContext.Current.Request.Path.Length >= 10 && (HttpContext.Current.Request.Path.Substring(0, 10).ToLower() == "/myaccount"))
+        {
+            Response.Redirect(Url.ContentPage<HomePage>());
+        }
+    }
+}
+@Html.Zone(Model, "Content")

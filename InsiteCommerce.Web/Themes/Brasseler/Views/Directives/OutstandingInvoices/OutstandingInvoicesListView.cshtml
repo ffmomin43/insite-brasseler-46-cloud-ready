@@ -1,0 +1,280 @@
+﻿<div>
+    <div>
+        <div class="top-list">
+            <div class="row">
+                <div class="medium-6 columns">
+                    <div class="current-balance">
+                        {{cm.currencySymbol}}<span ng-bind="cm.outstandingBalance | number : 2"></span>
+                    </div>
+                    <div class="current-text">[% translate 'CURRENT BALANCE' %]</div>
+                </div>
+                <div class="medium-6 columns">
+                    <div class="btns">
+                        <button id="InvoicePaymentButton" href="#" class="btn secondary btn-acc-balance" ng-click="cm.makeCurrentPayement()" ng-disabled="cm.outstandingBalance <= 0">[% translate 'Pay Account Balance' %]</button>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="negBal" ng-show="cm.outstandingBalance < 0">[% translate 'negative balance message' %]</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-8 medium-7 columns list-action-accord">
+                <div class="container accordion">
+                    <div id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="titles">
+                            <label class="accord-head applyCredit" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                [% translate 'Apply Credit' %]
+                            </label>
+                            <label class="collapsed accord-head" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                [% translate 'Search Invoices' %]
+                            </label>
+                        </div>
+                        <div class="panel panel-default content-block">
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body accord-content">
+                                    <form id="applyCreditInvoiceForm">
+                                        <div class="row">
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoicefrm-num">
+                                                    <label class="credit-title">[% translate 'Move Credit From' %]</label>
+                                                    <select id="debitInvoice" name="debitInvoice" ng-change="cm.calculateCredit()"
+                                                            data-rule-required="true" data-msg-required="[% translate 'Select an Invoice' %]"
+                                                            ng-model="cm.debitInvoice"
+                                                            ng-options="invoice.Invoice as invoice.InvoiceLabels for invoice in cm.debitInvoices">
+                                                        <option value="">[% translate 'Select Invoice' %]</option>
+                                                    </select>
+                                                    <span class="field-validation-valid" data-valmsg-for="debitInvoice" data-valmsg-replace="true"></span>
+                                                </div>
+                                            </div>
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoice-num">
+                                                    <label class="credit-title">[% translate 'Apply Credit To' %]</label>
+                                                    <select id="creditInvoice" name="creditInvoice"
+                                                            data-rule-required="true" data-msg-required="[% translate 'Select an Invoice' %]"
+                                                            ng-model="cm.creditInvoice" ng-change="cm.calculateCredit()"
+                                                            ng-options="invoice.Invoice as invoice.InvoiceLabels for invoice in cm.creditInvoices">
+                                                        <option value="">[% translate 'Select Invoice' %]</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="payment-block">
+                                            <div class="payment-content">
+                                                <div class="payment-amt apply-pay">
+                                                    <h4>[% translate 'Credit Amount' %]</h4>
+                                                    <div class="invoice-bal">
+                                                        <div class="title">
+                                                            <input id="fixedCredit" type="radio" ng-model="cm.fixedCredit" ng-value="true" name="creditBalance" class="radio-select invoice-balance" ng-checked="true">
+                                                            <label>[% translate 'Available Credit Balance' %]</label>
+                                                        </div>
+                                                        <div class="data">
+                                                            <span class="label-data" ng-bind="cm.currencySymbol + (cm.payCredit | number : 2)"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="invoice-bal other-amt-block">
+                                                        <div class="title other-title">
+                                                            <input id="otherCredit" type="radio" ng-model="cm.fixedCredit" ng-value="false" name="otherCredit" class="radio-select other-amt">
+                                                            <label>[% translate 'Other Amount'%]</label>
+                                                        </div>
+                                                        <div class="invoice-bal">
+                                                            <input id="amount" name="securityCode"
+                                                                   data-rule-required="true" data-msg-required="[% translate 'Non-zero amount is required.' %]"
+                                                                   data-rule-min="0.01"
+                                                                   data-msg-min="[% translate 'Enter amount greater than 0.' %]"
+                                                                   max="{{cm.payCredit}}"
+                                                                   type="number"
+                                                                   ng-disabled="cm.fixedCredit"
+                                                                   data-rule-pattern="^\d+(\.\d{1,2})?$"
+                                                                   ng-model="cm.payOtherCredit">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btns">
+                                            <button id="tst_invoicesPage_applyclearBtn" type="reset" class="btn secondary btn-clear" ng-click="cm.resetForm()">[% translate 'Cancel' %]</button>
+                                            <button id="tst_invoicesPage_applyCreditBtn" type="submit" class="btn primary btn-search" ng-click="cm.applyCredit('[% urlForPage 'SignInPage' %]')">[% translate 'Apply' %]</button>
+                                        </div>
+                                    </form>
+                                    <div id="tst_creditErrorMessage" style="color: red;" ng-show="cm.creditErrorMessage"> [% translate 'CreditErrorMessage' %] </div>
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body accord-content">
+                                    <form id="searchOutstandingInvoiceForm">
+                                        <div class="row">
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoicefrm-num">
+                                                    <label>[% translate 'Invoice# From' %]</label>
+                                                    <input type="text" name="InvoiceNumberFrm" id="InvoiceNumberFrm" ng-model="cm.customFilter.invoiceNumberFrm" pattern="^[0-9]+$" data-msg-pattern="[% translate 'Please enter valid Invoice Number' %]" ng-pattern-restrict />
+                                                </div>
+                                            </div>
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoice-num">
+                                                    <label>[% translate 'Invoice# To' %]</label>
+                                                    <input type="text" name="InvoiceNumberTo" id="InvoiceNumberTo" ng-model="cm.customFilter.invoiceNumberTo" pattern="^[0-9]+$" data-msg-pattern="[% translate 'Please enter valid Invoice Number' %]" ng-pattern-restrict />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoicefrm-num">
+                                                    <label>[% translate 'Invoice Age From' %]</label>
+                                                    <input type="text" name="InvoiceAgeFrm" id="InvoiceAgeFrm" ng-model="cm.InvoiceAgeFrom" pattern="^[0-9]+$" data-msg-pattern="[% translate 'Please enter valid Age Number' %]" ng-pattern-restrict />
+                                                </div>
+                                            </div>
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoice-num">
+                                                    <label>[% translate 'Invoice Age To' %]</label>
+                                                    <input type="text" name="InvoiceAgeTo" id="InvoiceAgeTo" ng-model="cm.InvoiceAgeTo" pattern="^[0-9]+$" data-msg-pattern="[% translate 'Please enter valid Age Number' %]" ng-pattern-restrict />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoicefrm-amt">
+                                                    <label>[% translate 'Due Amount From' %]</label>
+                                                    <input type="text" name="InvoiceamtFrm" id="InvoiceAmtFrm" ng-model="cm.DueAmountFrom" pattern="^\d+(\.\d{1,2})?$" data-msg-pattern="[% translate 'Please enter valid Amount' %]" ng-pattern-restrict />
+                                                </div>
+                                            </div>
+                                            <div class="medium-6 columns">
+                                                <div class="search-invoice-amt">
+                                                    <label>[% translate 'Due Amount To' %]</label>
+                                                    <input type="text" name="InvoiceamtTo" id="InvoiceAmtTo" ng-model="cm.DueAmountTo" pattern="^\d+(\.\d{1,2})?$" data-msg-pattern="[% translate 'Please enter valid Amount' %]" ng-pattern-restrict />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="medium-12 large-6 columns search-col-3 PO-number">
+                                                <div class="search-po">
+                                                    <label>[% translate 'PO #' %]</label>
+                                                    <input type="text" name="PO_Number" id="PO_Number" ng-model="cm.PoNumber" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="medium-12 large-6 columns">
+                                                <div class="search-order-num">
+                                                    <label>[% translate 'Order #' %]</label>
+                                                    <input type="text" name="ErpOrderNumber" id="ErpOrderNumber" ng-model="cm.orderNumberERP" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btns">
+                                            <button id="tst_invoicesPage_clearBtn" type="reset" class="btn secondary btn-clear" ng-click="cm.clear()">[% translate 'Clear' %]</button>
+                                            <button id="tst_invoicesPage_searchBtn" type="submit" class="btn primary btn-search" ng-click="cm.search()">[% translate 'Search' %]</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <div class="large-4 medium-5 columns">
+                <input type="checkbox" class="checkbox selectAll" id="outstanding" ng-click="cm.selectAll()" ng-model="cm.selectAllInvoices">
+                <button id="batchAction" class="btn primary batchaction" ng-click="cm.makeSelectedInvoicePayement()" ng-disabled="cm.invoicesSelected">[% translate 'Pay Selected Invoice(s)' %]</button>
+                <div style="color: red;" ng-bind="cm.paymentError"></div>
+            </div>
+        </div>
+        <isc-pager pagination="cm.pagination" storage-key="cm.paginationStorageKey" update-data="cm.getOutstandingInvoices()"></isc-pager>
+        <div class="overflow-table small outstanding-list-table">
+            <table class="info-tbl" ng-if="cm.outstandingInvoices.length > 0">
+                <tbody>
+                    <tr>
+                        <th class="col-select">
+                        </th>
+                        <th class="col-date">
+                            <span>
+                                <a id="outstandingListViewSortByName" href="" class="sort" ng-click="cm.changeSort('invoiceDate')" ng-class="{'sort-ascending': cm.searchFilter.sort==='invoiceDate', 'sort-descending':cm.searchFilter.sort==='invoiceDate DESC'}">
+                                    [% translate 'Date' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-date">
+                            <span>
+                                <a id="outstandingListViewSortByName" href="" class="sort" ng-click="cm.changeSort('shipTo')" ng-class="{'sort-ascending': cm.searchFilter.sort==='shipTo', 'sort-descending':cm.searchFilter.sort==='shipTo DESC'}">
+                                    [% translate 'Ship to' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-date">
+                            <span>
+                                <a id="outstandingListViewSortByDate" href="" class="sort" ng-click="cm.changeSort('invoiceNumber')" ng-class="{'sort-ascending': cm.searchFilter.sort==='invoiceNumber', 'sort-descending':cm.searchFilter.sort==='invoiceNumber DESC'}">
+                                    [% translate 'Invoice #' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-date">
+                            <a id="outstandingListViewSortByShipFrequency" href="" class="sort" ng-click="cm.changeSort('dueDate')" ng-class="{'sort-ascending': cm.searchFilter.sort==='dueDate', 'sort-descending':cm.searchFilter.sort==='dueDate DESC'}">
+                                [% translate 'Due Date' %]
+                            </a>
+                        </th>
+                        <th class="col-date">
+                            <a id="outstandingListViewSortByShipFrequency" href="" class="sort" ng-click="cm.changeSort('payDays')" ng-class="{'sort-ascending': cm.searchFilter.sort==='payDays', 'sort-descending':cm.searchFilter.sort==='payDays DESC'}">
+                                [% translate 'Age' %]
+                            </a>
+                        </th>
+                        <th class="col-date">
+                            <a id="outstandingListViewSortByTotal" href="" class="sort" ng-click="cm.changeSort('invoiceAmount')" ng-class="{'sort-ascending': cm.searchFilter.sort==='invoiceAmount', 'sort-descending':cm.searchFilter.sort==='invoiceAmount DESC'}">
+                                [% translate 'Invoice Amount' %]
+                            </a>
+                        </th>
+                        <th class="col-date">
+                            <a id="outstandingListViewSortByTotal" href="" class="sort" ng-click="cm.changeSort('amountPaid')" ng-class="{'sort-ascending': cm.searchFilter.sort==='amountPaid', 'sort-descending':cm.searchFilter.sort==='amountPaid DESC'}">
+                                [% translate 'Amount Paid' %]
+                            </a>
+                        </th>
+                        <th class="col-date">
+                            <a id="outstandingListViewSortByTotal" href="" class="sort" ng-click="cm.changeSort('invoiceBalance')" ng-class="{'sort-ascending': cm.searchFilter.sort ==='invoiceBalance', 'sort-descending':cm.searchFilter.sort ==='invoiceBalance DESC'}">
+                                [% translate 'Balance' %]
+                            </a>
+                        </th>
+                        <th class="col-date">
+                            <span>
+                                <a id="outstandingListViewSortByName" href="" class="sort" ng-click="cm.changeSort('orderNumber')" ng-class="{'sort-ascending': cm.searchFilter.sort ==='orderNumber', 'sort-descending':cm.searchFilter.sort ==='orderNumber DESC'}">
+                                    [% translate 'ERP Order #' %]
+                                </a>
+                            </span>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="cart in cm.outstandingInvoices" ng-disabled="cart.invoiceBalance <= 0" ng-class="cart.invoiceBalance <= 0 ? 'disabledColor' : ''">
+                        <td class="col-select">
+                            <span class="sticky-first">
+                                <input type="checkbox" class="checkbox" ng-disabled="(cart.invoiceBalance <= 0 ||(!cart.checked && cm.limitFive) )" id="outstanding_{{$index}}" ng-model="cart.checked" ng-click="cm.enablePayInvoice()">
+                            </span>
+                        </td>
+                        <td class="col-date" ng-bind="cart.invoiceDate | date:'shortDate'"></td>
+                        <td class="col-ship-to" ng-bind="cart.shipTo"></td>
+                        <td class="col-shipto">
+                            <a class="tooltip" ng-href="[% urlForPage 'BrasselerOutstandingInvoicesDetailPage' %]?openinvoices={{cart.invoiceNumber}}" ng-click="cm.pushBalance(cart.invoiceBalance)">
+                                {{cart.invoiceNumber}}
+                                <span class="tooltiptext">[% translate 'PO #' %] {{cart.customerPO}}</span>
+                            </a>
+                        </td>
+                        <td class="col-date" ng-bind="cart.dueDate | date:'shortDate'"></td>
+                        <td class="col-tot" ng-bind="cart.payDays"></td>
+                        <td class="col-tot" ng-bind="cm.currencySymbol + (cart.tradeInvoiceAmount | number : 2)"></td>
+                        <td class="col-tot" ng-bind="cm.currencySymbol + (cart.amountPaid | number : 2)"></td>
+                        <td class="col-tot" ng-bind="cm.currencySymbol + (cart.tradeInvoiceBalanceAmt | number : 2)"></td>
+                        <td class="col-shipto" ng-bind="cart.orderNumber"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+    </div>
+    <div class="search-no-results" ng-show="cm.outstandingInvoices.length == 0">
+        <h3>[% translate 'No Outstanding Invoices found' %].</h3>
+    </div>
+    <isc-outstanding-invoices-payment></isc-outstanding-invoices-payment>
+    <isc-balance-popup></isc-balance-popup>
+    <isc-spinner show="false" name="invoice"></isc-spinner>
+</div>
+

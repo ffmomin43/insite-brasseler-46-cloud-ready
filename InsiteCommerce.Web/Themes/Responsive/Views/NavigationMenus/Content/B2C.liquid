@@ -1,0 +1,23 @@
+﻿[% comment %]
+This uses NavigationMenuItemDrop as the model
+[% endcomment %]
+
+<li class="sub-item [% if Model.Level == 0 %] top-level-item [% endif %]">
+[% if Model.Children == empty %]
+    <a href="[[Model.Url]]" [% if Model.OpenInNewTab %] target="_blank" rel="noopener noreferrer" [% endif %] ng-click="vm.hideB2CNav($event)">
+        <span class="sub-item-text">[[Model.Title]]</span>
+    </a>
+[% else %]
+    <a href="[[Model.Url]]" class="nav-item-container" ng-click="vm.hideB2CNav($event)">
+        <span class="sub-item-text">[[Model.Title]]</span>
+        <label id="tst_mainMenu_nav_[[Model.Identifier]]" for="nav-[[Model.Identifier]]" class="toggle-sub" onclick="insite.nav.goToSubnav(this)"></label>
+    </a>
+    <input type="checkbox" name="nav" id="nav-[[Model.Identifier]]" class="subnav-check" />
+    <ul id="sub-[[Model.Identifier]]" class="subnav sub-tier-panel">
+        <li class="sub-heading">[[Model.Title]]</li>
+        [% for childItem in Model.Children %]
+            [% navigationMenuItem childItem %]
+        [% endfor %]
+    </ul>
+[% endif %]
+</li>

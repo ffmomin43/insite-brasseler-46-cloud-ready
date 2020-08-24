@@ -13,8 +13,11 @@
         dontHaveCM: boolean = false;
         errorOnAccIden: boolean = false;
 
+
+        
         static $inject = [
             "accountService",
+            "cartService",
             "sessionService",
             "coreService",
             "settingsService",
@@ -29,6 +32,7 @@
         constructor(
 
             protected accountService: IAccountService,
+            protected cartService: cart.ICartService,
             protected sessionService: ISessionService,
             protected coreService: core.ICoreService,
             protected settingsService: core.ISettingsService,
@@ -38,12 +42,12 @@
             protected $q: ng.IQService,
             protected $http: ng.IHttpService,
             protected ipCookie: any) {        //BUSA-1076 :  adding current languageid in user profie wen new user getting created for email localisation 
-            super(accountService, sessionService, coreService, settingsService, queryString, accessToken, spinnerService, $q);
+            super(accountService, cartService, sessionService, coreService, settingsService, queryString, accessToken, spinnerService, $q);
         }
 
 
         init() {
-            super.init();
+            super.$onInit();
             this.accountService.getAccountSettings().then(settings => {
                 if (settings.properties["actonFormPostUrl"] != null) {
                     this.actonFormPostUrl = settings.properties["actonFormPostUrl"];

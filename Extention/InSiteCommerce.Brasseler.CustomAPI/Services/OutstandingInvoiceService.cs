@@ -6,7 +6,7 @@ using Insite.Core.SystemSetting;
 using Insite.Core.SystemSetting.Groups.SiteConfigurations;
 using Insite.Core.WebApi.Interfaces;
 using Insite.Data.Entities;
-using Insite.PunchOut.HttpHandlers.Interfaces;
+using Insite.PunchOut.Services;
 using InSiteCommerce.Brasseler.CustomAPI.Data.Entities;
 using InSiteCommerce.Brasseler.CustomAPI.Plugins.Helper;
 using InSiteCommerce.Brasseler.CustomAPI.Services.Handlers;

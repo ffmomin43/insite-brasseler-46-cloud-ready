@@ -1,0 +1,19 @@
+﻿<div id="rmaLabel" style="display:none;"></div>
+<div id="popup-rma" class="ma-rma popup-requisition reveal-modal" data-reveal data-options="close_on_background_click: false;" data-reveal-init>
+    <div class="modal-wrap rma-popup">
+        <a class="close-reveal-modal">&#215;</a>
+        <div ng-bind-html="vm.resultMessage"></div>
+        <div ng-show="vm.requestSubmitted">
+            <div id="print-rma-label" class="rma-view">
+                <div ng-bind-html="vm.rmaLabel"></div>
+            </div>
+        </div>
+        <div class="btns">
+            <a href="#" class="btn primary btn-done" ng-click="vm.closePopup($event)">[% translate 'Done' %]</a>
+            <div>
+                <a href="#" ng-click="vm.printRmaLabel()" class="btn primary btn-rma-print">[% translate 'Print' %]</a>
+            </div>
+        </div>
+
+    </div>
+</div>

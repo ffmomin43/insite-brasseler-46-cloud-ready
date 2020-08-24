@@ -2,7 +2,17 @@
     "use strict";
 
     export class BrasselerCartController extends CartController {
-        static $inject = ["$scope", "cartService", "promotionService", "settingsService", "coreService", "$localStorage", "addToWishlistPopupService", "spinnerService"];
+        static $inject = [
+            "$scope",
+            "cartService",
+            "promotionService",
+            "settingsService",
+            "coreService",
+            "$localStorage",
+            "addToWishlistPopupService",
+            "spinnerService",
+            "sessionService"];
+
         isCartSubscribed: string = "";
 
         constructor(
@@ -13,8 +23,9 @@
             protected coreService: core.ICoreService,
             protected $localStorage: common.IWindowStorage,
             protected addToWishlistPopupService: wishlist.AddToWishlistPopupService,
-            protected spinnerService: core.ISpinnerService) {
-            super($scope, cartService, promotionService, settingsService, coreService, $localStorage, addToWishlistPopupService, spinnerService);
+            protected spinnerService: core.ISpinnerService,
+            protected sessionService: account.ISessionService) {
+            super($scope, cartService, promotionService, settingsService, coreService, $localStorage, addToWishlistPopupService, spinnerService, sessionService);
         }
 
         displayCart(cart: CartModel): void {

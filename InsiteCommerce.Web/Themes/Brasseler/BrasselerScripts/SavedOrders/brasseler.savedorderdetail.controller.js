@@ -50,7 +50,7 @@ var insite;
                 });
                 //});
                 //End : BUSA-695 : Saved orders page should display with updated price if admin updates price list.
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             //BUSA-524 : Saved Orders and Wishlist Pricing update start.
             //updatePrice() {
@@ -89,7 +89,7 @@ var insite;
                             _this.addToCartPopupService.display({ isQtyAdjusted: result.properties['isQtyAdjusted'] == 'True', showAddToCartPopup: true });
                             _this.$rootScope.$broadcast("cartChanged");
                         }
-                        _super.prototype.init.call(_this);
+                        _super.prototype.$onInit.call(_this);
                     });
                     this.spinnerService.show();
                 }

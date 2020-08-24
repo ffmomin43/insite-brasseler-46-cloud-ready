@@ -1,0 +1,195 @@
+﻿
+<div style="display: none;">
+    <div id="AddNewCardContainer" class="reveal-modal AddNewCardContainer" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+            <form id="addressOptions" name="addressOptions">
+                <h2>[% translate 'Card Information' %]</h2>
+                <div class="card-type small-12 medium-6">
+                    <label for="cardType">[% translate 'Select Card Type' %]</label>
+                    <select id="cardType" name="cardType"
+                            data-rule-required="true"
+                            data-msg-required='[% translate 'Credit card type is required.' %]'
+                            ng-model="vm.cart.paymentOptions.creditCard.cardType"
+                            ng-options="cardType.value as cardType.key for cardType in vm.cart.paymentOptions.cardTypes">
+                        <option value="">[% translate 'Select Card Type' %]</option>
+                    </select>
+                    <span class="field-validation-valid" data-valmsg-for="cardType" data-valmsg-replace="true"></span>
+                </div>
+                <div class="card-name small-12 medium-6">
+                    <label for="cardHolderName">[% translate 'Name On Card' %]</label>
+                    <input id="cardHolderName" name="cardHolderName" type="text"
+                           data-rule-required="true"
+                           data-msg-required="[% translate 'Name on Card is required.' %]"
+                           ng-model="vm.cart.paymentOptions.creditCard.cardHolderName">
+                    <span class="field-validation-valid" data-valmsg-for="cardHolderName" data-valmsg-replace="true"></span>
+                </div>
+                <div class="card-num small-12 medium-6">
+                    <label for="cardNumber">[% translate 'Card Number' %]</label>
+                    <input id="cardNumber" name="cardNumber" maxlength="16" type="text" style="display: block;"
+                           data-rule-required="true" data-msg-required="[% translate 'Credit card number is required.' %]"
+                           data-rule-creditcard="true" data-msg-creditcard="[% translate 'Credit card number is invalid.' %]"
+                           ng-model="vm.cart.paymentOptions.creditCard.cardNumber">
+                    <span class="field-validation-valid" data-valmsg-for="cardNumber" data-valmsg-replace="true"></span>
+                    <span ng-if="vm.cart.paymentOptions.creditCard.cardNumber" id="cardNumbertypeerror" style="display:none" for="cardNumber">[% translate 'Card type and Credit card number mismatch.' %]</span>
+                </div>
+                <div class="exp-date">
+                    <label>[% translate 'Expiration Date' %]</label>
+                    <div class="row">
+                        <div class="small-12  medium-4 columns exp-month">
+                            <select id="expirationMonth" name="expirationMonth"
+                                    data-rule-required="true" data-msg-required='[% translate 'Expiration month is required.' %]'
+                                    ng-model="vm.cart.paymentOptions.creditCard.expirationMonth"
+                                    ng-options="month.value as month.key for month in vm.cart.paymentOptions.expirationMonths"></select>
+                            <span class="field-validation-valid" data-valmsg-for="expirationMonth" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="small-12 medium-4 columns exp-year">
+                            <select id="expirationYear" name="expirationYear"
+                                    data-rule-required="true" data-msg-required='[% translate 'Expiration year is required.' %]'
+                                    ng-model="vm.cart.paymentOptions.creditCard.expirationYear"
+                                    ng-options="year.value as year.key for year in vm.cart.paymentOptions.expirationYears"></select>
+                            [% comment %]BUSA-607 start: iPad Specific: Clicking on an error message opens up expiration date drop down.[% endcomment %]
+                            <span id="expiryerror" style="display:none" for="expirationMonth" disabled>[% translate 'Card is expired. Please enter a valid expiration date.' %]</span>
+                            [% comment %]BUSA-607 end: iPad Specific: Clicking on an error message opens up expiration date drop down.[% endcomment %]
+                            <span class="field-validation-valid" data-valmsg-for="expirationYear" data-valmsg-replace="true"></span>
+                            <label for="expirationMonth" class="error"></label>
+                        </div>
+                        <div class="small-12 medium-4 columns security-code">
+                            <label>[% translate 'Security Code' %]&nbsp;<a href="javascript:void(0);" data-reveal-id="whatsThisPopup">[% translate 'What's This?' %]</a></label>
+                            [% comment %]BUSA-600 : Please enter at least 3 characters error message is displayed for American Express Card start.[% endcomment %]
+                            <input id="securityCode" type="password" class="securityCode" name="securityCode" maxlength="4"
+                                  data-rule-required="true" data-msg-required="[% translate 'Security code is required.' %]"
+                                   data-rule-digits="true"   data-msg-digits="[% translate 'Please enter only digits.' %]"
+                                   ng-model="vm.cart.paymentOptions.creditCard.securityCode">
+                            <span ng-if="vm.cart.paymentOptions.creditCard.securityCode" id="cardCVVeerror" style="display:none " for="securityCode">[% translate 'Card type and Security code mismatch.' %]</span>
+                            [% comment %]BUSA-600 : Please enter at least 3 characters error message is displayed for American Express Card end.[% endcomment %]
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="address-options">
+                    {{vm.address}}
+                    <div class="addressOptions medium-6">
+                        <span>[% translate 'Billing Address' %]</span>
+                        <br />
+                        <input id="ExistingAddress" type="radio" value="ExistingAddress" ng-model="vm.address" name="address" ng-checked="true" />[% translate 'Existing Address' %]
+                        <input type="text" class="billto-selector" id="selectBillTo" name="selectedBillTo"
+                               ng-model="vm.billTo.fullAddress" disabled />
+                        <input id="UseAnotherAddress" type="radio" value="UseAnotherAddress" ng-model="vm.address" name="address" />[% translate 'Use Another Address' %]
+                    </div>
+
+
+                    <div id="divCCAddress" ng-show="vm.address=='UseAnotherAddress'">
+                        <div class="row">
+                            <div class="address-1 medium-6 columns">
+                                <span>[% translate 'Address 1' %]</span>
+                                <span class="redTxt">*</span>
+                                <input type="text" ng-model="vm.cart.paymentOptions.creditCard.address1" id="txtAddress1" name="txtAddress1"
+                                       data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Address 1' %]"
+                                       data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Address1').replace('{1}', '40')}}"
+                                       data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'Address 1')}}">
+                                <span class="field-validation-valid" data-valmsg-for="txtAddress1" data-valmsg-replace="true"></span>
+                            </div>
+                            [%comment%]
+                            <div class="address-2 medium-6 columns">
+                                <span>[% translate 'Address 2' %]</span>
+                                <input type="text" ng-model="vm.ccAddress2" id="txtAddress2" name="txtAddress2"
+                                       data-rule-maxlength="30" placeholder="[% translate 'Enter Address 2' %]"
+                                       data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Address2').replace('{1}', '30')}}" />
+                                <span class="field-validation-valid" data-valmsg-for="txtAddress2" data-valmsg-replace="true"></span>
+                            </div>
+                            [%endcomment%]
+                        </div>
+                        <div class="row">
+                            <div class="country medium-6 columns">
+                                <span>[% translate 'Country' %]</span>
+                                <span class="redTxt">*</span>
+                                <select id="ddlCountry" name="ddlCountry" ng-model="vm.creditCardBillingCountry" ng-options="country.name for country in vm.countries" data-rule-required="true"
+                                        data-msg-required="{{::'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'Country' %]')}}">
+                                    <option value="">[% translate 'Select Country' %]</option>
+                                </select>
+                                <span class="field-validation-valid" data-valmsg-for="ddlCountry" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="state medium-6 columns">
+                                [% translate 'State/Province' %]
+                                <span class="redTxt">*</span>
+                                <select id="dlstate" name="dlstate" ng-model="vm.creditCardBillingState" ng-options="state.name for state in vm.states"
+                                        data-rule-required="true" data-msg-required="{{::'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'State' %]')}}">
+                                    <option value="">[% translate 'Select State' %]</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="city medium-6 columns">
+                                <span>[% translate 'City' %]</span>
+                                <span class="redTxt">*</span>
+                                <input type="text" ng-model="vm.cart.paymentOptions.creditCard.city" id="txtcity" name="txtcity"
+                                       data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter City' %]"
+                                       data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', '[% translate 'City' %]').replace('{1}', '30')}}"
+                                       data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'City' %]')}}">
+                                <span class="field-validation-valid" data-valmsg-for="txtcity" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="zipcode medium-6 columns">
+                                <span>[% translate 'Postal Code' %]</span>
+                                <span class="redTxt">*</span>
+                                [% comment %]BUSA-827 : Space In Postal Code For Canada[% endcomment %]
+                                <div ng-if="vm.countries[0].name == 'Canada'">
+                                    <input type="text" ng-model="vm.cart.paymentOptions.creditCard.postalCode" id="txtpostalCode" name="txtpostalCode"
+                                           data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Postal Code as 'xxx xxx'' %]"
+                                           data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', '[% translate 'Postal Code' %]').replace('{1}', '10')}}"
+                                           data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'Postal Code' %]')}}">
+                                </div>
+                                <div ng-if="vm.countries[0].name != 'Canada'">
+                                    <input type="text" ng-model="vm.cart.paymentOptions.creditCard.postalCode" id="txtpostalCode" name="txtpostalCode"
+                                           data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Postal Code' %]"
+                                           data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', '[% translate 'Postal Code' %]').replace('{1}', '10')}}"
+                                           data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'Postal Code' %]')}}">
+                                </div>
+                                [% comment %]BUSA-827 : Space In Postal Code For Canada[% endcomment %]
+                                <span class="field-validation-valid" data-valmsg-for="txtpostalCode" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="email medium-6 columns">
+                                <span>[% translate 'User Name (Your Email Address)' %]</span>
+                                <span class="redTxt">*</span>
+                                <input type="text" ng-model="vm.ccEmailId" id="txtEmailId" name="txtEmailId"
+                                       data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Email' %]"
+                                       data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Email').replace('{1}', '30')}}"
+                                       data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'Email Address' %]')}}"
+                                       data-rule-email="true">
+                                <span class="field-validation-valid" data-valmsg-for="txtEmailId" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="phone medium-6 columns">
+                                <span>[% translate 'Phone Number' %]</span>
+                                <span class="redTxt">*</span>
+                                <input type="text" ng-model="vm.ccPhone" id="txtPhone" name="txtPhone"
+                                       data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Phone Number' %]"
+                                       data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Phone').replace('{1}', '20')}}"
+                                       data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'Phone Number' %]')}}">
+                                <span class="field-validation-valid" data-valmsg-for="txtPhone" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <a id="addNewCardButton" href="" ng-hide="vm.submitting" ng-click="vm.addcard('[% urlForPage 'BrasselerPaymentOptionsPage' %]')" class="btn primary" style="background-color:#00359c">[% translate 'Save' %]</a>
+                </div>
+                <div style="color: red;" ng-bind="vm.submitErrorMessage"></div>
+                <isc-spinner name="" show="true"></isc-spinner>
+            </form>
+        </div>
+    </div>
+
+    [% comment %]BUSA - 592 start : Card Information Pop up gets disappeared on clicking "What's This?" link in Add Card Section.[% endcomment %]
+    <div id="whatsThisPopup" class="reveal-modal" data-reveal>
+        <div class="modal-wrap">
+            <img src="[% urlFor '/Images/Default/security_code_sample.jpg' %]" alt="Security Code Sample" />
+            <a id="paymentSelectorSecurityWindow2CloseButton" class="close-reveal-modal" data-reveal-id="AddNewCardContainer">&#215;</a>
+        </div>
+    </div>
+    [% comment %]BUSA - 592 end : Card Information Pop up gets disappeared on clicking "What's This?" link in Add Card Section.[% endcomment %]
+</div>

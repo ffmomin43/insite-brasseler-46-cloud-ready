@@ -1,76 +1,66 @@
 ﻿<div>
     <div class="address-first-name" ng-if="addressFields.firstName.isVisible">
-        <isc-address-field field-label="{{addressFields.firstName.displayName}}"
-                           field-name="{{prefix}}firstname"
-                           field-value="address.firstName"
-                           validation="address.validation.firstName"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+        <brasseler-address-field field-label="{{addressFields.firstName.displayName}}"
+                                 field-name="{{prefix}}firstname"
+                                 field-value="address.firstName"
+                                 validation="address.validation.firstName"
+                                 helper-text="[% translate 'Enter First Name' %]"
+                                 is-read-only="isReadOnly"
+                                 is-firstname="true">
+        </brasseler-address-field>
     </div>
     <div class="address-last-name" ng-if="addressFields.lastName.isVisible">
-        <isc-address-field field-label="{{addressFields.lastName.displayName}}"
-                           field-name="{{prefix}}lastname"
-                           field-value="address.lastName"
-                           validation="address.validation.lastName"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
-    </div>
-    <div id="tst_addressField_attention" class="address-attention" ng-if="addressFields.attention.isVisible">
-        <isc-address-field field-label="{{addressFields.attention.displayName}}"
-                           field-name="{{prefix}}attention"
-                           field-value="address.attention"
-                           validation="address.validation.attention"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+        <brasseler-address-field field-label="{{addressFields.lastName.displayName}}"
+                                 field-name="{{prefix}}lastname"
+                                 field-value="address.lastName"
+                                 validation="address.validation.lastName"
+                                 helper-text="[% translate 'Enter Last Name' %]"
+                                 is-read-only="isReadOnly"
+                                 is-lastname="true">
+        </brasseler-address-field>
     </div>
     <div class="address-company-co" ng-if="addressFields.companyName.isVisible">
-        <isc-address-field field-label="{{addressFields.companyName.displayName}}"
-                           field-name="{{prefix}}companyName"
-                           field-value="address.companyName"
-                           validation="address.validation.companyName"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+        <brasseler-address-field field-label="{{addressFields.companyName.displayName}}"
+                                 field-name="{{prefix}}companyName"
+                                 field-value="address.companyName"
+                                 validation="address.validation.companyName"
+                                 helper-text="[% translate 'Enter Company or C/O Name' %]"
+                                 is-read-only="isReadOnly"
+                                 is-companyname="true">
+        </brasseler-address-field>
     </div>
     <div class="address-add-1" ng-if="addressFields.address1.isVisible">
-        <isc-address-field field-label="{{addressFields.address1.displayName}}"
-                           field-name="{{prefix}}address1"
-                           field-value="address.address1"
-                           validation="address.validation.address1"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+        <!--BUSA-1061 added new directive to limit api call for Address1 and Address2 start-->
+        <brasseler-address-field-validate field-label="{{addressFields.address1.displayName}}"
+                                          field-name="{{prefix}}address1"
+                                          field-value="address.address1"
+                                          validation="address.validation.address1"
+                                          helper-text="[% translate 'Enter Address1' %]"
+                                          is-read-only="isReadOnly"
+                                          is-address1="true">
+        </brasseler-address-field-validate>
+        <!--BUSA-292  : Shipping Address Accepts PO Box in Address 1 Field-->
+        <label class="{{prefix}}-add1-error" for="{{prefix}}address1">[% translate 'PO Box is invalid for Address1.' %]</label>
     </div>
     <div class="address-add-2" ng-if="addressFields.address2.isVisible">
-        <isc-address-field field-label="{{addressFields.address2.displayName}}"
-                           field-name="{{prefix}}address2"
-                           field-value="address.address2"
-                           validation="address.validation.address2"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+        <brasseler-address-field-validate field-label="{{addressFields.address2.displayName}}"
+                                          field-name="{{prefix}}address2"
+                                          field-value="address.address2"
+                                          validation="address.validation.address2"
+                                          helper-text="[% translate 'Enter Address2' %]"
+                                          is-read-only="isReadOnly"
+                                          is-address1="true">
+        </brasseler-address-field-validate>
+        <label class="{{prefix}}-add2-error" for="{{prefix}}address2">[% translate 'PO Box is invalid for Address2.' %]</label>
+        <!--BUSA-1061 added new directive to limit api call for Address1 and Address2 end-->
     </div>
-    <div class="address-add-3" ng-if="addressFields.address3.isVisible">
-        <isc-address-field field-label="{{addressFields.address3.displayName}}"
-                           field-name="{{prefix}}address3"
-                           field-value="address.address3"
-                           validation="address.validation.address3"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
-    </div>
-    <div class="address-add-4" ng-if="addressFields.address4.isVisible">
-        <isc-address-field field-label="{{addressFields.address4.displayName}}"
-                           field-name="{{prefix}}address4"
-                           field-value="address.address4"
-                           validation="address.validation.address4"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
-    </div>
-    <div class="address-country" ng-if="addressFields.country.isVisible && countries.length > 1">
+    <div class="address-country" ng-if="addressFields.country.isVisible">
         {{::addressFields.country.displayName}}
         <span class="redTxt" ng-show="address.validation.country.isRequired">*</span>
         <select id="{{prefix}}country" name="{{prefix}}country"
                 ng-disabled="address.validation.country.isDisabled || isReadOnly"
                 ng-model="address.country"
                 ng-options="country.name for country in countries"
-                ng-change="setStateRequiredRule()"
                 data-rule-required="{{address.validation.country.isRequired}}"
                 data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', addressFields.country.displayName)}}">
             <option value="">[% translate 'Select Country' %]</option>
@@ -89,47 +79,57 @@
         </select>
     </div>
     <div class="address-city" ng-if="addressFields.city.isVisible">
-        <isc-address-field field-label="{{addressFields.city.displayName}}"
-                           field-name="{{prefix}}city"
-                           field-value="address.city"
-                           validation="address.validation.city"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+        <brasseler-address-field field-label="{{addressFields.city.displayName}}"
+                                 field-name="{{prefix}}city"
+                                 field-value="address.city"
+                                 validation="address.validation.city"
+                                 helper-text="[% translate 'Enter City' %]"
+                                 is-read-only="isReadOnly"
+                                 is-city="true">
+        </brasseler-address-field>
     </div>
-    <div class="address-zip-postal" ng-if="addressFields.postalCode.isVisible">
-        <isc-address-field field-label="{{addressFields.postalCode.displayName}}"
-                           field-name="{{prefix}}postalcode"
-                           field-value="address.postalCode"
-                           validation="address.validation.postalCode"
-                           is-read-only="isReadOnly">
-        </isc-address-field>
+    <div class="address-zip-postal">
+        <!--BUSA-827 : Space In Postal Code For Canada-->
+        <div ng-if="countries[0].abbreviation == 'US'">
+            <brasseler-address-field field-label="[% translate 'Postal Code' %]"
+                                     field-name="{{prefix}}postalcode"
+                                     field-value="address.postalCode"
+                                     validation="address.validation.postalCode"
+                                     helper-text="[% translate 'Enter Postal Code' %]"
+                                     is-read-only="isReadOnly"
+                                     is-postal="true">
+            </brasseler-address-field>
+        </div>
+        <div ng-if="countries[0].abbreviation != 'US'">
+            <brasseler-address-field field-label="{{addressFields.postalCode.displayName}}"
+                                     field-name="{{prefix}}postalcode"
+                                     field-value="address.postalCode"
+                                     validation="address.validation.postalCode"
+                                     helper-text="[% translate 'Enter Postal Code as 'xxx xxx'' %]"
+                                     is-read-only="isReadOnly">
+            </brasseler-address-field>
+        </div>
+        <!--BUSA-827 : Space In Postal Code For Canada-->
     </div>
     <div class="address-phone" ng-if="addressFields.phone.isVisible">
-        <isc-address-field field-label="{{addressFields.phone.displayName}}"
-                           field-name="{{prefix}}phone"
-                           field-value="address.phone"
-                           validation="address.validation.phone"
-                           is-read-only="isReadOnly"
-                           is-phone="true">
-        </isc-address-field>
+        <brasseler-address-field field-label="{{addressFields.phone.displayName}}"
+                                 field-name="{{prefix}}phone"
+                                 field-value="address.phone"
+                                 validation="address.validation.phone"
+                                 is-read-only="isReadOnly"
+                                 helper-text="[% translate 'Enter Phone Number' %]"
+                                 is-phone="true">
+        </brasseler-address-field>
     </div>
-    <div class="address-fax" ng-if="addressFields.fax.isVisible">
-        <isc-address-field field-label="{{addressFields.fax.displayName}}"
-                           field-name="{{prefix}}fax"
-                           field-value="address.fax"
-                           validation="address.validation.fax"
-                           is-read-only="isReadOnly"
-                           is-phone="true">
-        </isc-address-field>
-    </div>
-    <div class="address-email" ng-if="addressFields.email.isVisible">
-        <isc-address-field field-label="{{addressFields.email.displayName}}"
-                           field-name="{{prefix}}email"
-                           field-value="address.email"
-                           validation="address.validation.email"
-                           is-read-only="isReadOnly"
-                           is-email="true">
-        </isc-address-field>
+    <div class="address-email" ng-if="showEmail === 'true'">
+        <brasseler-address-field field-label="{{addressFields.email.displayName}}"
+                                 field-name="{{prefix}}email"
+                                 field-value="address.email"
+                                 validation="address.validation.email"
+                                 is-read-only="isReadOnly"
+                                 helper-text="[% translate 'Enter Email Address' %]"
+                                 is-email="true">
+        </brasseler-address-field>
         <div class="addy-note">[% translate 'Order information will be sent here.' %]</div>
     </div>
 </div>

@@ -17,7 +17,8 @@
             "coreService",
             "paginationService",
             "settingsService",
-            "spinnerService"
+            "spinnerService",
+            "searchService"
         ];
 
         constructor(
@@ -26,8 +27,9 @@
             protected coreService: core.ICoreService,
             protected paginationService: core.IPaginationService,
             protected settingsService: core.ISettingsService,
-            protected spinnerService: core.ISpinnerService) {
-            super(orderService, customerService, coreService, paginationService, settingsService);
+            protected spinnerService: core.ISpinnerService,
+            protected searchService: catalog.ISearchService) {
+            super(orderService, customerService, coreService, paginationService, settingsService, searchService);
             //BUSA-1129: BillTo or ShipTo OrderHistory/RecentOrders - twice service calls made
             //this.init();
         }
@@ -58,7 +60,7 @@
                 this.shipTo.label = this.shipTo.label.substr(1, this.shipTo.label.length);
                 this.getOrders();
                 //BUSA-1129: BillTo or ShipTo OrderHistory/RecentOrders
-                super.init();
+                super.$onInit();
             });
         }
 

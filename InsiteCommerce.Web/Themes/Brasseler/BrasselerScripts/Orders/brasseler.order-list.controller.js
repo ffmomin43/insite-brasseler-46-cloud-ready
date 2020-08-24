@@ -18,14 +18,15 @@ var insite;
         "use strict";
         var BrasselerOrderListController = /** @class */ (function (_super) {
             __extends(BrasselerOrderListController, _super);
-            function BrasselerOrderListController(orderService, customerService, coreService, paginationService, settingsService, spinnerService) {
-                var _this = _super.call(this, orderService, customerService, coreService, paginationService, settingsService) || this;
+            function BrasselerOrderListController(orderService, customerService, coreService, paginationService, settingsService, spinnerService, searchService) {
+                var _this = _super.call(this, orderService, customerService, coreService, paginationService, settingsService, searchService) || this;
                 _this.orderService = orderService;
                 _this.customerService = customerService;
                 _this.coreService = coreService;
                 _this.paginationService = paginationService;
                 _this.settingsService = settingsService;
                 _this.spinnerService = spinnerService;
+                _this.searchService = searchService;
                 return _this;
                 //BUSA-1129: BillTo or ShipTo OrderHistory/RecentOrders - twice service calls made
                 //this.init();
@@ -55,7 +56,7 @@ var insite;
                     _this.shipTo.label = _this.shipTo.label.substr(1, _this.shipTo.label.length);
                     _this.getOrders();
                     //BUSA-1129: BillTo or ShipTo OrderHistory/RecentOrders
-                    _super.prototype.init.call(_this);
+                    _super.prototype.$onInit.call(_this);
                 });
             };
             BrasselerOrderListController.prototype.getOrders = function () {
@@ -128,7 +129,8 @@ var insite;
                 "coreService",
                 "paginationService",
                 "settingsService",
-                "spinnerService"
+                "spinnerService",
+                "searchService"
             ];
             return BrasselerOrderListController;
         }(order_1.OrderListController));

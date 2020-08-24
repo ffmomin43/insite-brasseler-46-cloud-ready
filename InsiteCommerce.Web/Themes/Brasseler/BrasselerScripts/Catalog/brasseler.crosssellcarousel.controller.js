@@ -30,8 +30,8 @@ var insite;
                 _this.sessionService = sessionService;
                 _this.newWebShopperCustomerNumber = "1055357";
                 _this.isNewUser = false;
+                _this.init();
                 return _this;
-                //this.init(); //BUSA-1350: to reduce the multiple api calls
             }
             BrasselerCrossSellCarouselController.prototype.init = function () {
                 var _this = this;
@@ -45,7 +45,7 @@ var insite;
                         }
                     });
                 }
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerCrossSellCarouselController.prototype.addToCart = function (product) {
                 if (this.isAuthenticated()) {

@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerProductDetailController = /** @class */ (function (_super) {
             __extends(BrasselerProductDetailController, _super);
-            function BrasselerProductDetailController($scope, coreService, cartService, productService, addToWishlistPopupService, productSubscriptionPopupService, settingsService, $stateParams, sessionService, $rootScope, brasslerProductService, brasselerCartService, $localStorage, ipCookie, addToExistingSmartSupplyService, spinnerService) {
-                var _this = _super.call(this, $scope, coreService, cartService, productService, addToWishlistPopupService, productSubscriptionPopupService, settingsService, $stateParams, sessionService) || this;
+            function BrasselerProductDetailController($scope, coreService, cartService, productService, addToWishlistPopupService, productSubscriptionPopupService, settingsService, $stateParams, sessionService, $rootScope, brasslerProductService, brasselerCartService, $localStorage, ipCookie, addToExistingSmartSupplyService, spinnerService, queryString, tellAFriendPopupService) {
+                var _this = _super.call(this, $scope, coreService, cartService, productService, addToWishlistPopupService, productSubscriptionPopupService, settingsService, $stateParams, sessionService, spinnerService, queryString, tellAFriendPopupService) || this;
                 _this.$scope = $scope;
                 _this.coreService = coreService;
                 _this.cartService = cartService;
@@ -36,10 +36,12 @@ var insite;
                 _this.ipCookie = ipCookie;
                 _this.addToExistingSmartSupplyService = addToExistingSmartSupplyService;
                 _this.spinnerService = spinnerService;
+                _this.queryString = queryString;
+                _this.tellAFriendPopupService = tellAFriendPopupService;
                 _this.cartPopupTimeout = 5000;
                 _this.newWebShopperCustomerNumber = "1055357";
                 _this.spinnerService.show();
-                _super.prototype.init.call(_this);
+                _super.prototype.$onInit.call(_this);
                 _this.init();
                 _this.spinnerService.hide();
                 _this.localStorage = $localStorage;
@@ -201,7 +203,26 @@ var insite;
             BrasselerProductDetailController.prototype.showAddToCartPopup = function () {
                 this.coreService.displayModal(angular.element("#popup-add-addtocartlist"));
             };
-            BrasselerProductDetailController.$inject = ["$scope", "coreService", "cartService", "productService", "addToWishlistPopupService", "productSubscriptionPopupService", "settingsService", "$stateParams", "sessionService", "$rootScope", "brasslerProductService", "brasselerCartService", "$localStorage", "ipCookie", "AddToExistingSmartSupplyService", "spinnerService"];
+            BrasselerProductDetailController.$inject = [
+                "$scope",
+                "coreService",
+                "cartService",
+                "productService",
+                "addToWishlistPopupService",
+                "productSubscriptionPopupService",
+                "settingsService",
+                "$stateParams",
+                "sessionService",
+                "$rootScope",
+                "brasslerProductService",
+                "brasselerCartService",
+                "$localStorage",
+                "ipCookie",
+                "AddToExistingSmartSupplyService",
+                "spinnerService",
+                "queryString",
+                "tellAFriendPopupService"
+            ];
             return BrasselerProductDetailController;
         }(catalog.ProductDetailController));
         catalog.BrasselerProductDetailController = BrasselerProductDetailController;

@@ -11,12 +11,10 @@ var insite;
             this.spinnerService = spinnerService;
             this.$location = $location;
             this.$anchorScroll = $anchorScroll;
-            this.filesExtensionForOpenInNewTab = ["jpg", "pdf", "gif", "jpeg", "xlsx", "xls", "txt"];
         }
         AppRunService.prototype.run = function () {
             var _this = this;
             window.coreService = this.coreService;
-            this.baseUrl = this.$location.host();
             // If access_token is included in the query string, set it in local storage, this is used for authenticated swagger calls
             var hash = this.queryString(this.$window.location.pathname.split("&"));
             var accessToken = hash.access_token;
@@ -33,7 +31,6 @@ var insite;
             }
             this.$rootScope.firstPage = true;
             this.$rootScope.$on("$locationChangeSuccess", function (event, newUrl, oldUrl) { _this.onLocationChangeSuccess(newUrl, oldUrl); });
-            this.$rootScope.$on("$locationChangeStart", function (event, newUrl, oldUrl) { _this.actualOnLocationChangeStart(event, newUrl, oldUrl); });
             this.$rootScope.$on("$stateChangeStart", function () { _this.onLocationChangeStart(); });
             this.$rootScope.$on("$stateChangeSuccess", function () { _this.onStateChangeSuccess(); });
             // this seems to wait for rendering to be done but i dont think its bullet proof
@@ -56,15 +53,6 @@ var insite;
         };
         AppRunService.prototype.onStateChangeSuccess = function () {
             this.spinnerService.hide("mainLayout");
-        };
-        AppRunService.prototype.actualOnLocationChangeStart = function (event, newUrl, oldUrl) {
-            if (newUrl.toLowerCase() === oldUrl.toLowerCase()) {
-                return;
-            }
-            if (newUrl.indexOf(this.baseUrl) !== -1 && this.filesExtensionForOpenInNewTab.some(function (fileExt) { return newUrl.indexOf("." + fileExt) !== -1; })) {
-                event.preventDefault();
-                this.$window.open(newUrl, "_blank");
-            }
         };
         AppRunService.prototype.onViewContentLoaded = function () {
             $(document).foundation();

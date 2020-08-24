@@ -41,7 +41,7 @@
         }
 
         brasselerInit() {
-            super.init();
+            super.$onInit();
             this.originalAttributes = this.products.attributeTypeFacets;
         }
 

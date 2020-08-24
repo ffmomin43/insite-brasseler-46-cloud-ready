@@ -1,0 +1,10 @@
+﻿<ul>
+    <li id="{{prefix}}FullName" ng-show="address.firstName || address.lastName" ng-bind="address.firstName + ' asdf ' + address.lastName"></li>
+    <li id="{{prefix}}CompanyName" ng-bind="address.companyName"></li>
+    <li id="{{prefix}}Address1" ng-bind="address.address1"></li>
+    <li id="{{prefix}}Address2" ng-show="address.address2" ng-bind="address.address2"></li>
+    <li id="{{prefix}}City" ng-bind="address.city + (address.city && address.state ? ', ' : '') + address.state.abbreviation + ' ' + address.postalCode"></li>
+    <li id="{{prefix}}CountryAbbreviation" ng-show="address.country.abbreviation" ng-bind="address.country.abbreviation"></li>
+    <li id="{{prefix}}Phone" ng-bind="address.phone"></li>
+    <li id="{{prefix}}Email" ng-if="showEmail === 'true'" ng-bind="address.email"></li>
+</ul>

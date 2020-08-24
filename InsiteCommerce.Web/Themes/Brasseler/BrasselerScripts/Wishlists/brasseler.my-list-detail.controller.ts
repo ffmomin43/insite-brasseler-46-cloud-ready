@@ -22,9 +22,12 @@
             "searchService",
             "productPriceService",
             "paginationService",
+            "$templateCache",
+            "scheduleReminderPopupService",
             "createListPopupService",
             "deleteListPopupService",
-            "copyToListPopupService"
+            "copyToListPopupService",
+            "listQuantityAdjustmentPopupService"
         ];
 
         constructor(
@@ -46,12 +49,40 @@
             protected searchService: catalog.ISearchService,
             protected productPriceService: catalog.IProductPriceService,
             protected paginationService: core.IPaginationService,
+            protected $templateCache: ng.ITemplateCacheService,
+            protected scheduleReminderPopupService: IUploadToListPopupService,
             protected createListPopupService: ICreateListPopupService,
             protected deleteListPopupService: IDeleteListPopupService,
-            protected copyToListPopupService: ICopyToListPopupService
+            protected copyToListPopupService: ICopyToListPopupService,
+            protected listQuantityAdjustmentPopupService: IListQuantityAdjustmentPopupService
         ) {
-            super($scope, settingsService, queryString, wishListService, cartService, productService, sessionService, $timeout, $interval, coreService, spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, createListPopupService, deleteListPopupService, copyToListPopupService);
-            super.init();
+            super(
+                $scope,
+                settingsService,
+                queryString,
+                wishListService,
+                cartService,
+                productService,
+                sessionService,
+                $timeout,
+                $interval,
+                coreService,
+                spinnerService,
+                $location,
+                shareListPopupService,
+                uploadToListPopupService,
+                $localStorage,
+                searchService,
+                productPriceService,
+                paginationService,
+                $templateCache,
+                scheduleReminderPopupService,
+                createListPopupService,
+                deleteListPopupService,
+                copyToListPopupService,
+                listQuantityAdjustmentPopupService
+            );
+            super.$onInit();
         }
 
         displayPopup(htmlElement: string) {

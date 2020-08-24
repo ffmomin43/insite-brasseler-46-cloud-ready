@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerMyListDetailController = /** @class */ (function (_super) {
             __extends(BrasselerMyListDetailController, _super);
-            function BrasselerMyListDetailController($scope, settingsService, queryString, wishListService, cartService, productService, sessionService, $timeout, $interval, coreService, spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, createListPopupService, deleteListPopupService, copyToListPopupService) {
-                var _this = _super.call(this, $scope, settingsService, queryString, wishListService, cartService, productService, sessionService, $timeout, $interval, coreService, spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, createListPopupService, deleteListPopupService, copyToListPopupService) || this;
+            function BrasselerMyListDetailController($scope, settingsService, queryString, wishListService, cartService, productService, sessionService, $timeout, $interval, coreService, spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, $templateCache, scheduleReminderPopupService, createListPopupService, deleteListPopupService, copyToListPopupService, listQuantityAdjustmentPopupService) {
+                var _this = _super.call(this, $scope, settingsService, queryString, wishListService, cartService, productService, sessionService, $timeout, $interval, coreService, spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, $templateCache, scheduleReminderPopupService, createListPopupService, deleteListPopupService, copyToListPopupService, listQuantityAdjustmentPopupService) || this;
                 _this.$scope = $scope;
                 _this.settingsService = settingsService;
                 _this.queryString = queryString;
@@ -38,10 +38,13 @@ var insite;
                 _this.searchService = searchService;
                 _this.productPriceService = productPriceService;
                 _this.paginationService = paginationService;
+                _this.$templateCache = $templateCache;
+                _this.scheduleReminderPopupService = scheduleReminderPopupService;
                 _this.createListPopupService = createListPopupService;
                 _this.deleteListPopupService = deleteListPopupService;
                 _this.copyToListPopupService = copyToListPopupService;
-                _super.prototype.init.call(_this);
+                _this.listQuantityAdjustmentPopupService = listQuantityAdjustmentPopupService;
+                _super.prototype.$onInit.call(_this);
                 return _this;
             }
             BrasselerMyListDetailController.prototype.displayPopup = function (htmlElement) {
@@ -73,9 +76,12 @@ var insite;
                 "searchService",
                 "productPriceService",
                 "paginationService",
+                "$templateCache",
+                "scheduleReminderPopupService",
                 "createListPopupService",
                 "deleteListPopupService",
-                "copyToListPopupService"
+                "copyToListPopupService",
+                "listQuantityAdjustmentPopupService"
             ];
             return BrasselerMyListDetailController;
         }(wishlist.MyListDetailController));

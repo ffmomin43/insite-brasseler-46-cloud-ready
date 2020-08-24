@@ -57,10 +57,11 @@
             protected $location: ng.ILocationService,
             protected sessionService: account.ISessionService,
             protected brasselerCartService: cart.IBrasselerCartService,
-            protected ipCookie: any) {
+            protected ipCookie: any
+            ) {
             super($scope, coreService, cartService, productService, compareProductsService, $rootScope, $window,
                 $localStorage, paginationService, searchService, spinnerService, addToWishlistPopupService, settingsService,
-                $stateParams, queryString, $location);
+                $stateParams, queryString, $location, sessionService);
             if (this.spinnerService != undefined) {
                 this.spinnerService.showAll();
             }
@@ -78,7 +79,7 @@
                 this.showAddToCartPopup();
             });
 
-            super.init();
+            super.$onInit();
             // BUSA-636 : Pricing2018 Changes. Added new function to group message on PLP
             var path = window.location.pathname;
             var showPopUp = false;

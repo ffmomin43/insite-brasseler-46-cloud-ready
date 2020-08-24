@@ -1,0 +1,22 @@
+﻿<div>
+    <div id="ShipNowPopup" class="reveal-modal address-error-popup" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <p class="messaging">
+                <span> [% siteMessage 'ShipNowPopup' %]</span>
+            </p>
+            <a id="errorPopupCloseButton" class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div id="ShipNowConfirmationPopUp" class="reveal-modal shipNowPopupContainer" data-reveal data-reveal-init>
+        <div class="modal-wrap" style="text-align:center;">
+            <a id="smartSupplyPromotionPopupWindowCloseButton" class="close-reveal-modal">&#215;</a>
+            <div class="modal-wrapper">
+                <h3> [% translate 'Do you want to Ship this Order now' %]</h3>
+                <div class="btns" style="margin:0">
+                    <button class="btn secondary btn-delete-smart-supply ship-order-now" id="no" ng-click="vm.responseFromUser(cart,'no')"> [% translate 'No' %]</button>
+                    <button class="btn secondary btn-delete-smart-supply ship-order-now" id="yes" ng-click="vm.responseFromUser(cart,'yes')"> [% translate 'Yes' %]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

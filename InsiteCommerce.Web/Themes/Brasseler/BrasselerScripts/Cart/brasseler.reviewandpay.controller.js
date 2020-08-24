@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerReviewAndPayController = /** @class */ (function (_super) {
             __extends(BrasselerReviewAndPayController, _super);
-            function BrasselerReviewAndPayController($scope, $window, cartService, promotionService, sessionService, coreService, spinnerService, $attrs, settingsService, queryString, $localStorage, websiteService) {
-                var _this = _super.call(this, $scope, $window, cartService, promotionService, sessionService, coreService, spinnerService, $attrs, settingsService, queryString, $localStorage, websiteService) || this;
+            function BrasselerReviewAndPayController($scope, $window, cartService, promotionService, sessionService, coreService, spinnerService, $attrs, settingsService, queryString, $localStorage, websiteService, deliveryMethodPopupService, selectPickUpLocationPopupService) {
+                var _this = _super.call(this, $scope, $window, cartService, promotionService, sessionService, coreService, spinnerService, $attrs, settingsService, queryString, $localStorage, websiteService, deliveryMethodPopupService, selectPickUpLocationPopupService) || this;
                 _this.$scope = $scope;
                 _this.$window = $window;
                 _this.cartService = cartService;
@@ -32,6 +32,8 @@ var insite;
                 _this.queryString = queryString;
                 _this.$localStorage = $localStorage;
                 _this.websiteService = websiteService;
+                _this.deliveryMethodPopupService = deliveryMethodPopupService;
+                _this.selectPickUpLocationPopupService = selectPickUpLocationPopupService;
                 _this.isSubscribed = false;
                 _this.isIncludeInitialSS = true;
                 _this.showPopUp = false;
@@ -53,7 +55,7 @@ var insite;
                 this.freeShipping = false;
                 this.spinnerService.show();
                 this.cartService.forceRecalculation = false;
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerReviewAndPayController.prototype.getCart = function (isInit) {
                 var _this = this;
@@ -70,6 +72,7 @@ var insite;
                 }, function (error) { _this.getCartFailed(error); });
             };
             BrasselerReviewAndPayController.prototype.getCartCompleted = function (cart, isInit) {
+                var _this = this;
                 _super.prototype.getCartCompleted.call(this, cart, isInit);
                 var paymentMethod, sourcecode; //BUSA-717
                 //Change for BUSA- 402
@@ -106,10 +109,9 @@ var insite;
                         selectedMethod = paymentMethod.name || this.cart.paymentMethod.name;
                     }
                 }
-                //BUSA-1350: chrome performance issue, no need for this call its already getting called from super.getCartCompleted method.
-                //this.promotionService.getCartPromotions("current").then((result: PromotionCollectionModel) => {
-                //    this.promotions = result.promotions;
-                //});
+                this.promotionService.getCartPromotions("current").then(function (result) {
+                    _this.promotions = result.promotions;
+                });
                 if (this.cart.properties["subscriptionFrequency"] != null) {
                     this.subscriptionFrequency = JSON.parse(this.cart.properties["subscriptionFrequency"]);
                 }
@@ -713,7 +715,9 @@ var insite;
                 "settingsService",
                 "queryString",
                 "$localStorage",
-                "websiteService"
+                "websiteService",
+                "deliveryMethodPopupService",
+                "selectPickUpLocationPopupService"
             ];
             return BrasselerReviewAndPayController;
         }(cart_1.ReviewAndPayController));

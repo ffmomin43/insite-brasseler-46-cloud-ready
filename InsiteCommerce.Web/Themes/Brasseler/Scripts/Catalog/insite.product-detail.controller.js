@@ -229,11 +229,6 @@ var insite;
                 if (styledProduct) {
                     this.product.qtyOrdered = styledProduct.minimumOrderQty || 1;
                 }
-                else if (this.styleSelection.length > 1 && !this.initialStyledProducts.some(function (o) { return _this.styleSelection.every(function (s) { return s && o.styleValues.some(function (v) { return v.styleTraitValueId === s.styleTraitValueId; }); }); })) {
-                    for (var i = 1; i < this.styleSelection.length; i++) {
-                        this.styleSelection[i] = null;
-                    }
-                }
                 this.styleChange();
             };
             ProductDetailController.prototype.addToCart = function (product) {
