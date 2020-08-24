@@ -1,0 +1,31 @@
+<div ng-controller="LayoutController as vm">
+    <div id="narrowNav"></div>
+    <div id="nwrap">
+        <div class="off-canvas panelwrap" role="panel-wrap">
+            [% comment %] when using the cms shell, if we are viewing header/footer they are rendered as the body and don't want to render them here [% endcomment %]
+            [% if IsHeader == false and IsFooter == false and IsMobileApp == false %]
+            <div ng-hide="vm.hideHeader()">
+                [[Header]]
+            </div>
+            [% endif %]
+            <div class="container [% if IsHeader or IsFooter or IsMobileApp %] container-wide [% endif %]" role="main">
+                <div class="ui-lock"></div>
+                [% comment %] cms-rearrangeable is required by the cms shell [% endcomment %]
+                <div class="cms-rearrangeable" ui-view></div>
+                [% comment %] first page serverside for SEO - this must be outside ui-view or the controller will be called twice [% endcomment %]
+                <div class="cms-rearrangeable" id="firstPageContainer" ng-controller="FirstPageController as vm">
+                  [[Body]]
+                </div>
+                <isc-spinner show="false" name="mainLayout"></isc-spinner>
+            </div>
+            [% if IsHeader == false and IsFooter == false and IsMobileApp == false %]
+            <div ng-hide="vm.hideFooter()">
+                [[Footer]]
+            </div>
+            [% endif %]
+        </div>
+        [% comment %] fixes popups with foundation + angular [% endcomment %]
+        <div data-dropdown="dummy" style="display:none"></div>
+    </div>
+    <isc-cookie-privacy-policy-popup></isc-cookie-privacy-policy-popup>
+</div>
