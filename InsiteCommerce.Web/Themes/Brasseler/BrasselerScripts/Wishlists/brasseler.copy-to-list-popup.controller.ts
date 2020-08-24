@@ -5,7 +5,7 @@
 
         initializePopup(): void {
             this.copyToListPopupService.registerDisplayFunction((list: ICopyToListModel) => {
-                this.mylistDetailModel = list;
+                //this.mylistDetailModel = list;
                 this.clearMessages();
                 this.newListName = "";
                 this.wishListService.getWishLists().then(

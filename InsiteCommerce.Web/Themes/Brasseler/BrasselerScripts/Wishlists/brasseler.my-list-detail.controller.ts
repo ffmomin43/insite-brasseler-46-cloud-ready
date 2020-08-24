@@ -46,9 +46,12 @@
             protected searchService: catalog.ISearchService,
             protected productPriceService: catalog.IProductPriceService,
             protected paginationService: core.IPaginationService,
+            protected $templateCache: ng.ITemplateCacheService,
+            protected scheduleReminderPopupService: IUploadToListPopupService,
             protected createListPopupService: ICreateListPopupService,
-            protected deleteListPopupService: IDeleteListPopupService,
-            protected copyToListPopupService: ICopyToListPopupService
+            protected deleteListPopupService: IDeleteListPopupService,            
+            protected copyToListPopupService: ICopyToListPopupService,
+            protected listQuantityAdjustmentPopupService: IListQuantityAdjustmentPopupService
         ) {
             super(
                 $scope,
@@ -61,7 +64,21 @@
                 $timeout,
                 $interval,
                 coreService,
-                spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, createListPopupService, deleteListPopupService, copyToListPopupService);
+                spinnerService,
+                $location,
+                shareListPopupService,
+                uploadToListPopupService,
+                $localStorage,
+                searchService,
+                productPriceService,
+                paginationService,
+                $templateCache,
+                scheduleReminderPopupService,
+                createListPopupService,
+                deleteListPopupService,
+                copyToListPopupService,
+                listQuantityAdjustmentPopupService
+            );
             super.$onInit();
         }
 

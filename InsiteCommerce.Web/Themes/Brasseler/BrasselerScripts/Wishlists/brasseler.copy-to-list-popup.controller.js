@@ -24,7 +24,7 @@ var insite;
             BrasselerCopyToListPopupController.prototype.initializePopup = function () {
                 var _this = this;
                 this.copyToListPopupService.registerDisplayFunction(function (list) {
-                    _this.mylistDetailModel = list;
+                    //this.mylistDetailModel = list;
                     _this.clearMessages();
                     _this.newListName = "";
                     _this.wishListService.getWishLists().then(function (listCollection) { }, function (error) { _this.getListCollectionFailed(error); });

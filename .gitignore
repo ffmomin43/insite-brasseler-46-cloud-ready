@@ -344,3 +344,4 @@ InsiteCommerce.Web/config/appSettings.config
 InsiteCommerce.Web/Themes/Brasseler/Styles/template/sign-in.css
 InsiteCommerce.Web/App_Data/insiteidentity.pfx
 
+*.map
