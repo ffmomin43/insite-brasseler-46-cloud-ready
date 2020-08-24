@@ -1,0 +1,79 @@
+﻿<div class="row">
+    [% comment %]BUSA-585 UI changes
+    BUSA-463 : Subscription. Card cannot be deleted if used for subscription.[% endcomment %]
+    <isc-remove-card-error-popup></isc-remove-card-error-popup>
+    <div class="large-12 columns">
+        <div>
+            <a id="AddNewCardButton" class="AddNewCardButton" href="#" data-reveal-id="AddNewCardContainer">[% translate 'Add Cards' %]</a>
+            <isc-add-new-card-popup></isc-add-new-card-popup>
+        </div>
+        <br />
+        <div id="paymentErrors">
+            <span class="error-message" ng-if="vm.expiryCardError">[% translate 'Please select Expiry Date greater than current date' %]</span>
+            <span class="error-message" ng-if="vm.updateCardError">[% translate 'Error occured while processing the card' %]</span>
+        </div>
+        <div class="overflow-table small">
+            <table class="info-tbl" id="payments-tbl">
+                <tbody>
+                    <tr ng-repeat="userPaymentProfile in vm.userPaymentProfileCollection" id="paymentList_{{userPaymentProfile.id}}">
+                        <th ng-switch="userPaymentProfile.cardType" id="cardImages_{{userPaymentProfile.id}}">
+                            <span class="sticky-first" ng-switch-when="VISA"><img src="[% urlFor '/Images/Default/cc-visa.jpg' %]" alt="VISA" /></span>
+                            <span class="sticky-first" ng-switch-when="AMERICAN EXPRESS"><img src="[% urlFor '/Images/Default/cc-amex.jpg' %]" alt="AMERICAN EXPRESS" /></span>
+                            <span class="sticky-first" ng-switch-when="DISCOVER"><img src="[% urlFor '/Images/Default/cc-discover.jpg' %]" alt="DISCOVER" /></span>
+                            <span class="sticky-first" ng-switch-when="MASTERCARD"><img src="[% urlFor '/Images/Default/cc-mastercard.jpg' %]" alt="MASTER CARD" /></span>
+                        </th>
+                        <th ng-bind="userPaymentProfile.maskedCardNumber"></th>
+                        <th ng-bind="userPaymentProfile.description"></th>
+
+                        <th>
+                            <span id="expires-date_{{userPaymentProfile.id}}" ng-if="!vm.calculateExpiryDate(userPaymentProfile.expirationDate)">[% translate 'Expires' %] {{vm.dateFormat}}</span>
+                            <span id="expired-date_{{userPaymentProfile.id}}" ng-if="vm.calculateExpiryDate(userPaymentProfile.expirationDate)" class="error-message">[% translate 'Expired' %] {{vm.dateFormat}}</span>
+                            <div id="editDate_{{userPaymentProfile.id}}" style="display:none;" class="search-date-from">
+                                <div class="exp-date">
+                                    [% translate 'Expiration Date' %]
+                                    <div class="row">
+                                        <div class="small-12  medium-6 columns exp-month">
+                                            <select id="expirationMonth" name="expirationMonth"
+                                                    data-rule-required="true" data-msg-required="[% translate 'Expiration month is required.' %]"
+                                                    ng-model="vm.cart.paymentOptions.creditCard.expirationMonth"
+                                                    ng-options="month.value as month.key for month in vm.cart.paymentOptions.expirationMonths"></select>
+                                            <span class="field-validation-valid" data-valmsg-for="expirationMonth" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="small-12  medium-6 columns exp-year">
+                                            <select id="expirationYear" name="expirationYear"
+                                                    data-rule-required="true" data-msg-required="[% translate ' Expiration year is required.' %]"
+                                                    ng-model="vm.cart.paymentOptions.creditCard.expirationYear"
+                                                    ng-options="year.value as year.key for year in vm.cart.paymentOptions.expirationYears"></select>
+                                            <span class="field-validation-valid" data-valmsg-for="expirationYear" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </th>
+                        <th ng-if="vm.defaultCard==userPaymentProfile.cardIdentifier">
+                            [% comment %] BUSA-621 : Expired Credit Card should not be allowed to be set up as a Default.[% endcomment %]
+                            <a id="defaultCard_{{userPaymentProfile.id}}" ng-hide="vm.calculateExpiryDate(userPaymentProfile.expirationDate)" class="btn primary cc-button[disabled] btn-default" href="">[% translate 'Default' %}</a>
+                            <a id="editCard_{{userPaymentProfile.id}}" class="btn primary edit" ng-click="vm.editCard(userPaymentProfile.id)" href="#">[% translate 'Edit' %]</a>
+                            <a id="saveCard_{{userPaymentProfile.id}}" class="btn primary btn-save" ng-click="vm.updateCard(userPaymentProfile.id,'[% urlForPage 'BrasselerPaymentOptionsPage' %]')" style="display:none;" href="#">[% translate 'Save' %]</a>
+                            <a id="cancelCard_{{userPaymentProfile.id}}" class="btn primary btn-cancel" style="display:none;" ng-click="vm.cancelCard(userPaymentProfile.id,'[% urlForPage 'BrasselerPaymentOptionsPage' %]')" href="#">[% translate 'Cancel' %]</a>
+                        </th>
+                        <th ng-if="vm.defaultCard!=userPaymentProfile.cardIdentifier">
+                            [% comment %] BUSA-621 : Expired Credit Card should not be allowed to be set up as a Default.[% endcomment %]
+                            <a id="setDefaultCard_{{userPaymentProfile.id}}" ng-hide="vm.calculateExpiryDate(userPaymentProfile.expirationDate)" ng-click="vm.saveDefaultCard(userPaymentProfile.cardIdentifier)" class="btn primary set-default" href="">[% translate 'Set Default' %]</a>
+                            <a id="editCard_{{userPaymentProfile.id}}" class="btn primary edit" ng-click="vm.editCard(userPaymentProfile.id)" href="#">[% translate 'Edit' %]</a>
+                            <a id="saveCard_{{userPaymentProfile.id}}" class="btn primary btn-save" ng-click="vm.updateCard(userPaymentProfile.id,'[% urlForPage 'BrasselerPaymentOptionsPage' %]')" style="display:none;" href="#">[% translate 'Save' %]</a>
+                            <a id="cancelCard_{{userPaymentProfile.id}}" class="btn primary btn-cancel" style="display:none;" ng-click="vm.cancelCard(userPaymentProfile.id,'[% urlForPage 'BrasselerPaymentOptionsPage' %]')" href="#">[% translate 'Cancel' %]</a>
+                        </th>
+                        <th><a ng-click="vm.deleteCard(userPaymentProfile.id,'[% urlForPage 'BrasselerPaymentOptionsPage' %]')">[% translate 'Remove' %]</a></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--BUSA-1122-->
+    <script type="text/ng-template" id="/PartialViews/PaymentOptions-UpdateCardPopup">
+        [% partialView 'PaymentOptions-UpdateCardPopup' %]
+    </script>
+</div>

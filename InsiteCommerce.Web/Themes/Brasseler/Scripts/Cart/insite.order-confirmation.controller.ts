@@ -21,7 +21,8 @@
             protected orderService: order.IOrderService,
             protected sessionService: account.ISessionService,
             protected settingsService: core.ISettingsService,
-            protected addToWishlistPopupService: wishlist.AddToWishlistPopupService) {
+            protected addToWishlistPopupService: wishlist.AddToWishlistPopupService,
+        ) {
         }
 
         $onInit(): void {

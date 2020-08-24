@@ -1,0 +1,30 @@
+﻿@using Insite.WebFramework.Mvc.Extensions
+@model IEnumerable<Insite.WebFramework.Mvc.NavLinkDto>
+<ul class="breadcrumbs@(Model.Any(l => l.IsSearchTerm) ? " bsearch" : "")">
+    @{var count = Model.Count();}
+
+    @foreach (var link in Model)
+    {
+        if (link.HasUrl())
+        {
+            <li class="@(count-- != 2 ? "hide-for-small" : "")">
+                <a href="@(link.RouteValues == null ? Url.Link(link) : RouteTable.Routes.GetVirtualPathForArea(null, link.RouteValues).VirtualPath)">
+                    @link.LinkText
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="@(link.IsSelected || link.IsSearchTerm ? "hide-for-small current" : "")">
+                @if (link.IsSearchTerm)
+                {
+                    @link.LinkTextOptional <em>@link.LinkText</em>
+                }
+                else
+                {
+                    @link.LinkText
+                }
+            </li>
+        }
+    }
+</ul>

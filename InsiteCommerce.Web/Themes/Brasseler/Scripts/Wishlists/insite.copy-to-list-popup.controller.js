@@ -33,7 +33,7 @@ var insite;
             CopyToListPopupController.prototype.initializePopup = function () {
                 var _this = this;
                 this.copyToListPopupService.registerDisplayFunction(function (data) {
-                    _this.mylistDetailModel = data.list;
+                    //this.mylistDetailModel = data.list;
                     _this.changedSharedListLinesQtys = data.changedSharedListLinesQtys;
                     _this.coreService.displayModal(angular.element("#popup-copy-list"));
                     _this.selectedList = null;
@@ -83,7 +83,7 @@ var insite;
                 }
             };
             CopyToListPopupController.prototype.addProductsToList = function (list) {
-                if (this.mylistDetailModel.wishListLinesCount === 1) {
+                if (this.mylistDetailModel.list.wishListLinesCount === 1) {
                     this.addLineToList(list);
                 }
                 else {
@@ -92,7 +92,7 @@ var insite;
             };
             CopyToListPopupController.prototype.addLineToList = function (list) {
                 var _this = this;
-                this.wishListService.addWishListLine(list, this.wishListService.mapWishListLinesToProducts(this.mylistDetailModel.wishListLineCollection)[0]).then(function (listLine) { _this.addListLineCompleted(listLine); }, function (error) { _this.addListLineFailed(error); });
+                this.wishListService.addWishListLine(list, this.wishListService.mapWishListLinesToProducts(this.mylistDetailModel.list.wishListLineCollection)[0]).then(function (listLine) { _this.addListLineCompleted(listLine); }, function (error) { _this.addListLineFailed(error); });
             };
             CopyToListPopupController.prototype.addListLineCompleted = function (listLine) {
                 this.copyToListCompleted = true;
@@ -103,7 +103,7 @@ var insite;
             };
             CopyToListPopupController.prototype.addLineCollectionToList = function (list) {
                 var _this = this;
-                this.wishListService.addAllWishListLines(list, this.mylistDetailModel.id, this.changedSharedListLinesQtys).then(function (listLineCollection) { _this.addListLineCollectionCompleted(listLineCollection); }, function (error) { _this.addListLineCollectionFailed(error); });
+                this.wishListService.addAllWishListLines(list, this.mylistDetailModel.list.id, this.changedSharedListLinesQtys).then(function (listLineCollection) { _this.addListLineCollectionCompleted(listLineCollection); }, function (error) { _this.addListLineCollectionFailed(error); });
             };
             CopyToListPopupController.prototype.addListLineCollectionCompleted = function (listLineCollection) {
                 this.copyToListCompleted = true;
@@ -155,7 +155,7 @@ var insite;
             };
             CopyToListPopupController.prototype.getListCollectionCompleted = function (options, listCollectionModel) {
                 var _this = this;
-                var listCollection = listCollectionModel.wishListCollection.filter(function (o) { return o.id !== _this.mylistDetailModel.id; });
+                var listCollection = listCollectionModel.wishListCollection.filter(function (o) { return o.id !== _this.mylistDetailModel.list.id; });
                 this.totalListsCount = listCollectionModel.pagination.totalItemCount;
                 if (!this.hasListWithLabel(listCollection, this.listSearch)) {
                     this.selectedList = null;

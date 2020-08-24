@@ -1,0 +1,823 @@
+﻿@using System.Globalization @* do not remove, resharper thinks it isn't needed but CultureInfo needs it*@
+@using System.Web.Optimization
+@using Insite.Core.Providers
+@using Insite.IdentityServer.Options
+@using Insite.WebFramework
+@using Insite.WebFramework.Mvc.Extensions
+@using Insite.Common.Dependencies
+@using Insite.Common.Extensions
+@using Insite.ContentLibrary.Pages
+@using Insite.ContentLibrary.SystemSettings
+@using Insite.Core.Context
+@using Insite.Core.SystemSetting
+@using Insite.GeocoderProvider.Google
+@using Insite.PunchOut.HttpHandlers.Interfaces
+@using Insite.SystemResources
+@using Insite.WebFramework.Extensions
+@using Insite.WebFramework.Theming
+@using StackExchange.Profiling
+@using Header = Insite.ContentLibrary.Pages.Header
+@using InSiteCommerce.Brasseler.SystemSetting.Groups
+
+<!DOCTYPE html>
+<html class="" lang="en" data-isCustomErrorEnabled="@Html.IsCustomErrorEnabled()">
+<head>
+
+    @*BUSA-646 : To redirect to a Page identifying that a Customer need to update browser when browser's version is not meeting PCI DSS standarts start.*@
+    @{
+        var updateBrowser = SettingsGroupProvider.Current.Get<CustomSettings>();
+        var updateBrowserFlag = updateBrowser.UpdateBrowser;
+        var Google_TagManagerId = updateBrowser.Google_TagManagerId;
+    }
+
+    <script type="text/javascript">
+        navigator.browserSpecs = (function () {
+            var ua = navigator.userAgent, tem,
+            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if (/trident/i.test(M[1])) {
+                tem = /\brv[ :]+(\d+)/g.exec(ua) || []
+                return { name: 'IE', version: (tem[1] || '') };
+            }
+            if (M[1] === 'Chrome') {
+                tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+                if (tem != null) return { name: tem[1].replace('OPR', 'Opera'), version: tem[2] };
+
+            }
+            M = M[2] ? [M[1], M[2] ] : [navigator.appName, navigator.appVersion, '-?'];
+            if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+            return { name: M[0].toLocaleLowerCase(), version: M[1] };
+        })();
+        var flag = @updateBrowserFlag;
+        if (flag.toString() == "true") {
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                var brlist = [{ name: 'firefox', version: 27, url: 'http://www.getfirefox.com' },
+                             { name: 'chrome', version: 38, url: 'https://www.google.com/chrome/' },
+                             { name: 'safari', version: 5, url: 'http://www.apple.com/safari' },
+                              { name: 'IE', version: 11, url: 'http://windows.microsoft.com/ie' }];
+
+                brlist.forEach(function (s) {
+                    if (navigator.browserSpecs.name == s.name && navigator.browserSpecs.version < s.version) {
+                        window.location.href = '/error.html?re' + s.url;
+                    }
+                });
+            }
+            else {
+                console.log(navigator.browserSpecs.name);
+                console.log(navigator.browserSpecs.version);
+                var brlist = [{ name: 'firefox', version: 27, url: 'http://www.getfirefox.com' },
+                              { name: 'chrome', version: 38, url: 'https://www.google.com/chrome/' },
+                              { name: 'safari', version: 7, url: 'http://www.apple.com/safari' },
+                              { name: 'IE', version: 11, url: 'http://windows.microsoft.com/ie' },
+                              { name: 'msie', version: 11, url: 'http://windows.microsoft.com/ie' }];
+
+                brlist.forEach(function (s) {
+                    if (navigator.browserSpecs.name == s.name && navigator.browserSpecs.version < s.version) {
+                        window.location.href = '/error.html?re' + s.url;
+                    }
+                });
+            }
+        }
+    </script>
+    @*BUSA-646 : To redirect to a Page identifying that a Customer need to update browser when browser's version is not meeting PCI DSS standarts end.*@
+
+    @*BUSA-758 :Load the page with specified language and set the siteHit cookie in case of redirect from other site*@
+    <script type="text/javascript">
+        if (window.location.href.indexOf("Lang=") != -1) {
+            var selectedLang = window.location.search.substr(1).split("=")[1];
+            var lang = selectedLang.split("&")[0];
+            document.cookie = "CurrentLanguageId=" + lang + ";;path=/";
+            document.cookie = "siteHit=true;;path=/";
+            window.location.href = "?AutoSwitchContext=false";
+        }
+    </script>
+    @*BUSA-758*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @{
+        var themeBundleCollection = DependencyLocator.Current.GetInstance<IThemeBundler>().GetForCurrentWebsite();
+        var page = (IPage)Model;
+        if (page is TemplatePage)
+        {
+            page = CurrentPage;
+        }
+
+        var hasPunchOutSession = DependencyLocator.Current.GetInstance<ICurrentPunchOutSessionProvider>().HasPunchOutSession();
+        var title = Html.PageTitle(page);
+
+        // analytics
+        var analyticsSettings = SettingsGroupProvider.Current.Get<AnalyticsSettings>();
+        var isGoogleTrackerEnabled = analyticsSettings.GoogleTrackedDomains.Split(',').Any(o => o.EqualsIgnoreCase(this.Request.ActualUrl().Host));
+    }
+
+    @*// BUSA-573*@
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!---->
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticsSettings.GoogleTrackingAccountId"></script>
+    <!--  <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('config', '@analyticsSettings.GoogleTrackingAccountId');
+        gtag('send', 'pageview');
+    </script>
+    <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window, document, 'script', 'dataLayer', '@Google_TagManagerId');
+    </script>  -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','@Google_TagManagerId');
+    </script>
+
+
+    <title>@title</title>
+    <meta property="og:type" content="website" />
+
+    @* These are populated in _PageLayout and need to be left here! *@
+    <meta id="ogTitle" property="og:title" content="" />
+    <meta id="ogImage" property="og:image" content="" />
+    <meta id="ogUrl" property="og:url" content="" />
+
+    @if (!SiteContext.Current.WebsiteDto.WebsiteFavicon.IsBlank())
+    {
+        <link rel="icon" href="@($"{SiteContext.Current.WebsiteDto.WebsiteFavicon}?t={SiteContext.Current.WebsiteDto.ModifiedOn.Ticks}")" type="image/x-icon" />
+        <link rel="apple-touch-icon image_src" href="@($"{SiteContext.Current.WebsiteDto.WebsiteFavicon}?t={SiteContext.Current.WebsiteDto.ModifiedOn.Ticks}")">
+        <!--[if IE]><link rel="shortcut icon" href="@($"{SiteContext.Current.WebsiteDto.WebsiteFavicon}?t={SiteContext.Current.WebsiteDto.ModifiedOn.Ticks}")"/><![endif]-->
+    }
+    <meta name="keywords" content="@page.MetaKeywords" />
+    <meta name="description" content="@page.MetaDescription" />
+    @if (page.DisallowInRobotsTxt)
+    {
+        <meta name="robots" content="noindex" />
+    }
+    @if (!page.CanonicalUrl.IsBlank())
+    {
+        <link rel="canonical" href="@page.CanonicalUrl" />
+    }
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+    @foreach (var themeBundle in themeBundleCollection.StyleBundles)
+    {
+        if (themeBundle.BundlePath != null)
+        {
+            @*@Styles.Render(themeBundle.BundlePath)*@
+        }
+        else
+        {
+            foreach (var file in themeBundle.ResourcePaths)
+            {
+                <link href="@file" rel="stylesheet" />
+            }
+        }
+    }
+    @Styles.Render(BundleConfig.InContextStyleBundlePath)
+
+    <base href="/">
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+    @if (isGoogleTrackerEnabled)
+    {
+        <script>
+            dataLayer = [{
+                'Authentication State': '@(SiteContext.Current.UserProfileDto != null ? "Logged In" : "Not Logged In")',
+                'User ID': '@(SiteContext.Current.UserProfileDto != null ? SiteContext.Current.UserProfileDto.Id.ToString() : string.Empty)'
+            }];
+        </script>
+        @*if (analyticsSettings.GoogleTrackingType == GoogleTrackingTypes.GoogleAnalytics)
+            {
+                <script>
+                    (function (i, s, o, g, r, a, m) {
+                            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                                (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date(); a = s.createElement(o),
+                                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)})
+                        (window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                    ga('create', '@analyticsSettings.GoogleTrackingAccountId', 'auto');
+                    ga('send', 'pageview');
+                </script>
+            }*@
+    }
+
+    @if (hasPunchOutSession && HttpContext.Current.User != null)
+    {
+        @* New punchout sessions only do server side auth so add the client token on the first page view *@
+		    var token = Insite.IdentityServer.Factory.GetJsonWebTokenSafe(HttpContext.Current.User, SecurityOptions.IssuerUri);
+		    if (!token.IsBlank())
+		    {
+		        <text>
+		            <script type="text/javascript">
+		                if (!window.localStorage.getItem("accessToken")) {
+		                    window.localStorage.setItem("accessToken", "@token");
+		                }
+		            </script>
+		        </text>
+		        }
+		    }
+
+    @helper RenderScripts(IList<ThemeBundle> themeBundles)
+    {
+/**/
+
+foreach (var themeBundle in themeBundles)
+{
+    if (themeBundle.BundlePath != null)
+    {
+            @Scripts.Render(themeBundle.BundlePath)
+    }
+    else
+    {
+        foreach (var file in themeBundle.ResourcePaths)
+        {
+                <script src="@file"></script>
+        }
+    }
+}
+}
+
+    <script>
+        var insite = insite || {};
+        insite.hideHeader = true;
+        insite.hideFooter = true;
+    </script>
+
+    @RenderScripts(themeBundleCollection.ScriptHeadBundles)
+
+    <!--BUSA-703: Create 'Add to Home Screen" pop over on iOS start-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!--<meta name="apple-mobile-web-app-title" content="Add to Home">-->
+    <!--BUSA-703: Create 'Add to Home Screen" pop over on iOS end-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body ng-app="insite" ng-strict-di>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=@Google_TagManagerId"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!-- @if (isGoogleTrackerEnabled && analyticsSettings.GoogleTrackingType == GoogleTrackingTypes.GoogleTagManager)
+        {
+            <noscript>
+                <iframe src="//www.googletagmanager.com/ns.html?id=@Google_TagManagerId" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            </noscript>
+        }-->
+    @RenderScripts(themeBundleCollection.ScriptBodyStartBundles)
+    @{
+        var themePreview = DependencyLocator.Current.GetInstance<IThemePreviewService>().GetCurrentThemePreview();
+        const string ShowCompilerOutputCookieName = "ThemePreview_ShowCompilerOutput";
+    }
+    @if (themePreview != null)
+    {
+        @Html.Partial("~/SystemResources/Views/Shared/ThemePreviewBar.cshtml", themePreview)
+    }
+    <div style="display: none;" class="cms-shell-controls @(themePreview != null ? "preview-bar-displayed"  : string.Empty)">
+        <button data-bind="click: $root.ToggleShell"><span class="cms-control-decoration"></span></button><span class="cms-control-label"></span>
+    </div>
+    @{
+        var compiledWithErrors = themePreview != null && (!themePreview.ScriptCompilerOutput.IsBlank() || !themePreview.StyleCompilerOutput.IsBlank());
+    }
+    @if (themePreview != null && Request.Cookies[ShowCompilerOutputCookieName].Value == "true")
+    {
+        <div id="compiler-output-background"></div>
+    }
+    <div ng-controller="LayoutController as vm">
+        <div id="narrowNav"></div>
+        <div id="nwrap">
+            <div class="off-canvas panelwrap" role="panel-wrap">
+                @if (!(page is Header) && !(page is Footer) && (ViewBag.HideHeaderAndFooter == null || !ViewBag.HideHeaderAndFooter))
+                {
+                    <div ng-hide="vm.hideHeader()">
+                        @Html.Action("Header", "Layout")
+                    </div>
+                }
+                <div class="container" @(page is Header || page is Footer ? "container-wide" : "") role="main">
+                    <div class="header_overlay"></div>
+                    <div class="ui-lock"></div>
+                    <div class="cms-rearrangeable" ui-view></div>
+                    @* first page serverside for SEO - this must be outside ui-view or the controller will be called twice *@
+                    <div class="cms-rearrangeable" ng-if="firstPage">
+                        @RenderBody()
+                    </div>
+                    <isc-spinner show="false" name="mainLayout"></isc-spinner>
+                </div>
+                @if (!(page is Header) && !(page is Footer) && (ViewBag.HideHeaderAndFooter == null || !ViewBag.HideHeaderAndFooter))
+                {
+                    <div ng-hide="vm.hideFooter()">
+                        @Html.Action("Footer", "Layout")
+                    </div>
+                }
+            </div>
+            <div data-dropdown="dummy" style="display:none"></div> @* fixes popups with foundation + angular *@
+        </div>
+        @if (themePreview != null && Request.Cookies[ShowCompilerOutputCookieName].Value == "true")
+        {
+            Response.Cookies[ShowCompilerOutputCookieName].Value = "false";
+            <div id="compiler-output" class="@(compiledWithErrors ? "compilation-fail" : "compilation-success")">
+                <p class="compiler-output-title">
+                    <span class="compiler-output-title__fail">Compilation Errors Found</span>
+                    <span class="compiler-output-title__success">Files compiled without errors.</span>
+                </p>
+
+                @{ var compilerOutput = string.Empty; }
+                @if (!themePreview.ScriptCompilerOutput.IsBlank())
+                {
+                    compilerOutput += "Script Compiler Output:\n" + Environment.NewLine;
+                    compilerOutput += themePreview.ScriptCompilerOutput;
+                }
+                @if (!themePreview.StyleCompilerOutput.IsBlank())
+                {
+                    compilerOutput += "Style Compiler Output:" + Environment.NewLine;
+                    compilerOutput += themePreview.StyleCompilerOutput;
+                }
+
+                @*Don't align next html*@
+                <textarea id="compiler-output-textarea" readonly>
+                    @compilerOutput
+                </textarea>
+
+                <div class="compiler-output-buttons">
+                    <button onclick="closeCompilerModal()">Close</button>
+                    <button class="download-compilation-log" onclick="downloadCompilerLog()">Download Log</button>
+                </div>
+            </div>
+            <script type="text/javascript">
+                function downloadCompilerLog() {
+                    var link = document.createElement("a");
+                    var text = document.getElementById("compiler-output-textarea").value.replace(/\n/g, '\r\n');
+                    link.setAttribute("href", "data:text/plain;base64," + window.btoa(text));
+                    link.setAttribute("download", "compilationLog.txt");
+
+                    link.style.display = "none";
+                    document.body.appendChild(link);
+                    link.click();
+
+                    document.body.removeChild(link);
+                    closeCompilerModal();
+                }
+                function closeCompilerModal() {
+                    var compilerModal = document.getElementById("compiler-output");
+                    compilerModal.style.display = "none";
+                    var compilerBackground = document.getElementById("compiler-output-background");
+                    compilerBackground.style.display = "none";
+                }
+            </script>
+
+            <script>
+                // if minification of a js bundle fails, we can't guarantee that jquery or anything else will be loaded. So this is done here
+                // with vanilla js
+                var checkBundles = function() {
+                    @{
+                            var bundlePaths = themeBundleCollection.StyleBundles.Select(o => o.BundlePath)
+                                .Concat(themeBundleCollection.ScriptHeadBundles.Select(o => o.BundlePath))
+                                .Concat(themeBundleCollection.ScriptBodyStartBundles.Select(o => o.BundlePath))
+                                .Concat(themeBundleCollection.ScriptBodyEndBundles.Select(o => o.BundlePath));
+                        }
+
+                    var urls = ["@Html.Raw(string.Join("\", \"", bundlePaths.Select(o => o?.TrimStart('~')).ToArray()))"];
+                    var finishedUrls = 0;
+                    var badUrls = [];
+
+                    var checkForFinished = function() {
+                        if (finishedUrls !== urls.length || badUrls.length === 0) {
+                            return;
+                        }
+
+                        var minificationFailedElement = document.getElementById("minification-failed");
+                        minificationFailedElement.removeAttribute("style");
+                        minificationFailedElement.onclick = function () {
+                            alert("Minification failed for one or more bundles. View the console in your browser to see more information.");
+                        };
+                        console.log("Minification failed for the following bundle(s). Please view the link to see more information about why it failed. \n\n" + badUrls.join("\n"));
+                    }
+
+                    for (var x = 0; x < urls.length; x++) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", urls[x]);
+                        xhr.send(null);
+                        xhr.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {
+                                finishedUrls++;
+                                if (this.responseText.indexOf("/* Minification failed.") === 0) {
+                                    badUrls.push(this.responseURL);
+                                }
+                                checkForFinished();
+                            }
+                        };
+                    }
+                }();
+            </script>
+        }
+        <script type="text/javascript">
+            var insite = insite || {};
+        </script>
+        @RenderScripts(themeBundleCollection.ScriptBodyEndBundles)
+        @Scripts.Render(BundleConfig.InContextScriptBundlePath)
+
+        <script>
+            var lodash = _.noConflict();
+        </script>
+
+        @{
+            var currentLanguage = SiteContext.Current.LanguageDto;
+            var localizationCode = currentLanguage.CultureCode.IsBlank() ? currentLanguage.LanguageCode : currentLanguage.CultureCode;
+        }
+
+        @*@Html.RequireScriptIfItExists(Url.ThemedContent("/Scripts/Libraries/angular-i18n/1.3.15/angular-locale_" + localizationCode + ".js"))
+            @Html.RequireScriptIfItExists(Url.ThemedContent("/Scripts/Libraries/pickadate/3.5.0-custom/translations/" + localizationCode.Replace("-", "_") + ".js"))*@
+
+        @{
+            var googleApiKey = SettingsGroupProvider.Current.Get<GoogleMapsApiSettings>().GoogleApiKey;
+            <script src="//maps.googleapis.com/maps/api/js?libraries=weather,visualization&language=en&v=3.27@(!string.IsNullOrWhiteSpace(googleApiKey) ? "&key=" + googleApiKey : "")"></script>
+            <script src="/SystemResources/Scripts/Libraries/richMarker/0.0.0/richmarker.js"></script>
+        }
+
+        <script type="text/javascript">
+            insite.core.signInUrl = "@(Url.ContentPage<Insite.Account.Content.SignInPage>())";
+            insite.core.generalErrorText = "@MessageProvider.Current.General_Error";
+            insite.core.dateTimeFormat = "@CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern";
+            var insiteMicrositeUriPrefix = "";
+            var insiteBasicAuthHeader = "@Html.Raw(SecurityOptions.ClientId + ":" + SecurityOptions.ClientSecret)";
+            var insiteScope = "@SecurityOptions.Scope";
+            @if (!SiteContext.Current.Microsite.IsBlank())
+                {
+                    <text>
+            insiteMicrositeUriPrefix = "/@SiteContext.Current.Microsite";
+            </text>
+                }
+            @if (hasPunchOutSession)
+                {
+                    <text>insite.core.setupPunchoutKeepAlive();</text>
+                }
+                else
+                {
+                    <text>insite.core.checkForIFrame();</text>
+                }
+
+            $(window).load(function () {
+                insite.core.setup();
+                insite.responsive.setup();
+                insite.nav.setup();
+            });
+        </script>
+
+        @MiniProfiler.RenderIncludes()
+
+        @Html.RenderDeferredScripts()
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        @RenderSection("AfterBodyContent", false)
+    </div>
+
+    @if (Request.QueryString["ShowStats"] == "true")
+    {
+        <script>
+            (function () { var a = document.createElement("script"); a.src = "https://rawgithub.com/kentcdodds/ng-stats/master/dist/ng-stats.js"; a.onload = function () { window.showAngularStats({ position: "topright" }) }; document.head.appendChild(a) })();
+        </script>
+    }
+    <!--BUSA-703: Create 'Add to Home Screen" pop over on iOS start-->
+    <script>
+        var a = addToHomescreen({
+            onAdd: function () {
+            }
+        });
+    </script>
+    <!--BUSA-703: Create 'Add to Home Screen" pop over on iOS end-->
+    <!--BUSA-758 : Multi Site /Multi Lingual Popup-->
+    <div id="multisitePopup" class="reveal-modal pop-allCountry" data-reveal data-options="close_on_background_click: false;close_on_esc:false;" data-reveal-init ng-controller="MultiSiteController as vm">
+        <div class="modal-wrap" style="text-align:center;">
+            <h1>Please Select Your Country</h1>
+            <div>
+                <div class="country">
+                    <img src="/Images/UserFiles/Multisite/Flag-US@2x.jpg" alt="Brasseler USA" />
+                    <h3>USA</h3>
+                    <a href="http://{{vm.usLanguages.domain.split(',')[0]}}?Lang={{vm.usLanguages.id}}" class="country-button" ng-click="vm.setCookie()">USA-English</a>
+                </div>
+                <div class="country">
+                    <img src="/Images/UserFiles/Multisite/Flag-Canada@2x.jpg" alt="Brasseler Canada" />
+                    <h3>CANADA</h3>
+                    <div>
+                        <select name="select" ng-model="vm.language" ng-options="language as language.language for language in vm.canadaLanguages" ng-change="vm.setCookie(); vm.redirect() ">
+                            <option value="">Choose Language</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- <a id="genericPopupCloseButton" class="close-reveal-modal">&#215;</a> -->
+        </div>
+    </div>
+
+    <div id="multiLingualPopup" class="reveal-modal pop-multiLingual" data-reveal data-reveal-init ng-controller="MultiSiteController as vm">
+        <div class="modal-wrap" style="text-align:center;">
+            <h1>Please Select Your Language</h1>
+            <div class="button-wrap">
+                <div class="button-box" ng-repeat="language in vm.canadaLanguages">
+                    <div style="display:inline-block;">
+                        <button id="selectLanguageButton" ng-click="vm.setCookie(); vm.setLanguage(language.id)" class="btn primary">
+                            <span ng-bind="::language.language"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <a id="genericPopupCloseButton" class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        if(!document.cookie.includes('siteHit=true') && !document.cookie.includes('PunchOutSessionId')){
+            var siteCountry = "@Html.Raw(SiteContext.Current.Website.Countries.ToArray()[0].Name)";
+            console.log("siteCountry: " + siteCountry);
+            $(document).ready(function() {
+                $.ajax({
+                    type:'GET',
+                    url:'https://ipapi.co/json/',
+                    dataType:'json',
+                    async:false,
+                    success:function(data){
+                        console.log("api country: " + data.country);
+                        console.log("api country name: " + data.country_name);
+                        if(data.country_name != siteCountry){
+                            $('#multisitePopup').foundation('reveal', 'open');
+                        }else if (siteCountry == "Canada") {
+                            $('#multiLingualPopup').foundation('reveal', 'open');
+                        }
+                    },
+                    error:function(data){
+                        console.log(data);
+                    }
+                });
+            });
+        }
+    </script>
+    <!--BUSA-758 : Multi Site /Multi Lingual Popup-->
+    <!--Initial Smart Supply Popup-->
+    <div id="smartSupplyPopUp" style="text-align:center" class="reveal-modal" data-reveal data-reveal-init>
+        <div class="modal-wrap ph-notify">
+            [% translate "Initial Smart Supply Order" %]
+            <a id="genericPopupCloseButton" class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <!--Initial Smart Supply Popup-->
+    <!--BUSA-463 : Smart Supply Info Popup-->
+    <div id="smartSupplyPromotionPopupContainer" class="reveal-modal smartSupplyPromotionPopupContainer" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <a id="smartSupplyPromotionPopupWindowCloseButton" class="close-reveal-modal">&#215;</a>
+            <div class="modal-wrapper">
+                <div class="logo-wrapper">
+                    <img class="smart-supply-logo" src="/Images/UserFiles/Subscription/SmartSupply-Logox400-Tag-Alt@2x.png" alt="Smart Supply Logo">
+                </div>
+                <p>[% translate 'Introducing SmartSupply, the convenient recurring delivery option for the products that keep your operatory running.' %]</p>
+                <p>[% translate 'With SmartSupply, you pick the products and we'll deliver them automatically on the schedule you set. Simply select the 'SmartSupply' option for each desired product during checkout, select your frequency, and place your order. We'll handle the rest.' %]</p>
+                <div class="list-wrapper">
+                    <ul>
+                        <li><span class="bold">[% translate 'complete control.' %] </span>[% translate 'No commitment. Change quantity, delivery frequency, or cancel at any time.' %]</li>
+                        <li><span class="bold">[% translate 'never run out.' %] </span>[% translate 'The products you need when you need them.' %]</li>
+                        <li><span class="bold">[% translate 'always the best price.' %] </span>[% translate 'Receive applicable discounts or promotional pricing automatically.' %]</li>
+                    </ul>
+                </div>
+                <p><span class="bold"> [% translate 'plus,' %] </span> [% translate 'save an additional 5 % on qualifying products and your SmartSupply order ships for free.' %]</p>
+                <button class="learn-more" onclick="window.open('/smartsupply')">[% translate 'Learn More' %]</button>
+            </div>
+        </div>
+    </div>
+    <!--BUSA-463 : Smart Supply Info Popup-->
+    <!--BUSA-877 : FreshDesk Feature-->
+    <script>
+        var id, email, fname, lname, custnumber, zipcode, phone;
+    </script>
+    @{
+        var userprofile = SiteContext.Current.UserProfile;
+        if (userprofile != null)
+        {
+            <script>
+                id = '@SiteContext.Current.UserProfile.Id';
+                email = '@SiteContext.Current.UserProfile.Email';
+                fname = '@SiteContext.Current.UserProfile.FirstName';
+                lname = '@SiteContext.Current.UserProfile.LastName';
+                custnumber = '@SiteContext.Current.ShipTo.CustomerNumber';
+                zipcode = '@SiteContext.Current.ShipTo.PostalCode';
+                phone = '@SiteContext.Current.ShipTo.Phone';
+            </script>
+        }
+    }
+
+
+    <script src="https://snippets.freshchat.com/js/fc-pre-chat-form-v2.js" async></script>
+    <script>
+        var preChatTemplate = {
+
+            mainbgColor: '#00359c',
+            maintxColor: '#fff',
+            heading: 'Chat With Us',
+            textBanner: 'We can\'t wait to talk to you. But first, please take a couple of moments to tell us a bit about yourself.',
+            SubmitLabel: 'Start Chat',
+            fields: {
+
+                field1: {
+
+                    type: "Name",
+                    label: "First and Last Name",
+                    fieldId: "Name",
+                    required: "yes",
+                    error: "Please Enter a valid Name"
+                },
+
+                field2: {
+
+                    type: "email",
+                    label: "Email",
+                    fieldId: "email",
+                    required: "yes",
+                    error: "Please Enter a valid Email"
+                },
+
+                field3: {
+
+                    type: "phone",
+                    label: "Office Number",
+                    fieldId: "phone",
+                    required: "yes",
+                    error: "Please Enter a valid Phone Number"
+                },
+
+                field4: {
+
+                    type: "zipcode",
+                    label: "Zip Code",
+                    fieldId: "ZipCode",
+                    required: "yes",
+                    error: "Please Enter a valid Zip Code"
+                },
+
+                field5: {
+
+                    type: "dropdown",
+                    label: "Inquiry Topic",
+                    fieldId: "InquiryTopic",
+                    required: "yes",
+                    error: "Please Select an option",
+                    options: ['Online Login and Account Help',
+
+                        'Product Questions',
+                        'Handpiece Service and Support',
+                        'International Support',
+                        'Other']
+
+                }
+            }
+        };
+
+        var preChatLoggedInTemplate = {
+
+            mainbgColor: '#00359c',
+            maintxColor: '#fff',
+            heading: 'Chat With Us',
+            textBanner: 'We can\'t wait to talk to you. But first, please take a couple of moments to tell us a bit about yourself.',
+
+            SubmitLabel: 'Start Chat',
+
+            fields: {
+
+                field1: {
+
+                    type: "dropdown",
+                    label: "Inquiry Topic",
+                    fieldId: "InquiryTopic",
+                    required: "yes",
+                    error: "Please Select an option",
+
+                    options: ['Online Login and Account Help',
+
+                        'Product Questions',
+                        'Handpiece Service and Support',
+                        'International Support',
+                        'Other']
+
+                }
+            }
+        };
+
+        window.fcSettings = {
+
+            //token : "71b2bccc-aeb4-4cc2-b346-ae5d77bd47ef",
+
+            token: "231f49e4-c2fa-4a3c-a933-8f31e65fc0a5",
+            host: "https://wchat.freshchat.com",
+            firstName: fname,
+            lastName: lname,
+            externalId: id,
+            email: email,
+            custnumber: custnumber,
+            zipcode: zipcode,
+            phone: phone,
+
+            config: {
+                headerProperty: {
+                    direction: 'ltr' //will move widget to left side of the screen
+                },
+                cssNames: {
+                    widget: 'custom_fc_frame',
+                    expanded: 'custom_fc_expanded'
+                }
+            },
+
+            onInit: function () {
+
+                if (id != undefined) {
+
+                    window.fcWidget.init();
+                    fcPreChatform.fcWidgetInit(preChatLoggedInTemplate);
+                    window.fcWidget.user.setProperties({
+
+                        firstName: fname,
+                        lastName: lname,
+                        externalId: id,
+                        email: email,
+                        phone: phone,
+                        "Customer Number": custnumber,
+                        "Zip Code": zipcode
+                    });
+                }
+
+                else {
+
+                    window.fcWidget.user.clear().then(function () {
+                        console.log('User cleared');
+                    }, function () {
+                        console.log("User Not cleared");
+                    });
+
+                    fcPreChatform.fcWidgetInit(preChatTemplate);
+                }
+            }
+        };
+    </script>
+
+    <!-- Script added To lazyLoad the images-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js" async></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script type="text/ng-template" id="/PartialViews/Core-Pager">
+        [% partialView 'Core-Pager' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-UnitOfMeasureSelectList">
+        [% partialView 'Catalog-UnitOfMeasureSelectList' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-UnitOfMeasureDisplay">
+        [% partialView 'Catalog-UnitOfMeasureDisplay' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-AvailabilityMessage">
+        [% partialView 'Catalog-AvailabilityMessage' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-ProductThumb">
+        [% partialView 'Catalog-ProductThumb' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-ProductName">
+        [% partialView 'Catalog-ProductName' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-ProductPrice">
+        [% partialView 'Catalog-ProductPrice' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-BreadCrumb">
+        [% partialView 'Catalog-BreadCrumb' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-QuantityBreakPricing">
+        [% partialView 'Catalog-QuantityBreakPricing' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-SortedAttributeValueList">
+        [% partialView 'Catalog-SortedAttributeValueList' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Core-Spinner">
+        [% partialView 'Core-Spinner' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-ProductPriceSaving">
+        [% partialView 'Catalog-ProductPriceSaving' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Catalog-ProductSalePriceLabel">
+        [% partialView 'Catalog-ProductSalePriceLabel' %]
+    </script>
+    <script src="https://wchat.freshchat.com/js/widget.js" async></script>
+    
+</body>
+
+<!-- @HttpContext.Current.Server.MachineName -->
+<!-- @Html.ProductName() -->
+<!-- Persona: @ContentContextProvider.CurrentPersona.Name -->
+</html>

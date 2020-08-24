@@ -1,0 +1,22 @@
+﻿@using Insite.WebFramework.Mvc.Extensions
+@using Insite.ContentLibrary.Pages
+@model Footer
+
+@if (!ExcludeCmsCss)
+{
+    @Html.Raw(Model.Css)
+}
+
+@if (!ExcludeCmsJs)
+{
+    @Html.Script(@<text>@Html.Raw(Model.JavaScript)</text>)
+}
+
+<footer class="cms-rearrangeable" id="footer">
+    <div class="row f1-wrap">
+        <div class="medium-12 large-12 columns">
+            @Html.Zone(Model, "Content")
+        </div>
+    </div>
+    <div class="ui-lock use-fastclick"></div>
+</footer>

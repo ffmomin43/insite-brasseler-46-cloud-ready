@@ -27,14 +27,12 @@
                     <option value="">[% translate 'Select Billing Address' %]</option>
                 </select>
             </div>
-            <isc-delivery-method ng-if="vm.enableWarehousePickup" session="vm.session" fulfillment-method="vm.fulfillmentMethod" pick-up-warehouse="vm.pickUpWarehouse" prefix="account"></isc-delivery-method>
             <div class="select-step select-ship-step" ng-show="vm.billTo">
-                <label ng-show="!vm.enableWarehousePickup || vm.fulfillmentMethod === 'Ship'" for="selectShipTo">[% translate 'Shipping Address' %]</label>
-                <label ng-show="vm.enableWarehousePickup && vm.fulfillmentMethod === 'PickUp'" for="selectShipTo">[% translate 'Recipient Address' %]</label>
+                <label for="selectShipTo">[% translate 'Shipping Address' %]</label>
                 <select name="selectShipTo" class="shipto-selector tst_selectDefaultCustomer_shipToSelector" id="selectShipTo"
                         ng-model="vm.shipTo"
                         ng-options="shipTo.label for shipTo in vm.billTo.shipTos">
-                    <option ng-bind="!vm.enableWarehousePickup || vm.fulfillmentMethod === 'Ship' ? '[% translate 'Select Shipping Address' EscapeSingleQuotes %]' : '[% translate 'Select Recipient Address' EscapeSingleQuotes %]'" value=""></option>
+                    <option value="">[% translate 'Select Shipping Address' %]</option>
                 </select>
             </div>
         </div>

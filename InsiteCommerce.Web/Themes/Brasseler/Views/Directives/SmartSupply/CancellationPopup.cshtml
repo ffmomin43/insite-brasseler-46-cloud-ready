@@ -1,0 +1,19 @@
+﻿<div>
+   <div id="CancellationPopup" class="reveal-modal address-error-popup" data-reveal data-reveal-init>
+            <div class="modal-wrap">
+                <form id="CancellationSS">
+                  <label>[% translate 'Cancellation Reason' %]</label>
+                     <select ng-model="vm.selectedReason" ng-options="reason as reason for reason in vm.cancellationReasons"
+                            name="Cancellationreason" data-rule-required="{{vm.selectedReason===null || vm.selectedReason===undefined}}"
+                            data-msg-required="Select a valid reason">
+                          <option value="">[% translate 'Select a Reason Code' %]</option>
+                    </select>
+                   <div class="col-md-4" ng-show="vm.selectedReason === 'Other'|| vm.selectedReason === 'Autre'">
+                        <textarea ng-model="vm.othersReason" cols="45" id="otherReason" name="otherReason" rows="5" class="ng-pristine ng-valid ng-touched"></textarea>
+                   </div>
+                  <button id="Cancel_SmartSupply_Submit" ng-click="vm.updateCart('[% urlForPage 'BrasselerSmartSupplyListPage' %]')" class="btn primary btn-save">[% translate 'Cancel Smart Supply' %]</button>
+               </form>
+                <a id="errorPopupCloseButton" class="close-reveal-modal">&#215;</a>
+            </div>
+        </div>
+ </div>

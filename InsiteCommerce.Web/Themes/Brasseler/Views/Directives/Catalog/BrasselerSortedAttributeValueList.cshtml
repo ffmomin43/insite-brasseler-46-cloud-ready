@@ -1,0 +1,8 @@
+﻿<ul>
+    <li ng-if="attributeTypes" class="attribute-list-item tst_sortedAttributeValueList_{{::attributeType.name}}" ng-repeat="attributeType in attributeTypes | orderBy : ['sortOrder','label'] | limitTo: (maximumNumber || 100)">
+        <span ng-if="attributeType.name != 'Discontinued Products'" class="attrib-name">{{attributeType.label}}:</span>
+        <span ng-if="attributeType.name != 'Discontinued Products'" class="attrib-value">
+            <isc-no-element ng-repeat="attributeValue in attributeType.attributeValues | orderBy  : ['sortOrder','valueDisplay']">{{attributeValue.valueDisplay}}{{$last ? '' : ', '}}</isc-no-element>
+        </span>
+    </li>
+</ul>

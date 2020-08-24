@@ -1,0 +1,29 @@
+﻿{% comment %}
+    usage example:
+<isc-product-price product="product" id-key=""></isc-product-price>
+
+    product is of format ProductDto, CartLineModel, or WishListLineModel
+    ***id-key is required only for table view on product list***
+{% endcomment %}
+
+<div ng-if="::product.quoteRequired" class="quote-required">
+    <span>[% translate 'Requires Quote' %]</span>
+    <div class="quote-tip">
+        <a href="#" data-dropdown="{{::('qtip-cart-' + product.id + '-' + idKey)}}" class="t-dropdown tst_productPrice_quoteRequiredLink">?</a>
+        <div id="{{::('qtip-cart-' + product.id + '-' + idKey)}}" class="f-dropdown content" data-dropdown-content>
+            <div class="tt-wrap">[% siteMessage 'Rfq_TooltipMessage' %]</div>
+        </div>
+    </div>
+</div>
+
+<span ng-if="::(!product.quoteRequired && product.pricing)" class="price pd-price" id="displayPrice">
+    <span ng-class="{'price-sale' : product.pricing.isOnSale || product.isDiscounted || product.isPromotionItem}" ng-bind="product.pricing.actualPriceDisplay" ng-if="!(product.properties['isSubscriptionOpted'] == 'true')"></span>
+    <span ng-if="(product.properties['isSubscriptionOpted'] == 'true')">
+        <a id="smartSupplyPromotionPopup" href="javascript:void(0);" data-reveal-id="smartSupplyPromotionPopupContainer">
+            <img ng-src="/Images/UserFiles/Subscription/smart-supply-icon-small.png" alt="Smart Supply Icon" style="margin-bottom:3px;" />
+        </a>
+        <span ng-class="{'price-subscribe' :(product.properties['isSubscriptionOpted'] == 'true')}" ng-bind="product.pricing.actualPriceDisplay"></span>
+    </span>
+
+    <span ng-if="product.pricing.regularPrice > product.pricing.actualPrice" class="price-old" ng-bind="product.pricing.regularPriceDisplay"></span>
+</span>

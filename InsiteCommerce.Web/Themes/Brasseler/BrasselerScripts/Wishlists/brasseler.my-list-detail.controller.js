@@ -80,7 +80,8 @@ var insite;
                 "scheduleReminderPopupService",
                 "createListPopupService",
                 "deleteListPopupService",
-                "copyToListPopupService"
+                "copyToListPopupService",
+                "listQuantityAdjustmentPopupService"
             ];
             return BrasselerMyListDetailController;
         }(wishlist.MyListDetailController));

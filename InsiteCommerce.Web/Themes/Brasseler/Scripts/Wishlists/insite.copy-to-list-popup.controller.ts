@@ -9,7 +9,7 @@
         copyInProgress: boolean;
         listCollection: WishListModel[];
         showListNameErrorMessage: boolean;
-        mylistDetailModel: WishListModel;
+        mylistDetailModel: ICopyToListModel;
         changedSharedListLinesQtys: { [key: string]: number };
         listName: string;
         listOptions: any;
@@ -37,7 +37,7 @@
 
         initializePopup(): void {
             this.copyToListPopupService.registerDisplayFunction((data: ICopyToListModel) => {
-                this.mylistDetailModel = data.list;
+                //this.mylistDetailModel = data.list;
                 this.changedSharedListLinesQtys = data.changedSharedListLinesQtys;
                 this.coreService.displayModal(angular.element("#popup-copy-list"));
                 this.selectedList = null;
@@ -93,7 +93,7 @@
         }
 
         protected addProductsToList(list: WishListModel): void {
-            if (this.mylistDetailModel.wishListLinesCount === 1) {
+            if (this.mylistDetailModel.list.wishListLinesCount === 1) {
                 this.addLineToList(list);
             } else {
                 this.addLineCollectionToList(list);
@@ -101,7 +101,7 @@
         }
 
         protected addLineToList(list: WishListModel): void {
-            this.wishListService.addWishListLine(list, this.wishListService.mapWishListLinesToProducts(this.mylistDetailModel.wishListLineCollection)[0]).then(
+            this.wishListService.addWishListLine(list, this.wishListService.mapWishListLinesToProducts(this.mylistDetailModel.list.wishListLineCollection)[0]).then(
                 (listLine: WishListLineModel) => { this.addListLineCompleted(listLine); },
                 (error: any) => { this.addListLineFailed(error); });
         }
@@ -116,7 +116,7 @@
         }
 
         protected addLineCollectionToList(list: WishListModel): void {
-            this.wishListService.addAllWishListLines(list, this.mylistDetailModel.id, this.changedSharedListLinesQtys).then(
+            this.wishListService.addAllWishListLines(list, this.mylistDetailModel.list.id, this.changedSharedListLinesQtys).then(
                 (listLineCollection: WishListLineCollectionModel) => { this.addListLineCollectionCompleted(listLineCollection); },
                 (error: any) => { this.addListLineCollectionFailed(error); });
         }
@@ -178,7 +178,7 @@
         }
 
         protected getListCollectionCompleted(options: kendo.data.DataSourceTransportReadOptions, listCollectionModel: WishListCollectionModel): void {
-            const listCollection = listCollectionModel.wishListCollection.filter(o => o.id !== this.mylistDetailModel.id);
+            const listCollection = listCollectionModel.wishListCollection.filter(o => o.id !== this.mylistDetailModel.list.id);
 
             this.totalListsCount = listCollectionModel.pagination.totalItemCount;
 

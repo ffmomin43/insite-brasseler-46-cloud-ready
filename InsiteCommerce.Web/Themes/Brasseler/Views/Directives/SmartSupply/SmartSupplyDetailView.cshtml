@@ -1,0 +1,229 @@
+﻿<div class="ship-info-wrapper">
+    <isc-change-saved-popup></isc-change-saved-popup>
+    <!--<div class="hide-for-small back-btn">
+        <a id="smartSupplyDetailViewReturnToSmartSupplyLink" href="[% urlForPage 'BrasselerSmartSupplyListPage' %]" class="btn tertiary btn-return"> [% translate 'Return to SmartSupply Orders' %]</a>
+    </div>-->
+    <p class="error">{% comment %} TODO {% endcomment %}</p>
+    <div class="row">
+        <div class="large-12 columns bill-info">
+            {% comment %}BUSA-761 SS-Add name for Smart Supply order and force users enter a name while placing order start{% endcomment %}
+            <div class="smart-supply-detail">
+                <h1>
+                    {{ vm.cartModelBrasseler.properties['subscriptionName'] }}
+                    <span style="font-weight:lighter;">
+                        <a ng-click="vm.canEditSubscriptionName=true" class="edit"> [% translate 'Edit' %]</a>
+                    </span>
+                </h1>
+                <div class="search-date-from" ng-show="vm.canEditSubscriptionName">
+                    <input id="subscriptionName" type="text" ng-model="vm.cartModelBrasseler.properties['subscriptionName']" maxlength="30" />
+                    <div class="btns">
+                        <button id="btnSubscriptionName" type="button" class="btn secondary btn-delete-smart-supply" ng-click="vm.updateSubscriptionName(vm.cartModelBrasseler.properties['subscriptionName'])"> [% translate 'Save' %]</button>
+                    </div>
+                </div>
+            </div>
+
+            {% comment %}BUSA-761 SS-Add name for Smart Supply order and force users enter a name while placing order end{% endcomment %}
+        </div>
+        <div class="large-12 columns bill-info">
+            <div class="smart-supply-detail">
+                <h3 class="ship-date">
+                    <div class="title">[% translate 'Next Ship Date' %] :</div> {{vm.cartModelBrasseler.cartSubscriptionDto.nextDelieveryDate|date:'MM/dd/yyyy'}}
+                    <span style="font-weight:lighter;">
+                        <a ng-click="vm.canEditNextDelieveryDate=true" class="edit"> [% translate 'Edit' %]</a>
+                    </span>
+                    <div class="search-date-from" ng-if="vm.canEditNextDelieveryDate">
+                        <input id="nextShipDate" type="text" ng-model="vm.nextShipDate| date:'shortDate'" class="datepicker" ng-bind="vm.nextShipDate | date:'shortDate'" isc-pick-a-date="vm.nextShipDate" />
+                        <div class="btns">
+                            <button id="btnNextShipDate" type="button" class="btn secondary btn-delete-smart-supply" ng-click="vm.updateNextDelieveryDate()"> [% translate 'Save' %]</button>
+                        </div>
+                        <div style="color: red; font-weight:normal; font-size: 14px;" ng-bind="vm.error"></div>
+                    </div>
+                </h3>
+
+            </div>
+            <div class="smart-supply-detail">
+                <h3 class="ship-frequency">
+                    <span class="title">[% translate 'Order Frequency' %] :</span>
+                    <span id="subsFrequencyOpted" ng-repeat="frequency in vm.frequencyMap" ng-bind="frequency.name" ng-if="frequency.value == vm.cartModelBrasseler.cartSubscriptionDto.frequency"></span>
+                    <span style="font-weight:lighter;">
+                        <a ng-click="vm.canEditFrequency=true" class="edit"> [% translate 'Edit' %]</a>
+                    </span>
+                    <div class="search-date-from subscription-dropdown">
+                        <select id="subscriptionFrequencyId" ng-show="vm.canEditFrequency" ng-model="vm.cartModelBrasseler.cartSubscriptionDto.frequency" ng-options="item.value as item.name for item in vm.frequencyMap | orderBy:vm.sortFilter" ng-change="vm.updateFrequency()">
+                            <option value="" selected="selected"> [% translate 'Select Frequency' %]</option>
+                        </select>
+                    </div>
+                </h3>
+            </div>
+
+            {% comment %}<h3>
+                [% translate 'End Date' %] : {{vm.cartModelBrasseler.cartSubscriptionDto.deActivationDate|date:'MM/dd/yyyy'}}
+            </h3>{% endcomment %}
+        </div>
+    </div>
+    <div class="order-details-top">
+        <div class="row">
+            <div class="medium-4 large-4 columns bill-info">
+                <div class="oc-head">
+                    <h4 class="head-title"> [% translate 'Billing Information' %]</h4>
+                </div>
+                <isc-address-display prefix="bt" address="vm.cartModelBrasseler.billTo" show-email="true"></isc-address-display>
+                <div class="oc-head">
+                    <h4>
+                        [% translate 'Payment Method' %]
+                        <span style="font-weight:lighter;">
+                            <a ng-click="vm.canEditPayment=true" class="edit"> [% translate 'Edit' %]</a>
+                        </span>
+                    </h4>
+                </div>
+                <div class="oc-ship-meth" ng-if="vm.selectedPayment == 'CK'">
+                    <span>On Account</span>
+                </div>
+                <div class="oc-ship-meth" ng-show="vm.selectedPayment != 'CK'">
+                    <span ng-switch="vm.selectedPayment.cardType">
+                        <span ng-switch-when="VISA"><img src="/Images/Default/cc-visa.jpg" alt="VISA" /></span>
+                        <span ng-switch-when="AMERICAN EXPRESS"><img src="/Images/Default/cc-amex.jpg" alt="AMERICAN EXPRESS" /></span>
+                        <span ng-switch-when="DISCOVER"><img src="/Images/Default/cc-discover.jpg" alt="DISCOVER" /></span>
+                        <span ng-switch-when="MASTERCARD"><img src="/Images/Default/cc-mastercard.jpg" alt="MASTER CARD" /></span>
+                        &nbsp;{{vm.selectedPayment.maskedCardNumber}}
+                    </span>
+                </div>
+                <div ng-if="vm.canEditPayment">
+                    <select id="paymentMethod" name="paymentMethod"
+                            data-rule-required="true" data-msg-required=' [% translate ' Payment Method is required.' %]'
+                            ng-model="vm.selectedPayment" ng-change="vm.changePaymentMethod()"
+                            ng-options="PaymentMethod.name as PaymentMethod.description for PaymentMethod in vm.cartModelBrasseler.paymentOptions.paymentMethods">
+                        <option value="" selected> [% translate 'Select Payment Method' %]</option>
+                    </select>
+                </div>
+            </div>
+            <div class="medium-4 large-4 columns ship-info">
+                <div class="oc-head">
+                    <h4 class="head-title"> [% translate 'Shipping Information' %]</h4>
+                </div>
+                <isc-address-display prefix="st" address="vm.cartModelBrasseler.shipTo" show-email="false"></isc-address-display>
+                <div class="oc-head">
+                    <h4> [% translate 'Shipping Method' %]</h4>
+                </div>
+                <div class="oc-ship-meth">
+                    <span ng-bind="vm.cartModelBrasseler.carrier.description"></span>
+                    <span ng-bind="vm.cartModelBrasseler.shipVia.description"></span>
+                </div>
+            </div>
+            <div class="medium-4 large-4 columns ship-info">
+                <isc-brasseler-cart-total-display cart="vm.cartModelBrasseler" promotions="vm.promotions" show-separate-shipping-and-handling="true"
+                                        show-misc-charge="true" show-discount-total="true" label="'[% translate 'Order Summary' %]'">
+                </isc-brasseler-cart-total-display>
+                <isc-ship-now-popup cart="vm.cartModelBrasseler"></isc-ship-now-popup>
+
+                <div class="btns">
+                    <button id="smartSupplyDetailShipNowSmartSupplyOrderButton" href="javascript:void(0);" data-reveal-id="ShipNowConfirmationPopUp" class="btn secondary btn-delete-smart-supply ship-order-now"> [% translate 'Ship SmartSupply Now' %]</button>
+                    {% comment %}<button id="smartSupplyDetailShipNowSmartSupplyOrderButton" ng-show="!vm.cartModelBrasseler.requiresApproval" type="button" class="btn secondary btn-delete-smart-supply ship-order-now" ng-click="vm.shipNow()"> [% translate 'Ship Order Now' %]</button>{% endcomment %}
+                    <button id="smartSupplyDetailViewCancelSmartSupplyOrderButton" type="button" class="btn secondary btn-delete-smart-supply btn-ss-cancel" ng-click="vm.cancelSmartSupplyOrder('[% urlForPage 'BrasselerSmartSupplyListPage' %]')"><i class="foundicon-remove"></i> [% translate 'Cancel SmartSupply' %]</button>
+                    <isc-cancellation-popup></isc-cancellation-popup>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ordergrid">
+        <ul class="large-12 columns item-list cart-items">
+            <li class="row item-block checkout-item" ng-repeat="cartLine in vm.cartModelBrasseler.cartLines">
+                <isc-product-thumb product="cartLine"></isc-product-thumb>
+
+                <div class="small-9 columns product-details">
+                    <span ng-if="cartLine.isPromotionItem && editable">[% siteMessage 'Cart_PromotionalItem' %]</span>
+                    <div class="product-name">
+                        <a id="cartLinesProductShortDescriptionLink_{{$index}}" ng-href="{{cartLine.productUri}}">
+                            <u><h3 ng-bind="cartLine.shortDescription"></h3></u>
+                        </a>
+                        <span ng-if="!cartLine.isFixedConfiguration" ng-repeat="sectionOption in cartLine.sectionOptions">
+                            <br /> <span ng-bind="sectionOption.sectionName + ':' + sectionOption.optionName"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <div ng-show="cartline.includeInventory && !cartLine.quoteRequired" class="product-availability">
+                            <disc-product productid="{{cartLine.productId.toString()}}"></disc-product>
+                            <div class="original-value" style='display: none'>
+                                <isc-availability-message availability="cartLine.availability"></isc-availability-message>
+                            </div>
+                            <div class="discountinued-value" style='display: none'>
+                                <span> [% translate 'Discontinued' %]</span>
+                            </div>
+                        </div>
+                        <div class="product-cost-wrapper">
+                            <div class="product-cost">
+                                <div>
+                                    <isc-product-name product="cartLine" no-link="true"></isc-product-name>
+                                </div>
+                                <div class="row promo-applied" ng-repeat="promotion in vm.promotions | filter: {orderLineId : cartLine.id}">
+                                    <div class="small-6 columns sub-label">
+                                        <em><span class="tst_cartLine_lineLevelPromo" ng-if="promotion.amount > 0" ng-bind="promotion.name + '  -' + promotion.amountDisplay"></span></em>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ss-action-block">
+                                <div>
+                                    <isc-product-price product="cartLine" update-data="vm.updatePrice()"></isc-product-price>
+                                    <isc-unit-of-measure-display product="cartLine"> </isc-unit-of-measure-display>
+                                </div>
+                                <div class="row product-quantity">
+                                    <div class="item-opt small-6 column">
+                                        <div class="item-qty qty-box">
+                                            <span class="new-qty"> [% translate 'QTY_quantity' %]</span>
+                                            <input id="cartLinesQuantutyInputEditable_{{$index}}"
+                                                   name="cartLinesQuantutyInputEditable_{{$index}}"
+                                                   type="text"
+                                                   class="numerictextbox qty txt"
+                                                   ng-model="cartLine.qtyOrdered"
+                                                   ng-keypress="vm.quantityKeyPress($event,cartLine)"
+                                                   ng-change="vm.updateLine(cartLine, true,'[% urlForPage 'BrasselerSmartSupplyListPage' %]')"
+                                                   ng-model-options="{ updateOn: 'blur' }" style="width:43px;text-align:center">
+                                        </div>
+                                        <div class="item-subtotal">
+                                            <span class="cart-line-pricing" ng-if="!cartLine.quoteRequired" ng-bind="cartLine.pricing.extendedActualPriceDisplay"></span>
+                                        </div>
+                                        <div class="remove item-opt">
+                                            <a id="cartLinesBtnRemoveButton_{{$index}}" class="btn btn-remove" ng-click="vm.removeLine(cartLine,'[% urlForPage 'BrasselerSmartSupplyListPage' %]')">
+                                                <i class="foundicon-remove"></i>&nbsp;&nbsp; [% translate 'Remove' %]
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="order-details-top">
+        <div class="row">
+            <div class="medium-4 large-4 columns bill-info">
+                <div class="oc-head">
+                    <h4> [% translate 'Add SmartSupply Notes (max 30 characters)' %] <em>( [% translate 'optional' %]</em>:</h4>
+                </div>
+                <div class="order-notes">
+                    <input id="notes" name="Notes" type="text" ng-model="vm.cartModelBrasseler.notes" maxlength="30" />
+                </div>
+                <div class="btns">
+                    <button id="btnSaveNotes" type="button" class="btn secondary btn-delete-smart-supply" ng-click="vm.updateNotes()"> [% translate 'Save Notes' %]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="/PartialViews/Account-AddressDisplay">
+        [% partialView 'Account-AddressDisplay' %]
+
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+        [% partialView 'Cart-CartLines' %]
+    </script>
+
+    <script type="text/ng-template" id="/PartialViews/Cart-CartTotalDisplay">
+        [% partialView 'Cart-CartTotalDisplay' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/SmartSupply-ShipNowPopup">
+        [% partialView 'SmartSupply-ShipNowPopup' %]
+    </script>
+</div>

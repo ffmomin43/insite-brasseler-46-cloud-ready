@@ -1,0 +1,247 @@
+﻿﻿<div style="display: none;">
+    <div id="OutstandingInvoicesPaymentPopUp" class="reveal-modal OutstandingInvoicesPaymentPopUp" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <section class="payment-details">
+                <form id="payInvoiceForm">
+                    <h2>[% translate 'Make Payment' %]</h2>
+                    <div>
+                        <span ng-show="vm.cart.paymentOptions.isPayPal">
+                            [% translate 'Payment Method: ' %] [% translate 'PayPal' %]
+                        </span>
+                        <div class="pmnt" id="pmnt" ng-hide="vm.cart.paymentOptions.isPayPal">
+                            <div class="payment-method" ng-show="vm.cart.paymentOptions.paymentMethods.length > 0">
+                                <label for="paymentMethod">[% translate 'Payment Method' %]</label>
+                                <select id="paymentMethod" name="paymentMethod"
+                                        data-rule-required="true" data-msg-required="[% translate 'Payment Method is required.' %]"
+                                        ng-model="vm.cart.paymentMethod"
+                                        ng-options="PaymentMethod.description for PaymentMethod in vm.cart.paymentOptions.paymentMethods">
+                                    <option value="">[% translate 'Select Payment Method' %]</option>
+                                </select>
+                                <span class="field-validation-valid" data-valmsg-for="paymentMethod" data-valmsg-replace="true"></span>
+                            </div>
+                            <div ng-show="vm.cart.showCreditCard && vm.cart.paymentMethod.isPaymentProfile">
+                                <div class="security-code">
+                                    <label>[% translate 'Security Code' %]&nbsp;<a href="javascript:void(0);" data-reveal-id="ppWhatsThisPopup">[% translate "What's This?" %]</a></label>
+                                    <input id="ppSecurityCode" name="ppSecurityCode" type="password" minlength="3" maxlength="4"
+                                           data-rule-required="true" data-msg-required="[% translate 'Security code is required.' %]"
+                                           data-rule-digits="true" data-msg-digits="[% translate 'Security code is invalid.' %]"
+                                           data-rule-minlength="3" data-msg-minlength="[% translate 'Please enter at least 3 characters' %]"
+                                           ng-model="vm.cart.paymentOptions.creditCard.securityCode">
+                                    <span class="field-validation-valid" data-valmsg-for="ppSecurityCode" data-valmsg-replace="true"></span>
+                                    <span ng-if="vm.cart.paymentOptions.creditCard.securityCode" id="cardCVVeerror1" style="display:none" for="securityCode">[% translate 'Card type and Security code mismatch.' %]</span>
+                                </div>
+                            </div>
+                            <div ng-show="vm.cart.showCreditCard && vm.cart.paymentMethod.isCreditCard">
+                                <div class="row">
+                                    <div class="card-type small-12 columns medium-4">
+                                        <label for="cardType">[% translate 'Card Type' %]</label>
+                                        <select id="cardType" name="cardType"
+                                                s data-rule-required="true"
+                                                data-msg-required="[% translate 'Credit card type is required.' %]"
+                                                ng-model="vm.cart.paymentOptions.creditCard.cardType"
+                                                ng-options="cardType.value as cardType.key for cardType in vm.cart.paymentOptions.cardTypes">
+                                            <option value="">[% translate 'Select Card' %]</option>
+                                        </select>
+                                        <span class="field-validation-valid" data-valmsg-for="cardType" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="card-name small-12 columns medium-4">
+                                        <label for="cardHolderName">[% translate 'Name on Card' %]</label>
+                                        <input id="cardHolderName" name="cardHolderName" type="text" maxlength="30"
+                                               data-rule-required="true"
+                                               data-msg-required="[% translate 'Cardholder name is required.' %]"
+                                               ng-model="vm.cart.paymentOptions.creditCard.cardHolderName">
+                                        <span class="field-validation-valid" data-valmsg-for="cardHolderName" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="card-num small-12 columns medium-4">
+                                        <label for="cardNumber">[% translate 'Card Number' %]</label>
+                                        <input id="cardNumber" name="cardNumber" maxlength="16" type="text" style="display: block;"
+                                               data-rule-required="true" data-msg-required="[% translate 'Credit card number is required.' %]"
+                                               data-rule-creditcard="true" data-msg-creditcard="[% translate 'Credit card number is invalid.' %]"
+                                               ng-model="vm.cart.paymentOptions.creditCard.cardNumber">
+                                        <span class="field-validation-valid" data-valmsg-for="cardNumber" data-valmsg-replace="true"></span>
+                                        <span ng-if="vm.cart.paymentOptions.creditCard.cardNumber" id="cardNumbertypeerror" style="display:none" for="cardNumber">[% translate 'Card type and Credit card number mismatch.' %]</span>
+                                    </div>
+                                </div>
+
+                                <div class="row exp-date">
+                                    <div class="small-12 medium-4 columns exp-month">
+                                        <label class="exp-label">[% translate 'Expiration Date' %]</label>
+                                        <select id="expirationMonth" name="expirationMonth"
+                                                data-rule-required="true" data-msg-min="[% translate 'Card is expired. Please enter a valid expiration date.' %]" data-msg-required="[% translate 'Expiration month is required.' %]"
+                                                ng-model="vm.cart.paymentOptions.creditCard.expirationMonth"
+                                                ng-options="month.value as month.key for month in vm.cart.paymentOptions.expirationMonths"></select>
+                                        <span class="field-validation-valid" data-valmsg-for="expirationMonth" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="small-12 medium-4 columns exp-year">
+                                        <select id="expirationYear" name="expirationYear"
+                                                data-rule-required="true" data-msg-required="[% translate 'Expiration year is required.' %]"
+                                                ng-model="vm.cart.paymentOptions.creditCard.expirationYear"
+                                                ng-options="year.value as year.key for year in vm.cart.paymentOptions.expirationYears"></select>
+                                        <span class="field-validation-valid" data-valmsg-for="expirationYear" data-valmsg-replace="true"></span>
+                                        [% comment %]BUSA-607 start: iPad Specific: Clicking on an error message opens up expiration date drop down.[% endcomment %]
+                                        <span id="expiryerror" style="display:none" for="expirationMonth" disabled>[% translate 'Card is expired. Please enter a valid expiration date.' %]</span>
+                                        [% comment %]BUSA-607 end: iPad Specific: Clicking on an error message opens up expiration date drop down.[% endcomment %]
+                                        <span class="field-validation-valid" data-valmsg-for="expirationYear" data-valmsg-replace="true"></span>
+                                        <label for="expirationMonth" class="error"></label>
+                                    </div>
+                                    <div class="small-12 medium-4 columns security-code">
+                                        <label>[% translate 'Security Code' %]&nbsp;<a href="javascript:void(0);" data-reveal-id="whatsThisPopup">[% translate "What's This?" %]</a></label>
+                                        <input id="securityCode" name="securityCode" type="password" minlength="3" maxlength="4"
+                                               data-rule-required="true" data-msg-required="[% translate 'Security code is required.' %]"
+                                               data-rule-digits="true" data-msg-digits="[% translate 'Security code is invalid.' %]"
+                                               ng-model="vm.cart.paymentOptions.creditCard.securityCode">
+                                        <!--<span class="field-validation-valid" data-valmsg-for="securityCode" data-valmsg-replace="true"></span>-->
+                                        <span ng-if="vm.cart.paymentOptions.creditCard.securityCode" id="cardCVVeerror" style="display:none" for="securityCode">[% translate 'Card type and Security code mismatch.' %]</span>
+
+                                    </div>
+                                    <label for="expirationMonth" class="error"></label>
+                                </div>
+                                <!-- TODO Put this back in after 4.0, taken out because we don't have time to properly document it
+                        -->
+
+                            </div>
+                            <div ng-show="vm.cart.showCreditCard && vm.cart.paymentMethod.isCreditCard">
+                                <div class="use-billing-address">
+                                    <h4>[% translate 'Credit Card Address' %]</h4>
+                                    <label>
+                                        <input id="tst_reviewAndPayPage_useBillingAddress" type="checkbox" ng-model="vm.cart.paymentOptions.creditCard.useBillingAddress" />
+                                        [% translate 'Use billing address' %]
+                                    </label>
+                                    <div ng-show="!vm.cart.paymentOptions.creditCard.useBillingAddress">
+                                        <div class="address1">
+                                            <label for="address1">[% translate 'Address' %]</label>
+                                            <input id="address1" name="address1" type="text" maxlength="30"
+                                                   data-rule-required="true"
+                                                   data-msg-required="[% translate 'Address is required.' %]"
+                                                   ng-model="vm.cart.paymentOptions.creditCard.address1">
+                                            <span class="field-validation-valid" data-valmsg-for="address1" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="country">
+                                            <label for="country">[% translate 'Country' %]</label>
+                                            <select id="country" name="country"
+                                                    data-rule-required="true" data-msg-required="[% translate 'Country is required.' %]"
+                                                    ng-model="vm.creditCardBillingCountry"
+                                                    ng-options="CountryModel.name for CountryModel in vm.countries">
+                                                <option value="">[% translate 'Select Country' %]</option>
+                                            </select>
+                                            <span class="field-validation-valid" data-valmsg-for="country" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="state" ng-if="vm.creditCardBillingCountry.states.length > 0">
+                                            <label for="state">[% translate 'State' %]</label>
+                                            <select id="state" name="state"
+                                                    data-rule-required="true" data-msg-required="[% translate 'State is required.' %]"
+                                                    ng-model="vm.creditCardBillingState"
+                                                    ng-options="StateModel.name for StateModel in vm.creditCardBillingCountry.states">
+                                                <option value="">[% translate 'Select State' %]</option>
+                                            </select>
+                                            <span class="field-validation-valid" data-valmsg-for="state" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="city">
+                                            <label for="city">[% translate 'City' %]</label>
+                                            <input id="city" name="city" type="text" maxlength="30"
+                                                   data-rule-required="true"
+                                                   data-msg-required="[% translate 'City is required.' %]"
+                                                   ng-model="vm.cart.paymentOptions.creditCard.city">
+                                            <span class="field-validation-valid" data-valmsg-for="city" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="postalCode">
+                                            <label for="postalCode">[% translate 'Postal Code' %]</label>
+                                            <input id="postalCode" name="postalCode" type="text" maxlength="30"
+                                                   data-rule-required="true"
+                                                   data-msg-required="[% translate 'Postal Code is required.' %]"
+                                                   ng-model="vm.cart.paymentOptions.creditCard.postalCode">
+                                            <span class="field-validation-valid" data-valmsg-for="postalCode" data-valmsg-replace="true"></span>
+                                        </div>
+                                        {% comment %} BUSA-933 : Postal Code Validation {% endcomment %}
+                                        <span style="color:red;display:none" id="validatePostalCode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form id="PaymentOnly">
+                    <div>
+                        <div ng-show="vm.cart.paymentOptions.canStorePaymentProfile && vm.cart.paymentMethod.isCreditCard ">
+                            <label for="savePaymentInfo">
+                                <input type="checkbox" ng-model="vm.saveCheckBox" />
+                                [% translate 'Save Card Info' %]
+                            </label>
+                        </div>
+
+                        <div class="payment-block">
+                            <div class="payment-content">
+                                <div class="payment-amt">
+                                    <h4>[% translate 'Payment Amount' %]</h4>
+                                    <div class="invoice-bal">
+                                        <div class="title">
+                                            <input id="fixedamt" type="radio" ng-model="vm.fixedAmt" ng-value="true" name="fixedAmt" class="radio-select invoice-balance" ng-checked="true">
+                                            <label>[% translate 'Invoice Balance' %]</label>
+                                        </div>
+                                        <div class="data">
+                                            <span class="label-data" ng-bind="cm.currencySymbol + (vm.payInvoiceBalance | number : 2)"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-other-amt" ng-if="vm.invoiceList.length == 1">
+                                        <div class="title">
+                                            <input id="amt" type="radio" ng-model="vm.fixedAmt" ng-value="false" name="otherAmt" class="radio-select other-amt">
+                                            <label>[% translate 'Other Amount'%]</label>
+                                        </div>
+                                        <div class="data other-amt-input">
+                                            <input id="amount" class="txt-amt" name="securityCode"
+                                                   data-rule-required="true" data-msg-required="[% translate 'Non-zero amount is required.' %]"
+                                                   data-rule-min="0.01"
+                                                   data-msg-min="[% translate 'Enter amount greater than 0.' %]"
+                                                   data-rule-max="{{vm.payInvoiceBalance}}"
+                                                   data-msg-max="[% translate 'Enter amount less than Invoice Balance.' %]"
+                                                   type="number"
+                                                   ng-disabled="vm.fixedAmt"
+                                                   data-rule-pattern="^\d+(\.\d{1,2})?$"
+                                                   ng-model="vm.payOtherAmount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="notes">
+        <h4>[% translate 'Notes' %]</h4>
+        <textarea class="notes-text"></textarea>
+    </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <div class="popup-btn">
+                <a class="close-reveal-modal cancel-btn btn primary">[% translate 'Cancel' %]</a>
+                <button id="make-payment" ng-click="vm.payInvoice('[% urlForPage 'SignInPage' %]')" type="submit" class="btn secondary btn-make-payment" ng-disabled="((vm.payInvoiceBalance <= 0) ||( vm.disable==true))">
+                    [% translate 'Make Payment' %]
+                </button>
+
+            </div>
+            <!--   <div id="tst_submitErrorMessage" style="color: red;" ng-bind="vm.submitErrorMessage"></div>
+        <button id="make-payment" ng-click="vm.payInvoice('[% urlForPage 'SignInPage' %]')" type="submit" class="btn secondary btn-make-payment" ng-disabled="vm.payInvoiceBalance <= 0">
+            [% translate 'Make Payment' %]
+        </button>
+        <div id="tst_submitErrorMessage" style="color: red;" ng-show="vm.submitErrorMessage"> [% translate 'InvoiceErrorMessage' %] </div> -->
+
+            <isc-payment-popup></isc-payment-popup>
+            <isc-spinner show="false" name="invoice"></isc-spinner>
+            <div id="tst_submitErrorMessage" style="color: red;" ng-show="vm.submitErrorMessage"> [% translate 'InvoiceErrorMessage' %] </div>
+        </div>
+
+    </div>
+
+    <div id="ppWhatsThisPopup" class="reveal-modal" data-reveal>
+        <div class="modal-wrap">
+            <img src="/Images/Default/security_code_sample.jpg" alt="Security Code Sample" />
+            <a class="close-reveal-modal" data-reveal-id="OutstandingInvoicesPaymentPopUp">&#215;</a>
+        </div>
+    </div>
+
+    <div id="whatsThisPopup" class="reveal-modal" data-reveal>
+        <div class="modal-wrap">
+            <img src="/Images/Default/security_code_sample.jpg" alt="Security Code Sample" />
+            <a class="close-reveal-modal" data-reveal-id="OutstandingInvoicesPaymentPopUp">&#215;</a>
+        </div>
+    </div>
+</div>

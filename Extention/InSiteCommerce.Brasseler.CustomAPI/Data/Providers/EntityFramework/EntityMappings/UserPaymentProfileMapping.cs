@@ -4,7 +4,7 @@ using Insite.Data.Entities;
 
 namespace InSiteCommerce.Brasseler.CustomAPI.Data.Providers.EntityFramework.EntityMappings
 {
-    public class UserPaymentProfileMapping : EntityBaseTypeConfiguration<UserPaymentProfile>
-    {
-    }
+    //public class UserPaymentProfileMapping : EntityBaseTypeConfiguration<UserPaymentProfile>
+    //{
+    //}
 }

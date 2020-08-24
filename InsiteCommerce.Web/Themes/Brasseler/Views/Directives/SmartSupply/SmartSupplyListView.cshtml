@@ -1,0 +1,75 @@
+﻿<div ng-cloak>
+    <div ng-cloak ng-show="vm.smartSupplyCartsList.length > 0">
+        <h3 class="results-count">
+            <span class="result-num" ng-bind="vm.pagination.totalItemCount"></span>
+            <span class="result-lbl"> [% translate 'orders' %]</span>
+        </h3>
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getSmartSupplyCarts()"></isc-pager>
+        <div class="overflow-table small smartsupplylist">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-date">
+                            <span>
+                                <a id="smartSupplyListViewSortByName" href="" class="sort">
+                                    [% translate 'Name' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-date">
+                            <span>
+                                <a id="smartSupplyListViewSortByDate" href="" class="sort">
+                                    [% translate 'Order #' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-shipto">
+                            <a id="smartSupplyListViewSortByShipFrequency" href="" class="sort">
+                                [% translate 'Ship Frequency' %]
+                            </a>
+                        </th>
+                        <th class="col-date">
+                            <a id="smartSupplyListViewSortByTotal" href="" class="sort">
+                                [% translate 'Next Ship Date' %]
+                            </a>
+                        </th>
+                        <th class="col-shipto">
+                            <a id="smartSupplyListViewSortByNotes" href="" class="sort">
+                                [% translate 'Notes' %]
+                            </a>
+                        </th>
+                        <th class="col-tot">
+                            <a id="savedOrdersListViewSortByTotal" href="" class="sort">
+                                [% translate 'Total' %]
+                            </a>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="cart in vm.smartSupplyCartsList | orderBy : 'orderDate':true track by $index">
+                        <td class="col-shipto">
+                            {% comment %}BUSA-761 SS-Add name for Smart Supply order and force users enter a name while placing order start{% endcomment %}
+                            <span ng-if="cart.properties['subscriptionName']">
+                                <a ng-href="[% urlForPage 'BrasselerSmartSupplyDetailPage' %]?cartid={{cart.id}}"> {{ cart.properties['subscriptionName'] }}</a>
+                            </span>
+                            {% comment %}BUSA-761 SS-Add name for Smart Supply order and force users enter a name while placing order end{% endcomment %}
+                        </td>
+                        <td class="col-shipto">
+                            <span>
+                                <a ng-href="[% urlForPage 'BrasselerSmartSupplyDetailPage' %]?cartid={{cart.id}}">{{ cart.orderNumber }}</a>
+                            </span>
+                        </td>
+                        <td class="col-shipto">
+                            <span  ng-repeat="frequency in vm.frequencyMap" ng-bind="frequency.name" ng-if="frequency.value == cart.cartSubscriptionDto.frequency" ></span>
+                        </td>
+                        <td class="col-date" ng-bind="cart.cartSubscriptionDto.nextDelieveryDate | date:'shortDate'"></td>
+                        <td class="col-shipto" ng-bind="cart.notes"></td>
+                        <td class="col-tot" ng-bind="cart.orderGrandTotalDisplay"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <isc-pager pagination="vm.pagination" bottom="true" storage-key="vm.paginationStorageKey" update-data="vm.getSmartSupplyCarts()"></isc-pager>
+    </div>
+    <div class="search-no-results" ng-show="vm.smartSupplyCartsList.length === 0">
+        <h3> [% translate 'No smartsupply orders found.' %]</h3>
+    </div>
+</div>

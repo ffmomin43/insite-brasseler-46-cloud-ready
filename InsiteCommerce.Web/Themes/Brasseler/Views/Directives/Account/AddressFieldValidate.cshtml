@@ -1,0 +1,21 @@
+﻿[% comment %]BUSA-1061 added new directive to limit api call for Address1 and Address2 start[% endcomment %]
+<div>
+    <span class="tst_addressField_label" ng-bind="fieldLabel"></span>
+    <span class="redTxt" ng-show="validation.isRequired">*</span>
+    <input type="text" ng-disabled="validation.isDisabled" ng-model="fieldValue"
+           id="{{fieldName}}"
+           name="{{fieldName}}"
+           ng-readonly="isReadOnly"
+           data-rule-required="{{validation.isRequired}}"
+           placeholder="{{helperText}}"
+           data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', fieldLabel)}}"
+           data-rule-maxlength="{{validation.maxLength}}"
+           data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' EscapeSingleQuotes %]'.replace('{0}', fieldLabel).replace('{1}', validation.maxLength)}}"
+           data-rule-email="{{isEmail === 'true' ? true : false}}"
+           data-msg-email="{{'[% siteMessage 'Field_Invalid' EscapeSingleQuotes %]'.replace('{0}', fieldLabel)}}"
+           data-rule-regex="{{isAddress1 === 'true' ? '[% WhiteSpaceRegex %]' : isPhone === 'true' ? '[% phoneRegex %]' : isEmail === 'true' ? '[% emailRegex %]' : '.*'}}"
+           data-msg-regex="{{isAddress1 === 'true' ? '[% siteMessage 'WhiteSpaceIssue' %]' : isPhone === 'true' ? '[% siteMessage 'AddressInfo_Phone_Validation' EscapeSingleQuotes %]' : '[% siteMessage 'AddressInfo_EmailAddress_Validation' EscapeSingleQuotes %]' }}"
+           ng-change="vm.validateAddress1(isAddress1, fieldValue, fieldName)">
+    <span class="field-validation-valid" data-valmsg-for="{{fieldName}}" data-valmsg-replace="true"></span>
+</div>
+

@@ -304,10 +304,6 @@ module insite.catalog {
 
             if (styledProduct) {
                 this.product.qtyOrdered = styledProduct.minimumOrderQty || 1;
-            } else if (this.styleSelection.length > 1 && !this.initialStyledProducts.some(o => this.styleSelection.every(s => s && o.styleValues.some(v => v.styleTraitValueId === s.styleTraitValueId)))) {
-                for (let i = 1; i < this.styleSelection.length; i++) {
-                    this.styleSelection[i] = null;
-                }
             }
 
             this.styleChange();

@@ -1,0 +1,29 @@
+﻿[%comment%]BUSA-463 : Subscription Starts[%endcomment%]
+<div ng-if="product.properties['isCustomerEligibleSubscription']=='true' && product.properties['subscriptionDiscount']!='0'">
+    <div style="color :#A50031;">
+        <span ng-if="product.properties['subscriptionAmount']!=null" class="price pd-price">
+            <span ng-class="{'price-sale' : product.pricing.isOnSale || product.isDiscounted || product.isPromotionItem}">${{product.properties['subscriptionAmount']}}</span>
+        </span>
+        <span ng-if="idKey != '_tv'">
+            <span ng-if="product.unitOfMeasureDisplay">/ </span>
+            <span ng-if="product.canShowPrice && product.unitOfMeasureDisplay && !product.quoteRequired" class="um displayUnitOfMeasure isc-uomDisplay">{{product.unitOfMeasureDisplay}}</span>
+            <span class="pd-subscribe-disc-msg">
+                ({{product.properties['subscriptionDiscount']}}% off) with
+            </span>
+        </span>
+        <a id="smartSupplyPromotionPopup" href="javascript:void(0);" data-reveal-id="smartSupplyPromotionPopupContainer">
+            <img src="/Images/UserFiles/Subscription/smart-supply-mod.png" alt="Smart Supply" />
+        </a>
+
+    </div>
+</div>
+<div ng-show="product.properties['subscriptionDiscount']=='0'" style="display:inline-block">
+    <a id="smartSupplyPromotionPopup" href="javascript:void(0);" data-reveal-id="smartSupplyPromotionPopupContainer">
+        <img src="/Images/UserFiles/Subscription/smart-supply-mod.png" alt="Smart Supply" />
+    </a>
+    <span class="pd-subscribe-disc-msg pd-subscribe-msg "> [% translate 'Save time...' %]</span>
+</div>
+<div ng-if="product.properties['isCustomerEligibleSubscription']=='true'">
+    <span class="pd-subscribe-disc-msg pd-subscribe-msg ">[% translate 'Select 'Smart Supply' At checkout for easy, regular deliveries.' %]</span>
+</div>
+[%comment%]BUSA-463 : Subscription Ends[%endcomment%]

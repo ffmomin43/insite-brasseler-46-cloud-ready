@@ -26,7 +26,8 @@
             "scheduleReminderPopupService",
             "createListPopupService",
             "deleteListPopupService",
-            "copyToListPopupService"
+            "copyToListPopupService",
+            "listQuantityAdjustmentPopupService"
         ];
 
         constructor(
@@ -51,7 +52,7 @@
             protected $templateCache: ng.ITemplateCacheService,
             protected scheduleReminderPopupService: IUploadToListPopupService,
             protected createListPopupService: ICreateListPopupService,
-            protected deleteListPopupService: IDeleteListPopupService,            
+            protected deleteListPopupService: IDeleteListPopupService,
             protected copyToListPopupService: ICopyToListPopupService,
             protected listQuantityAdjustmentPopupService: IListQuantityAdjustmentPopupService
         ) {

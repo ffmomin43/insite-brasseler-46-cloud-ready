@@ -1,0 +1,40 @@
+﻿<div ng-cloak>
+    <div id="popup-add-existing-smartsupply" class="reveal-modal popup-add-existing-smartsupply" data-reveal data-reveal-init>
+        <div class="modal-wrap" ng-if="vm.isAuthenticated()">
+            <h2> [% translate 'Add To Existing SmartSupply' %]</h2>
+            <div class="pop-content">
+                <div id="error" class="error" ng-show="vm.errorMessage || vm.smartSupplyOrderNoErrorMessage">
+                    <span ng-show="vm.errorMessage" class="field-validation-error">{{vm.errorMessage}}</span>
+                    <span ng-show="vm.smartSupplyOrderNoErrorMessage" class="field-validation-error">[% siteMessage 'Select_SmartSupply_Order_Number' %]</span>
+                </div>
+                <form ng-show="vm.isAuthenticated() && vm.smartSupplyCarts.length>0 && !vm.successMessage" id="addToWishListForm">
+                    <div class="row select-list">
+                        <div class="large-5 columns">
+                            <span> [% translate 'Select SmartSupply Name' %]</span>
+                        </div>
+                        <div class="large-7 columns">
+                            <!--<select id="addToExistingSmartSupplySelector" ng-model="vm.selectedSmartSupply" ng-options="smartsupply.orderNumber for smartsupply in vm.smartSupplyCarts track by smartsupply.id">
+                                -->
+                            <select id="addToExistingSmartSupplySelector" ng-model="vm.selectedSmartSupply" ng-options="smartsupply.key as smartsupply.value for smartsupply in vm.smartSupplyNames">
+                                {% comment %}BUSA-761{% endcomment %}
+                                <option selected="selected" value=""> [% translate 'Select SmartSupply Order' %]</option>
+                            </select>
+                        </div>
+                        <div class="row btns">
+                            <button id="addToExistingSmartSupplyButton" ng-click="vm.addToSmartSupply()" class="btn primary btn-add-existing-smartsupply" type="button"> [% translate 'Add to Existing SmartSupply' %]</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div ng-show="vm.successMessage" class="row message">[% siteMessage 'SmartSupply_ProductAdded' %]</div>
+                <div ng-show="vm.smartSupplyCarts.length==0" class="row message">[% siteMessage 'SmartSupply_NoExistingSmartSupplyOrderFound' %]</div>
+                <a id="addExisitingSmartSupplyPopupAuthenticatedCloseButton" class="close-reveal-modal">&#215;</a>
+            </div>
+        </div>
+        <div ng-if="!vm.isAuthenticated()" class="modal-wrap ">
+            <h4> [% translate 'Please Sign In' %]</h4>
+            <p>[% siteMessage 'Existing_SmartSupply_Must_Sign_In' %]</p>
+            <a id="addExistingSmartSupplyPopupNotAuthenticatedCloseButton" class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    </div>
