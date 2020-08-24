@@ -1,0 +1,51 @@
+.change-cust-ship-to {
+    .btns {
+        margin-top: .25em;
+
+        a.btn {
+            margin-bottom: 1em;
+        }
+    }
+
+    .si-step-2 {
+        margin-bottom: 1.5em;
+
+        .select-step {
+            margin-bottom: 1em;
+            position: relative;
+        }
+    }
+
+    .billto-selector, .shipto-selector {
+        .k-input {
+            padding-right: 2em;
+        }
+
+        + .icon-arw-down-5 {
+            position: absolute;
+            top: 1.55em;
+            right: .25em;
+            font-size: 22px;
+            cursor: pointer;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .change-cust-ship-to .btns a.btn {
+        width: 100%;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .change-cust-ship-to {
+        .btns {
+            text-align: right;
+        }
+
+        .si-step-2 .btn {
+            float: right;
+            margin-left: 1em;
+        }
+    }
+}

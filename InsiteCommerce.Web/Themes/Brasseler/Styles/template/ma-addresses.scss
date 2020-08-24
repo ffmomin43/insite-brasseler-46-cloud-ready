@@ -1,0 +1,70 @@
+.ma-addresses {
+    .btns {
+        margin-top: 1.5em;
+        width: 100%;
+        clear: both;
+        border-top: 1px solid #E0E0E0;
+        float: left;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .btns .btn {
+        margin: 1em 0;
+        float: right;
+    }
+
+    .newsletter-signup {
+        margin: 1em 0;
+    }
+
+    .required-msg {
+        margin-bottom: 1.5em;
+        font-size: .875em;
+    }
+
+    .same-as-billto {
+        margin-bottom: .75em;
+    }
+
+    .select-address {
+        margin-bottom: 1em;
+    }
+
+    .addy-note {
+        font-size: 0.875em;
+        line-height: 1.5em;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-addresses {
+        .btns .btn {
+            width: 100%;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-addresses {
+        .bill-to {
+            float: left;
+            width: 42%;
+            padding-top: 0 !important;
+            padding-right: 2em;
+        }
+
+        .ship-to {
+            float: left;
+            width: 42%;
+            padding-top: 0 !important;
+            padding-left: 2em;
+        }
+
+        .required-msg {
+            margin-bottom: 3.2em;
+        }
+    }
+}

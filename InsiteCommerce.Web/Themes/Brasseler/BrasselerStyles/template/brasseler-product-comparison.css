@@ -1,0 +1,51 @@
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides {
+  height: auto;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer {
+  padding: 0 15px;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize {
+  height: inherit;
+  padding-bottom: 0;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .product-info .um-pack .um {
+  display: block;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .product-info .um-pack .um .pack-container .pack {
+  margin-left: 0;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .action .btn-add-to-list {
+  margin-bottom: 0;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .action .btn-add-cart {
+  background-color: #00359c;
+  padding: 11px 5px;
+}
+.product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .action .btn-add-cart:hover {
+  background-color: #a50031;
+}
+.product-comparison .carousel-wrapper .carousel-control-nav {
+  top: 1em;
+  width: 30px;
+  height: 16em;
+}
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+  .product-comparison .carousel-wrapper .carousel-control-nav {
+    display: block !important;
+  }
+  .product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap {
+    padding-bottom: 0;
+  }
+  .product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .actions-block {
+    display: inline-block;
+  }
+  .product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .actions-block .btn-add-to-list {
+    text-align: left;
+  }
+  .product-comparison .carousel-wrapper .top-carousel .flex-viewport .tst_productComparison_slides .tst_productComparison_productContainer .item-wrap .carousel-item-equalize .product-info {
+    display: table;
+  }
+}
+
+/*# sourceMappingURL=brasseler-product-comparison.css.map */

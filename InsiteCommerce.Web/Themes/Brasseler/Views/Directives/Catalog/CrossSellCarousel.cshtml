@@ -1,0 +1,87 @@
+﻿{% comment %}
+    example-usage:
+
+    <isc-cross-sell-carousel
+        product="productDto"
+        product-cross-sell="true">
+    </isc-cross-sell-carousel>
+
+    (no parameters will generate web cross sells)
+{% endcomment %}
+<div>
+    <!-- wrapping div is used due to a get around a bug in angular 1.3 that prevents you from using ng-if on the root node of a template
+        when the directive has replace = true. https://github.com/angular/angular.js/issues/9837 -->
+    <div class="row" role="cross-sells" ng-if="vm.showCrossSellCarousel()" ng-cloak>
+        <div class="medium-12 large-12 columns">
+            <div class="carousel-wrapper tst_crossSellProduct_carousel">
+                <div class="cs-carousel">
+
+                    <ul class="items slides tst_crossSellProduct_slides">
+                        <li id="tst_crossSellProduct_{{::crossSellProduct.id}}" class="medium-3 large-3 columns isc-productContainer tst_crossSellProduct_productContainer" ng-repeat="crossSellProduct in vm.crossSellProducts track by crossSellProduct.id">
+                            <div class="item-wrap">
+
+                                <div class="carousel-item-equalize">
+                                    <div class="thumb-wrap">
+                                        <div class="item-thumb">
+                                            <a ng-href="{{::crossSellProduct.productDetailUrl}}">
+                                                <img ng-src="{{::crossSellProduct.mediumImagePath}}" alt="{{::crossSellProduct.altText}}" increment-images-loaded/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <isc-product-brand product="crossSellProduct" carousel-includes-brands="vm.carouselIncludesBrands"></isc-product-brand>
+
+                                    <div class="item-name">
+                                        <a ng-href="{{::crossSellProduct.productDetailUrl}}">{{::crossSellProduct.shortDescription}}</a>
+                                    </div>
+
+                                    <div class="product-info">
+                                        <div class="item-num">
+                                            <span class="item-num-sku">{{::crossSellProduct.erpNumber}}</span>
+                                            <span class="item-num-mfg" ng-if="::(!!crossSellProduct.manufacturerItem)">[% translate 'MFG #' %]: {{::crossSellProduct.manufacturerItem}}</span>
+                                            <span class="item-num-my" ng-if="::(!!crossSellProduct.customerName)">[% translate 'My Part #' %]: {{::crossSellProduct.customerName}}</span>
+                                        </div>
+
+                                        <div class="price" ng-if="!vm.failedToGetRealTimePrices">
+                                            <isc-product-price product="crossSellProduct" id-key="" ng-if="::crossSellProduct.canShowPrice"></isc-product-price>
+                                            <span class="um displayUnitOfMeasure" ng-if="vm.showUnitOfMeasureLabel(crossSellProduct)">
+                                                <span class="um-sep">/</span>
+                                                <span class="selected-uom">{{crossSellProduct.unitOfMeasureDescription || crossSellProduct.unitOfMeasureDisplay}}</span>
+                                            </span>
+                                            <isc-product-price-saving product="crossSellProduct" currency-symbol="crossSellProduct.currencySymbol"></isc-product-price-saving>
+                                            <div ng-if="vm.showQuantityBreakPricing(crossSellProduct)">
+                                                <isc-quantity-break-pricing product-id="crossSellProduct.id" block="crossSell" break-prices="crossSellProduct.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                            </div>
+                                        </div>
+                                        <div class="price" ng-if="vm.failedToGetRealTimePrices">
+                                            <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                                        </div>
+                                        <div class="um-pack" ng-if="::crossSellProduct.canShowUnitOfMeasure">
+                                            <div class="um">
+                                                <label ng-if="::vm.showUnitOfMeasure(crossSellProduct)">[% translate 'U/M' %]:</label>
+                                                <isc-unit-of-measure-select-list product="crossSellProduct" alternate-units-of-measure="{{::vm.productSettings.alternateUnitsOfMeasure}}" display-pack="true" change-unit-of-measure="vm.changeUnitOfMeasure(crossSellProduct)"></isc-unit-of-measure-select-list>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="actions-block">
+                                        <div class="item-qty" ng-if="crossSellProduct.canAddToCart">
+                                            <input type="text" ng-model="crossSellProduct.qtyOrdered" ng-init="crossSellProduct.qtyOrdered = crossSellProduct.minimumOrderQty || 1" class="qty numerictextbox tst_crossSellProduct_qtyOrdered" />
+                                        </div>
+                                        <div class="action">
+                                            <button class="btn primary btn-add-cart tst_crossSellProduct_addToCart" ng-click="vm.addToCart(crossSellProduct)" ng-if="crossSellProduct.canAddToCart" ng-disabled="!crossSellProduct.qtyOrdered || crossSellProduct.qtyOrdered == 0 || vm.addingToCart">[% translate 'Add to Cart' %]</button>
+                                        </div>
+                                        <a href="javascript:void(0);" class="btn secondary btn-add-list isc-addToWishlistPopup tst_crossSellProduct_addToWishlist" ng-click="vm.openWishListPopup(crossSellProduct)" ng-if="crossSellProduct.canAddToWishlist">[% translate 'Add to List' %]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#" class="carousel-control-nav carousel-control-prev flex-prev"><span></span></a>
+                <a href="#" class="carousel-control-nav carousel-control-next flex-next"><span></span></a>
+            </div>
+
+        </div>
+    </div>
+</div>

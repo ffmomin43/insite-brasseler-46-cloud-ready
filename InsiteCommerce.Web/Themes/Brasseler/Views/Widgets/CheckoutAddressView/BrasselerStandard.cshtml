@@ -1,0 +1,266 @@
+﻿<div class="large-12 columns" ng-controller="CheckoutAddressController as vm" ng-cloak>
+    <div class="checkout-head">
+        <h1>[% translate 'Checkout' %]</h1>
+        <div class="checkout-crumbs">
+            <div class="crumb-current">[% translate 'Billing & Shipping' %]</div>
+            <div class="crumb-sep">&gt;</div>
+            <div>[% translate 'Payment' %]</div>
+            <div class="crumb-sep">&gt;</div>
+            <div>[% translate 'Confirmation' %]</div>
+        </div>
+    </div>
+    <form id="addressForm" name="addressForm" ng-show="vm.countries">
+        <!-- BUSA-292 start : Shipping Address Accepts PO Box in Address 1 Field -->
+        <label class="add1-error">[% translate "PO Box is invalid for Shipping Address. Please select 'Create One Time Shipping Address'." %]</label>
+        <!--BUSA-1069  Hide "Create One Time Shipping Address" in the checkout for smart supply-->
+        <label ng-show="vm.ssValidationMsg" class="error">[% translate "Please select existing addresses,One Time Shipping addresses are not allowed for Smart-Supply or Sample-Product" %]</label>
+        <!--BUSA-1069  Hide "Create One Time Shipping Address" in the checkout for smart supply-->
+        <div class="section-container" data-section data-section-resized="true" style="min-height: 0;">
+            <section class="bill-to">
+                <h3>[% translate 'Billing Information' %]</h3>
+                <div>
+                    <div id="billToAddress" class="billing-info" ng-class="!vm.isNewUser ? 'dissable-billing' : ''">
+                        <div class="required-msg" style="height: 53px; margin: 0">
+                            <span class="redTxt">*</span>[% translate 'Required' %]
+                        </div>
+                        <brasseler-address-edit prefix="bt" show-email="true" address="vm.cart.billTo" countries="vm.countries" address-fields="vm.addressFields.billToAddressFields"
+                                                set-state-required-rule="vm.setStateRequiredRule('bt', vm.cart.billTo)"></brasseler-address-edit>
+                    </div>
+                </div>
+            </section>
+            <section class="ship-to">
+                <h3>[% translate 'Shipping Information' %]</h3>
+                <div>
+                    <div id="shipToAddress" class="shipping-info">
+                        <div ng-if="!vm.isNewUser" class="ship-select">
+                            <select id="shipTo" name="shipTo" ng-model="vm.selectedShipTo" ng-options="shipTo.label for shipTo in vm.shipTos" ng-change="vm.checkSelectedShipTo()"></select>
+                        </div>
+                        <div ng-if="vm.isNewUser" class="required-msg" style="height: 53px; margin: 0">
+                            <input type="checkbox" ng-model="vm.selectedItem" ng-change="vm.chkSameAsBilling(vm.selectedItem)">
+                            [% translate 'Use As Billing Address' %]
+                        </div>
+                        <brasseler-address-edit prefix="st" show-email="false" address="vm.isNewUser ? vm.cart.shipTo : vm.selectedShipTo" countries="vm.countries" address-fields="vm.addressFields.shipToAddressFields"
+                                                is-read-only="vm.isReadOnly" set-state-required-rule="vm.setStateRequiredRule('st', vm.selectedShipTo)"></brasseler-address-edit>
+                    </div>
+                    <div ng-if="!vm.isNewUser" class="btns">
+                        <button id="tst_checkoutAddress_continue" type="button" class="btn primary btn-continue"
+                                ng-click="vm.continueCheckout('[% urlForPage 'ReviewAndPayPage' %]', '[% urlForPage 'CartPage' %]')"
+                                ng-disabled="vm.continueCheckoutInProgress">
+                            [% translate 'Continue' %]
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="vm.isNewUser" class="additional-info">
+                <h3>[% translate 'Additional Information' %]</h3>
+                <div class="large-4 columns column-left">
+                    <h4>[% translate 'Practitioner' %]</h4>
+                    <div class="address-first-name">
+                        <span> [% translate 'First Name' %]</span>
+                        <span class="redTxt">*</span>
+                        <input type="text" ng-model="vm.practitionerFirstName" id="prfirstname" name="prfirstname"
+                               data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter First Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'First Name').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'First Name')}}">
+                        <span class="field-validation-valid" data-valmsg-for="prfirstname" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="address-middle-name">
+                        <span>[% translate 'Middle Name' %]</span>
+                        <input type="text" ng-model="vm.practitionerMiddleName" id="prmiddlename" name="prmidddlename" data-rule-maxlength="30"
+                               placeholder="[% translate 'Enter Middle Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Middle Name').replace('{1}', '30')}}">
+                        <span class="field-validation-valid" data-valmsg-for="prmiddlename" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="address-last-name">
+                        <span>[% translate 'Last Name' %]</span>
+                        <span class="redTxt">*</span>
+                        <input type="text" ng-model="vm.practitionerLastName" id="prlastname" name="prlastname"
+                               data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Last Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Last Name').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'Last Name')}}">
+                        <span class="field-validation-valid" data-valmsg-for="prlastname" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <h4>[% translate 'Dental License' %]</h4>
+                    <div class="address-state-prov">
+                        [% translate 'State/Province' %]
+                        <span class="redTxt">*</span>
+                        <select id="dlstate" name="dlstate" ng-model="vm.dentalLicenseState" ng-options="state.name for state in vm.states"
+                                data-rule-required="true" data-msg-required="{{::'[% siteMessage 'Field_Required' %]'.replace('{0}', '[% translate 'State' %]')}}">
+                            <option value="">[% translate 'Select State' %]</option>
+                        </select>
+                    </div>
+                    <div class="license-number">
+                        <span>[% translate 'License Number' %]</span><span class="redTxt">*</span>
+                        <input type="text" id="licenseNumber" name="licenseNumber" ng-model="vm.dentalLicenseNumber"
+                               data-rule-maxlength="30" data-rule-required="true" placeholder="[% translate 'Enter License Number' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'License Number').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'License Number')}}">
+                        <span class="field-validation-valid" data-valmsg-for="licenseNumber" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <h4>[% translate 'Ordering Contact' %]</h4>
+                    <div class="address-first-name">
+                        <span>[% translate 'First Name' %]</span>
+                        <span class="redTxt">*</span>
+                        <input type="text" ng-model="vm.orderingFirstName" id="ocfirstname" name="ocfirstname"
+                               data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter First Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'First Name').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'First Name')}}">
+                        <span class="field-validation-valid" data-valmsg-for="ocfirstname" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="address-last-name">
+                        <span>[% translate 'Last Name' %]</span>
+                        <span class="redTxt">*</span>
+                        <input type="text" ng-model="vm.orderingLastName" id="oclastname" name="oclastname"
+                               data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Last Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Last Name').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'Last Name')}}">
+                        <span class="field-validation-valid" data-valmsg-for="oclastname" data-valmsg-replace="true"></span>
+                    </div>
+                    <h4>[% translate 'Accounts Payable Contact' %]</h4>
+                    <div class="address-first-name">
+                        <span>[% translate 'First Name' %]</span>
+                        <span class="redTxt">*</span>
+                        <input type="text" ng-model="vm.payableAccountFirstName" id="pafirstname" name="pafirstname"
+                               data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter First Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'First Name').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'First Name')}}">
+                        <span class="field-validation-valid" data-valmsg-for="pafirstname" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="address-last-name">
+                        <span>[% translate 'Last Name' %]</span>
+                        <span class="redTxt">*</span>
+                        <input type="text" ng-model="vm.payableAccountLastName" id="palastname" name="palastname"
+                               data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Last Name' %]"
+                               data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Last Name').replace('{1}', '30')}}"
+                               data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'Last Name')}}">
+                        <span class="field-validation-valid" data-valmsg-for="palastname" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <!--code for BUSA - 337 start-->
+                    <div class="customerType">
+                        <h4>[% translate 'Customer Type' %]</h4>
+                        <!--<select id="dlCustomerType" name="dlCustomerType" ng-model="vm.customerType">
+                            <option ng-selected="vm.customerType[0]">[% translate 'Select Customer Type' %]</option>
+                            <option ng-repeat="item in vm.customerTypeList" value="{{item}}">{{item}}</option>
+                        </select>-->
+                        <!--BUSA-405 Customer Type combo box does not select after first attempt start-->
+                        <select id="dlCustomerType" name="dlCustomerType" ng-model="vm.selectedcustomerType" ng-options="item for item in vm.customerTypeList">
+                            <option value="" selected>[% translate 'Select Customer Type' %]</option>
+                        </select>
+                        <!--BUSA-405 Customer Type combo box does not select after first attempt end-->
+                    </div>
+                    <!--code for BUSA - 337 end-->
+
+                </div>
+                <div class="large-4 columns column-right">
+                    <div class="radio-buttons">
+                        <label>[% translate 'Is your business tax exempt?' %]</label>
+                        <input type="radio" name="tax" ng-value="true" ng-model="vm.exemptTax" data-rule-required="true"
+                               data-msg-required="[% translate 'Please select an option' %]">
+                        <span class="radio-text" re>[% translate 'Yes' %]</span>
+                        <input type="radio" name="tax" ng-value="false" ng-model="vm.exemptTax" data-rule-required="true"
+                               data-msg-required="[% translate 'Please select an option' %]">
+                        <span class="radio-text">[% translate 'No' %]</span>
+                        <span class="field-validation-valid" data-valmsg-for="tax" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="radio-buttons">
+                        <label>[% translate 'Do you require a purchase order for ording and invoicing?' %]</label>
+                        <input type="radio" name="porequire" ng-value="true" ng-model="vm.requiredPO" data-rule-required="true"
+                               data-msg-required="[% translate 'Please select an option' %]"><span class="radio-text">[% translate 'Yes' %]</span>
+                        <input type="radio" name="porequire" ng-value="false" ng-model="vm.requiredPO" data-rule-required="true"
+                               data-msg-required="[% translate 'Please select an option' %]"><span class="radio-text">[% translate 'No' %]</span>
+                        <span class="field-validation-valid" data-valmsg-for="porequire" data-valmsg-replace="true"></span>
+                    </div>
+                    <h4>[% translate 'Apply for Brassler Credit' %]</h4>
+                    <div class="radio-buttons">
+                        <label>[% translate 'Would you like to apply for credit with Brassler USA, so that you can pay for products on account?' %]</label>
+                        <input type="radio" name="credit" ng-value="true" ng-model="vm.applyCredit"><span class="radio-text">[% translate 'Yes' %]</span>
+                        <input type="radio" name="credit" ng-value="false" ng-model="vm.applyCredit"><span class="radio-text">[% translate 'No' %]</span>
+                    </div>
+
+                    <div ng-if="vm.applyCredit">
+                        <h4>[% translate 'Financially Responsible Party' %]</h4>
+                        <div class="address-first-name">
+                            <span>[% translate 'First Name' %]</span>
+                            <span class="redTxt">*</span>
+                            <input type="text" ng-model="vm.responsiblePartyFirstName" id="rpfirstname" name="rpfirstname"
+                                   data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter First Name' %]"
+                                   data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'First Name').replace('{1}', '30')}}"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'First Name')}}">
+                            <span class="field-validation-valid" data-valmsg-for="rpfirstname" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="address-last-name">
+                            <span>[% translate 'Last Name' %]</span>
+                            <span class="redTxt">*</span>
+                            <input type="text" ng-model="vm.responsiblePartyLastName" id="rplastname" name="rplastname"
+                                   data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Last Name' %]"
+                                   data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Last Name').replace('{1}', '30')}}"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'Last Name')}}">
+                            <span class="field-validation-valid" data-valmsg-for="rplastname" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="tax-id">
+                            <span>[% translate 'Tax ID or Employer Identification' %]</span>
+                            <span class="redTxt">*</span>
+                            <input type="text" ng-model="vm.responsiblePartyTaxOrEmpId" id="rptaxorempid" name="rptaxorempid"
+                                   data-rule-required="true" data-rule-maxlength="30" placeholder="[% translate 'Enter Tax ID or Employer Identification' %]"
+                                   data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' %]'.replace('{0}', 'Tax ID or Employer Identification').replace('{1}', '30')}}"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' %]'.replace('{0}', 'Tax ID or Employer Identification')}}">
+                            <span class="field-validation-valid" data-valmsg-for="rptaxorempid" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div ng-if="vm.applyCredit" class="terms-conditions">
+                        [% translate 'Terms and Conditions' %]
+                        <p class="terms-conditions-text">[% translate 'Terms and Conditions Text Content' %]</p>
+                        <input type="checkbox" ng-model="vm.acceptTermsConditions">
+                        [% translate 'I have read and accept Brasseler's Terms and Conditions, and I accept financial responsiblity' %]
+                    </div>
+
+                    <div class="btns">
+                        <button id="continueCheckoutBtn" type="button" class="btn primary btn-continue"
+                                ng-click="vm.continueCheckout('[% urlForPage 'ReviewAndPayPage' %]', '[% urlForPage 'CartPage' %]')"
+                                ng-disabled="vm.continueCheckoutInProgress || (vm.applyCredit && !vm.acceptTermsConditions)">
+                            [% translate 'Continue' %]
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+    <isc-popup-template container-id="insufficientInventoryAtCheckout">
+        [% siteMessage 'Cart_InsufficientInventoryAtCheckout' %]
+    </isc-popup-template>
+    <isc-popup-template container-id="removedProductsFromCart">
+        [% siteMessage 'Cart_RemovedProductsFromCart' %]
+    </isc-popup-template>
+</div>
+<script>
+    pca.on("load", function (type, Id, control) {
+        var staddress = $.grep(control.fields, function (item) { return item.element == "staddress1"; });
+        if (staddress.length > 0) {
+            control.listen("populate", function (address) {
+                $('.ship-to select#ststate').find('option[label="' + address.ProvinceName + '"]').prop("selected", true).change();
+                $('#shipToAddress input').change();
+            });
+        }
+    });
+</script>
+<script>
+    pca.on("load", function (type, Id, control) {
+        var btaddress = $.grep(control.fields, function (item) { return item.element == "btaddress1"; });
+        if (btaddress.length > 0) {
+            control.listen("populate", function (address) {
+                $('.bill-to select#btstate').find('option[label="' + address.ProvinceName + '"]').prop("selected", true).change();
+                $('#billToAddress input').change();
+            });
+        }
+    });
+</script>
+<script type="text/ng-template" id="/PartialViews/Account-AddressEdit">
+    [% partialView 'Account-AddressEdit' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Account-AddressField">
+    [% partialView 'Account-AddressField' %]
+</script>

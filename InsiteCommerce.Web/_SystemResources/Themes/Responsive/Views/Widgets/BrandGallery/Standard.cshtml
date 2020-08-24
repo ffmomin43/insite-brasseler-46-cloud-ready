@@ -1,0 +1,8 @@
+﻿<div class="ma-brand-gallery [[Model.CssClass]]">
+    <h3>[[Model.Title]]</h3>
+    <div class="brand-list">
+        [% for brand in Model.Drop.BrandList -%]
+        <div class="elements-[[Model.MaximumNumberOfBrandsPerRow]] brand-item"><a href="[[brand.Url]]"><img style="max-height: [[Model.MaximumBrandImageHeight]]px;" src="[[brand.LogoPath]]"/></a></div>
+        [% endfor -%]
+    </div>
+</div>

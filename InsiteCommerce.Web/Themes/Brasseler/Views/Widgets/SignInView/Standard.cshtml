@@ -1,0 +1,228 @@
+﻿<div ng-controller="SignInController as vm" ng-cloak
+                    home-page-url="[% urlForPage 'HomePage' %]"
+                    change-customer-page-url="[% urlForPage 'ChangeCustomerPage' %]"
+                    dashboard-url="[% urlForPage 'MyAccountPage' %]"
+                    addresses-url="[% urlForPage 'MyAccountAddressPage' %]"
+                    checkout-address-url="[% urlForPage 'CheckoutAddressPage' %]"
+                    review-and-pay-url="[% urlForPage 'ReviewAndPayPage' %]"
+                    my-list-detail-url="[% urlForPage 'MyListDetailPage' %]"
+                    static-list-url="[% urlForPage 'StaticListPage' %]"
+                    cart-url="[% urlForPage 'CartPage' %]"
+                    order-confirmation-url="[% urlForPage 'OrderConfirmationPage' %]">
+
+    <div class="row">
+        <div class="columns " ng-if="vm.session && !vm.session.isAuthenticated && vm.isFromReviewAndPay">
+            <p style="color: red;">[% siteMessage 'SignIn_SessionExpiredOnCheckout' %]</p>
+        </div>
+
+        <div class="medium-6 large-6 columns si-form" ng-if="vm.settings">
+            <div class="si-step-1">
+                <form id="signInForm" name="vm.signInForm" novalidate>
+                    <div class="row">
+                        <div class="medium-6 large-6 columns">
+                            <label for="SignInInfo_UserName" ng-bind="vm.settings.useEmailAsUserName ? '[% translate 'Email' EscapeSingleQuotes %]' : '[% translate 'Username' EscapeSingleQuotes %]'"></label>
+                            <input type="text" id="SignInInfo_UserName" name="userName"
+                                   placeholder="{{vm.settings.useEmailAsUserName ? '[% translate 'Email' EscapeSingleQuotes %]' : '[% translate 'Username' EscapeSingleQuotes %]'}}"
+                                   required
+                                   maxlength="75"
+                                   ng-model="vm.userName" />
+                        </div>
+                        <div class="medium-6 large-6 columns">
+                            <label for="SignInInfo_Password">[% translate 'Password' %]</label>
+                            <input type="password" id="SignInInfo_Password" name="password"
+                                   placeholder="[% translate 'Password' %]"
+                                   required
+                                   maxlength="75"
+                                   ng-model="vm.password" />
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#" ng-click="vm.resetForgotPasswordPopup()" class="tiny-lnk" id="tst_signIn_openForgotPassword" data-reveal-id="forgotPasswordPopup">[% translate 'Forgot Password?' EscapeSingleQuotes %]</a>
+                    </div>
+                    <p class="error">
+                        <span class="field-validation-error" ng-if="vm.signInForm.$submitted && vm.signInForm.userName.$error.required">[% siteMessage 'SignInInfo_UserName_Required' %]</span>
+                        <span class="field-validation-error" ng-if="vm.signInForm.$submitted && vm.signInForm.password.$error.required">[% siteMessage 'SignInInfo_Password_Required' %]</span>
+                        <span class="field-validation-error" ng-if="vm.signInError" id="tst_signIn_generalError">{{vm.signInError}}</span>
+                    </p>
+                    <div class="row">
+                        <div class="remember-me medium-6 columns" ng-show="vm.settings.rememberMe">
+                            <input type="checkbox" id="SignInInfo_RememberMe" ng-model="vm.rememberMe" />
+                            <label for="SignInInfo_RememberMe">[% translate 'Remember Me' %]</label>
+                        </div>
+                        <div class="btns medium-6 columns">
+                            <button id="tst_signIn_submit" type="submit" ng-disabled="vm.disableSignIn" class="btn primary btn-sign-in" ng-click="vm.signIn('[% siteMessage 'SignInInfo_UserNamePassword_Combination' EscapeSingleQuotes %]')">[% translate 'Sign In' %]</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="medium-6 large-6 columns si-acct" ng-if="vm.settings.allowCreateAccount">
+            <h3>[% translate 'Create New Account' %]</h3>
+            <div class="cm">[[Model.CreateAccountContent]]</div>
+            <div class="btns">
+                <a id="tst_signIn_createNewAccount" class="btn secondary" ng-href="[% urlForPage 'CreateAccountPage' %]?returnUrl={{ vm.encodeUriComponent(vm.returnUrl) }}">[% translate 'Create Account' %]</a>
+                <a id="tst_signIn_checkoutAsGuest" href="javascript: void();" class="btn secondary" ng-if="vm.showGuestCheckout()" ng-click="vm.guestCheckout()">[% translate 'Checkout As Guest' %]</a>
+            </div>
+        </div>
+
+        <div ng-controller="ExternalProvidersController as vm">
+            <div ng-if="vm.externalProviders.length > 0" class="medium-12 large-12 columns">
+                <hr />
+                <h4>[% translate 'Use another service to log in.' %]</h4>
+
+                <div class="external-providers">
+                    <a class="btn primary external-provider" isc-full-redirect ng-repeat="provider in vm.externalProviders" id="tst_signIn_{{::provider.caption.toLowerCase()}}" ng-href="{{provider.url}}" title="{{provider.caption}}">{{provider.caption}}</a>
+                </div>
+            </div>
+            [% if Model.ExternalError != null and Model.ExternalError != "" -%]
+            <div class="messaging--error">[[Model.ExternalError]]</div>
+            [% endif -%]
+        </div>
+    </div>
+
+    <div id="forgotPasswordPopup" class="reveal-modal popup-forgot-pw" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <h2>[% translate 'Reset Password' %]</h2>
+            <div ng-show="!vm.resetPasswordSuccess">
+                <div class="row message">[% siteMessage "ResetPassword_Instructions" %]</div>
+                <form id="resetPasswordForm" class="custom">
+                    <div class="row email-addy">
+                        <div class="medium-12 large-12">
+                            <input type="text" id="tst_forgotPassword_usernameField"
+                                    data-rule-required="true"
+                                    data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Username' EscapeSingleQuotes %]')}}"
+                                    data-rule-username="true"
+                                    data-msg-username="{{'[% siteMessage 'Field_Invalid' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Username' EscapeSingleQuotes %]')}}"
+                                    ng-model="vm.userNameToReset"
+                                    placeholder="[% translate 'Enter username' %]">
+                            <span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <p class="error">
+                        <span id="tst_forgotPassword_errorMessage" class="field-validation-error" ng-if="vm.resetPasswordError" ng-bind="vm.resetPasswordError"></span>
+                    </p>
+                    <div class="row btns">
+                        <button id="tst_forgotPassword_submitButton" type="button" class="btn primary btn-reset-password" ng-click="vm.resetPassword()">[% translate 'Send Email' %]</button>
+                        <button id="tst_forgotPassword_cancelButton" type="button" class="btn secondary btn-cancel" onclick="$('.close-reveal-modal').click()">[% translate 'Return to sign in' %]</button>
+                    </div>
+                </form>
+            </div>
+            <div class="pw-reset" ng-show="vm.resetPasswordSuccess">
+                <div class="row message">[% siteMessage 'ResetPassword_ResetPasswordEmailSent' %]</div>
+                <div class="row btns">
+                    <button type="button" class="btn primary btn-done" onclick="$('.close-reveal-modal').click()">[% translate 'Close' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+
+    <div id="changePasswordPopup" class="reveal-modal popup-forgot-pw" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <h2>[% translate 'Change Password' %]</h2>
+            <div class="cm">[[Model.ChangePasswordInstructions]]</div>
+            <div class="row">
+                <form id="changePasswordForm">
+                    <div class="row ca-form-username">
+                        <div class="medium-5 large-5 columns">
+                            <label for="ChangePasswordInfo_UserName">[% translate 'Username' %] <span class="redTxt">*</span></label>
+                        </div>
+                        <div class="medium-7 large-7 columns">
+                            <input type="text" id="ChangePasswordInfo_UserName" name="ChangePasswordInfo.UserName"
+                                   data-rule-required="true"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Username' EscapeSingleQuotes %]')}}"
+                                   ng-model="vm.userName">
+                            <span class="field-validation-valid" data-valmsg-for="ChangePasswordInfo.UserName" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="row ca-form-password">
+                        <div class="medium-5 large-5 columns">
+                            <label for="ChangePasswordInfo_Password">[% translate 'Existing Password' %] <span class="redTxt">*</span></label>
+                        </div>
+                        <div class="medium-7 large-7 columns">
+                            <input type="password" id="ChangePasswordInfo_Password" name="ChangePasswordInfo.Password"
+                                   data-rule-required="true"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]')}}"
+                                   ng-model="vm.password">
+                            <span class="field-validation-valid" data-valmsg-for="ChangePasswordInfo.Password" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="row ca-form-password">
+                        <div class="medium-5 large-5 columns">
+                            <label for="ChangePasswordInfo_NewPassword">[% translate 'New Password' %] <span class="redTxt">*</span></label>
+                        </div>
+                        <div class="medium-7 large-7 columns">
+                            <input type="password" id="ChangePasswordInfo_NewPassword" name="ChangePasswordInfo.NewPassword"
+                                   data-rule-required="true"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]')}}"
+                                   data-rule-minlength="{{vm.settings.passwordMinimumLength}}"
+                                   data-msg-minlength="{{'[% siteMessage 'ChangePasswordInfo_Password_Too_Short' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength)}}"
+                                   ng-model="vm.newPassword">
+                            <span class="field-validation-valid" data-valmsg-for="ChangePasswordInfo.NewPassword" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="row ca-form-retype">
+                        <div class="medium-5 large-5 columns">
+                            <label for="ChangePasswordInfo_ConfirmPassword">[% translate 'Confirm Password' %] <span class="redTxt">*</span></label>
+                        </div>
+                        <div class="medium-7 large-7 columns">
+                            <input type="password" id="ChangePasswordInfo_ConfirmPassword" name="ChangePasswordInfo.ConfirmPassword"
+                                   data-rule-required="true"
+                                   data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Confirm Password' EscapeSingleQuotes %]')}}"
+                                   data-rule-equalto="#ChangePasswordInfo_NewPassword"
+                                   data-msg-equalto="[% siteMessage 'CreateNewAccountInfo_PasswordCombination_DoesNotMatch' %]"
+                                   ng-model="vm.confirmPassword">
+                            <span class="field-validation-valid" data-valmsg-for="ChangePasswordInfo.ConfirmPassword" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="row ca-form-retype">
+                        <div class="medium-12 large-12 columns manage-subs password-requirements">
+                            <h4>[% translate 'Password requirements' %]:</h4>
+                            <div>
+                                <div class="pw-note">{{'[% translate 'Password must be at least {0} characters long' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength)}}</div>
+                                <div class="pw-note" ng-if="vm.settings.minRequiredDigits">[% translate 'Password must include at least one number' %]</div>
+                                <div class="pw-note" ng-if="vm.settings.minRequiredNonAlphanumericCharacters">[% translate 'Password must include at least one non alphanumeric character' %]</div>
+                                <div class="pw-note" ng-if="vm.settings.minRequiredUppercase">[% translate 'Password must include at least one uppercase character' %]</div>
+                                <div class="pw-note" ng-if="vm.settings.minRequiredLowercase">[% translate 'Password must include at least one lowercase character' %]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error">
+                        <span class="field-validation-error" ng-if="vm.changePasswordError" ng-bind="vm.changePasswordError"></span>
+                    </div>
+                    <div class="btns">
+                        <button type="submit" class="btn primary" ng-click="vm.changePassword()">[% translate 'Change Password' %]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="popup-sign-in-required" class="reveal-modal popup-sign-in-required" data-reveal data-reveal-init>
+            <div class="modal-wrap">
+                <h2>[% translate 'Please Sign In or Create an Account' %]</h2>
+                <div class="pop-content">
+                    <div>
+                        <div class="row">
+                            <div>
+                                <p id="tst_signInView_invite_message" ng-if="vm.invitedToList">[% siteMessage 'Lists_SignIn_Required_To_Join_List' %]</p>
+                                <p id="tst_signInView_static_message" ng-if="vm.navigatedFromStaticList">
+                                    [% translate 'In order to view the list shared by' %]
+                                    <span id="tst_signInView_list_owner" ng-bind="vm.listOwner"></span>,
+                                    [% translate 'please sign in or create an account.' %]
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <button ng-click="vm.closeModal('#popup-sign-in-required')" class="btn tertiary btn-cancel" type="button">
+                                [% translate 'Close' %]
+                            </button>
+                        </div>
+                    </div>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

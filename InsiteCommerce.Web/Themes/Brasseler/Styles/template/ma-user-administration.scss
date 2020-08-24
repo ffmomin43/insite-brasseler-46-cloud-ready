@@ -1,0 +1,52 @@
+.ma-user-administration {
+    .user-admin-tbl {
+        width: 100%;
+    }
+
+    .search-users {
+        margin-bottom: 1.5em;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-user-administration {
+        .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .btn-create {
+            margin: 1em 0 1.5em 0;
+        }
+
+        .col-loc, .col-name, .col-role {
+            display: none;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-user-administration {
+        .search-users {
+            width: 50% !important;
+        }
+
+        .search-users label.accord-head {
+            display: inline-block;
+        }
+
+        .search-users .large-4 {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .search-users .btns .btn {
+            margin-left: 1em;
+            float: right;
+        }
+
+        .btn-create {
+            float: right;
+        }
+    }
+}

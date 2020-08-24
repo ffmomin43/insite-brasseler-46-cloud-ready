@@ -1,0 +1,26 @@
+﻿<div class="itemlist [[Model.CssClass]]">
+    [% if Model.Drop.RootPageExists -%]
+        <h4>[[Model.Drop.RootPageTitle]]</h4>
+        <ul class="itemlist-list">
+            [% for itemListPage in Model.Drop.Pages -%]
+            <li class="itemlist-item">
+                <a href="[[itemListPage.Url]]" class="cms-itemList-itemLink">[[itemListPage.Title]]</a>
+                <div class="cms-itemList-itemSummary">
+                    [[itemListPage.Summary]]
+                </div>
+            </li>
+            [% endfor -%]
+        </ul>
+        <isc-content-pager page="[[Model.Drop.Pagination.Page]]"
+                           page-size="[[Model.Drop.Pagination.PageSize]]"
+                           default-page-size="[[Model.Drop.Pagination.DefaultPageSize]]"
+                           total-item-count="[[Model.Drop.Pagination.TotalItemCount]]"
+                           number-of-pages="[[Model.Drop.Pagination.NumberOfPages]]"
+                           content-item-id="[[Model.Drop.ItemListId]]"></isc-content-pager>
+    [% else -%]
+        [% if IsViewingMode -%]
+            <p>There was no page found with the name '[[Model.Drop.RootPageName]]', edit this item to resolve the issue</p>
+        [% endif -%]
+    [% endif -%]
+
+</div>

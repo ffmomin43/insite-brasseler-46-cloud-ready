@@ -1,0 +1,83 @@
+﻿/* Invoice Details */
+
+.ma-invoice-details {
+    .order-subtotal {
+        width: 100%;
+    }
+
+    .order-details {
+        .cart-items {
+            .item-block.checkout-item {
+                .item-code-notes {
+                    margin-bottom: 0;
+                }
+
+                .reorder-item {
+                    margin-bottom: 15px;
+                    margin-right: 0;
+                }
+
+                .qty-price {
+                    display: flex;
+
+                    .price {
+                        display: flex;
+                        padding: 0;
+                        margin-bottom: 0;
+                        line-height: inherit;
+
+                        .price-sale {
+                            margin-right: 4px;
+                        }
+                    }
+
+                    .item-opt {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .order-details-top {
+        margin-bottom: 0;
+        .bill-info{
+
+        }
+    }
+}
+
+// Print view
+@media print {
+    .ma-invoice-details {
+        .order-details {
+            .item-list{
+                overflow:visible;
+            }
+        }
+    }
+}
+
+// Invoice Detail Mobile
+
+    @media screen and (min-width: 280px) and (max-width: 767px) {
+        .ma-invoice-details {
+            .order-details {
+                .cart-items {
+                    .item-block.checkout-item {
+                        .qty-price {
+                            display: block;
+
+                            .item-opt {
+                                display: flex;
+
+                                .item-qty {
+                                    display: flex;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }

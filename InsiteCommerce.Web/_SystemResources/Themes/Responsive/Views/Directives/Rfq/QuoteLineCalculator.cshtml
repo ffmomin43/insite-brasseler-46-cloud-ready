@@ -1,0 +1,144 @@
+﻿<div>
+    <div id="popup-quote-item" class="ma-quote-details reveal-modal popup-quote-item" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <form novalidate id="quoteLineCalculatorForm" class="custom">
+                <div class="row calc-disc">
+                    <div class="medium-4 large-4 columns col-1">
+                        <h4>[% translate 'Item Pricing' %]</h4>
+                        <ul>
+                            <li class="unit-cost" ng-show="vm.quoteLine.pricingRfq.showUnitCost">
+                                <strong>[% translate 'Unit Cost' %]:</strong>
+                                <span ng-bind="vm.quoteLine.pricingRfq.unitCostDisplay"></span>
+                            </li>
+                            <li class="price-list" ng-show="vm.quoteLine.pricingRfq.showListPrice">
+                                <strong>[% translate 'List' %]:</strong>
+                                <span id="tst_quoteLineCalculator_listPrice" ng-bind="vm.quoteLine.pricingRfq.listPriceDisplay"></span>
+                            </li>
+                            <li class="price-customer" ng-show="vm.quoteLine.pricingRfq.showCustomerPrice">
+                                <strong>[% translate 'Customer' %]:</strong>
+                                <span ng-if="vm.quote.isJobQuote" ng-bind="vm.quoteLine.pricing.unitNetPriceDisplay"></span>
+                                <span id="tst_quoteLineCalculator_customerPrice" ng-if="!vm.quote.isJobQuote" ng-bind="vm.quoteLine.pricingRfq.customerPriceDisplay"></span>
+                            </li>
+                            <li class="price-min" ng-show="vm.quoteLine.pricingRfq.minimumPriceAllowed">
+                                <em>
+                                    <strong>[% translate 'Minimum' %]:</strong>
+                                    <span id="tst_quoteLineCalculator_minimumPriceAllowed" ng-bind="vm.quoteLine.pricingRfq.minimumPriceAllowedDisplay"></span>
+                                </em>
+                            </li>
+                            <hr />
+                            <li class="qty-avail">
+                                <em>
+                                    <strong>[% translate 'QTY Available' %]:</strong>
+                                    <span ng-bind="vm.quoteLine.qtyOnHand"></span>
+                                </em>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="medium-8 large-8 columns col-2">
+                        <table class="info-tbl">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">[% translate 'QTY' %]</th>
+                                    <th class="col-2">[% translate 'Price' %]</th>
+                                    <th class="col-3"></th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="priceBreak in vm.quoteLine.pricingRfq.priceBreaks track by $index">
+                                <tr id="tst_quoteLineCalculator_calculator_{{$index}}" ng-show="vm.showCalculator && vm.currentCalculatorLineIndex == {{$index}}">
+                                    <td class="col-1">
+                                        <select ng-model="vm.calculationMethod" class="tst_quoteLineCalculator_method"
+                                                ng-options="method.displayName for method in vm.quoteLine.pricingRfq.calculationMethods track by method.name"></select>
+                                    </td>
+                                    <td class="col-2">
+                                        <input type="text" ng-model="priceBreak.percent" class="numerictextbox txt disc-percent tst_quoteLineCalculator_percent" autofocus="autofocus"
+                                               name="percent"
+                                               id="percent1212"
+                                               ng-class="{ 'input-validation-error': vm.invalidPercent && !vm.percentIsValid($index) }"
+                                               data-rule-max="{{ vm.calculationMethod.maximumDiscount > 0 ? (vm.calculationMethod.maximumDiscount * 1) : 'false' }}"
+                                               data-rule-min="{{ vm.calculationMethod.minimumMargin }}" />
+                                        <span>%</span>
+                                    </td>
+                                    <td class="col-3">
+                                        <button ng-click="vm.applyBreakDiscount($index)" class="btn secondary btn-apply isc-btnApplyLine tst_quoteLineCalculator_apply" type="button">[% translate 'Apply' %]</button>
+                                        <button ng-click="vm.cancelCalculator($index)" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                                    </td>
+                                </tr>
+                                <tr id="tst_quoteLineCalculator_line_{{$index}}" class="quote-price" ng-show="vm.shouldShowPriceBreak(priceBreak)">
+                                    <td ng-if="vm.quote.isJobQuote">
+                                        <strong class="show-for-small">[% translate 'QTY' %]</strong>
+                                        <input type="text" class="numerictextbox txt"
+                                               ng-model="vm.quoteLine.qtyOrdered"
+                                               disabled="disabled" />
+                                    </td>
+                                    <td class="col-1" ng-if="!vm.quote.isJobQuote">
+                                        <strong class="show-for-small">[% translate 'QTY' %]</strong>
+                                        <input ng-class="{ 'input-validation-error': (vm.invalidQty) && !vm.startQtyIsValid($index) }"
+                                               type="text"
+                                               class="numerictextbox txt tst_quoteLineCalculator_from"
+                                               ng-change="vm.startQtyChanged($index)"
+                                               ng-model-options="{updateOn: 'blur'}"
+                                               ng-model="priceBreak.startQty" />
+                                        <em>[% translate 'to' %]</em>
+                                        <input type="text" class="numerictextbox txt qty-2"
+                                               ng-show="!$last"
+                                               ng-disabled="true"
+                                               ng-model="priceBreak.endQty" />
+                                        <input type="text" class="txt qty-2 tst_quoteLineCalculator_to" data-attr-name="[% translate 'Max' %]"
+                                               ng-class="{ 'input-validation-error': (vm.invalidQty) && !vm.endQtyIsValid($index) }"
+                                               ng-model="vm.displayMaxQty"
+                                               ng-show="$last"
+                                               ng-keypress="vm.qtyEndKeyPress($event,$index)"
+                                               ng-blur="vm.updateMaxQty($event,$index)" />
+                                    </td>
+                                    <td class="col-2">
+                                        <strong class="show-for-small">[% translate 'Price' %]</strong>
+                                        <input type="text" class="txt price-1 isc-price"
+                                               name="{{$index}}_price"
+                                               ng-model="priceBreak.price"
+                                               ng-class="{ 'input-validation-error': (vm.priceRequired || vm.invalidPrice) && !vm.priceIsValid($index) }"
+                                               data-rule-required="true"
+                                               data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Price' EscapeSingleQuotes %]')}}"
+                                               data-rule-min="{{vm.quoteLine.pricingRfq.minimumPriceAllowed > 0 ? vm.quoteLine.pricingRfq.minimumPriceAllowed : 'false'}}"
+                                               data-msg-min="[% siteMessage 'Rfq_InvalidLinePrice' %]"
+                                               ng-change="vm.validateQuoteLineCalculatorForm()"/>
+                                    </td>
+                                    <td class="col-3">
+                                        <button ng-click="vm.openCalculator($index)" ng-show="vm.hasCalculationMethods && !(vm.showCalculator && vm.currentCalculatorLineIndex == {{$index}})" class="btn secondary btn-calc tst_quoteLineCalculator_calculator" type="button"><i class="icon-calculator"></i><span>[% translate 'Calculate' %]</span></button>
+                                        <button ng-show="vm.quoteLine.pricingRfq.priceBreaks.length > 1 && !vm.quote.isJobQuote" ng-click="vm.removeLine($index)" class="btn tertiary btn-remove isc-deleteBreak" type="button"><i class="icon-x-1"></i><span>[% translate 'Remove' %]</span></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="add-price-breaks" ng-if="!vm.quote.isJobQuote">
+                            <a href="javascript:;" id="tst_quoteLineCalculator_addPriceBreaks" ng-click="vm.addPriceBreak()" ng-show="vm.quoteLine.pricingRfq.priceBreaks.length < vm.maxPriceBreaks">
+                                <i class="icon-plus"></i>[% translate 'Price Breaks' %]
+                            </a>
+                        </div>
+
+                        <div class="validation-summary-errors" ng-if="vm.priceRequired || vm.invalidPrice || vm.invalidPercent || vm.invalidQty">
+                            <ul>
+                                <li ng-show="vm.priceRequired">
+                                    <label class="error">{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Price' EscapeSingleQuotes %]')}}</label>
+                                </li>
+                                <li ng-show="vm.invalidPrice || vm.invalidPercent">
+                                    <label class="error">[% siteMessage 'Rfq_InvalidLinePrice' %]</label>
+                                </li>
+                                <li ng-show="vm.invalidQty">
+                                    <label class="error">[% siteMessage 'Rfq_InvalidQty' %]</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="btns">
+                            <button ng-click="vm.clearBreaks()" class="btn tertiary btn-clear" type="button">[% translate 'Clear' %]</button>
+                            <button ng-click="vm.applyQuoteBreaks()" ng-disabled="vm.disableSubmit" class="btn primary btn-apply-quote isc-btnApplyQuote" type="button">[% translate 'Apply Quote' %]</button>
+                            <button ng-click="vm.closeModal('.popup-quote-item')" class="btn secondary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

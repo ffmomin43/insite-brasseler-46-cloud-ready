@@ -1,0 +1,485 @@
+﻿<div>
+    <isc-spinner name="productlist" show="false" id="tst_productList_spinner"></isc-spinner>
+    <div class="row product-list"
+         ng-class="{
+             'vm-list': vm.isCategoryPage() || vm.view == 'list' || vm.view == 'List' || vm.view == undefined,
+             'vm-grid': !vm.isCategoryPage() && vm.view == 'grid',
+             'vm-table': !vm.isCategoryPage() && vm.view == 'table'
+         }"
+         ng-controller="ProductListController as vm" ng-show="vm.ready" ng-cloak>
+
+        <div class="large-12 columns">
+            <div class="cm">
+                <div ng-if="vm.isCategoryPage()" class="b2c-catalog-page">
+                    <h2>{{vm.category.shortDescription}}</h2>
+                    <ul>
+                        <li ng-repeat="subCategory in vm.category.subCategories" class="cat-block">
+                            <div>
+                                <a ng-href="{{subCategory.path}}"><img ng-src="{{subCategory.smallImagePath}}" alt="{{subCategory.imageAltText}}" /></a>
+                            </div>
+                            <span><a id="tst_productList_subCategoryBlock_{{subCategory.id}}_descriptionLink" ng-href="{{subCategory.path}}">{{subCategory.shortDescription}}</a></span>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-if="!vm.isCategoryPage()" class="content-wrapper">
+                    <isc-catalog-breadcrumb breadcrumbs="vm.breadCrumbs" search-query="vm.query"></isc-catalog-breadcrumb>
+
+                    <div ng-if="vm.category != null && vm.category.largeImagePath" class="pl4-cm">
+                        <img ng-src="{{vm.category.largeImagePath}}" alt="{{vm.category.imageAltText}}" title="{{vm.category.shortDescription}}" />
+                    </div>
+                    <isc-category-left-nav ng-if="vm.ready" ready="vm.ready" products="vm.products" attribute-value-ids="vm.attributeValueIds" filter-category="vm.filterCategory"
+                                           price-filter-minimums="vm.priceFilterMinimums" bread-crumbs="vm.breadCrumbs"
+                                           search-within-terms="vm.searchWithinTerms" category="vm.category">
+                    </isc-category-left-nav>
+
+                    <div id="tst_productList_container" class="right small-12 columns" ng-class="{ 'large-8 plist-right': !vm.noResults || vm.searchWithinTerms.length > 0}">
+
+
+                        <h3 class="results-count" ng-class="{ messaging: vm.noResults && vm.searchWithinTerms.length }">
+                            <span class="result-num" ng-if="!vm.noResults">{{vm.products.pagination.totalItemCount}}</span>
+                            <span class="result-lbl" ng-if="!vm.noResults && vm.products">{{'[% translate 'Items_pager' EscapeSingleQuotes %]'.toLowerCase()}}</span>
+
+                            <span ng-if="vm.query && !(vm.searchCategory || vm.filterCategory.categoryId)" class="search-lbl">
+                                {{ vm.noResults ? "[% translate 'No results found for' %]" : "[% translate 'results for' %]" }} <strong>{{vm.query}}</strong>
+                            </span>
+                            <span ng-if="vm.query && (vm.searchCategory || vm.filterCategory.categoryId)" class="search-lbl">
+                                {{ vm.noResults ? "[% translate 'No results found for' %]" : "[% translate 'results for' %]" }} <strong>{{vm.query}}</strong> [% translate 'in_category' %] {{vm.searchCategory.shortDescription || vm.filterCategory.shortDescription}}
+                            </span>
+                        </h3>
+
+                        <div class="search-didyoumean" ng-if="vm.products.didYouMeanSuggestions.length >= 1">
+                            [% translate 'Did you mean ' %] <a id="tst_productList_didYouMeanLink1" ng-click="vm.goToSearchCriteria(vm.products.didYouMeanSuggestions[0].suggestion)" ng-bind="vm.products.didYouMeanSuggestions[0].suggestion"></a>
+                        </div>
+                        <div class="search-autocorrect-original" ng-if="vm.autoCorrectedQuery">
+                            [% translate 'Search instead for' %] <a ng-click="vm.goToSearchCriteria(vm.originalQuery, false)">{{vm.originalQuery}}</a>
+                        </div>
+
+                        <div ng-show="vm.products.products.length > 0">
+                            <isc-pager id="tst_productList_topPager" pagination="vm.products.pagination" storage-key="vm.paginationStorageKey" update-data="vm.updateProductData()" select-view="vm.selectView(viewName)" custom-context="vm.customPagerContext" page-changed="vm.pagerPageChanged()"></isc-pager>
+
+                            <ul class="item-list cart-items" id="tst_productList_nonTable">
+                                <li ng-repeat="product in vm.products.products" id="tst_productList_{{product.id}}" class="row item-block checkout-item isc-productContainer {{product.isSponsored ? 'sponsored' : ''}}" data-product="{{product.id}}">
+
+                                    <div class="sponsored-container" ng-if="product.isSponsored"><span class="sponsored-label">Sponsored</span></div>
+
+                                    <div class="item-thumb">
+                                        <a ng-href="{{product.productDetailUrl}}">
+                                            <img ng-src="{{product.mediumImagePath}}" alt="{{product.altText}}" increment-images-loaded />
+                                        </a>
+                                        <div ng-if="vm.settings.enableProductComparisons" class="product-compare-add">
+                                            <a href="javascript:void(0);" data-id="{{product.id}}" class="compare-link" ng-class="{ 'compare-active': product.isBeingCompared }" ng-click="vm.compareProduct(product);">[% translate 'Compare' %]</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-details">
+                                        <div class="item-inf-wrapper">
+                                            <div class="item-description">
+                                                <isc-product-brand product="product"></isc-product-brand>
+                                                <div class="item-name">
+                                                    <a id="tst_productList_{{product.id}}_descriptionLink" ng-href="{{product.productDetailUrl}}">{{product.shortDescription}}</a>
+                                                </div>
+                                                <div class="item-num">
+                                                    <span class="item-num-sku" data-erpnumber="{{product.erpNumber}}">{{product.erpNumber}}</span>
+                                                    <span ng-if="product.manufacturerItem" class="item-num-mfg">[% translate 'MFG #' %]: {{product.manufacturerItem}}</span>
+                                                    <span ng-if="product.customerName" class="item-num-my">[% translate 'My Part #' %]: {{product.customerName}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="rating"></div>
+                                            <div ng-if="(!product.isConfigured || product.isFixedConfiguration) && !product.isStyleProductParent" class="availability">
+                                                <isc-availability-message availability="product.availability" failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory" product-settings="vm.settings" product-id="product.id" unit-of-measure="product.unitOfMeasure" track-inventory="product.trackInventory"></isc-availability-message>
+                                            </div>
+                                            <isc-sorted-attribute-value-list ng-if="product.attributeTypes.length > 0 || product.brand" attribute-types="product.attributeTypes" maximum-number="3" class="attribute-list"></isc-sorted-attribute-value-list>
+                                        </div>
+                                        <div class="item-price" ng-if="!vm.failedToGetRealTimePrices">
+                                            <div class="product-info">
+                                                <isc-product-price product="product"></isc-product-price>
+
+                                                <span ng-if="product.canShowPrice && product.unitOfMeasureDisplay" class="um displayUnitOfMeasure isc-uomDisplay">/ {{product.unitOfMeasureDescription || product.unitOfMeasureDisplay}}</span>
+                                                <isc-product-price-saving product="product" currency-symbol="product.currencySymbol"></isc-product-price-saving>
+
+                                                <div class="d-block" ng-show="product.canShowPrice && !product.quoteRequired">
+                                                    <isc-quantity-break-pricing product-id="product.id" break-prices="product.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                                </div>
+                                                <div ng-if="!vm.settings.canSeePrices">
+                                                    [% siteMessage 'Pricing_SignInForPrice' %]
+                                                </div>
+                                                <div class="um-pack">
+                                                    <div class="um">
+                                                        <label ng-if="vm.settings.alternateUnitsOfMeasure && product.productUnitOfMeasures.length > 1">[% translate 'U/M' %]:</label>
+                                                        <isc-unit-of-measure-select-list product="product" alternate-units-of-measure="{{vm.settings.alternateUnitsOfMeasure}}" change-unit-of-measure="vm.changeUnitOfMeasure(product)" display-pack="true"></isc-unit-of-measure-select-list>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="actions-block">
+                                                <div class="product-list-actions">
+                                                    <div ng-if="product.canAddToCart" class="add-to-cart-block">
+                                                        <div ng-if="product.canEnterQuantity" class="item-qty">
+                                                            <input type="text" name="qty" ng-model="product.qtyOrdered" class="qty numerictextbox" />
+                                                        </div>
+                                                        <div class="action">
+                                                            <button id="tst_productList_{{product.id}}_addToCart" ng-click="vm.addToCart(product)"
+                                                                    class="btn-add-cart btn primary" ng-disabled="!product.qtyOrdered || product.qtyOrdered == 0 || vm.addingToCart">
+                                                                [% translate 'Add To Cart' %]
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <a id="tst_productList_{{product.id}}_addToWishList" ng-if="product.canAddToWishlist" ng-click="vm.openWishListPopup(product)" role="button" class="btn secondary btn-add-list" href="javascript:;">[% translate 'Add to List' %]</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-price" ng-if="vm.failedToGetRealTimePrices">
+                                            <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <table ng-show="!vm.isSearch" id="tst_productList_table" class="info-tbl tv-table container">
+                                <thead>
+                                    <tr>
+                                        <th data-class="tv-description" class="tv-description">[% translate 'Description' %]</th>
+                                        <th ng-repeat="section in vm.visibleTableColumns(null)" class="tv-attr{{$index+1}}" data-id="{{section.attributeTypeId}}" data-class="tv-attr{{$index+1}}">{{section.nameDisplay}}</th>
+                                        <th data-class="tv-availability" class="tv-availability" ng-if="vm.settings.showInventoryAvailability">[% translate 'Availability' %]</th>
+                                        <th data-class="tv-price" class="tv-price">[% translate 'Price' %]</th>
+                                        <th data-class="tv-um" class="tv-um">[% translate 'U/M' %]</th>
+                                        <th data-class="tv-action" class="tv-action" data-toggle="true"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="product in vm.products.products" id="tst_productList_{{product.id}}" class="isc-productContainer-tv" data-product="{{product.id}}">
+                                        <td>
+                                            <div class="item-thumb">
+                                                <a ng-href="{{product.productDetailUrl}}">
+                                                    <img ng-src="{{product.mediumImagePath}}" alt="{{product.altText}}" />
+                                                </a>
+                                            </div>
+                                            <div class="item-description">
+                                                <isc-product-brand product="product"></isc-product-brand>
+                                                <div class="item-name">
+                                                    <a ng-href="{{product.productDetailUrl}}">{{product.shortDescription}}</a>
+                                                </div>
+                                                <div class="item-num">
+                                                    <span class="item-num-sku">{{product.erpNumber}}</span>
+                                                    <span ng-if="product.manufacturerItem" class="item-num-mfg">[% translate 'MFG #' %]: {{product.manufacturerItem}}</span>
+                                                    <span ng-if="product.customerName" class="item-num-my">[% translate 'My Part #' %]: {{product.customerName}}</span>
+                                                </div>
+                                                <div ng-if="vm.settings.enableProductComparisons" class="product-compare-add">
+                                                    <a href="javascript:;" data-id="{{product.id}}" class="compare-link" ng-class="{ 'compare-active': product.isBeingCompared }" ng-click="vm.compareProduct(product);">[% translate 'Compare' %]</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="attribute-column" ng-repeat="section in vm.visibleTableColumns(null)">
+                                            {{vm.attributeValueForSection(section, product)}}
+                                        </td>
+                                        <td class="attribute-column" ng-if="vm.settings.showInventoryAvailability">
+                                            <div ng-if="(!product.isConfigured || product.isFixedConfiguration) && !product.isStyleProductParent" class="availability">
+                                                <isc-availability-message availability="product.availability" failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory" product-settings="vm.settings" product-id="product.id" unit-of-measure="product.unitOfMeasure" track-inventory="product.trackInventory"></isc-availability-message>
+                                            </div>
+                                        </td>
+                                        <td class="price-column">
+                                            <isc-product-price product="product" id-key="_tv"></isc-product-price>
+                                            <isc-quantity-break-pricing ng-show="product.canShowPrice && !product.quoteRequired"
+                                                                        product-id="product.id + '_tv'" break-prices="product.pricing.unitRegularBreakPrices">
+                                            </isc-quantity-break-pricing>
+                                            <div ng-if="!vm.settings.canSeePrices">
+                                                [% siteMessage 'Pricing_SignInForPrice' %]
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="um displayUnitOfMeasure isc-uomDisplay">{{product.unitOfMeasureDescription || product.unitOfMeasureDisplay}}</span>
+                                        </td>
+                                        <td ng-class="{ noToggle: !product.canAddToCart }" class="tv-last-column">
+                                            <div class="actions-block">
+                                                <div ng-if="product.canAddToCart" class="product-info">
+                                                    <div class="um-pack">
+                                                        <div class="um">
+                                                            <label ng-if="vm.settings.alternateUnitsOfMeasure && product.productUnitOfMeasures.length > 1">[% translate 'U/M' %]:</label>
+                                                            <isc-unit-of-measure-select-list product="product" alternate-units-of-measure="{{vm.settings.alternateUnitsOfMeasure}}" change-unit-of-measure="vm.changeUnitOfMeasure(product)" display-pack="true"></isc-unit-of-measure-select-list>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div ng-if="product.canAddToCart" class="add-to-cart-block">
+                                                    <div ng-if="product.canEnterQuantity" class="item-qty">
+                                                        <input type="text" name="qty" ng-model="product.qtyOrdered" class="qty numerictextbox" />
+                                                    </div>
+                                                    <div class="action">
+                                                        <button id="tst_productList_{{product.id}}_addToCart" ng-click="vm.addToCart(product)" href="javascript:void(0);" class="btn-add-cart btn primary" ng-disabled="!product.qtyOrdered || product.qtyOrdered == 0 || vm.addingToCart">[% translate 'Add To Cart' %]</button>
+                                                    </div>
+                                                </div>
+                                                <a id="tst_productList_{{product.id}}_addToWishList" ng-show="product.canAddToWishlist" ng-click="vm.openWishListPopup(product)" role="button" class="btn secondary btn-add-list" href="javascript:void(0);">[% translate 'Add to List' %]</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <isc-pager bottom="true" pagination="vm.products.pagination" storage-key="vm.paginationStorageKey" update-data="vm.updateProductData()" custom-context="vm.customPagerContext"></isc-pager>
+                        </div>
+
+                        <div id="tst_productList_nothingFound" class="clr lfl w100" ng-if="vm.products.products && !(vm.products.products.length > 0)">
+                            <div ng-if="vm.isSearch">
+                                <div>
+                                    [[ Model.NoSearchResultsFound ]]
+                                </div>
+                            </div>
+                            <div ng-if="!vm.isSearch">
+                                <div>
+                                    [[ Model.NoProductsFound ]]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="AddToCompareExceedsSixProducts" class="product-list reveal-modal medium" data-reveal data-reveal-init>
+            <div class="modal-wrap compare-wrap">
+                <strong>[% siteMessage 'ProductionCompare_MaximumItemsReached' %]</strong>
+                <p>[% siteMessage 'ProductionCompare_MaximumItemsReachedSubText' %]</p>
+                <div class="compare-buttons">
+                    <a href="[% urlForPage 'ProductComparisonPage' %]"><button id="productListViewExceedSixProductsCompareButton" class="btn primary btn-compare">[% translate 'Compare' %]</button></a>
+                </div>
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
+        </div>
+
+        <isc-popup-template container-id="popup-columns-limit" title="[% translate 'Warning' %]">
+            [% translate 'You cannot select more than 3 attributes.' %]
+        </isc-popup-template>
+    </div>
+</div>
+
+<isc-product-comparison-hopper></isc-product-comparison-hopper>
+
+<script type="text/ng-template" id="productList_productComparisonHopper">
+    <div class="compare-hopper" ng-show="vm.canShowCompareHopper()">
+        <div class="compare-container">
+            <div class="compare-item" ng-repeat="product in vm.productsToCompare">
+                <a href="javascript:void(0);" class="compare-remove" ng-click="vm.clickRemove(product)">[% translate 'Remove' %]</a><img ng-src="{{product.smallImagePath}}" alt="product.altText" />
+                <div class="item-name">
+                    <a data-id="product.id" href="javascript:void(0);">{{product.shortDescription}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="compare-tray">({{vm.productsToCompare.length}}) {{vm.productsToCompare.length > 1 ? 'Items' : 'Item'}}</div>
+        <div class="compare-buttons">
+            <a href="[% urlForPage 'ProductComparisonPage' %]"><button id="tst_productList_compare" class="btn primary btn-compare" ng-click="vm.storeReturnUrl()">[% translate 'Compare' %]</button></a>
+            <a href="javascript:void(0);"><button id="tst_productList_clear" class="btn tertiary btn-clear" ng-click="vm.removeAllProductsToCompare()">[% translate 'Clear All' %]</button></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="productList_categoryLeftNav">
+
+    [% capture filterStatusControls %]
+    <div class="n-filtered" ng-if="vm.filterCategory.categoryId || vm.attributeValues.length > 0 || vm.priceFilters.length > 0 || vm.searchWithinTerms.length > 0">
+        <ul>
+            <li>
+                <a id="tst_productList_categoryLeftNav_appliedCategory_{{vm.filterCategory.categoryId}}" href="javascript:;" ng-if="vm.filterCategory.categoryId" ng-click="vm.toggleCategoryId(vm.filterCategory.categoryId) ">
+                    <em>[% translate 'Category' %]:</em> <span>{{vm.filterCategory.shortDescription}}</span>
+                </a>
+            </li>
+            <li ng-repeat="attributeValue in vm.attributeValues">
+                <a href="javascript:;" ng-click="vm.toggleFilter(attributeValue.attributeValueId)">
+                    <em>{{attributeValue.sectionNameDisplay}}:</em> <span>{{attributeValue.valueDisplay}}</span>
+                </a>
+            </li>
+            <li ng-repeat="priceFacet in vm.priceFilters">
+                <a href="javascript:;" ng-click="vm.togglePriceFilter(priceFacet.minimumPrice.toString())">
+                    <em>[% translate 'Price' %]: {{vm.priceRangeDisplay(priceFacet)}}</em>
+                </a>
+            </li>
+            <li ng-repeat="term in vm.searchWithinTerms">
+                <a href="javascript:;" ng-click="vm.clearSearchWithinItem($index)">
+                    <em>[% translate 'Search' %]: {{term}}</em>
+                </a>
+            </li>
+        </ul>
+        <div class="clear-all"><a id="tst_productList_categoryLeftNav_clearFilters" href="#" ng-click="vm.clearFilters() ">[% translate 'Clear All' %]</a></div>
+    </div>
+    [% endcapture %]
+
+    <div class="columns left-nav-2" id="tst_productList_left_nav">
+        <div class="ln2-wrap">
+            <div ng-if="category" class="nav-head">
+                <h2>{{vm.category.shortDescription}}</h2>
+                <ul>
+                    <li ng-repeat="breadcrumb in vm.leftNavBreadCrumbs()"><a ng-href="{{breadcrumb.path}}">{{breadcrumb.text}}</a></li>
+                </ul>
+            </div>
+
+            <div class="n-filter">
+                <div class="nav-head-2">
+                    <h3>[% translate 'Filter' %]</h3>
+                </div>
+
+                [[filterStatusControls]]
+
+                <div class="f-search-within">
+                    <div class="search-within-search clearfix">
+                        <label ng-if="!vm.category">[% translate 'Search Within Results' %]</label>
+                        <label ng-if="vm.category">[% translate 'Search Within Category' %]</label>
+
+                        <div class="search-container">
+                            <div class="search-input">
+                                <input id="searchWithin" type="text" placeholder="[% translate 'Enter keywords' %]" ng-model="vm.searchWithinInput" isc-enter="vm.searchWithinEntered()" />
+                            </div>
+                            <div class="search-button">
+                                <button class="btn primary fastClick" ng-click="vm.searchWithinEntered()">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="f-cat" ng-if="!vm.category && vm.products.categoryFacets.length > 0">
+                    <section class="accordion">
+                        <div>
+                            <input type="checkbox" id="accord-1" class="accord-check" checked />
+                            <label for="accord-1" class="accord-head">[% translate 'Categories' %]</label>
+                            <article class="accord-content">
+                                <div class="f-wrap">
+                                    <ul>
+                                        <li id="tst_productList_categoryLeftNav_categoryFacet_{{categoryFacet.categoryId}}" ng-repeat="categoryFacet in vm.products.categoryFacets | orderBy : 'shortDescription'"
+                                            ng-class="{'f-selected' : categoryFacet.selected}"
+                                            ng-click="vm.toggleCategory(categoryFacet)">
+                                            <a href="javascript:;">
+                                                <span class="f-name">{{categoryFacet.shortDescription}}</span>
+                                                <span class="f-count">({{categoryFacet.count}})</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="f-cat" ng-if="vm.products.priceRange.priceFacets.length > 0">
+                    <section class="accordion">
+                        <div>
+                            <input type="checkbox" id="accord-2" class="accord-check" checked />
+                            <label for="accord-2" class="accord-head">[% translate 'Price' %]</label>
+                            <article class="accord-content">
+                                <div class="f-wrap">
+                                    <ul>
+                                        <li id="tst_productList_priceFacet_{{priceFacet.minimumPrice.toString()}}"
+                                            ng-repeat="priceFacet in vm.products.priceRange.priceFacets | orderBy : 'minimumPrice'"
+                                            ng-class="{'f-selected' : vm.isPriceFacetSelected(priceFacet)}"
+                                            ng-click="vm.togglePriceFilter(priceFacet.minimumPrice.toString())">
+                                            <a href="javascript:;">
+                                                <span class="f-name tst_productList_priceFacet_{{$index}}">{{vm.priceRangeDisplay(priceFacet)}}</span> <span ng-attr-id="{{'leftNavCategoryPriceFacetCount_' + $index}}" class="f-count tst_productList_priceFacetCount_{{$index}}">({{priceFacet.count}})</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </div>
+
+                <div ng-repeat="section in vm.products.attributeTypeFacets | orderBy : ['sort','nameDisplay']" class="f-cat" ng-if="vm.products.attributeTypeFacets.length > 0">
+                    <section class="accordion">
+                        <div>
+                            <input type="checkbox" id="accord-{{$index + 3}}" class="accord-check" checked />
+                            <label for="accord-{{$index + 3}}" class="accord-head">{{section.nameDisplay}}</label>
+                            <article class="accord-content">
+                                <div class="f-wrap">
+                                    <ul>
+                                        <li id="tst_productList_categoryLeftNav_attributeValueFacet_{{attributeValue.attributeValueId}}"
+                                            ng-repeat="attributeValue in section.attributeValueFacets | orderBy : ['sortOrder','valueDisplay']"
+                                            ng-class="{'f-selected' : vm.isAttributeValueFacetSelected(attributeValue)}"
+                                            ng-click="vm.toggleFilter(attributeValue.attributeValueId)">
+                                            <a href="javascript:;">
+                                                <span class="f-name">{{attributeValue.valueDisplay}}</span>
+                                                <span class="f-count">({{attributeValue.count}})</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- hidden div to force load of checked image -->
+                <div class="f-cat" style="display:none;">
+                    <ul class="accordion">
+                        <li class="current active">
+                            <ul> <li class="f-selected"></li></ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- narrow version filters -->
+            <div class="f-cat" role="mobile-filters">
+                <section class="accordion">
+                    <div>
+                        <input type="checkbox" id="accord-10000" class="accord-check" />
+                        <label id="tst_productList_tableView_filterButton" for="accord-10000" class="accord-head">[% translate 'Filters' %]</label>
+                        <article class="accord-content">
+                            <form>
+                                <div class="row">
+                                    [[filterStatusControls]]
+                                </div>
+                                <div class="row">
+                                    <div class="filter-option-container">
+                                        <div class="search-within-search">
+                                            <label ng-if="!vm.category">[% translate 'Search Within Results' %]</label>
+                                            <label ng-if="vm.category">[% translate 'Search Within Category' %]</label>
+
+                                            <div class="search-container">
+                                                <div class="search-input">
+                                                    <input id="searchWithin" type="text" placeholder="[% translate 'Enter keywords' %]" ng-model="vm.searchWithinInput" isc-enter="vm.searchWithinEntered()" />
+                                                </div>
+                                                <div class="search-button">
+                                                    <button class="btn primary fastClick" ng-click="vm.searchWithinEntered()">Go</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="!vm.category && vm.products.categoryFacets.length > 0" class="filter-option-container">
+                                        <select data-mini="true"
+                                                ng-model="vm.filterCategory.categoryId"
+                                                ng-change="vm.toggleCategoryId(vm.filterCategory.categoryId)">
+                                            <option value="">[% translate 'Category' %]</option>
+                                            <option ng-repeat="categoryFacet in vm.products.categoryFacets | orderBy : 'shortDescription'"
+                                                    ng-selected="categoryFacet.selected"
+                                                    value="{{categoryFacet.categoryId}}">
+                                                {{categoryFacet.shortDescription}} ({{categoryFacet.count}})
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div ng-if="vm.products.priceRange.priceFacets.length > 0" class="filter-option-container">
+                                        <select data-mini="true" ng-model="priceFacetMinimum" ng-change="vm.togglePriceFilter(priceFacetMinimum)" name="tst_productList_priceFacet_select">
+                                            <option value="">[% translate 'Price' %]</option>
+                                            <option ng-repeat="priceFacet in vm.products.priceRange.priceFacets | orderBy : 'minimumPrice'"
+                                                    ng-selected="priceFacet.selected"
+                                                    value="{{priceFacet.minimumPrice}}">
+                                                {{vm.priceRangeDisplay(priceFacet)}} ({{priceFacet.count}})
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div ng-repeat="section in vm.products.attributeTypeFacets | orderBy : ['sort','nameDisplay']" class="filter-option-container">
+                                        <select data-mini="true" ng-model="section.attributeValueId" ng-change="vm.toggleFilter(section.attributeValueId || section.attributeTypeId)">
+                                            <option value="">{{section.nameDisplay}}</option>
+                                            <option ng-repeat="attributeValue in section.attributeValueFacets | orderBy : ['sortOrder','valueDisplay']"
+                                                    ng-selected="attributeValue.selected"
+                                                    value="{{attributeValue.attributeValueId}}">
+                                                {{attributeValue.valueDisplay}} ({{attributeValue.count}})
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</script>

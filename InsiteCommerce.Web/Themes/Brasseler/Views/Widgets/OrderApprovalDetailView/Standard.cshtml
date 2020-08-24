@@ -1,0 +1,66 @@
+﻿<div ng-controller="OrderApprovalDetailController as vm" ng-cloak>
+    <div ng-show="vm.cart">
+        <div class="quote-items-note messaging" ng-if="vm.currentCart.canRequestQuote && vm.currentCart.quoteRequiredCount > 0">
+            <p>[% siteMessage 'Rfq_Requires_Quote_InCartMessage' %]</p>
+            <a href="[% urlFor '/Rfq/RequestQuote' %]" class="btn primary btn-yes-rfq">[% translate 'Yes, Request a Quote' %]</a>
+            <a href="[% urlForPage 'HomePage' %]" class="btn primary btn-no">[% translate 'No, Continue Shopping' %]</a>
+        </div>
+
+        <div class="hide-for-small back-btn">
+            <a href="[% urlForPage 'OrderApprovalListPage' %]" class="btn tertiary btn-return">[% translate 'Return to Order Approval' %]</a>
+        </div>
+
+        <p class="error" ng-show="vm.approveOrderErrorMessage">
+            <span class="field-validation-error" ng-bind="vm.approveOrderErrorMessage"></span>
+        </p>
+
+        <div class="order-details-top">
+            <div class="row">
+                <div class="medium-4 large-4 columns od-head">
+                    <h3 class="od-lbl">[% translate 'Order #' %]</h3>
+                    <h3 id="tst_orderApprovalDetail_orderNumber" class="od-data" ng-bind="vm.cart.orderNumber"></h3>
+                    <h3 class="od-lbl">[% translate 'Order Date' %]</h3>
+                    <h3 class="od-data" ng-bind="vm.cart.orderDate | date:'shortDate'"></h3>
+                    <h3 class="od-lbl">[% translate 'PO #' %]</h3>
+                    <h3 class="od-data" ng-bind="vm.cart.poNumber"></h3>
+                </div>
+                <div class="medium-4 large-4 columns bill-info">
+                    <div class="oc-head">
+                        <h3>[% translate 'Billing Information' %]</h3>
+                    </div>
+                    <isc-address-display address="vm.cart.billTo" show-email="true"></isc-address-display>
+                </div>
+                <div class="medium-4 large-4 columns ship-info">
+                    <div class="oc-head">
+                        <h3>[% translate 'Shipping Information' %]</h3>
+                    </div>
+                    <isc-address-display address="vm.cart.shipTo" show-email="false"></isc-address-display>
+                </div>
+            </div>
+        </div>
+
+        <div class="row order-details">
+            <isc-cart-lines cart="vm.cart" include-quote-required="true" class="medium-12 large-12 columns item-list cart-items"></isc-cart-lines>
+        </div>
+
+        <isc-cart-total-display cart="vm.cart" order-taxes="vm.cart.customerOrderTaxes"></isc-cart-total-display>
+
+        <div class="btns" ng-if="vm.cart">
+            <button type="button" class="btn primary btn-place-saved-order" id="tst_orderApprovalDetail_approveOrder" ng-if="vm.account.canApproveOrders" ng-click="vm.approveOrder('[% urlForPage 'CartPage' %]')">[% translate 'Approve Order' %]</button>
+            <a href="javascript: window.print();" class="hide-for-small btn secondary btn-print">[% translate 'Print' %]</a>
+        </div>
+    </div>
+    <div ng-show="vm.validationMessage">
+        {{vm.validationMessage}}
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Account-AddressDisplay">
+    [% partialView 'Account-AddressDisplay' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+    [% partialView 'Cart-CartLines' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Cart-CartTotalDisplay">
+    [% partialView 'Cart-CartTotalDisplay' %]
+</script>

@@ -1,0 +1,38 @@
+﻿<div data-test-selector="tst_sharedList_sharedStatus" ng-show="listSettings.allowMultipleWishLists && listSettings.allowListSharing">
+    <div ng-if="list.isSharedList && list.sharedByDisplayName || list.wishListSharesCount > 0">
+        <i class="icon-users"></i>
+        <span ng-if="list.wishListSharesCount > 0 && !list.isSharedList">
+            <a id="tst_sharedList_sharedWith_link_{{list.id}}" href="#" ng-click="vm.showManageSharing(list, session)">
+                [% translate 'Shared with' %]
+                <span id="tst_sharedList_wishListSharesCount_{{list.id}}" ng-bind="list.wishListSharesCount"></span>
+                [% translate 'others' %]
+            </a>
+        </span>
+        <span ng-if="list.isSharedList">
+            <span ng-show="!vm.shareDetailsLinkIsVisible(list)">
+                [% translate 'Shared by' %]
+                <span ng-bind="list.sharedByDisplayName"></span>
+            </span>
+            <a id="tst_sharedList_sharedBy_link_{{list.id}}" ng-show="vm.shareDetailsLinkIsVisible(list)" href="#" ng-click="vm.showShareDetails(list)">
+                [% translate 'Shared by' %]
+                <span ng-bind="list.sharedByDisplayName"></span>
+            </a>
+            <span ng-if="showNoPermissionsTooltip && !list.allowEdit" class="hover-tooltip-wrapper">
+                <i data-dropdown="{{::('qtip-shared-list-' + list.id)}}" class="icon-help hover-tooltip"></i>
+                <span id="{{::('qtip-shared-list-' + list.id)}}" class="f-dropdown content hover-tooltip-content" data-dropdown-content>
+                    <span>[% siteMessage 'Lists_Share_List_No_Permissions_Tooltip' %]</span>
+                </span>
+            </span>
+        </span>
+    </div>
+    <div ng-if="!list.isSharedList && list.wishListSharesCount === 0" id="tst_sharedList_private_{{list.id}}">
+        [% translate 'Private' %]
+        <div class="hover-tooltip-wrapper">
+            <i data-dropdown="{{::('qtip-share-' + list.id)}}" class="icon-help hover-tooltip"></i>
+            <span id="{{::('qtip-share-' + list.id)}}" class="f-dropdown content hover-tooltip-content" data-dropdown-content>
+                <span class="title">[% translate 'Shared Lists' %]</span>
+                <span>[% siteMessage 'Lists_Share_List_Tooltip' %]</span>
+            </span>
+        </div>
+    </div>
+</div>

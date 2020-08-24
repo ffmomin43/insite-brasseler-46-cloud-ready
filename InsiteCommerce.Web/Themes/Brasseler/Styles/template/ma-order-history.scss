@@ -1,0 +1,173 @@
+.ma-order-history {
+    .btns {
+        margin-top: .5em;
+        float: left;
+        width: 100%;
+    }
+
+    .btns .btn {
+        float: right;
+    }
+    /* MA search */
+    .search-orders h3 {
+        margin-top: 0;
+    }
+    /* Date Picker Positioning */
+    .search-date {
+        position: relative;
+    }
+
+    .picker {
+        right: 0% !important;
+    }
+
+    .search-date-to .picker__holder {
+        right: 0% !important;
+    }
+
+    .search-product-autocomplete {
+        display: block;
+        width: 100%;
+    }
+}
+
+.widget-order-history {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+
+    h3 {
+        display: inline-block;
+    }
+
+    a.btn-view-all {
+        float: right;
+        font-size: .875rem;
+        margin-top: 1.75em;
+        padding: 0.5em .75em;
+    }
+
+    .overflow-table {
+        border: none;
+
+        tr th:first-child:before,
+        tr td:first-child:before,
+        tr td:first-child,
+        tr td:first-child {
+            min-width: inherit;
+            width: inherit;
+        }
+
+        th a {
+            color: #222222;
+        }
+
+        .col-tot {
+            font-weight: 600;
+        }
+
+        td.col-actions {
+            padding: .75em .75em;
+        }
+
+        .col-actions {
+            text-align: right;
+        }
+    }
+
+    .reorder-button {
+        font-size: .875rem !important;
+        padding: .45rem .65rem !important;
+        margin-left: auto;
+    }
+
+    .orders-list {
+        list-style-type: none;
+        border: 1px solid #E0E0E0;
+        margin: 0;
+
+        li {
+            border-bottom: 1px solid #E0E0E0;
+            margin: 0;
+            padding: 0.8rem 0;
+            display: flex;
+
+            div {
+                align-items: stretch;
+                display: flex;
+                flex-direction: column;
+
+                .total-price {
+                    text-align: right;
+                    font-weight: bold;
+                    margin-top: auto;
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-order-history {
+        .btns .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .search-date .small-6 {
+            position: inherit;
+        }
+
+        .search-open-inv {
+            margin: .5em 0 1em 0;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-order-history {
+        [data-section-content] {
+            display: block !important;
+        }
+
+        .btns .btn {
+            margin-left: 1em;
+        }
+
+        label.accord-head {
+            display: inline-block;
+        }
+
+        .search-orders .search-col-1 {
+            width: 30.333%;
+        }
+
+        .search-orders .search-col-2 {
+            width: 25.333%;
+        }
+
+        .search-orders .search-col-3 {
+            width: 44.333%;
+        }
+
+        .search-orders .search-date em {
+            display: inline-block;
+            float: left;
+            line-height: 38px;
+            margin-right: .75em;
+        }
+
+        .search-orders .search-date input {
+            width: 100px;
+            display: inline-block;
+        }
+
+        .search-orders .search-date .row .small-6 {
+            width: auto;
+        }
+
+        .search-orders .search-date [class*="column"] + [class*="column"]:last-child {
+            float: left;
+            padding: 0;
+        }
+    }
+}

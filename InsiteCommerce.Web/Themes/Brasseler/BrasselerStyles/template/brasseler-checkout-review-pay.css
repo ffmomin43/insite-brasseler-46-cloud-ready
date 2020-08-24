@@ -1,0 +1,64 @@
+/* Checkout Review Pay */
+.checkout-review-pay .order-summary-2 .order-subtotal {
+  width: 100%;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+.checkout-review-pay .order-summary-2 .btns .btn-place-order {
+  background-color: #00359c;
+}
+.checkout-review-pay .order-summary-2 .btns .btn-place-order:hover {
+  background-color: #a50031;
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block {
+  border: 0 !important;
+  margin: 0 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block:last-child {
+  border-bottom: none !important;
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .price .pd-price {
+  display: inline-flex;
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .price .pd-price .price-sale, .checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .price .pd-price .price-old {
+  margin-right: 5px;
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .price .pd-price span {
+  margin-right: 5px;
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .qty-wrapper {
+  float: right;
+}
+@media screen and (max-width: 767px) {
+  .checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .qty-wrapper {
+    float: left;
+  }
+}
+@media screen and (max-width: 767px) {
+  .checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .qty-wrapper .cart-btns .item-opt {
+    height: inherit;
+  }
+}
+.checkout-review-pay .order-summary .order-details .item-list .item-block .product-details .product-name h3 {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 767px) {
+  .payment-details .btn-apply {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .checkout-review-pay table {
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .checkout-review-pay table tr td + td {
+    width: 100% !important;
+  }
+}
+
+/*# sourceMappingURL=brasseler-checkout-review-pay.css.map */

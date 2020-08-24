@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Abandoned Cart</title>
+    <style>
+        /* Reset all elements to help ensure cross-browser consistency */
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 14px;
+        }
+
+        .email-wrapper {
+            width: 95%;
+            margin: 5px auto 0 auto;
+        }
+
+        .website-logo {
+            margin-bottom: 10px;
+        }
+
+        .description {
+            margin-bottom: 10px;
+        }
+
+        .order-line {
+            margin: 0 auto;
+            vertical-align: top;
+            text-align: left;
+        }
+
+            .order-line tr {
+                vertical-align: top;
+                text-align: left;
+                padding: 0;
+            }
+
+            .order-line .thumb {
+                border-collapse: collapse !important;
+                text-align: left;
+                margin: 0;
+                padding: 10px 10px 10px 0;
+            }
+
+                .order-line .thumb img {
+                    display: block;
+                }
+
+            .order-line .details {
+                vertical-align: top;
+                text-align: left;
+                min-width: 0;
+                color: #222222;
+                line-height: 19px;
+                margin: 0;
+                padding: 0 10px 10px;
+            }
+
+                .order-line .details .item {
+                    color: #222222;
+                    text-align: left;
+                    line-height: 19px;
+                    margin: 5px 0 0 0;
+                    padding: 0;
+                }
+
+                    .order-line .details .item .item-um {
+                        padding-right: 20px;
+                        padding-bottom: 10px;
+                        display: inline-block;
+                    }
+
+                    .order-line .details .item .qty {
+                        padding-right: 0;
+                        padding-bottom: 10px;
+                        display: inline-block;
+                        float: right;
+                    }
+
+        .bottom-block {
+            margin-top: 10px;
+            display: block;
+            text-align: right;
+        }
+
+            .bottom-block .cart-button {
+                margin-left: 75px;
+            }
+
+        .btn {
+            font-size: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            background-color: #77BC1F;
+            border-top: 12px solid #77BC1F;
+            border-bottom: 12px solid #77BC1F;
+            border-right: 18px solid #77BC1F;
+            border-left: 18px solid #77BC1F;
+            display: inline-block;
+        }
+
+        .unsubscribe-link {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        [% if Model.LogoImagePath != null and Model.LogoImagePath != "" -%]
+        <div class="website-logo">
+            <img src="[[Model.LogoImagePath]]" alt="Company Logo" width="225" height="50" border="0" />
+        </div>
+        [% endif -%]
+        <div class="description">[[Model.UserFirstName]] [[Model.UserLastName]],</div>
+        <div class="description">We noticed you left [[Model.WebsiteName]] with items in your cart. When you're ready you can easily <a href="[[Model.CartUrl]]">return to your cart</a> to complete your purchase.</div>
+        <hr />
+        <!--Start Line Items-->
+        [% for orderLine in Model.OrderLines -%]
+        <table class="order-line">
+            <tbody>
+                <tr align="left">
+                    <td class="thumb" align="left" valign="top">
+                        [% if orderLine.ImagePath != null and orderLine.ImagePath != "" -%]
+                        <img src="[[orderLine.ImagePath]]" alt="Logo" title="Logo" width="120" />
+                        [% endif -%]
+                    </td>
+                    <td class="details" align="left" valign="top">
+                        <p class="item item-name" style="font-weight: bold;" align="left">[[orderLine.ProductName]]</p>
+                        <p class="item item-num" style="font-size: 12px;" align="left">
+                            <i>[[orderLine.ProductNumber]]</i>
+                        </p>
+                        <p class="item" align="left">
+                            [% if orderLine.UnitNetPrice > 0 and orderLine.QuoteRequired == false -%]
+                            <span class="price">[[orderLine.UnitNetPriceDisplay]]</span>
+                            [% endif -%]
+                            [% if orderLine.QuoteRequired -%]
+                            <span class="price">Requires Quote</span>
+                            [% endif -%]
+                            <em class="item-um">[[orderLine.Uom]]</em>
+                            <span class="qty">
+                                <strong>QTY</strong>
+                                <span>[[orderLine.QtyOrdered]]</span>
+                            </span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        [% endfor -%]
+        <!--End Line Items-->
+        <hr />
+        <div class="bottom-block">
+            <table>
+                <tr>
+                    <td>
+                        [% if Model.NotIncludedProductsCount != null -%]
+                        <div class="right">[[Model.NotIncludedProductsCount]] more products in your cart.</div>
+                        [% endif -%]
+                    </td>
+                    <td class="cart-button">
+                        [% if Model.CartUrl != null -%]
+                        <a href="[[Model.CartUrl]]" class="btn">View Cart</a>
+                        [% endif -%]
+                    </td>
+                </tr>
+            </table>
+            <br /><br /><br /><br /><br />
+            <div class="unsubscribe-link">
+                <a href="[[Model.UnsubscribeUrl]]">[[Model.UnsubscribeLabel]]</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

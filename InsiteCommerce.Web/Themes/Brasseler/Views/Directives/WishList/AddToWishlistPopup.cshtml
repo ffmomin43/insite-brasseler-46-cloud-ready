@@ -1,0 +1,59 @@
+﻿<div>
+    <div id="popup-add-wishlist" class="reveal-modal popup-add-wishlist" data-reveal data-reveal-init>
+        <div class="modal-wrap" ng-if="(vm.isAuthenticated || vm.isRememberedUser) && !vm.isGuest">
+            <h2>[% translate 'Add to List' %]</h2>
+            <div class="pop-content">
+                <div id="error" class="error" ng-show="vm.errorMessage || vm.showWishlistNameErrorMessage">
+                    <span id="tst_wishListPopup_errorMessage" ng-show="vm.errorMessage" class="field-validation-error">{{vm.errorMessage}}</span>
+                    <span id="tst_wishListPopup_enterListNameError" ng-show="vm.showWishlistNameErrorMessage" class="field-validation-error">{{::'[% siteMessage 'Lists_Enter_New_Wishlist_Name' EscapeSingleQuotes %]'}}</span>
+                </div>
+                <form ng-show="vm.allowMultipleWishLists && !vm.addToWishlistCompleted" id="addToWishListForm">
+                    <div class="row select-list">
+                        <div class="row">
+                            <div class="large-5 columns">
+                                <span>[% translate 'Select List' %]</span>
+                            </div>
+                            <div class="large-7 columns">
+                                <input type="text" class="wishlist-selector tst_wishlist_selector" id="selectWishList" name="selectedWishList"
+                                       ng-init="vm.wishListOptionsPlaceholder = '[% translate 'Search or select list' EscapeSingleQuotes %]'" ng-click="vm.totalWishListsCount && vm.openAutocomplete($event, '#selectWishList')"
+                                       ng-model="vm.wishListSearch" kendo-auto-complete k-options="vm.wishListOptions" ng-disabled="vm.newWishListName" />
+                                <span class="icon-arw-down-5" ng-click="!vm.newWishListName && vm.totalWishListsCount && vm.openAutocomplete($event, '#selectWishList')"></span>
+                            </div>
+                        </div>
+                        <div class="row thor">[% translate 'Or' %]</div>
+                        <div class="row create-list">
+                            <div class="large-5 columns">
+                                <span>[% translate 'Create a New List' %]</span>
+                            </div>
+                            <div class="large-7 columns">
+                                <input id="tst_wishListPopup_newWishListName" type="text" ng-model="vm.newWishListName" ng-disabled="vm.selectedWishList" autofocus="autofocus">
+                            </div>
+                        </div>
+                        <div class="row schedule-reminder" ng-if="vm.enableWishListReminders">
+                            <label>
+                                <input type="checkbox" ng-model="vm.scheduleReminderAfterAdd"/>
+                                <span ng-if="!vm.selectedWishList">[% siteMessage 'Lists_Schedule_Reminders' %]</span>
+                                <span ng-if="vm.selectedWishList">[% siteMessage 'Lists_Schedule_Or_Modify_Reminders' %]</span>
+                            </label>
+                        </div>
+                        <div class="row btns">
+                            <button id="tst_wishListPopup_addToWishList" ng-click="vm.addToWishList()" class="btn primary btn-add-wishlist" type="button">[% translate 'Add to List' %]</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="tst_wishListPopup_message" ng-show="vm.addToWishlistCompleted || !vm.allowMultipleWishLists" class="row message">[% siteMessage 'Lists_ProductAdded' %]</div>
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
+        </div>
+        <div ng-if="(!vm.isAuthenticated && !vm.isRememberedUser) || vm.isGuest" class="modal-wrap">
+            <h4>[% translate 'Please Sign In' %]</h4>
+            <p id="tst_wishListPopup_requireSignIn">[% siteMessage 'Lists_Must_Sign_In' %]</p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <script id="totalWishListCountTemplate" type="text/template">
+        <div class="k-header" ng-show="vm.totalWishListsCount > vm.defaultPageSize">
+            [% translate 'Showing 1-{0} of {1}' %]
+        </div>
+    </script>
+</div>

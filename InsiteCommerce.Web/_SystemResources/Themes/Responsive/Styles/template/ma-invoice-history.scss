@@ -1,0 +1,228 @@
+.ma-invoice-history {
+    .btns {
+        margin-top: .5em;
+        float: left;
+        width: 100%;
+    }
+
+    .btns .btn {
+        float: right;
+    }
+    /* MA search */
+    .search-inv h3 {
+        margin-top: 0;
+    }
+    /* Date Picker Positioning */
+    .search-date {
+        position: relative;
+    }
+
+    .picker {
+        right: 0% !important;
+    }
+
+    .search-date-to .picker__holder {
+        right: 0% !important;
+    }
+
+    .col-balance {
+        text-align: right;
+    }
+
+    #invoice-balance {
+        width: 100%;
+        margin-top: .5rem;
+    }
+
+    #invoice-balance tr td {
+        font-size: 14px;
+        text-align: right;
+        border: 1px solid #ddd;
+    }
+
+    #invoice-balance .balance-lbl,
+    #invoice-balance .totals {
+        font-weight: bold;
+    }
+}
+
+.widget-invoice-history {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+
+    h3 {
+        display: inline-block;
+    }
+
+    a.btn-view-all {
+        float: right;
+        font-size: .875rem;
+        margin-top: 1.75em;
+        padding: 0.5em .75em;
+    }
+
+    .overflow-table {
+        border: none;
+
+        tr th:first-child:before,
+        tr td:first-child:before,
+        tr td:first-child,
+        tr td:first-child {
+            min-width: inherit;
+            width: inherit;
+        }
+
+        th a {
+            color: #222222;
+        }
+
+        .col-tot {
+            font-weight: 600;
+        }
+
+        .col-actions {
+            text-align: right;
+        }
+
+        .icon-email, .icon-print {
+            color: #77BC1F;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .icon-print {
+            margin-left: 0.6rem;
+        }
+    }
+
+    .invoices-list {
+        list-style-type: none;
+        border: 1px solid #E0E0E0;
+        margin: 0;
+
+        li {
+            border-bottom: 1px solid #E0E0E0;
+            margin: 0;
+            padding: 0.8rem 0;
+            display: flex;
+            position: relative;
+
+            div.columns {
+                align-items: stretch;
+                display: flex;
+                flex-direction: column;
+
+                .total-price {
+                    text-align: right;
+                    font-weight: bold;
+                    margin-top: auto;
+                }
+            }
+
+            .actions-menu {
+                position: absolute;
+                right: 0;
+                margin-top: -0.5rem;
+
+                .icon-more {
+                    color: #555555;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                }
+
+                .actions-menu-list {
+                    border: 1px solid #E0E0E0;
+                    right: 0;
+                    background: #fff;
+                    position: absolute;
+                    width: 7rem;
+                    visibility: hidden;
+                    transition: visibility 0.5s;
+                    z-index: 100;
+                    pointer-events: auto;
+                    opacity: 0;
+
+                    li {
+                        padding: 0.5rem 0.5rem;
+                    }
+                }
+            }
+
+            .actions-menu:focus {
+                pointer-events: none;
+
+                .actions-menu-list {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-invoice-history {
+        .btns .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .search-date .small-6 {
+            position: inherit;
+        }
+
+        .search-open-inv {
+            margin: .5em 0 1em 0;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-invoice-history {
+        .btns .btn {
+            margin-left: 1em;
+        }
+
+        label.accord-head {
+            display: inline-block;
+        }
+
+        .search-inv .search-col-1 {
+            width: 30.333%;
+        }
+
+        .search-inv .search-col-2 {
+            width: 44.333%;
+        }
+
+        .search-inv .search-col-3 {
+            width: 25.333%;
+        }
+
+        .search-inv .search-date em {
+            display: inline-block;
+            float: left;
+            line-height: 38px;
+            margin-right: .75em;
+        }
+
+        .search-inv .search-date input {
+            width: 100px;
+            display: inline-block;
+        }
+
+        .search-inv .search-date .row .small-6 {
+            width: auto;
+        }
+
+        .search-inv .search-date [class*="column"] + [class*="column"]:last-child {
+            float: left;
+            padding: 0;
+        }
+
+        .search-inv .search-invoice-num input {
+            width: 70%;
+        }
+    }
+}

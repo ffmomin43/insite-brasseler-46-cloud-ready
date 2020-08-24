@@ -1,0 +1,162 @@
+﻿[% if Model.SalespersonsCount > 0 -%]
+    <div ng-controller="MyQuotesController as vm" ng-cloak>
+        <form novalidate id="myQuotesForm" ng-show="vm.quotes">
+            <section class="accordion search-quotes">
+                <div>
+                    <input type="checkbox" id="accord-1" class="accord-check" />
+                    <label for="accord-1" class="accord-head">[% translate 'Search Quotes' %]</label>
+                    <article class="accord-content">
+                        <div class="row">
+                            <div class="medium-12 large-4 columns search-col-1">
+                                <div class="search-date search-sub-date">
+                                    <label>[% translate 'Requested Date Range' %]</label>
+                                    <div class="row">
+                                        <div class="small-6 columns">
+                                            <em>[% translate 'From' %]</em>
+                                            <input type="text" name="fromDate" id="fromDate" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.fromDate" />
+                                        </div>
+                                        <div class="small-6 columns">
+                                            <em>[% translate 'To' %]</em>
+                                            <input type="text" name="toDate" id="toDate" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.toDate" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="search-date search-sub-date">
+                                    <label>[% translate 'Expires Date Range' %]</label>
+                                    <div class="row">
+                                        <div class="small-6 columns search-date-from">
+                                            <em>[% translate 'From' %]</em>
+                                            <input type="text" name="expiresFromDate" id="expiresFromDate" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.expireFromDate" />
+                                        </div>
+                                        <div class="small-6 columns search-date-to">
+                                            <em>[% translate 'To' %]</em>
+                                            <input type="text" name="expiresToDate" id="expiresToDate" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.expireToDate" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="medium-12 large-4 columns search-col-2">
+                                <div class="search-quote-num">
+                                    <label>[% translate 'Quote #' %]</label>
+                                    <input type="text" name="quoteNumber" id="orderNumber" ng-model="vm.searchFilter.quoteNumber" />
+                                </div>
+                                <div class="search-type" ng-if="vm.quoteSettings.jobQuoteEnabled">
+                                    <label>[% translate 'Type' %]</label>
+                                    <select id="Type" ng-model="vm.selectedType">
+                                        <option selected="selected" value="">[% translate 'Select' %]</option>
+                                        <option value="Quote">[% translate 'Sales' %]</option>
+                                        <option value="Job">[% translate 'Job' %]</option>
+                                    </select>
+                                </div>
+                                <div class="search-status">
+                                    <label>[% translate 'Status' %]</label>
+                                    <select id="Status" ng-model="vm.selectedStatus">
+                                        <option selected="selected" value="">[% translate 'Select' %]</option>
+                                        <option value="QuoteCreated">[% translate 'Created' %]</option>
+                                        <option value="QuoteRequested">[% translate 'Requested' %]</option>
+                                        <option value="QuoteRejected">[% translate 'Rejected' %]</option>
+                                        <option value="QuoteProposed">[% translate 'Proposed' %]</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="medium-12 large-4 columns search-col-3">
+                                <div class="search-sales-rep">
+                                    <label>[% translate 'Sales Rep' %]</label>
+                                    <select ng-model="vm.searchFilter.salesRepNumber" ng-options="salesRep.salespersonNumber as salesRep.name for salesRep in vm.salesRepList">
+                                        <option ng-selected="selected" value="">[% translate 'Select' %]</option>
+                                    </select>
+                                </div>
+                                <div class="search-user">
+                                    <label>[% translate 'User' %]</label>
+                                    <select ng-model="vm.searchFilter.userId" ng-options="user.id as user.userName for user in vm.userList">
+                                        <option ng-selected="selected" value="">[% translate 'Select' %]</option>
+                                    </select>
+                                </div>
+                                <div class="search-customer">
+                                    <label>[% translate 'Customer' %]</label>
+                                    <select ng-model="vm.searchFilter.customerId" ng-options="customer.id as (customer.customerNumber + ' - ' + customer.customerName) for customer in vm.customerList">
+                                        <option ng-selected="selected" value="">[% translate 'Select' %]</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btns">
+                            <button type="submit" class="btn primary btn-search" ng-click="vm.search()">[% translate 'Search' %]</button>
+                            <button type="submit" class="btn secondary btn-clear" ng-click="vm.clear()">[% translate 'Clear' %]</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </form>
+
+        <p class="error" ng-bind="vm.error"></p>
+        <div ng-show="vm.quotes.length === 0" class="search-no-results"><h3>[% siteMessage 'Rfq_NoQuotesMessage' %]</h3></div>
+        <div ng-show="vm.quotes.length > 0">
+
+            <h3 class="results-count"><span class="result-num" ng-bind="vm.pagination.totalItemCount"></span> <span class="result-lbl">[% translate 'quotes' %]</span></h3>
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getQuotes()"></isc-pager>
+            <div class="overflow-table medium">
+                <table class="info-tbl sales-my-quotes">
+                    <tbody>
+                        <tr>
+                            <th class="col-num"><span class="sticky-first">[% translate 'Quote' %] #</span></th>
+                            <th class="col-type" ng-if="vm.quoteSettings.jobQuoteEnabled">[% translate 'Type' %]</th>
+                            <th class="col-status">[% translate 'Status' %]</th>
+                            <th class="col-submitted">[% translate 'Requested' %]</th>
+                            <th class="col-exp">[% translate 'Expires' %]</th>
+                            <th class="col-rep">[% translate 'Sales Rep' %]</th>
+                            <th class="col-user">[% translate 'User' %]</th>
+                            <th class="col-cust">[% translate 'Customer' %]</th>
+                        </tr>
+                        <tr id="tst_myQuotes_quoteLine_{{::quote.id}}" ng-repeat="quote in vm.quotes">
+                            <td class="col-num"><span class="sticky-first"><a ng-href="[% urlForPage 'RfqQuoteDetailsPage' %]/?quoteId={{quote.id}}" title="[% translate 'View Quote' %]" ng-bind="quote.quoteNumber"></a></span></td>
+                            <td class="col-type" ng-if="vm.quoteSettings.jobQuoteEnabled"><span ng-bind="quote.typeDisplay"></span></td>
+                            <td class="col-status"><span ng-bind="quote.statusDisplay"></span></td>
+                            <td class="col-submitted"><span ng-bind="quote.orderDate | date:'shortDate'"></span></td>
+                            <td class="col-exp"><span ng-bind="quote.expirationDate | date:'shortDate'"></span></td>
+                            <td class="col-rep"><span ng-bind="quote.salespersonName"></span></td>
+                            <td class="col-user"><span ng-bind="quote.userName"></span></td>
+                            <td class="col-cust"><span ng-bind="quote.customerNumber + '-' + quote.customerName"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <isc-pager bottom="true" pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getQuotes()"></isc-pager>
+        </div>
+    </div>
+[% else -%]
+    <div ng-controller="MyQuotesController as vm" ng-cloak>
+        <div ng-show="!vm.quotes || vm.quotes.length === 0" class="search-no-results">
+            <h3>[% siteMessage 'Rfq_NoQuotesMessage' %]</h3>
+        </div>
+        <div ng-show="vm.quotes && vm.quotes.length > 0">
+            <h3 class="results-count"><span class="result-num" ng-bind="vm.pagination.totalItemCount"></span> <span class="result-lbl">[% translate 'quotes' %]</span></h3>
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getQuotes()"></isc-pager>
+            <div class="overflow-table small">
+                <table class="info-tbl my-quotes">
+                    <tbody>
+                    <tr>
+                        <th class="col-num"><span class="sticky-first">[% translate 'Quote' %] #</span></th>
+                        <th class="col-type" ng-if="vm.quoteSettings.jobQuoteEnabled">[% translate 'Type' %]</th>
+                        <th class="col-status">[% translate 'Status' %]</th>
+                        <th class="col-submitted">[% translate 'Requested' %]</th>
+                        <th class="col-exp">[% translate 'Expires' %]</th>
+                        <th class="col-cust">[% translate 'Customer' %]</th>
+                        <th class="col-shipto">[% translate 'Ship To / Pick Up' %]</th>
+                    </tr>
+                    <tr ng-repeat="quote in vm.quotes">
+                        <td class="col-num"><span class="sticky-first"><a ng-href="[% urlForPage 'RfqQuoteDetailsPage' %]?quoteId={{quote.id}}" title="[% translate 'View Quote' %]" ng-bind="quote.quoteNumber"></a></span></td>
+                        <td class="col-type" ng-if="vm.quoteSettings.jobQuoteEnabled"><span ng-bind="quote.typeDisplay"></span></td>
+                        <td class="col-status"><span ng-bind="quote.statusDisplay"></span></td>
+                        <td class="col-submitted"><span ng-bind="quote.orderDate | date:'shortDate'"></span></td>
+                        <td class="col-exp"><span ng-bind="quote.expirationDate | date:'shortDate'"></span></td>
+                        <td class="col-cust"><span ng-bind="quote.customerName"></span></td>
+                        <td class="col-shipto"><span ng-bind="quote.shipToFullAddress"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <isc-pager bottom="true" pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getQuotes()"></isc-pager>
+            </div>
+        </div>
+    </div>
+[% endif -%]

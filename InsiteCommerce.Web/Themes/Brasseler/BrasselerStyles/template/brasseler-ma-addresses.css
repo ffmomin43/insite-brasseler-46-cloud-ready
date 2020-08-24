@@ -1,0 +1,80 @@
+.ma-addresses .btns {
+  margin-top: 1.5em;
+  width: 100%;
+  clear: both;
+  border-top: 1px solid #E0E0E0;
+  float: left;
+}
+
+.ma-addresses h3 {
+  margin-top: 0;
+}
+
+.ma-addresses .btns .btn {
+  margin: 1em 0;
+  float: right;
+}
+
+@media all and (max-width: 767px) {
+  .ma-addresses .btns .btn {
+    width: 100%;
+  }
+}
+@media all and (min-width: 768px) {
+  .ma-addresses .bill-to {
+    float: left;
+    width: 42%;
+    padding-top: 0 !important;
+    padding-right: 2em;
+  }
+
+  .ma-addresses .ship-to {
+    float: left;
+    width: 42%;
+    padding-top: 0 !important;
+    padding-left: 2em;
+  }
+}
+.ma-addresses .newsletter-signup {
+  margin: 1em 0;
+}
+
+.ma-addresses .required-msg {
+  margin-bottom: 1.5em;
+  font-size: .875em;
+}
+
+@media all and (min-width: 768px) {
+  .ma-addresses .required-msg {
+    margin-bottom: 3.2em;
+  }
+}
+.ma-addresses .same-as-billto {
+  margin-bottom: .75em;
+}
+
+.ma-addresses .select-address {
+  margin-bottom: 1em;
+}
+
+.addy-note {
+  font-size: 0.875em;
+  line-height: 1.5em;
+}
+
+#addressForm .billing-info ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+#addressForm .shipping-info ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+.ma-addresses .bill-to .billing-info ul, .ma-addresses .bill-to .shipping-info ul, .ma-addresses .ship-to .billing-info ul, .ma-addresses .ship-to .shipping-info ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+/*# sourceMappingURL=brasseler-ma-addresses.css.map */

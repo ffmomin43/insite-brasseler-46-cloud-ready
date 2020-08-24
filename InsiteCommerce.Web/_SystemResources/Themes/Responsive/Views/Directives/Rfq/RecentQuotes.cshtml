@@ -1,0 +1,39 @@
+﻿<div>
+    <div ng-show="vm.quotes.length === 0" class="search-no-results">
+        <h3>[% siteMessage 'Rfq_NoQuotesMessage' %]</h3>
+    </div>
+    <div ng-show="vm.quotes.length > 0">
+        <div class="overflow-table medium">
+            <table class=" info-tbl sales-my-quotes">
+                <tbody>
+                    <tr>
+                        <th class="col-num"><span class="sticky-first">[% translate 'Quote' %] #</span></th>
+                        <th class="col-type" ng-if="vm.quoteSettings.jobQuoteEnabled">[% translate 'Type' %]</th>
+                        <th class="col-status">[% translate 'Status' %]</th>
+                        <th class="col-submitted">[% translate 'Requested' %]</th>
+                        <th class="col-exp">[% translate 'Expires' %]</th>
+                        <th class="col-rep" ng-if="vm.isSalesPerson">[% translate 'Sales Rep' %]</th>
+                        <th class="col-user" ng-if="vm.isSalesPerson">[% translate 'User' %]</th>
+                        <th class="col-cust">[% translate 'Customer' %]</th>
+                        <th class="col-shipto" ng-if="!vm.isSalesPerson">[% translate 'Ship To / Pick Up' %]</th>
+                    </tr>
+                    <tr ng-repeat="quote in vm.quotes">
+                        <td class="col-num">
+                            <span class="sticky-first">
+                                <a href='[% urlForPage 'RfqQuoteDetailsPage' %]/?quoteId={{quote.id}}' title="[% translate 'View Quote' %]" ng-bind="quote.quoteNumber"></a>
+                            </span>
+                        </td>
+                        <td class="col-type" ng-if="vm.quoteSettings.jobQuoteEnabled"><span ng-bind="quote.typeDisplay"></span></td>
+                        <td class="col-status"><span ng-bind="quote.statusDisplay"></span></td>
+                        <td class="col-submitted"><span ng-bind="quote.orderDate | date:'shortDate'"></span></td>
+                        <td class="col-exp"><span ng-bind="quote.expirationDate | date:'shortDate'"></span></td>
+                        <td class="col-rep" ng-if="vm.isSalesPerson"><span ng-bind="quote.salespersonName"></span></td>
+                        <td class="col-user" ng-if="vm.isSalesPerson"><span ng-bind="quote.userName"></span></td>
+                        <td class="col-cust"><span ng-bind="quote.customerNumber + '-' + quote.customerName"></span></td>
+                        <td class="col-shipto" ng-if="!vm.isSalesPerson"><span ng-bind="quote.shipToFullAddress"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

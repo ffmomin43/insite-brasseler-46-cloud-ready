@@ -1,0 +1,89 @@
+.ma-my-quotes {
+    .search-quotes {
+        float: left;
+        width: 100%;
+        margin-bottom: 1.5em;
+    }
+
+    .search-quotes .btns {
+        margin-top: .5em;
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid #E1E1E1;
+        padding-bottom: 1em;
+    }
+
+    .search-quotes .btns .btn {
+        float: right;
+    }
+
+    .search-quotes label {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-my-quotes {
+        .search-quotes .btns .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-my-quotes {
+        .search-quotes .btns .btn {
+            margin-left: 1em;
+        }
+
+        label.accord-head {
+            display: inline-block;
+        }
+
+        .search-quotes .search-col-1 {
+            width: 44.333%;
+        }
+
+        .search-quotes .search-col-2 {
+            width: 25.333%;
+        }
+
+        .search-quotes .search-col-3 {
+            width: 30.333%;
+        }
+
+        .search-quotes .search-date em {
+            display: inline-block;
+            float: left;
+            line-height: 38px;
+            margin-right: .75em;
+        }
+
+        .search-quotes .search-date input {
+            width: 100px;
+            display: inline-block;
+            float: left;
+        }
+
+        .search-quotes .search-date .row .small-6 {
+            width: auto;
+        }
+
+        .search-quotes .search-date [class*="column"] + [class*="column"]:last-child {
+            float: left;
+            padding: 0;
+        }
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .ma-my-quotes {
+        .search-quotes .search-col-1,
+        .search-quotes .search-col-2,
+        .search-quotes .search-col-3 {
+            width: 33.333%;
+        }
+    }
+}

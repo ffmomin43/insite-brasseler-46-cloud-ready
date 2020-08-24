@@ -1,0 +1,185 @@
+﻿<div ng-controller="InvoiceListController as vm" ng-cloak>
+    <form>
+        <section class="accordion search-orders">
+            <div class="cm">
+                <input type="checkbox" id="accord-1" class="accord-check" />
+                <label id="tst_invoicesPage_searchInvoicesBtn" for="accord-1" class="accord-head">[% translate 'Search Invoices' %]</label>
+                <article class="accord-content">
+                    <div class="row">
+                        <div class="medium-12 large-4 columns search-col-1">
+                            <div class="search-ship-to">
+                                <label>[% translate 'Ship To Address' %]</label>
+                                <select ng-model="vm.searchFilter.customerSequence">
+                                    <option value="-1">[% translate 'Show All' %]</option>
+                                    <option ng-repeat="shipTo in vm.billTo.shipTos" value="{{shipTo.customerSequence}}">{{shipTo.label}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="medium-12 large-4 columns search-col-2">
+                            <div class="search-invoice-num">
+                                <label>[% translate 'Invoice #' %]</label>
+                                <input type="text" name="InvoiceNumber" id="InvoiceNumber" ng-model="vm.searchFilter.invoiceNumber" />
+                            </div>
+                        </div>
+
+                        <div class="medium-12 large-4 columns search-col-3">
+                            <div class="search-po">
+                                <label>[% translate 'PO #' %]</label>
+                                <input type="text" name="PONumber" id="PONumber" ng-model="vm.searchFilter.poNumber" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 large-4 columns search-col-1">
+                            <div class="search-order-num">
+                                <label>[% translate 'Order #' %]</label>
+                                <input type="text" name="OrderNumber" id="OrderNumber" ng-model="vm.searchFilter.orderNumber" />
+                            </div>
+                        </div>
+                        <div class="medium-12 large-4 columns search-col-2">
+                            <div class="search-date">
+                                <label>[% translate 'Date Range' %]</label>
+                                <div class="row">
+                                    <div class="small-6 columns search-date-from">
+                                        <em>[% translate 'From' %]</em>
+                                        <input id="tst_invoicesPage_fromDate" name="tst_invoicesPage_fromDate" type="text" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.fromDate" />
+                                    </div>
+                                    <div class="small-6 columns search-date-to">
+                                        <em>[% translate 'To_date' %]</em>
+                                        <input id="tst_invoicesPage_toDate" name="tst_invoicesPage_toDate" type="text" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.toDate" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="medium-12 large-4 columns search-col-3">
+                            <div class="search-open-inv">
+                                <label class="input-lbl">
+                                    <input type="checkbox" name="ShowOpenOnly" id="ShowOpenOnly" ng-model="vm.searchFilter.showOpenOnly" value="true" />[% translate 'Open Invoices Only' %]
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button id="tst_invoicesPage_searchBtn" type="submit" class="btn primary btn-search" ng-click="vm.search()">[% translate 'Search' %]</button>
+                        <button id="tst_invoicesPage_clearBtn" type="submit" class="btn secondary btn-clear" ng-click="vm.clear()">[% translate 'Clear' %]</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </form>
+
+    <label class="error" ng-if="vm.validationMessage" ng-bind="vm.validationMessage"></label>
+
+    <table ng-show="vm.customerSettings.displayAccountsReceivableBalances && vm.billTo.accountsReceivable && vm.billTo.accountsReceivable.agingBuckets.length > 0" id="invoice-balance">
+        <tbody>
+        <tr class="balance-lbl">
+            <td ng-repeat="agingBucket in vm.billTo.accountsReceivable.agingBuckets" ng-bind="agingBucket.label"></td>
+            <td class="totals" ng-bind="vm.billTo.accountsReceivable.agingBucketTotal.label"></td>
+            <td ng-if="vm.billTo.accountsReceivable.agingBucketFuture.amount > 0" ng-bind="vm.billTo.accountsReceivable.agingBucketFuture.label"></td>
+        </tr>
+        <tr class="balance-value">
+            <td ng-repeat="agingBucket in vm.billTo.accountsReceivable.agingBuckets" ng-bind="agingBucket.amountDisplay"></td>
+            <td class="totals" ng-bind="vm.billTo.accountsReceivable.agingBucketTotal.amountDisplay"></td>
+            <td ng-if="vm.billTo.accountsReceivable.agingBucketFuture.amount > 0" ng-bind="vm.billTo.accountsReceivable.agingBucketFuture.amountDisplay"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div ng-cloak ng-show="vm.invoiceHistory.invoices.length > 0">
+
+        <h3 class="results-count">
+            <span class="result-num" ng-bind="vm.pagination.totalItemCount"></span>
+            <span class="result-lbl">[% translate 'invoices' %]</span>
+        </h3>
+
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getInvoices()"></isc-pager>
+
+        <div class="overflow-table medium">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-date">
+                            <span class="sticky-first">
+                                <a href="javascript:void(0)" class="sort"
+                                   ng-class="{'sort-ascending': vm.searchFilter.sort === 'InvoiceDate', 'sort-descending': vm.searchFilter.sort === 'InvoiceDate DESC'}"
+                                   ng-click="vm.changeSort('InvoiceDate')">
+                                    [% translate 'Date' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-ordernum">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'InvoiceNumber', 'sort-descending': vm.searchFilter.sort === 'InvoiceNumber DESC'}"
+                               ng-click="vm.changeSort('InvoiceNumber')">
+                                [% translate 'Invoice #' %]
+                            </a>
+                        </th>
+                        <th class="col-shipto">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'DueDate', 'sort-descending': vm.searchFilter.sort === 'DueDate DESC'}"
+                               ng-click="vm.changeSort('DueDate')">
+                                [% translate 'Due Date' %]
+                            </a>
+                        </th>
+                        <th class="col-status">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'STCompanyName', 'sort-descending': vm.searchFilter.sort === 'STCompanyName DESC'}"
+                               ng-click="vm.changeSort('STCompanyName')">
+                                [% translate 'Ship To / Pick Up' %]
+                            </a>
+                        </th>
+                        <th class="col-po">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'CustomerPO', 'sort-descending': vm.searchFilter.sort === 'CustomerPO DESC'}"
+                               ng-click="vm.changeSort('CustomerPO')">
+                                [% translate 'PO #' %]
+                            </a>
+                        </th>
+                        <th class="col-terms">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'Terms', 'sort-descending': vm.searchFilter.sort === 'Terms DESC'}"
+                               ng-click="vm.changeSort('Terms')">
+                                [% translate 'Terms' %]
+                            </a>
+                        </th>
+                        <th class="col-tot">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'InvoiceTotal', 'sort-descending': vm.searchFilter.sort === 'InvoiceTotal DESC'}"
+                               ng-click="vm.changeSort('InvoiceTotal')">
+                                [% translate 'Total' %]
+                            </a>
+                        </th>
+                        <th class="col-balance">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'CurrentBalance', 'sort-descending': vm.searchFilter.sort === 'CurrentBalance DESC'}"
+                               ng-click="vm.changeSort('CurrentBalance')">
+                                [% translate 'Balance' %]
+                            </a>
+                        </th>
+                    </tr>
+                    <tr class="tst_invoicesPage_invoiceLine" ng-repeat="invoice in vm.invoiceHistory.invoices">
+                        <td class="col-date">
+                            <span class="sticky-first">
+                                <a ng-href="[% urlForPage 'InvoiceDetailPage' %]?invoiceNumber={{ invoice.invoiceNumber }}" ng-bind="invoice.invoiceDate | date:'shortDate'"></a>
+                            </span>
+                        </td>
+                        <td class="col-invoicenum"><a ng-href="[% urlForPage 'InvoiceDetailPage' %]?invoiceNumber={{ invoice.invoiceNumber}}">{{ invoice.invoiceNumber }}</a></td>
+                        <td class="col-duedate"><a ng-href="[% urlForPage 'InvoiceDetailPage' %]?invoiceNumber={{ invoice.invoiceNumber }}">{{ invoice.dueDate | date:'shortDate' }} </a></td>
+                        <td class="col-shipto" ng-bind="invoice.stCompanyName"></td>
+                        <td class="col-po" ng-bind="invoice.customerPO" ng-click="vm.copyToSearch(invoice.customerPO)"></td>
+                        <td class="col-terms" ng-bind="invoice.terms"></td>
+                        <td class="col-tot" ng-bind="invoice.invoiceTotalDisplay"></td>
+                        <td class="col-balance" ng-bind="invoice.currentBalanceDisplay"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <isc-pager pagination="vm.pagination" bottom="true" storage-key="vm.paginationStorageKey" update-data="vm.getInvoices()"></isc-pager>
+
+        </div>
+
+    <div class="search-no-results" ng-show="vm.invoiceHistory.invoices.length === 0"><h3>[% translate 'No invoices found' %].</h3></div>
+</div>

@@ -1,0 +1,7 @@
+﻿[% if CurrentPage.ContentKey > -1 -%]
+    [% if Model.DisplayingTemplate -%]
+        <div class="cms-zone-placeholder">Template Zone: [[Model.ZoneName]]</div>
+    [% else -%]
+        [% templateZone %]
+    [% endif -%]
+[% endif -%]

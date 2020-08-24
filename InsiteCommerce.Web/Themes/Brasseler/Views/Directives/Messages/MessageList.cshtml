@@ -1,0 +1,32 @@
+﻿<div class="row message-center">
+    <div class="small-12 columns">
+        <section class="accordion msg-section">
+            <div>
+                <input type="checkbox" id="accord-1" class="accord-check" />
+                <label data-test-selector="tst_messageBoard_label" for="accord-1" class="accord-head">[% translate 'Messages' %]&nbsp;<span class="msg-count" ng-bind-template="({{vm.unreadCount}})"></span></label>
+                <article data-test-selector="tst_messageBoard_content" class="accord-content msg-content-block">
+                    <div class="msg-block">
+                        <div class="view-read">
+                            <button ng-show="vm.readCount > 0" ng-click="vm.switchShowRead()" class="btn tertiary btn-viewread" ng-bind="vm.showRead ? '[% translate 'Show Read' EscapeSingleQuotes %]' : '[% translate 'Hide Read' EscapeSingleQuotes %]'"></button>
+                        </div>
+                        <div class="msg-grid" ng-class="{ 'show-read': !vm.showRead }" ng-show="vm.unreadCount + vm.readCount > 0">
+                            <div class="msg-overflow-wrap">
+                                <div ng-repeat="message in vm.messages" class="msg-row" ng-class="{ 'msg-read': message.isRead, 'expanded': message.isExpand, 'expandable': !vm.isBlank(message.body) }">
+                                    <div class="msg-c1" ng-click="vm.expand($event, message)">
+                                        <span class="msg-date" ng-bind="message.dateToDisplay | date: 'short'"></span>
+                                        <span class="msg-subject" ng-bind="message.subject"></span>
+                                    </div>
+                                    <div class="msg-c3">
+                                        <button data-test-selector="tst_messageBoard_messageReadStatus_{{message.isRead}}_{{$index}}" class="btn tertiary isc-changeReadStatus btn-mark-read" ng-click="vm.switchMessageStatus($event, message)" type="button"
+                                                ng-bind="message.isRead ? '[% translate 'Mark as Unread' EscapeSingleQuotes %]' : '[% translate 'Mark as Read' EscapeSingleQuotes %]'"></button>
+                                    </div>
+                                    <div ng-show="!vm.isBlank(message.body)" class="msg-body"><p ng-bind-html="message.body"></p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+</div>

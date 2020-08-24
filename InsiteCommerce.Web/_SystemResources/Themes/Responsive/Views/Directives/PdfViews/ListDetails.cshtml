@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[% translate "Share List" %]</title>
+    <style type="text/css">
+        h2, p, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Helvetica, Arial, Sans-Serif;
+            font-size: 16px;
+            color: #252525;
+        }
+
+        .logo-block {
+            padding-bottom: 20px;
+        }
+
+        .list-name {
+            margin: 20px 0 10px 0;
+        }
+
+        .list-description {
+            text-align: justify;
+            letter-spacing: .08rem;
+        }
+
+        .item-updated {
+            margin-top: 10px;
+        }
+
+        a {
+            color: #000000;
+        }
+
+        .item-updated, .line-added, .product-info, .sale-price-label {
+            color: #686868;
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .line-nowrap {
+            white-space: nowrap;
+        }
+
+        .list-info {
+            border-top: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            margin-top: 10px;
+        }
+
+        .list-info {
+            font-weight: 600;
+            padding: 10px 0;
+            margin-bottom: 10px;
+        }
+
+        .list-total {
+            margin-left: 20px;
+        }
+
+        .show-border {
+            /*for debug purposes*/
+            /*border: 1px solid #FF006E;*/
+        }
+
+        table {
+            width: 100%;
+            border-bottom: 1px solid #e1e1e1;
+            margin-bottom: 5px;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        .image-col {
+            width: 10%;
+        }
+
+        .desc-col {
+            width: 55%;
+        }
+
+        .price-col {
+            width: 25%;
+        }
+
+        .qty-col {
+            width: 10%;
+            padding-top: 5px;
+        }
+
+        .image-col, .price-col {
+            padding-right: 10px;
+        }
+
+        .price-col, .qty-col {
+            text-align: right;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        h3 {
+            margin: 6px;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .outstock {
+             color: #C60F13;
+        }
+
+        .list-notes {
+            background-color: #F2F2F2;
+            padding-bottom: 2px;
+            padding-top: 4px;
+            margin-top: 3px;
+        }
+
+        .image-col {
+            padding-top: 6px;
+        }
+
+        .line-price {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        [% if Model.LogoImagePath != null and Model.LogoImagePath != "" -%]
+        <div class="logo-block">
+            <a href="[[Model.CurrentWebsiteUrl]]">
+                <img src="[[Model.LogoImagePath]]" />
+            </a>
+        </div>
+        [% endif -%]
+        <div>
+            <h2 class="list-name">[[Model.Name]]</h2>
+            [% for descriptionLine in Model.DescriptionLines -%]
+                [% if descriptionLine == "" -%]
+                    <p class="list-description">&nbsp;</p>
+                [% else -%]
+                    <p class="list-description">[[descriptionLine]]</p>
+                [% endif -%]
+            [% endfor -%]
+            <div class="item-updated">
+                [% if Model.ShareOption != "Static" -%]
+                    [% translate 'Updated' %] [[Model.UpdatedOnDisplay]]
+                    [% if Model.UpdatedByDisplayName != null and UpdatedByDisplayName.UpdatedByDisplayName != "" -%]
+                        [% translate 'by' %] [[Model.UpdatedByDisplayName]]
+                    [% endif -%]
+                [% else -%]
+                    [% translate 'Shared by' %] [[Model.SharedByDisplayName]]
+                [% endif -%]
+            </div>
+            <div class="list-info">
+                <span class="list-items-count">[[Model.WishListLinesCount]] [% translate 'items' %]</span>
+                [% if Model.ShareOption != "Static" -%]
+                    <span class="list-total">[% translate "List Total" %]: [[Model.ListTotalDisplay]]</span>
+                [% endif -%]
+            </div>
+
+            [% for listLine in Model.WishListLineCollection -%]
+            <table>
+                <tr class="list-line">
+                    <td class="image-col show-border">
+                        [% if listLine.SmallImagePathHasGetParams -%]
+                            <img src="[[listLine.SmallImagePath]]&maxSize=50"/>
+                        [% else -%]
+                            <img src="[[listLine.SmallImagePath]]?maxSize=50"/>
+                        [% endif -%]
+                    </td>
+                    <td class="desc-col show-border">
+                        <div>
+                            <a class="product-link" href="[[Model.CurrentWebsiteUrl]][[listLine.ProductUri]]"><h3>[[listLine.ShortDescription]]</h3></a>
+                        </div>
+                        <div>
+                            <h3 class="product-info">
+                                #[[listLine.ErpNumber]]
+                                [% if listLine.ManufacturerItem != null and listLine.ManufacturerItem != "" -%]
+                                &nbsp; <span class="line-nowrap">[% translate 'MFG #' %][[listLine.ManufacturerItem]]</span>
+                                [% endif -%]
+                                [% if listLine.CustomerName != null and listLine.CustomerName != "" -%]
+                                &nbsp; <span class="line-nowrap">[% translate 'My Part #' %][[listLine.CustomerName]]</span>
+                                [% endif -%]
+                            </h3>
+                        </div>
+                        [% if listLine.AvailabilityMessageType != 0 -%]
+                            <div>
+                                [% if listLine.AvailabilityMessageType == 1 -%]
+                                <h3 class="instock">[[listLine.AvailabilityMessage]]</h3>
+                                [% elsif listLine.AvailabilityMessageType == 2 %]
+                                <h3 class="outstock">[[listLine.AvailabilityMessage]]</h3>
+                                [% elsif listLine.AvailabilityMessageType == 3 %]
+                                <h3 class="lowstock">[[listLine.AvailabilityMessage]]</h3>
+                                [% endif -%]
+                            </div>
+                        [% endif -%]
+                        [% if listLine.NotesLines -%]
+                            <div class="list-notes">
+                                [% for notesLine in listLine.NotesLines -%]
+                                    [% if notesLine == "" -%]
+                                        <h3>&nbsp;</h3>
+                                    [% else -%]
+                                    <h3>
+                                        [% if forloop.first -%]
+                                            <img src="[[Model.CurrentWebsiteUrl]]/images/list-notes-icon.png"/>
+                                            &nbsp;
+                                        [% endif -%]
+                                        [[notesLine]]
+                                    </h3>
+                                    [% endif -%]
+                                [% endfor -%]
+                            </div>
+                        [% endif -%]
+                        [% if Model.ShareOption != "Static" -%]
+                        <div>
+                            <h3 class="line-added">[% translate 'Added' %] [[listLine.CreatedOnDisplay]]</h3>
+                        </div>
+                        [% endif -%]
+                    </td>
+                    <td class="price-col show-border">
+                        [% if listLine.CanShowPrice -%]
+                            <div>
+                                [% if listLine.QuoteRequired -%]
+                                    <h3 class="line-price">[% translate 'Requires Quote' %]</h3>
+                                [% else -%]
+                                    <h3 class="line-price">[[listLine.PriceLineToDisplay]]</h3>
+                                [% endif -%]
+                            </div>
+                            [% if listLine.UnitOfMeasureDescription != null and listLine.UnitOfMeasureDescription != "" -%]
+                            <div>
+                                <h3 class="line-uom">[[listLine.UnitOfMeasureDescription]]</h3>
+                            </div>
+                            [% elsif listLine.UnitOfMeasureDisplay != null and listLine.UnitOfMeasureDisplay != "" %]
+                            <div>
+                                <h3 class="line-uom">[[listLine.UnitOfMeasureDisplay]]</h3>
+                            </div>
+                            [% endif -%]
+                            <div>
+                                [% if listLine.QuoteRequired == false -%]
+                                    <h3 class="sale-price-label">[[listLine.SalePriceLabelToDisplay]]</h3>
+                                [% endif -%]
+                            </div>
+                        [% endif -%]
+                    </td>
+                    <td class="qty-col show-border">
+                        <div>
+                            <strong>[% translate 'QTY:' %]</strong> [[listLine.QtyOrderedDisplay]]
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            [% endfor -%]
+        </div>
+    </div>
+</body>
+</html>

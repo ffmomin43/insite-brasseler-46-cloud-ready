@@ -1,0 +1,47 @@
+﻿<div class="widget-order-history [[Model.CssClass]]" ng-controller="OrderHistoryWidgetController as vm" ng-show="vm.orderHistory.orders.length > 0 && vm.showOrders" ng-cloak>
+    <div class="row">
+        <h3>[[Model.Title]]</h3>
+        <a id="tst_orderHistoryWidget_viewAll" href="[% urlForPage 'OrdersPage' %]" class="btn secondary btn-view-all">[% translate 'View All' %]</a>
+        <div class="overflow-table medium hidden-for-small-only">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-date">[% translate 'Date' %]</th>
+                        <th class="col-ordernum">[% translate 'Order #' %]</th>
+                        <th class="col-status">[% translate 'Status' %]</th>
+                        <th class="col-webordernum" ng-if="vm.showWebOrderNumber">[% translate 'Web Order #' %]</th>
+                        <th class="col-tot">[% translate 'Total' %]</th>
+                        <th class="col-actions">[% translate 'Actions' %]</th>
+                    </tr>
+                    <tr class="tst_orderHistoryWidget_order" ng-repeat="order in vm.orderHistory.orders">
+                        <td class="col-date">
+                            <a id="tst_orderHistoryWidget_link_{{order.webOrderNumber}}" ng-href="[% urlForPage 'OrderDetailPage' %]?orderNumber={{ order.webOrderNumber || order.erpOrderNumber }}" ng-bind="order.orderDate | date:'shortDate'"></a>
+                        </td>
+                        <td class="col-ordernum"><a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{ order.erpOrderNumber }}" ng-bind="order.erpOrderNumber"></a></td>
+                        <td class="col-status" ng-bind="order.statusDisplay"></td>
+                        <td class="col-webordernum" ng-if="vm.showWebOrderNumber" ng-bind="order.webOrderNumber"></td>
+                        <td class="col-tot" ng-bind="order.orderTotalDisplay"></td>
+                        <td class="col-actions">
+                            <a id="tst_orderHistoryWidget_reorder_{{order.webOrderNumber}}" href="#" class="btn secondary reorder-button" ng-show="vm.canReorderItems && vm.reorderedOrdersIds.indexOf(order.id) < 0" ng-click="vm.reorderAllProducts($event, order)">[% translate 'Reorder' %]</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ul class="orders-list show-for-small-only">
+            <li class="row" ng-repeat="order in vm.orderHistory.orders">
+                <div class="columns small-6">
+                    <div>
+                        <a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{ order.webOrderNumber || order.erpOrderNumber }}" ng-bind="'[% translate 'Order #' EscapeSingleQuotes %]' + (order.webOrderNumber || order.erpOrderNumber)"></a>
+                    </div>
+                    <div ng-bind="order.orderDate | date:'shortDate'"></div>
+                    <div ng-bind="order.statusDisplay"></div>
+                </div>
+                <div class="columns small-6">
+                    <a href="#" class="btn secondary reorder-button" ng-show="vm.canReorderItems && vm.reorderedOrdersIds.indexOf(order.id) < 0" ng-click="vm.reorderAllProducts($event, order)">[% translate 'Reorder' %]</a>
+                    <div class="total-price" ng-bind="order.orderTotalDisplay"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

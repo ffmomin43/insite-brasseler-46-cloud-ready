@@ -1,0 +1,121 @@
+﻿<div id="tst_userSetupView" ng-controller="UserDetailController as vm" ng-cloak>
+    <div class="cm">[% zone 'TopContent' %]</div>
+
+    <div ng-show="!vm.retrievalError">
+        <div class="hide-for-small back-btn">
+            <a id="tst_userSetupView_returnToUserAdministration" class="btn tertiary btn-return" ng-href="[% urlForPage 'UserListPage' %]">[% translate 'Return to User Administration' %]</a>
+        </div>
+        <div class="usersetup-status" ng-show="vm.changesSaved || vm.activationEmailSent || vm.userCreated">
+            <i class="icon-box-check"></i>
+            <span id="tst_userSetupView_userCreatedMessage" ng-show="vm.userCreated">[% translate 'User created.' %]</span>
+            <span id="tst_userSetupView_activationEmailSentMessage" ng-show="vm.activationEmailSent">[% translate 'Activation email sent.' %]</span>
+            <span id="tst_userSetupView_changesSavedMessage" ng-show="vm.changesSaved">[% translate 'Changes saved.' %]</span>
+        </div>
+        <div class="usersetup-form">
+            <form id="usersetupform" name="usersetupform" ng-submit="vm.isNewUser ? vm.createUser() : vm.updateUser()" ng-class="vm.isSubmitted ? 'ng-submitted' : ''" novalidate>
+                <div class="usersetup-form-user-section-heading">[% translate 'User Information' %]</div>
+                <div class="required-msg"><span class="redTxt">*</span> [% translate 'Required' %]</div>
+                <div ng-show="(vm.isSubmitted && !usersetupform.$valid) || vm.generalError" ng-cloak>
+                    <span ng-show="usersetupform.userName.$error.required" class="field-validation-error">[% siteMessage 'CreateNewAccountInfo_UserName_Required' %]</span>
+                    <span ng-show="usersetupform.firstName.$error.required" class="field-validation-error">[% siteMessage 'User_Admin_Info_FirstName_Required' %]</span>
+                    <span ng-show="usersetupform.lastName.$error.required" class="field-validation-error">[% siteMessage 'User_Admin_Info_LastName_Required' %]</span>
+                    <span ng-show="usersetupform.emailAddress.$error.required" class="field-validation-error">[% siteMessage 'CreateNewAccountInfo_EmailAddress_Required' %]</span>
+                    <span ng-show="usersetupform.emailAddress.$invalid && !usersetupform.emailAddress.$pristine" class="field-validation-error">[% siteMessage 'CreateNewAccountInfo_EmailAddress_ValidEmail' %]</span>
+                    <span id="tst_userSetupView_generalErrorMessage" ng-show="vm.generalError" class="field-validation-error">{{vm.generalError}}</span>
+                </div>
+                <div class="usersetup-form-username" ng-if="!vm.settings.useEmailAsUserName">
+                    <label>[% translate 'Username' %]<span class="redTxt" ng-if="vm.isNewUser">*</span></label>
+                    <input id="tst_userSetupView_userName" type="text" ng-if="vm.isNewUser" ng-model="vm.user.userName" name="userName" required />
+                    <div ng-if="!vm.isNewUser">
+                        <input id="tst_userSetupView_edit_userName" type="text" ng-model="vm.user.userName" readonly="readonly" disabled="disabled" />
+                        <input type="hidden" ng-model="vm.user.userName" />
+                    </div>
+                </div>
+                <div class="usersetup-form-email">
+                    <label>[% translate 'Email Address' %] <span class="redTxt">*</span></label>
+                    <input id="tst_userSetupView_emailAddress" type="email" ng-model="vm.user.email" name="emailAddress" required />
+                </div>
+                <div class="usersetup-form-firstname">
+                    <label>[% translate 'First Name' %] <span class="redTxt">*</span></label>
+                    <input id="tst_userSetupView_firstName" type="text" ng-model="vm.user.firstName" name="firstName" required />
+                </div>
+                <div class="usersetup-form-lastname">
+                    <label>[% translate 'Last Name' %] <span class="redTxt">*</span></label>
+                    <input id="tst_userSetupView_lastName" type="text" ng-model="vm.user.lastName" name="lastName" required />
+                </div>
+                <div ng-if="!vm.isNewUser">
+                    <div class="usersetup-form-user-section-heading">[% translate 'Status' %]</div>
+                    <div class="usersetup-form-lastloginon">
+                        <label>[% translate 'Last Sign In' %]</label>
+                        <div>
+                            <input id="tst_userSetupView_lastLoginOn" type="text" ng-value="vm.user.lastLoginOn | date:'short'" readonly="readonly" disabled="disabled" />
+                        </div>
+                        <span>{{insite.core.fullDateTimeFormat}}</span>
+                    </div>
+                    <div class="usersetup-form-activation-button" ng-if="vm.user.activationStatus != 'Activated'">
+                        <label>[% translate 'Account Status' %]</label>
+                        <a id="tst_userSetupView_sendActivationEmail" class="btn tertiary btn-assign" href="javascript:void(0);" ng-click="vm.onSendActivationEmailClick()">
+                            {{ (vm.activationEmailSent || vm.user.activationStatus == 'EmailSent') ? '[% translate 'Resend Activation Email' EscapeSingleQuotes %]' : '[% translate 'Send Activation Email' EscapeSingleQuotes %]' }}
+                        </a>
+                        <span id="tst_userSetupView_emailNotSentMessage" ng-if="!vm.activationEmailSent && vm.user.activationStatus == 'EmailNotSent'">[% siteMessage 'User_Admin_EmailNotSent' %]</span>
+                        <span id="tst_userSetupView_emailSentMessage" ng-if="vm.activationEmailSent || vm.user.activationStatus == 'EmailSent'">[% siteMessage 'User_Admin_EmailSent' %]</span>
+                    </div>
+                    <div class="usersetup-form-status">
+                        <input id="userSetupViewUserIsApprovedCheckbox" type="checkbox" ng-model="vm.user.isApproved" />
+                        <label>[% translate 'Active' %]</label>
+                    </div>
+                </div>
+                <div ng-if="vm.isNewUser">
+                    <div class="usersetup-form-user-section-heading">[% translate 'Account Activation' %]</div>
+                    <div class="usersetup-form-send-activation-email">
+                        <label>[% translate 'Send Activation Email' %]</label>
+                        <input id="tst_userSetupView_autoSendActivationEmail" type="checkbox" ng-model="vm.autoSendActivationEmail" />
+                    </div>
+                </div>
+                <div class="usersetup-form-user-section-heading">[% translate 'Settings' %]</div>
+                <div class="usersetup-form-userrole">
+                    <label>[% translate 'Assign User Role' %]</label><a class="btn-tip" ng-click="vm.displayModal('tipRole')"><i class="icon-help"></i></a>
+                    <div id="tipRole" class="ma-user-setup reveal-modal popup-role-tip" data-reveal>
+                        <div class="modal-wrap">
+                            <div class="tip-role">
+                                <div class="cm">[[Model.RoleInformation]]</div>
+                            </div>
+                            <a class="close-reveal-modal">&#215;</a>
+                        </div>
+                    </div>
+                    <select id="tst_userSetupView_role" class="sel" ng-model="vm.user.role" name="role">
+                        <option value="">[% translate 'Select User Role' %]</option>
+                        <option ng-repeat="role in vm.user.availableRoles" value="{{role}}" ng-bind="role"></option>
+                    </select>
+                </div>
+
+                <div class="usersetup-form-approver" ng-if="vm.user.availableRoles.length > 1">
+                    <label>[% translate 'Assign Approver' %]</label><a class="btn-tip" ng-click="vm.displayModal('tipApprover')"><i class="icon-help"></i></a>
+                    <div id="tipApprover" class="ma-user-setup reveal-modal popup-role-tip" data-reveal>
+                        <div class="modal-wrap">
+                            <div class="tip-approval">
+                                <div class="cm">[[Model.AssignApproverHelpMessage]]</div>
+                            </div>
+                            <a class="close-reveal-modal">&#215;</a>
+                        </div>
+                    </div>
+                    <select id="tst_userSetupView_approver" class="sel" ng-model="vm.user.approver" name="approver">
+                        <option value="">[% translate 'Select an Approver' %]</option>
+                        <option ng-repeat="approver in vm.user.availableApprovers" value="{{approver}}" ng-bind="approver"></option>
+                    </select>
+                </div>
+                <div class="usersetup-form-assign">
+                    <a class="btn tertiary btn-assign" ng-if="!vm.isNewUser" ng-href="[% urlForPage 'UserSetupShipToPage' %]?userId={{vm.userId}}">[% translate 'Assign / Edit Ship To(s)' %]</a>
+                </div>
+                <div class="btns">
+                    <a href="[% urlForPage 'UserListPage' %]" class="btn secondary btn-cancel">[% translate 'Cancel' %]</a>
+                    <button id="tst_userSetupView_save" type="submit" class="btn primary btn-save">{{vm.isNewUser ? "[% translate 'Create User' EscapeSingleQuotes %]" : "[% translate 'Save Changes' EscapeSingleQuotes %]"}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div ng-show="vm.retrievalError" ng-cloak>
+        <span class="field-validation-error">[% translate 'An error occured, please try again later.' %]</span>
+    </div>
+</div>

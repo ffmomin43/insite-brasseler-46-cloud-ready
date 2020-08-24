@@ -1,0 +1,4 @@
+﻿<div ng-controller="BrandLogoController as vm" ng-cloak class="widget-brandLogo">
+    <img ng-if="vm.logoLargeImagePath" ng-src="{{vm.logoLargeImagePath}}" alt="{{vm.logoAltText}}" />
+    <h1 ng-if="!vm.logoLargeImagePath" ng-bind="vm.brandName"></h1>
+</div>

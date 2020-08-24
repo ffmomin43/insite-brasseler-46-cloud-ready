@@ -1,0 +1,827 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9AB815A-A638-4AB5-BAE8-DB3E4D185872}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Extention</RootNamespace>
+    <AssemblyName>Extention</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Avalara.AvaTax.Adapter, Version=5.7.3.1, Culture=neutral, PublicKeyToken=34e4ef76d6267205, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Avalara.AvaTax.Adapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotLiquid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\DotLiquid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GemBox.Spreadsheet, Version=33.3.30.1062, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\GemBox.Spreadsheet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Insite.Account, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Account.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Brands, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Brands.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Budget, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Budget.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Cart, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Cart.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Catalog, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Catalog.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Common, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Configurator, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Configurator.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.ContentLibrary, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.ContentLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Core.Interfaces, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Core.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Customers, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Customers.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Dashboard, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Dashboard.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data.Entities, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Data.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data.Providers.EntityFramework, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Data.Providers.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data.Repositories, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Data.Repositories.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Dealers, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Dealers.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Email, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Email.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.Acumatica, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.Acumatica.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.APlus, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.APlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.Facts, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.Facts.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.Ifs, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.Ifs.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.IfsAurena, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.IfsAurena.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.Prophet21, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.Prophet21.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Integration.Connector.SXe, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Integration.Connector.SXe.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Invoice, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Invoice.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.JobQuote, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.JobQuote.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Message, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Message.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.MobileApp, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.MobileApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Order, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Order.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.OrderApproval, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.OrderApproval.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Payments, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Payments.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Promotions, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Promotions.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Public.Core, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Public.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Public.Integration, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Public.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Public.WebFramework, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Public.WebFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.PunchOut, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.PunchOut.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.QuickOrder, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.QuickOrder.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.RealTimeInventory, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.RealTimeInventory.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.RealTimePricing, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.RealTimePricing.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Requisition, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Requisition.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Rfq, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Rfq.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Search.Elasticsearch, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Search.Elasticsearch.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.TaxCalculator.Vertex, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.TaxCalculator.Vertex.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Websites, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.Websites.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.WIS.Broker, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.WIS.Broker.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.WishLists, Version=5.0.3.259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.5.0.3.259\lib\net48\Insite.WishLists.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\BackOrders.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\Brand.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\InvoiceInforTransaction.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\InvoiceTransaction.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\OrderSourceCode.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\PriceMatrixBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\ProductCurrencyMappingBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\ReturnRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\RmaResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\SampleProductTracking.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\SubscriptionBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\BackOrdersMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\InvoiceInforTransactionMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\InvoiceTransactionMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\OrderSourceCodeMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\PriceMatrixBrasselerMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\ProductCurrencyBrasselerEntityMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\RmaRequestMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\RmaResponseMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\SampleProductTrackingMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\SubscriptionBrasselerMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Providers\EntityFramework\EntityMappings\UserPaymentProfileMapping.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\BackOrdersRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\InvoiceInforTransactionRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\InvoiceTransactionRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\OrderSourceCodeRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\PriceMatrixBrasselerRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\ProductPriceMappingBrasselerRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\RmaRequestRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\RmaResponseRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\SampleProductTrackingRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\SubscriptionBrasselerRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Repositories\UserPaymentProfileRepository.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Plugins\Helper\XmlToModelConverter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Properties\AssemblyInfo.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Handlers\AddBrandHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Handlers\CartSubscriptionDtoHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Handlers\GetUserPaymentProfileCollectionHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Handlers\InvoiceTransactionHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Handlers\PatchUserPaymentProfileHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Handlers\RemoveUserPaymentProfileHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\IUserPaymentProfileService.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\OutstandingInvoiceService.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Parameters\AddBrandParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Parameters\GetUserPaymentProfileCollectionParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Parameters\GetUserPaymentProfileParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Parameters\PatchUserPaymentProfileParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Parameters\RemoveUserPaymentProfileParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Results\AddBrandResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Results\GetUserPaymentProfileCollectionResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Results\GetUserPaymentProfileResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Results\PatchUserPaymentProfileResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Results\RemoveUserPaymentProfileResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\Results\UserPaymentProfileResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Services\UserPaymentProfileService.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\ARInvoiceDetailModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\AROpenInvoicesModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\ARSummaryModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\CartModel_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\GetOutstandingInvoiceParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\InvoiceList.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\OutstandingOrderModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\PayOpenInvoicesCreditCard.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\PayOpenInvoicesHead.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\PayOpenInvoicesInvoice.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\PayOpenInvoicesRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryRequestModel\LabelRecoveryRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryRequestModel\LabelRecoveryRequestModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryRequestModel\Translate.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelImage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelRecoveryResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelRecoveryResponseModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelResults.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\Receipt.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\StatusResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Address.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\BillShipper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\LabelImageFormat.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\LabelSpecification.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Package.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\PackageWeight.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\PaymentInformation.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Phone.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\ReferenceNumber.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Request.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\ServiceAccessToken.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Ship.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Shipment.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\ShipmentCharge.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\ShipmentRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\Shipper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\ShipRequestModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\TransactionReference.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\UPSSecurity.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipRequestModel\UsernameToken.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\BillingWeight.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\Charges.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\PackageResults.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\Response.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ResponseStatus.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipmentCharges.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipmentResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipmentResults.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ShippingLabel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ShippingReceipt.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipResponseModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\UserPaymentProfileCollectionModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\UserPaymentProfileCollectionParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\UserPaymentProfileModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\ApiModels\UserPaymentProfileParameter.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Dtos\CartSubscriptionDto.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Dtos\GetOutstandingInvoicesDto.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Dtos\GetOutstandingOrderDto.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\DeleteUserPaymentProfileMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\GetUserPaymentProfileCollectionMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\GetUserPaymentProfileMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\Interfaces\IDeleteUserPaymentProfileMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\Interfaces\IGetUserPaymentProfileCollectionMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\Interfaces\IGetUserPaymentProfileMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\Interfaces\IPatchUserPaymentProfileMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\Interfaces\IPostBrandMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\PatchUserPaymentProfileMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\PostBrandMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\Mappers\UserPaymentProfileMapperStartupTask.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\OutstandingInvoicesV1Controller.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\SubscriptionCartV1Controller.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.CustomAPI\WebApi\V1\UserPaymentProfileV1Controller.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\IntegrationBase.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\AttributeRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\BackOrderRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\CustomerProductRefreshPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\CustomerRefreshPostProcessors.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\CustomerRestrictionRefreshPostprocesor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\DailyOrdersReportPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\DailySubscriptionRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ERPPriceMatrixRefreshPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\InvoiceRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\JobPostprocessorDataExporter_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\NewUserCountPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\OrderRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\OrderShipmentRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\OrderSourceCodePostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ParameterizedCustomerRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\PostToInforPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\PriceMatrixBrasselerRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\PricingRefreshPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\PricingRefreshPostprocessorDeletion.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ProductCrossSellRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ProductRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ProductRestrictionRefreshPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\ProductWareHouseRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\PromotionsReportingPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\RestrictionRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\SalespersonRefreshPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\SmartSupplyModifiedOrdersPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\SubscriptionCreditCardExpiryPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\SubscriptionShippingNotificationPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\SubscriptionSubmitPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\SuspendProductsCanadaRefreshPostprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\TestODBCPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PostProcessors\VolumeBreakQtyRefreshPostProcessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PreProcessors\CategoryProductRefreshPreprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\PreProcessors\PricingRefreshDeletionPreprocessor.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\Properties\AssemblyInfo.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.Integration\WebService\IntegrationJobSchedulingService_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.SystemSettings\Properties\AssemblyInfo.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.SystemSettings\SystemSetting\Groups\CustomSettings.cs" />
+    <Compile Include="InSiteCommerce.Brasseler.SystemSettings\SystemSetting\Groups\WebAppSettingPrimaryGroup.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\AdminConsole\ImpersonateTokenGenerator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Admin\Extensions\BrasselerProductsController.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerCatalogNavigationPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerCatalogNavigationPageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerCatalogNavigationPagePreparer.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerLanguagePeferencePage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerLanguagePeferencePageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerOutstandingInvoicesDetailPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerOutstandingInvoicesDetailPageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerOutstandingInvoicesListPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerOutstandingInvoicesListPageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerOutstandingInvoicesPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerPaymentOptionsPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerPaymentOptionsPageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerSmartSupplyDetailPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerSmartSupplyDetailPageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerSmartSupplyListPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerSmartSupplyListPageContentCreator.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Pages\BrasselerSmartSupplyPage.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerEmailSubscription.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerLanguagePreferenceView.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerOutstandingInvoicesDetailView.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerOutstandingInvoicesListView.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerPaymentOptionsView.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerSmartSupplyDetailView.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerSmartSupplyListView.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\ContentLibrary\Widgets\BrasselerSocialSubscription.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Controllers\Invoice\InvoiceController.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Controllers\OrderDetail\OrderController.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\EmailService\EmailService_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\EmailService\TellAFriendService_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\EntityUtilities\CustomerOrderUtilities_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Helper\HelperUtility.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Helper\MessageProvider_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\ClientWebServiceResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\ParameterValidationResult.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\PaymentGatewayCenpos_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\SecureVirtualTerminalWebServiceRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\Tokens.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\TokensChannel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\TokensClient.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\UseTokenRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\UseTokenResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\VirtualTerminalWebServiceRequest.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Payment\VirtualTerminalWebServiceResponse.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Pricing\ERPPriceMatrixModel.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Pricing\PricingServiceBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Pricing\PricingServiceBrasselerCanada.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\AddFreeProduct_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\CreatePromotionDtosBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\CriteriaTypeIsCartLineSubscribed.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\CriteriaTypeOrderedProductPriceFromCategory_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\CriteriaTypeOrderProductCount.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\CriteriaTypeOverideVolumeDiscount.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\DiscountProductsInCategory_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\DiscountProductsOfVendor_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\DiscountProductsWithPriceCode_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\DiscountProduct_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\DiscountSubscriptionProduct_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\DiscountSubscriptionShipping_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\ProductPromotionHelper_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\PromotionEngine_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Promotions\SetProductQty_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Plugins\Tax\TaxCalculatorAvalara_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Properties\AssemblyInfo.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Punchout\PunchOutCustomerOrderProcessorBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Punchout\PunchOutOrderRequestServiceBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Punchout\PunchOutOrderRequestUtilitiesBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Punchout\PunchOutProviderMessageFactoryBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Punchout\PunchOutSetupRequestService_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Punchout\PunchOutSubmitPoRequisitionServiceBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Account\AccountActivationEmail_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Account\AddAccountHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Account\AddAccountHandler_Brasseler2.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Account\SetUpDashboardPanelCollectionBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Account\UpdateAccountHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\AddCartLine_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\ApplySort.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\CalculateShipping_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\CartHelper_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\AddShipToHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\ChangeStatusToSubmitted_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\CopyCustomPropertiesToResult_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\CreateOrderHistory_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\GetBillToHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\GetCartPrices_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\GetCartsQuery_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\PopulateCanModifyOrder.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\PopulateTotals_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\ProcessCreditCardTransaction_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\ProcessInventory_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\ProcessSubscriptionPurchase_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\RecalculateCart_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\RemoveCart_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\SendConfirmationEmail_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\SetNewUserCustomProperties.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\SubmitCart_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\SubmitOrderToErp.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Cart\UpdateCart_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Catalog\GetAutocompleteProductResults_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Catalog\GetProductCollectionHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Catalog\GetProduct_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\GetCartHandler_Properties.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\GetCategoryHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\GetCustomerRestrictionGroupIds.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\GetStoredOrderHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Invoice_ApplyFilteringToStoredCollectionQuery_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\OrderHistory_ApplyFilteringToStoredCollectionQuery_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\OutstandingInvoices\PayOutstandingCredit.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\OutstandingInvoices\PayOutstandingInvoices.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\PopulatePaymentOptions.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Promotions\ApplyPromotionOverride.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\RemoveCartLineHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Rma\CreateCustomerOrderRecord.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Rma\GetRmaReceivedQtyBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Rma\GetRmaStatus.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Rma\PopulateEmailModel_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Rma\RmaLabel_Handler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Rma\SubmitRmaOrderToErp.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\SampleProduct\GetProduct_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\SampleProduct\SampleAddCartLine.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\SampleProduct\SampleProductTracking_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\SampleProduct\SampleUpdateCartHandler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\SampleProduct\UpdateSampleProduct.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\SendACopy.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\UpdateCartAddNewCard.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\UpdateCartCreateSSOrder.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\UpdateCartHandlerBrasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\UpdateCartLine_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\ValidateAvailability.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\Website\GetLanguageCollectionHandler_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Handlers\WishLists\SendACopy.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Mappers\GetCartMapper_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Mappers\GetInvoiceMapper_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Mappers\GetWishListLineCollectionMapper.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Mappers\PatchCartMapper_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\PaymentService_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\CalculatePromotions.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\CreateGetCartLineResults_Override.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\GetCartLine.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\GetCustomerOrderDataSet.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\SetBillto_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\SetQtyOrdered.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\SetShipTo_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Tags\BrasselerNavigationMenuTag.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Tags\WhiteSpaceRegex.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\brand.json" />
+    <None Include="InSiteCommerce.Brasseler.CustomAPI\InSiteCommerce.Brasseler.CustomAPI.csproj" />
+    <None Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\InSiteCommerce.Brasseler.CustomAPI.csproj.CopyComplete" />
+    <None Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\InSiteCommerce.Brasseler.CustomAPI.csproj.CoreCompileInputs.cache" />
+    <None Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\InSiteCommerce.Brasseler.CustomAPI.csprojAssemblyReference.cache" />
+    <None Include="InSiteCommerce.Brasseler.Integration\InSiteCommerce.Brasseler.Integration.csproj" />
+    <None Include="InSiteCommerce.Brasseler.Integration\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="InSiteCommerce.Brasseler.Integration\obj\Debug\InSiteCommerce.Brasseler.Integration.csproj.CopyComplete" />
+    <None Include="InSiteCommerce.Brasseler.Integration\obj\Debug\InSiteCommerce.Brasseler.Integration.csproj.CoreCompileInputs.cache" />
+    <None Include="InSiteCommerce.Brasseler.Integration\obj\Debug\InSiteCommerce.Brasseler.Integration.csprojAssemblyReference.cache" />
+    <None Include="InSiteCommerce.Brasseler.SystemSettings\InSiteCommerce.Brasseler.SystemSettings.csproj" />
+    <None Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\InSiteCommerce.Brasseler.SystemSettings.csproj.CopyComplete" />
+    <None Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\InSiteCommerce.Brasseler.SystemSettings.csproj.CoreCompileInputs.cache" />
+    <None Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\InSiteCommerce.Brasseler.SystemSettings.csprojAssemblyReference.cache" />
+    <None Include="InSiteCommerce.Brasseler\InSiteCommerce.Brasseler.csproj" />
+    <None Include="InSiteCommerce.Brasseler\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="InSiteCommerce.Brasseler\obj\Debug\InSiteCommerce.Brasseler.csproj.CopyComplete" />
+    <None Include="InSiteCommerce.Brasseler\obj\Debug\InSiteCommerce.Brasseler.csproj.CoreCompileInputs.cache" />
+    <None Include="InSiteCommerce.Brasseler\obj\Debug\InSiteCommerce.Brasseler.csprojAssemblyReference.cache" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\AutoMapper.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\AutoMapper.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\DotLiquid.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\EntityFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\EntityFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Account.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Account.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Budget.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Budget.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Cart.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Cart.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Catalog.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Catalog.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Common.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Common.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.ContentLibrary.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.ContentLibrary.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Core.Interfaces.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Core.Interfaces.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Core.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Customers.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Customers.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.Entities.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.Entities.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.Providers.EntityFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.Providers.EntityFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.Repositories.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.Repositories.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Data.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Email.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Email.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Integration.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.IocContainer.Unity.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.IocContainer.Unity.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Order.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Order.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.PaymentGateway.Cenpos.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.PaymentGateway.Cenpos.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Payments.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Payments.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Public.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Public.WebFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Punchout.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Punchout.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.WebFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.WebFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Websites.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.Websites.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.WishLists.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Insite.WishLists.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\InSiteCommerce.Brasseler.CustomAPI.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\InSiteCommerce.Brasseler.CustomAPI.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\Owin.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\System.Web.Http.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\bin\Debug\System.Web.Http.xml" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\InSiteCommerce.Brasseler.CustomAPI.csproj.FileListAbsolute.txt" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\InSiteCommerce.Brasseler.CustomAPI.dll" />
+    <Content Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\InSiteCommerce.Brasseler.CustomAPI.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\AutoMapper.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\AutoMapper.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Avalara.AvaTax.Adapter.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\DotLiquid.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\EntityFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\EntityFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\GemBox.Spreadsheet.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Account.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Account.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Admin.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Admin.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Budget.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Budget.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Cart.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Cart.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Catalog.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Catalog.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Common.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Common.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Configurator.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Configurator.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.ContentLibrary.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.ContentLibrary.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Core.Interfaces.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Core.Interfaces.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Core.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Customers.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Customers.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.Entities.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.Entities.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.Providers.EntityFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.Providers.EntityFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.Repositories.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.Repositories.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Data.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Email.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Email.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.HelpLinks.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.HelpLinks.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.IdentityServer.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.IdentityServer.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Integration.WebService.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Integration.WebService.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Integration.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.IocContainer.Unity.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.IocContainer.Unity.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Order.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Order.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.PaymentGateway.Cenpos.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.PaymentGateway.Cenpos.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Payments.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Payments.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Plugins.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Plugins.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Public.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Public.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Public.WebFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Punchout.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Punchout.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.TaxCalculator.Avalara.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.TaxCalculator.Avalara.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.WebFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.WebFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Websites.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.Websites.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.WIS.Broker.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.WIS.Broker.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.WishLists.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Insite.WishLists.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\InSiteCommerce.Brasseler.CustomAPI.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\InSiteCommerce.Brasseler.CustomAPI.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\InSiteCommerce.Brasseler.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\InSiteCommerce.Brasseler.Integration.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Ionic.Zip.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\Owin.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\RemoteActiveDirectory.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\System.Web.Http.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\bin\Debug\System.Web.Http.xml" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\obj\Debug\InSiteCommerce.Brasseler.Integration.csproj.FileListAbsolute.txt" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\obj\Debug\InSiteCommerce.Brasseler.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler.Integration\obj\Debug\InSiteCommerce.Brasseler.Integration.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Common.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Common.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Core.Interfaces.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Core.Interfaces.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Core.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Data.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Data.Entities.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Data.Entities.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Data.Repositories.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Data.Repositories.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Data.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Integration.xml" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\Insite.Public.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.pdb" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\InSiteCommerce.Brasseler.SystemSettings.csproj.FileListAbsolute.txt" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\InSiteCommerce.Brasseler.SystemSettings.dll" />
+    <Content Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\InSiteCommerce.Brasseler.SystemSettings.pdb" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\AutoMapper.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\AutoMapper.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Avalara.AvaTax.Adapter.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\DotLiquid.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\EntityFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\EntityFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\GemBox.Spreadsheet.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Account.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Account.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Admin.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Admin.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Budget.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Budget.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Cart.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Cart.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Catalog.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Catalog.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Common.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Common.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Configurator.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Configurator.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.ContentLibrary.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.ContentLibrary.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Core.Interfaces.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Core.Interfaces.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Core.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Customers.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Customers.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Dashboard.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Dashboard.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.Entities.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.Entities.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.Providers.EntityFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.Providers.EntityFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.Repositories.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.Repositories.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Data.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Email.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Email.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.HelpLinks.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.HelpLinks.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.IdentityServer.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.IdentityServer.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Integration.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Invoice.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Invoice.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.IocContainer.Unity.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.IocContainer.Unity.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.JobQuote.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.JobQuote.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Message.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Message.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Order.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Order.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.OrderApproval.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.OrderApproval.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.PaymentGateway.Cenpos.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.PaymentGateway.Cenpos.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Payments.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Payments.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Plugins.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Plugins.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Promotions.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Promotions.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Public.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Public.Integration.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Public.WebFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Punchout.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Punchout.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Requisition.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Requisition.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Rfq.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Rfq.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Search.Elasticsearch.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Search.Elasticsearch.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.TaxCalculator.Avalara.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.TaxCalculator.Avalara.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.WebFramework.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.WebFramework.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Websites.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.Websites.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.WishLists.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Insite.WishLists.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\InSiteCommerce.Brasseler.CustomAPI.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\InSiteCommerce.Brasseler.CustomAPI.pdb" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\InSiteCommerce.Brasseler.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\InSiteCommerce.Brasseler.pdb" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\InSiteCommerce.Brasseler.SystemSettings.pdb" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Microsoft.AspNet.SignalR.Core.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Microsoft.AspNet.SignalR.Core.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Microsoft.Practices.ServiceLocation.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Microsoft.Practices.ServiceLocation.pdb" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Microsoft.Practices.ServiceLocation.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Nest.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Nest.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\Owin.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\RemoteActiveDirectory.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\System.Web.Http.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\System.Web.Http.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\System.Web.Mvc.xml" />
+    <Content Include="InSiteCommerce.Brasseler\bin\Debug\WebGrease.dll" />
+    <Content Include="InSiteCommerce.Brasseler\obj\Debug\InSiteCommerce.Brasseler.csproj.FileListAbsolute.txt" />
+    <Content Include="InSiteCommerce.Brasseler\obj\Debug\InSiteCommerce.Brasseler.dll" />
+    <Content Include="InSiteCommerce.Brasseler\obj\Debug\InSiteCommerce.Brasseler.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="InSiteCommerce.Brasseler.CustomAPI\obj\Debug\TempPE\" />
+    <Folder Include="InSiteCommerce.Brasseler.Integration\obj\Debug\TempPE\" />
+    <Folder Include="InSiteCommerce.Brasseler.SystemSettings\obj\Debug\TempPE\" />
+    <Folder Include="InSiteCommerce.Brasseler\obj\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

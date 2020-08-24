@@ -1,0 +1,7 @@
+﻿<div class="warehouse-info">
+    <h4 data-test-selector="tst_warehouseInfo_name" ng-bind="warehouse.description || warehouse.name"></h4>
+    <p data-test-selector="tst_warehouseInfo_address1" ng-bind="warehouse.address1"></p>
+    <p ng-bind="warehouse.address2"></p>
+    <p ng-bind="warehouse.city + (warehouse.city ? ', ' : '') + warehouse.state + ' ' + warehouse.postalCode"></p>
+    <p ng-bind="warehouse.phone"></p>
+</div>

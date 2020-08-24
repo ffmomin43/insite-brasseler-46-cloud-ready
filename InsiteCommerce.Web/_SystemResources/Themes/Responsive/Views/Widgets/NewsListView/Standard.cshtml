@@ -1,0 +1,34 @@
+﻿<div class="news-list">
+    <div class="news-list-header">
+        [% zone 'News Header' %]
+    </div>
+    <div class="news-listings">
+        [% if Model.Drop.Pagination.NumberOfPages == 0 -%]
+            [% translate 'There are no news pages in this news list.' %]
+        [% else -%]
+            [% for newsPage in Model.Drop.NewsPages -%]
+            <div class="news-list-page tst_newsListView_newsPage">
+                <h2 class="news-heading"><a class="tst_newsListView_newsPage_pageTitleLink" href="[[newsPage.Url]]">[[newsPage.Title]]</a></h2>
+                <div class="news-publish-info"><strong>[[newsPage.Author]]</strong> <em>[[newsPage.PublishDateDisplay]]</em></div>
+                <div class="news-page-summary">
+                    [[newsPage.QuickSummaryDisplay]]
+                    <div><a class="tst_newsListView_newsPage_readMoreLink" href="[[newsPage.Url]]">[% translate 'Read More' %]</a></div>
+                </div>
+            </div>
+            [% endfor -%]
+        [% endif -%]
+    </div>
+    [% if Model.Drop.Pagination.NumberOfPages > 1 -%]
+        <div class="newslist-paging">
+            <isc-content-pager page="[[Model.Drop.Pagination.Page]]"
+                               page-size="[[Model.Drop.Pagination.PageSize]]"
+                               default-page-size="[[Model.Drop.Pagination.DefaultPageSize]]"
+                               total-item-count="[[Model.Drop.Pagination.TotalItemCount]]"
+                               number-of-pages="[[Model.Drop.Pagination.NumberOfPages]]"
+                               content-item-id="[[Model.Drop.NewsListId]]"></isc-content-pager>
+        </div>
+    [% endif -%]
+    <div class="news-list-footer">
+        [% zone 'News Footer' %]
+    </div>
+</div>

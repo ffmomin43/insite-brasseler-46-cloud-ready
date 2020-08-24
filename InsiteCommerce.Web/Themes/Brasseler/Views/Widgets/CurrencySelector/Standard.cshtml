@@ -1,0 +1,18 @@
+﻿<div ng-controller="CurrencyController as vm" class="widget-currency-selector [[Model.CssClass]]" ng-cloak>
+    <div ng-show="vm.currencies.length > 1">
+        <div ng-click="vm.openCurrenciesMenu($event)" class="sn-currency-selector">
+            <a href="#" class="currency-button">
+                <span class="currency-symbol" ng-bind="::vm.session.currency.currencySymbol"></span>
+                <span class="currency-label" ng-bind="::vm.session.currency.currencyCode"></span>
+            </a>
+            <ul ng-if="vm.showCurrenciesMenu" class="currencies-menu">
+                <li ng-repeat="currency in vm.currencies" ng-class="{'currency-current': currency.id === vm.session.currency.id}">
+                    <a href="" ng-click="vm.setCurrency(currency.id)">
+                        <span class="currency-symbol" ng-bind="::currency.currencySymbol"></span>
+                        <span class="currency-label" ng-bind="::currency.description"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

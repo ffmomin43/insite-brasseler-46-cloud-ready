@@ -1,0 +1,826 @@
+.ma-quote-details {
+    .col-details h2 {
+        font-size: 1em;
+        margin-top: 0;
+    }
+
+    .col-details h2 span {
+        font-weight: normal;
+    }
+
+    .main-details {
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 1em;
+        padding-bottom: 1em;
+        position: relative;
+    }
+
+    .main-details h2 {
+        font-size: 1.4em;
+        margin-bottom: 0.25em;
+        display: inline-block;
+    }
+
+    .main-details input {
+        display: inline-block;
+        width: auto;
+        max-width: 120px;
+        margin-left: 0.5em;
+        margin-bottom: 0;
+        padding-left: 0.75em;
+    }
+    /* Quote Communication */
+    .col-communication {
+        margin-bottom: 1em;
+    }
+
+    .col-communication h3 {
+        margin-top: 0;
+    }
+
+    .q-msgs {
+        float: left;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 1em;
+    }
+
+    .q-msg {
+        float: left;
+        width: 100%;
+        border: 1px solid #ccc;
+        padding: 1em;
+    }
+
+    .q-msg + .q-msg {
+        margin-top: 0.5em;
+    }
+
+    .q-msg .msg-from {
+        display: inline-block;
+        float: left;
+        margin-bottom: 0.25em;
+        font-size: 0.875em;
+    }
+
+    .q-msg .msg-date {
+        display: inline-block;
+        float: right;
+        color: #868686;
+        margin-bottom: 0.25em;
+        font-size: 0.875em;
+    }
+
+    .q-msg .msg-txt {
+        display: inline-block;
+        float: left;
+        width: 100%;
+    }
+
+    .send-msg {
+        float: left;
+        width: 100%;
+    }
+
+    .send-msg textarea {
+        padding: 1em;
+        min-height: 9em;
+    }
+    /* Quote Details */
+    .quote-details {
+        margin-top: 1.5em;
+    }
+
+    .quote-details .actions-panel .item-actions {
+        text-align: left;
+    }
+
+    .quote-details .item-code-notes {
+        padding: 0;
+        float: left;
+        width: 74.5%;
+    }
+
+    .quote-details .item-actions-wrap {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        float: left;
+        width: 100%;
+    }
+
+    .item-block .price {
+        span {
+            margin: 0 0;
+        }
+
+        .quote-required {
+            margin-right: 1rem;
+        }
+
+        .price-saving {
+            display: block;
+        }
+
+        .quantity-pricing {
+            margin-left: 0 !important;
+            display: block !important;
+        }
+    }
+
+    .quote-details .item-list .item-block .item-opt {
+        margin-top: 0.3em;
+    }
+
+    .quote-details .btns.show-for-small {
+        margin-top: 1em;
+    }
+
+    .quote-details .btns.show-for-small .btn {
+        width: 100%;
+        margin: 0 0 1em 0;
+    }
+
+    .quote-details .q-details .wrap {
+        background-color: #F6F6F6;
+        padding: 1em;
+    }
+
+    .quote-details .q-details ul {
+        list-style-type: none;
+        margin-left: 0;
+        width: 50%;
+        float: left;
+        font-size: 0.875em;
+        line-height: 1.4em;
+    }
+
+    .quote-details .q-details ul li {
+        border-bottom: 1px solid #CCCCCC;
+        padding-bottom: 0.25em;
+        margin-bottom: 0.25em;
+        float: left;
+        width: 100%;
+    }
+
+    .quote-details .q-details ul li .qtys {
+        float: left;
+        display: inline-block;
+    }
+
+    .quote-details .q-details ul li .qprice {
+        text-align: right;
+        float: right;
+        display: inline-block;
+    }
+
+    .quote-details .q-details .item-opt {
+        width: 46%;
+        float: right;
+        display: inline-block;
+        clear: none;
+        line-height: 1em;
+        height: auto;
+    }
+
+    .quote-details .q-details .item-opt .item-qty {
+        line-height: 1em;
+    }
+
+    .quote-details .q-details .item-opt input {
+        margin-right: 0;
+        width: 60px;
+    }
+
+    .quote-details .q-details .item-opt .item-subtotal {
+        display: inline-block;
+        text-align: right;
+    }
+
+    .quote-details .q-details .item-opt .item-subtotal strong,
+    .quote-details .q-details .item-opt .item-subtotal strong {
+        display: block;
+        text-align: right;
+        line-height: 2em;
+    }
+
+    .quote-details .q-details .wrap:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .quote-details .actions-panel a.btn.tertiary.panel-trigger {
+        font-size: 0.875em;
+    }
+
+
+    .col-items {
+        margin-bottom: 1em;
+    }
+
+    .q-total {
+        margin-top: 1em;
+        margin-bottom: 1.5em;
+        text-align: right;
+        float: left;
+        width: 100%;
+    }
+
+    .q-total strong,
+    .q-total span {
+        font-size: 141%;
+    }
+
+    .btns .btn {
+        float: right;
+        margin-left: 1em;
+        margin-bottom: 1em;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-quote-details {
+        .col-details,
+        .col-communication {
+            width: 100%;
+        }
+
+        .show-for-small {
+            display: inline-block !important;
+        }
+
+        .col-qtyreq strong,
+        .col-um strong {
+            margin-right: 0.5em;
+        }
+
+        .info-tbl td {
+            border: 0;
+        }
+
+        .btn-remove .icon-x-1 {
+            font-size: 0.65rem;
+        }
+
+        .item-list .item-details {
+            width: 80%;
+        }
+
+        .quote-details .item-block .item-thumb {
+            width: 20%;
+        }
+
+        .quote-details .q-details {
+            margin-bottom: 1em;
+        }
+
+        .quote-details .quote-required .f-dropdown.content {
+            min-width: 235px !important;
+            margin-left: -120px;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-quote-details {
+        .quote-details .item-details div.price,
+        .quote-details .item-details div.item-opt {
+            display: inline-block;
+            height: auto;
+        }
+
+        .quote-details .item-details div.item-opt {
+            line-height: 1em;
+
+            .item-subtotal {
+                min-width: 110px;
+            }
+        }
+
+        .quote-details .item-details {
+            padding-right: 0.5em !important;
+        }
+
+        .item-list .item-thumb {
+            width: 12%;
+        }
+
+        .quote-details .item-details {
+            width: 43%;
+            min-height: 150px;
+        }
+
+        .quote-details .small-10.item-details {
+            width: 88%;
+        }
+
+        .quote-details .q-details {
+            width: 45%;
+            display: inline-block;
+            float: right;
+            padding-bottom: 1em;
+        }
+    }
+}
+
+@media all and (min-width: 960px) {
+    .ma-quote-details {
+        .item-list .item-thumb {
+            width: 12%;
+        }
+
+        .quote-details .item-details {
+            width: 48%;
+            min-height: 150px;
+        }
+
+        .quote-details .small-10.item-details {
+            width: 88%;
+        }
+
+        .quote-details .q-details {
+            width: 40%;
+            display: inline-block;
+            float: right;
+            padding-bottom: 1em;
+        }
+    }
+}
+
+/* Sales - Quoted Items */
+.ma-quote-details.ma-sales .quoted-items .btns-top {
+    margin-top: 0.5em;
+    padding-top: 1em;
+    border-top: 1px solid #ccc;
+    margin-bottom: 1em;
+}
+
+.ma-quote-details.ma-sales .quoted-items .btn i {
+    vertical-align: bottom;
+    padding-right: 0.25em;
+}
+
+.ma-quote-details.ma-sales .quoted-items .info-tbl {
+    width: 100%;
+}
+
+@media all and (max-width: 767px) {
+    .ma-quote-details .send-msg .btn {
+        float: right;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .btns-top {
+        padding-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    .ma-quote-details .btns .btn {
+        width: 100%;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .info-tbl thead {
+        display: none;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .info-tbl tr {
+        display: inline-block;
+        width: 100%;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .info-tbl td {
+        display: inline-block;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .info-tbl td,
+    .ma-quote-details.ma-sales .quoted-items .info-tbl th {
+        font-size: inherit;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .col-item {
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .col-item .item-name {
+        margin-bottom: 0.5em;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .col-item .item-notes {
+        margin-top: 0.5em;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .col-qtyreq,
+    .ma-quote-details.ma-sales .quoted-items .col-um {
+        padding-bottom: 0;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .col-qty {
+        width: 49%;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .ma-quote-details.ma-sales .quoted-items .col-price {
+        width: 49%;
+        text-align: right;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .ma-quote-details.ma-sales td.col-qty span,
+    .ma-quote-details.ma-sales td.col-price span,
+    .ma-quote-details.ma-sales td.col-qty strong,
+    .ma-quote-details.ma-sales td.col-price strong {
+        display: block;
+        width: 100%;
+        padding-bottom: 0.25em;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .ma-quote-details.ma-sales td.col-qty strong,
+    .ma-quote-details.ma-sales td.col-price strong {
+        margin-top: 1em;
+        margin-bottom: 0.25em;
+    }
+
+    .ma-quote-details.ma-sales td.col-qty span + span,
+    .ma-quote-details.ma-sales td.col-price span + span {
+        padding-top: 0.25em;
+    }
+
+    .ma-quote-details.ma-sales td.col-qty span + span,
+    .ma-quote-details.ma-sales td.col-price span + span {
+        padding-top: 0.25em;
+    }
+
+    .ma-quote-details.ma-sales td.col-quote,
+    .ma-quote-details.ma-sales td.col-quote .btn {
+        width: 100%;
+    }
+}
+
+@media all and (min-width: 768px) {
+
+    .ma-quote-details.ma-sales .col-item {
+        width: 40%;
+    }
+
+    .ma-quote-details.ma-sales .col-qtyreq {
+        width: 10%;
+    }
+
+    .ma-quote-details.ma-sales .col-um {
+        width: 8%;
+    }
+
+    .ma-quote-details.ma-sales .col-qty {
+        width: 10%;
+    }
+
+    .ma-quote-details.ma-sales .col-price {
+        width: 10%;
+    }
+
+    .ma-quote-details.ma-sales .col-quote {
+        width: 12%;
+    }
+
+    .ma-quote-details.ma-sales .col-qtyreq,
+    .ma-quote-details.ma-sales .col-um,
+    .ma-quote-details.ma-sales .col-qty,
+    .ma-quote-details.ma-sales .col-price,
+    .ma-quote-details.ma-sales .col-quote .btn {
+        white-space: nowrap;
+    }
+
+    .ma-quote-details.ma-sales .col-qtyreq,
+    .ma-quote-details.ma-sales .col-price,
+    .ma-quote-details.ma-sales .col-quote {
+        text-align: right !important;
+    }
+
+    .ma-quote-details.ma-sales td.col-qty span,
+    .ma-quote-details.ma-sales td.col-price span {
+        display: block;
+        width: 100%;
+        padding-bottom: .25em;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .ma-quote-details.ma-sales td.col-qty span + span,
+    .ma-quote-details.ma-sales td.col-price span + span {
+        padding-top: .25em;
+    }
+
+    .ma-quote-details.ma-sales .btns-bottom .btn {
+        float: right;
+        margin-left: 1em;
+    }
+}
+
+/* Modal - Quote All */
+.popup-quote-all .modal-wrap {
+    max-width: 360px;
+    padding-top: 1.25em;
+}
+
+.popup-quote-all .messaging {
+    margin-top: 0;
+}
+
+.popup-quote-all .calc-disc .col-1 {
+    padding-left: 0;
+}
+
+.popup-quote-all .calc-disc .col-2 {
+    padding-right: 0;
+}
+
+.popup-quote-all .calc-disc .col-2 input {
+    width: 60%;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.popup-quote-all .btns {
+    margin-top: 0.5em;
+}
+
+.popup-quote-all .btns .btn {
+    float: right;
+    margin-left: 1em;
+}
+
+/* Modal - Quote Item */
+.popup-quote-item .modal-wrap {
+    min-width: 322px;
+    max-width: 760px;
+    padding-top: 1.25em;
+}
+
+.popup-quote-item div.col-1 {
+    padding-left: 0;
+}
+
+.popup-quote-item .col-1 ul {
+    list-style-type: none;
+    margin-left: 0;
+    font-size: 0.875em;
+    line-height: 1.4em;
+}
+
+.popup-quote-item h4 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.popup-quote-item ul li {
+    margin-bottom: 0.25em;
+}
+
+.popup-quote-item ul li span {
+    float: right;
+}
+
+.popup-quote-item ul .qty-avail {
+    margin-top: 1em;
+}
+
+.popup-quote-item div.columns.col-2 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.popup-quote-item .col-2 table tr.even, .popup-quote-item .col-2 table tr.alt, .popup-quote-item .col-2 table tr:nth-of-type(2n) {
+    background-color: inherit;
+}
+
+.popup-quote-item .col-2 table .col-1 em {
+    margin: 0 0.5em;
+}
+
+.popup-quote-item .col-2 table input {
+    font-size: 1em;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+.popup-quote-item .col-2 table .col-2 {
+    text-align: right;
+}
+
+.popup-quote-item .col-2 table .col-2 input.price-1 {
+    width: 80px;
+    text-align: right;
+}
+
+.popup-quote-item .col-2 table .col-2 input.disc-percent {
+    width: 50px;
+    margin-right: 0.25em;
+}
+
+.popup-quote-item .col-2 table select {
+    margin-bottom: 0;
+    display: inline-block;
+    max-width: 160px;
+}
+
+.popup-quote-item .add-price-breaks {
+    margin-bottom: 1.5em;
+    margin-top: -0.5em;
+}
+
+.popup-quote-item .add-price-breaks a {
+    text-decoration: none;
+}
+
+.popup-quote-item .add-price-breaks a i {
+    font-size: 0.7em;
+    padding-right: 0.25em;
+}
+
+
+@media all and (max-width: 480px) {
+    .popup-quote-item .modal-wrap {
+        max-width: 360px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .popup-quote-item .col-1 ul {
+        max-width: 190px;
+    }
+
+    .popup-quote-item .modal-wrap {
+        min-width: 322px;
+        padding-top: 1.25em;
+    }
+
+    .popup-quote-item .col-2 table thead {
+        display: none;
+    }
+
+    .popup-quote-item .col-2 table td {
+        display: inline-block;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .popup-quote-item .col-2 table .quote-calc .col-1 {
+        width: 60%;
+        float: left;
+        padding-right: 0;
+    }
+
+    .popup-quote-item .col-2 table .quote-calc .col-2 {
+        width: 40%;
+        float: right;
+    }
+
+    .popup-quote-item .col-2 table .quote-calc .col-3 {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .popup-quote-item .col-2 table .quote-calc .col-3 .btn {
+        float: right;
+        margin-left: 1em;
+    }
+
+    .popup-quote-item .col-2 table .quote-price .col-1 {
+        width: 60%;
+        float: left;
+        padding-right: 0;
+    }
+
+    .popup-quote-item .col-2 table .col-1 input {
+        width: 60px;
+    }
+
+    .popup-quote-item .col-2 table strong.show-for-small {
+        margin-bottom: 0.5em;
+        display: block !important;
+    }
+
+    .popup-quote-item .col-2 table .quote-price .col-2 {
+        width: 40%;
+        float: right;
+    }
+
+    .popup-quote-item .col-2 table .quote-price .col-3 {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .popup-quote-item .col-2 table .quote-price .col-3 .btn {
+        float: right;
+        margin-left: 1em;
+    }
+
+    .popup-quote-item .col-2 table .btn span {
+        padding-left: 0.5em;
+    }
+
+    .popup-quote-item .col-2 table .btn-remove span {
+    }
+
+    .popup-quote-item .btns .btn {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .popup-quote-item div.col-1 {
+        width: 25%;
+    }
+
+    .popup-quote-item div.col-2 {
+        width: 70%;
+    }
+
+    .popup-quote-item .col-2 table .btn-calc span,
+    .popup-quote-item .col-2 table .btn-remove span {
+        display: none;
+    }
+
+    .popup-quote-item .col-2 table {
+        width: 100%;
+    }
+
+    .popup-quote-item table .col-1 {
+        width: 40%;
+    }
+
+    .popup-quote-item table .col-2 {
+        width: 12%;
+    }
+
+    .popup-quote-item table .col-3 {
+        width: 40%;
+    }
+
+    .popup-quote-item .col-2 table th {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+    }
+
+    .popup-quote-item .col-2 table .col-1 input {
+        width: 60px;
+    }
+
+    .popup-quote-item .col-2 table .col-3 .btn + .btn {
+        margin-left: 0.25em;
+    }
+}
+
+.popup-quote-item .btns {
+    margin-top: 0.5em;
+}
+
+.popup-quote-item .btns .btn {
+    float: right;
+    margin-left: 1em;
+}
+
+.popup-quote-item .btns .btn-clear {
+    float: left;
+    margin-left: 0;
+}
+
+/* Modal - Cart Notification */
+.popup-cart-notification .modal-wrap {
+    max-width: 420px;
+    padding-top: 1.25em;
+}
+
+.popup-cart-notification .messaging {
+    margin-top: 0;
+}
+
+.popup-cart-notification .btns {
+    margin-top: 0.5em;
+}
+
+.popup-cart-notification .btns .btn {
+    float: right;
+    margin-left: 1em;
+}
+
+/* Print Styles */
+@media print {
+    .ma-quote-details div.btns,
+    .ma-quote-details .send-msg,
+    .ma-quote-details .actions-panel,
+    .ma-quote-details .col-quote {
+        display: none;
+    }
+
+    .ma-quote-details .main-details h2 {
+        margin-right: 1.5em;
+    }
+}

@@ -1,0 +1,152 @@
+﻿<div class="medium-12 large-12 columns" ng-controller="RmaController as vm" ng-cloak>
+    <ul class="breadcrumbs">
+        <li class="hide-for-small">
+            <a href="[% urlForPage 'HomePage' %]">[% translate 'Home' %]</a>
+        </li>
+        <li class="hide-for-small">
+            <a href="[% urlForPage 'MyAccountPage' %]">[% translate 'My Account' %]</a>
+        </li>
+        <li class="hide-for-small">
+            <a href="[% urlForPage 'OrdersPage' %]">[% translate 'Order History' %]</a>
+        </li>
+        <li class="">
+            <a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{vm.order.webOrderNumber || vm.order.erpOrderNumber}}">[% translate 'Order Details' %]</a>
+        </li>
+        <li class="hide-for-small current">[% translate 'Return Request (RMA)' %]</li>
+    </ul>
+
+    <h1>[% translate 'Return Request (RMA)' %]</h1>
+
+    <div class="hide-for-small back-btn">
+        <a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{vm.order.webOrderNumber || vm.order.erpOrderNumber}}" class="btn tertiary btn-return">[% translate 'Return to Order Details' %]</a>
+    </div>
+
+    <div class="order-details-top">
+        <div class="row">
+            <div class="medium-4 large-4 columns od-head">
+                <h3 class="od-lbl">[% translate 'Order #' %]</h3>
+                <h3 class="od-data" ng-bind="vm.order.webOrderNumber"></h3>
+                <h3 class="od-lbl" ng-if="vm.order.erpOrderNumber">[% translate 'ERP Order #' %]</h3>
+                <h3 class="od-data" ng-if="vm.order.erpOrderNumber" ng-bind="vm.order.erpOrderNumber"></h3>
+                <h3 class="od-lbl">[% translate 'Order Date' %]</h3>
+                <h3 class="od-data" ng-bind="vm.order.orderDate | date:'shortDate'"></h3>
+                <h3 class="od-lbl">[% translate 'PO #' %]</h3>
+                <h3 class="od-data" ng-bind="vm.order.customerPO"></h3>
+            </div>
+            <div class="medium-4 large-4 columns bill-info">
+                <div class="oc-head">
+                    <h3>[% translate 'Billing Information' %]</h3>
+                </div>
+                <ul>
+                    <li ng-bind="vm.order.btCompanyName"></li>
+                    <li ng-bind-html="vm.order.btAddress1"></li>
+                    <li ng-if="vm.order.btAddress2" ng-bind-html="vm.order.btAddress2"></li>
+                    <li ng-bind="vm.cityCommaStateZipDisplay"></li>
+                    <li ng-bind="vm.order.btCountry"></li>
+                    <li ng-bind="vm.order.btPhone"></li>
+                    <li ng-bind="vm.order.btEmail"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <form id="orderLinesForm" name="vm.orderLinesForm" novalidate>
+        <div class="row order-details">
+            <ul class="medium-12 large-12 columns item-list cart-items">
+                <div ng-repeat="orderLine in vm.order.orderLines" ng-form="rmaForm">
+                    <div class="rma-row">
+                        <li class="row item-block checkout-item">
+                            <isc-product-thumb product="orderLine"></isc-product-thumb>
+                            <div class="small-9 columns item-details">
+                                <div class="item-name">
+                                    <a ng-if="orderLine.productUri" ng-href="{{ orderLine.productUri }}">{{ orderLine.shortDescription }}</a>
+                                    <span ng-if="!orderLine.productUri" ng-bind="orderLine.productErpNumber"></span>
+                                </div>
+                                <div class="item-num">
+                                    <span class="item-num-sku" ng-if="orderLine.productErpNumber" ng-bind="orderLine.productErpNumber"></span>
+                                    <span class="item-num-mfg" ng-if="orderLine.manufacturerItem">[% translate 'MFG #' %]:{{ orderLine.manufacturerItem }}</span>
+                                    <span class="item-num-my" ng-if="orderLine.customerProductNumber">[% translate 'My Part #' %]: {{ orderLine.customerProductNumber }}</span>
+                                </div>
+                                <div class="price">
+                                    <span class="price-sale" ng-bind="orderLine.unitPriceDisplay"></span>
+                                    <span ng-bind="orderLine.unitOfMeasure"></span>
+                                </div>
+                                <div class="item-opt">
+                                    <div class="item-qty">
+                                        <strong>[% translate 'QTY_quantity' %]:</strong>
+                                        <span ng-bind="orderLine.qtyOrdered"></span>
+                                    </div>
+                                    <div class="item-subtotal" ng-bind="orderLine.lineTotalDisplay"></div>
+                                </div>
+                            </div>
+                            <div class="medium-9 large-9 columns item-code-notes">
+                                <div class="row">
+                                    <div class="medium-6 large-6 columns item-notes">
+                                        <strong>[% translate 'Item Notes' %]:</strong>
+                                        <span ng-bind="orderLine.notes"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-return">
+                            <ng-form name="orderLineForm">
+                                <div class="qty-return">
+                                    <label>[% translate 'QTY Returning' %]</label>
+                                    <input class="txt qty numerictextbox" ng-class="{ 'input-validation-error': (vm.orderLinesForm.$submitted || orderLineForm.qty.$touched) && orderLineForm.qty.$invalid }" type="number"
+                                           name="qty"
+                                           min="{{ vm.totalQuantity > 0 ? 0 : 1 }}"
+                                           ng-change="vm.calculateQuantity()"
+                                           max="{{ orderLine.qtyOrdered }}"
+                                           ng-model="orderLine.rmaQtyRequested">
+                                    <span class="field-validation-error" ng-show="(vm.orderLinesForm.$submitted || orderLineForm.qty.$touched) && orderLineForm.qty.$invalid">
+                                        <span ng-show="orderLineForm.qty.$error.min">{{'[% siteMessage 'Field_Min_Number' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'QTY Returning' EscapeSingleQuotes %]').replace('{1}', '1') }}</span>
+                                        <span ng-show="orderLineForm.qty.$error.max">{{'[% siteMessage 'Field_Max_Number' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'QTY Returning' EscapeSingleQuotes %]').replace('{1}', orderLine.qtyOrdered) }}</span>
+                                    </span>
+                                </div>
+                                <div class="return-reason" ng-if="vm.order.returnReasons.length > 0" id="tst_requestRmaPage_returnReasonBlock">
+                                    <label>[% translate 'Return Reason' %]</label>
+                                    <select ng-class="{ 'input-validation-error': (vm.orderLinesForm.$submitted || orderLineForm.reason.$touched) && orderLineForm.reason.$invalid }"
+                                            ng-model="orderLine.returnReason" ng-options="reason for reason in vm.order.returnReasons"
+                                            name="reason"
+                                            ng-required="orderLine.rmaQtyRequested > 0">
+                                        <option value="" selected>[% translate 'Select a Reason Code' %]</option>
+                                    </select>
+                                    <span class="field-validation-error" ng-show="(vm.orderLinesForm.$submitted || orderLineForm.reason.$touched) && orderLineForm.reason.$invalid">
+                                        <span ng-show="orderLineForm.reason.$error.required">{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Return Reason' EscapeSingleQuotes %]')}}</span>
+                                    </span>
+                                </div>
+                            </ng-form>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </form>
+
+    <span ng-if="vm.errorMessage" class="field-validation-error" ng-bind-html="vm.errorMessage"></span>
+
+    <div class="row return-submit">
+        <div class="medium-6 large-6 columns return-notes">
+            <label>[% translate 'Return Notes' %]</label>
+            <textarea rows="5" name="Notes" id="ordernotes" cols="45" ng-model="vm.returnNotes"></textarea>
+        </div>
+        <div class="medium-6 large-6 columns btns">
+            <div class="row cm">
+                [% siteMessage 'Rma_Terms_Of_Service' %]
+            </div>
+            <div class="row rma-btn">
+                <button class="btn primary btn-send-rma" ng-click="vm.sendRmaRequest();">[% translate 'Send Return Request' %]</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-rma" class="ma-rma popup-requisition reveal-modal" data-reveal data-options="close_on_background_click: false;" data-reveal-init>
+        <a class="close-reveal-modal">&#215;</a>
+        <div class="modal-wrap">
+            <div ng-bind-html="vm.resultMessage"></div>
+            <div ng-show="vm.requestSubmitted">[% translate 'Request submitted.' %]</div>
+            <div class="btns">
+                <a href="#" class="btn primary btn-done" ng-click="vm.closePopup($event)">[% translate 'Done' %]</a>
+            </div>
+        </div>
+    </div>
+</div>

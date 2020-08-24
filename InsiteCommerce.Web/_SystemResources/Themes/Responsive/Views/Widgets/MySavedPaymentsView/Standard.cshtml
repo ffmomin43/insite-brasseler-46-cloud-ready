@@ -1,0 +1,82 @@
+﻿<div ng-controller="MySavedPaymentsController as vm" ng-cloak>
+    <div ng-show="!vm.savedPayments || vm.savedPayments.length === 0" class="search-no-results">
+        <h3>[% siteMessage 'SavedPayments_NoSavedPaymentsMessage' %]</h3>
+        <button class="btn primary" ng-click="vm.openAddPopup()">[% translate 'Add a Card' %]</button>
+    </div>
+    <div ng-show="vm.savedPayments && vm.savedPayments.length > 0">
+        <div class="row">
+            <div class="medium-8 large-8 columns">
+                <section class="accordion payment-section" ng-repeat="savedPayment in vm.savedPayments">
+                    <div>
+                        <input type="checkbox" id="accord-{{$index}}" class="accord-check" ng-checked="$index === 0" />
+                        <label for="accord-{{$index}}" class="accord-head">
+                            <img ng-if="savedPayment.cardType.toLowerCase() === 'american express'" src="/Images/Default/card-types/amex.png" />
+                            <img ng-if="savedPayment.cardType.toLowerCase() === 'discover'" src="/Images/Default/card-types/discover.png" />
+                            <img ng-if="savedPayment.cardType.toLowerCase() === 'mastercard'" src="/Images/Default/card-types/mc.png" />
+                            <img ng-if="savedPayment.cardType.toLowerCase() === 'visa'" src="/Images/Default/card-types/visa.png" />
+                            <span ng-if="savedPayment.description">{{savedPayment.description}} &mdash;</span>
+                            <span>{{savedPayment.cardType}} [% translate 'ending in' %] {{savedPayment.maskedCardNumber.substring(savedPayment.maskedCardNumber.length - 4)}}</span>
+                            <span ng-if="savedPayment.isDefault">([% translate 'default card' %])</span>
+                        </label>
+                        <article class="accord-content payment-content-block">
+                            <div class="row">
+                                <div class="card-info medium-6 large-6 columns">
+                                    <label>[% translate 'Name on Card' %]</label>
+                                    <div>{{savedPayment.cardHolderName}}</div>
+                                    <label>[% translate 'Expiration' %]</label>
+                                    <div>{{savedPayment.expirationDate}}</div>
+                                </div>
+                                <div class="address-block medium-6 large-6 columns">
+                                    <label>[% translate 'Billing Address' %]</label>
+                                    <div>{{savedPayment.address1}}</div>
+                                    <div>{{savedPayment.city}}, {{savedPayment.state}}</div>
+                                    <div>{{savedPayment.postalCode}}</div>
+                                    <div>{{savedPayment.country}}</div>
+                                </div>
+                            </div>
+                            <div class="row actions">
+                                <div class="card-info medium-6 large-6 columns">
+                                    <button class="btn primary" ng-if="!savedPayment.isDefault" ng-click="vm.makeDefault(savedPayment)">[% translate 'Make Card Default' %]</button>
+                                </div>
+                                <div class="address-block medium-6 large-6 columns">
+                                    <button class="btn primary" ng-click="vm.openEditPopup(savedPayment)">[% translate 'Edit' %]</button>
+                                    <button class="btn primary" data-reveal-id="popup-delete-card" ng-click="vm.setSavedPaymentForDelete(savedPayment)">[% translate 'Delete' %]</button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+            <div class="medium-4 large-4 columns">
+                <button class="btn primary" ng-click="vm.openAddPopup()">[% translate 'Add a Card' %]</button>
+            </div>
+        </div>
+    </div>
+    <div id="popup-delete-card" class="reveal-modal popup-delete-card" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <h2>[% translate 'Delete Card' %]</h2>
+            <div class="pop-content">
+                <div class="row">
+                    <div class="row">
+                        <div>
+                            <p>[% translate 'Are you sure you want to delete this card' %]?</p>
+                        </div>
+                    </div>
+                    <div class="row btns">
+                        <button ng-click="vm.closeModal('#popup-delete-card')" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                        <button id="tst_deleteSavedPaymentPopup_deleteBtn" ng-click="vm.deleteSavedPayment()" class="btn primary" type="button">[% translate 'Delete' %]</button>
+                    </div>
+                </div>
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Account-EditSavedPaymentPopup">
+    [% partialView 'Account-EditSavedPaymentPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/Account-AddSavedPaymentPopup">
+    [% partialView 'Account-AddSavedPaymentPopup' %]
+</script>

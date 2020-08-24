@@ -1,0 +1,252 @@
+﻿<div class="medium-12 large-12 columns" ng-controller="RmaController as vm" ng-cloak>
+    <ul class="breadcrumbs">
+        <li class="hide-for-small">
+            <a href="[% urlForPage 'HomePage' %]">[% translate 'Home' %]</a>
+        </li>
+        <li class="hide-for-small">
+            <a href="[% urlForPage 'MyAccountPage' %]">[% translate 'My Account' %]</a>
+        </li>
+        <li class="hide-for-small">
+            <a href="[% urlForPage 'OrdersPage' %]">[% translate 'Order History' %]</a>
+        </li>
+        <li class="">
+            <a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{vm.order.webOrderNumber || vm.order.erpOrderNumber}}">[% translate 'Order Details' %]</a>
+        </li>
+        <li class="hide-for-small current">[% translate 'Return Request (RMA)' %]</li>
+    </ul>
+
+    <h1>[% translate 'Return Request (RMA)' %]</h1>
+
+    <div>
+        <p>[% siteMessage 'RMA_Disclaimer' %]</p>
+    </div>
+
+    <div class="hide-for-small back-btn">
+        <a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{vm.order.webOrderNumber || vm.order.erpOrderNumber}}" class="btn tertiary btn-return">[% translate 'Return to Order Details' %]</a>
+    </div>
+
+    <div class="order-details-top">
+        <div class="row">
+            <div class="medium-4 large-4 columns od-head" date-attr="{{vm.order.orderDate}}">
+                <h3 class="od-lbl">[% translate 'Order #' %]</h3>
+                <h3 class="od-data" ng-bind="vm.order.webOrderNumber"></h3>
+                <h3 class="od-lbl" ng-if="vm.order.erpOrderNumber">[% translate 'ERP Order #' %]</h3>
+                <h3 class="od-data" ng-if="vm.order.erpOrderNumber" ng-bind="vm.order.erpOrderNumber"></h3>
+                <h3 class="od-lbl">[% translate 'Order Date' %]</h3>
+                <h3 class="od-data" ng-bind="vm.order.orderDate | date:'shortDate'"></h3>
+                <h3 class="od-lbl">[% translate 'PO #' %]</h3>
+                <h3 class="od-data" ng-bind="vm.order.customerPO"></h3>
+            </div>
+            <div class="medium-4 large-4 columns bill-info">
+                <div class="oc-head">
+                    <h3>[% translate 'Billing Information' %]</h3>
+                </div>
+                <ul>
+                    <li ng-bind="vm.order.btCompanyName"></li>
+                    <li ng-bind-html="vm.order.btAddress1"></li>
+                    <li ng-if="vm.order.btAddress2" ng-bind-html="vm.order.btAddress2"></li>
+                    <li ng-bind="vm.cityCommaStateZipDisplay"></li>
+                    <li ng-bind="vm.order.btCountry"></li>
+                    <li ng-bind="vm.order.btPhone"></li>
+                    <li ng-bind="vm.order.btEmail"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <form id="orderLinesForm" name="vm.orderLinesForm" novalidate>
+        <div class="row order-details">
+            <ul class="medium-12 large-12 columns item-list cart-items">
+                <div ng-repeat="orderLine in vm.order.orderLines" ng-form="rmaForm">
+                    <div class="rma-row">
+                        <li class="row item-block checkout-item">
+                            <isc-product-thumb product="orderLine"></isc-product-thumb>
+                            <div class="small-9 columns item-details">
+                                <div class="item-name">
+                                    <a ng-if="orderLine.productUri" ng-href="{{ orderLine.productUri }}">{{ orderLine.shortDescription }}</a>
+                                    <span ng-if="!orderLine.productUri" ng-bind="orderLine.description"></span>
+                                </div>
+                                <div class="item-num">
+                                    <span class="item-num-sku" ng-if="orderLine.productErpNumber" ng-bind="orderLine.productErpNumber"></span>
+                                    <span class="item-num-mfg" ng-if="orderLine.manufacturerItem">[% translate 'MFG #' %]:{{ orderLine.manufacturerItem }}</span>
+                                    <span class="item-num-my" ng-if="orderLine.customerProductNumber">[% translate 'My Part #' %]: {{ orderLine.customerProductNumber }}</span>
+                                </div>
+                                <div class="price">
+                                    <span class="price-sale" ng-bind="orderLine.unitPriceDisplay"></span>
+                                    <span ng-bind="orderLine.unitOfMeasure"></span>
+                                </div>
+                                <div class="item-opt">
+                                    <div class="item-qty">
+                                        <strong>RMAQty:</strong><!--BUSA-1309-->
+                                        <span ng-bind="orderLine.rmaQtyReceived"></span>
+                                    </div>
+                                    <div class="item-qty">
+                                        <strong>[% translate 'QTY_quantity' %]:</strong>
+                                        <span ng-bind="orderLine.qtyOrdered"></span>
+                                    </div>
+                                    <div class="item-subtotal" ng-bind="orderLine.lineTotalDisplay"></div>
+                                </div>
+                            </div>
+                            <div class="medium-9 large-9 columns item-code-notes">
+                                <div class="row">
+                                    <div class="medium-6 large-6 columns item-notes">
+                                        <strong>[% translate 'Item Notes' %]:</strong>
+                                        <span ng-bind="orderLine.notes"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-return" ng-if="orderLine.productErpNumber != 'WEBDISCOUNT' && orderLine.qtyShipped > 0 && orderLine.qtyOrdered > 0 && orderLine.unitNetPrice > 0">
+                            <ng-form name="orderLineForm">
+                                <div ng-if="vm.hazardousProducts.indexOf(orderLine.productId) > -1 ">
+                                    <div class="haz-product" haz-attr="{{true}}"></div>
+                                </div>
+                                <div class="qty-return" rma-attr="{{orderLine.properties.rmAthreshold}}">
+                                    <label>[% translate 'QTY Returning' %]</label>
+                                    <input class="txt qty numerictextbox" ng-class="{ 'input-validation-error': (vm.orderLinesForm.$submitted || orderLineForm.qty.$touched) && orderLineForm.qty.$invalid }" type="number"
+                                           name="qty"
+                                           min="{{ vm.totalQuantity > 0 ? 0 : 1 }}"
+                                           ng-change="vm.calculateQuantity()"
+                                           max="{{ orderLine.qtyShipped }}"
+                                           ng-model="orderLine.rmaQtyRequested">
+                                    <span class="field-validation-error" ng-show="(vm.orderLinesForm.$submitted || orderLineForm.qty.$touched) && orderLineForm.qty.$invalid">
+                                        <span ng-show="orderLineForm.qty.$error.min">{{'[% siteMessage 'Field_Min_Number' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'QTY Returning' EscapeSingleQuotes %]').replace('{1}', '1') }}</span>
+                                        <span ng-show="orderLineForm.qty.$error.max">{{'[% siteMessage 'Field_Max_Number' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'QTY Returning' EscapeSingleQuotes %]').replace('{1}', orderLine.qtyOrdered) }}</span>
+                                    </span>
+                                </div>
+                                <div class="return-reason" rma-attr="{{orderLine.properties.rmAthreshold}}" ng-if="vm.order.returnReasons.length > 0" id="tst_requestRmaPage_returnReasonBlock">
+                                    <label>[% translate 'Return Reason' %]</label>
+                                    <select ng-class="{ 'input-validation-error': (vm.orderLinesForm.$submitted || orderLineForm.reason.$touched) && orderLineForm.reason.$invalid }"
+                                            ng-model="orderLine.returnReason" ng-options="reason for reason in vm.order.returnReasons"
+                                            name="reason"
+                                            ng-required="orderLine.rmaQtyRequested > 0">
+                                        <option value="" selected>[% translate 'Select a Reason Code' %]</option>
+                                    </select>
+                                    <span class="field-validation-error" ng-show="(vm.orderLinesForm.$submitted || orderLineForm.reason.$touched) && orderLineForm.reason.$invalid">
+                                        <span ng-show="orderLineForm.reason.$error.required">{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Return Reason' EscapeSingleQuotes %]')}}</span>
+                                    </span>
+                                </div>
+                            </ng-form>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </form>
+
+    <span ng-if="vm.errorMessage" class="field-validation-error" ng-bind-html="vm.errorMessage"></span>
+
+    <div class="row return-submit">
+        <div class="medium-6 large-6 columns return-notes">
+            <label>[% translate 'Return Notes' %]</label>
+            <textarea rows="5" name="Notes" id="ordernotes" cols="45" ng-model="vm.returnNotes"></textarea>
+        </div>
+        <div class="medium-6 large-6 columns btns">
+            <div class="row cm">
+                [% siteMessage 'Rma_Terms_Of_Service' %]
+            </div>
+            <div class="row rma-btn" ng-if="vm.order.properties['isOrderReturned'] != 'True'">
+                <button id="requestRmaViewSendReturnRequestButton" ng-disabled="vm.order.properties['isOrderInvoiced'] == 'False'" class="btn primary btn-send-rma" ng-click="vm.sendRmaRequest();">[% translate 'Send Return Request' %]</button>
+            </div>
+        </div>
+    </div>
+
+    <!--RMA Popup-->
+    <div id="rmaLabel" style="display:none;"></div>
+    <div id="popup-rma" class="ma-rma popup-requisition reveal-modal" data-reveal data-options="close_on_background_click: false;close_on_esc:false;" data-reveal-init>
+        <div class="modal-wrap rma-popup">
+            <a class="close-reveal-modal" ng-click="vm.closePopup($event)">&#215;</a>
+            <!-- <div ng-bind-html="vm.resultMessage"></div>-->
+            <!--Restrict RMA For Canada -->
+            <div ng-show="!vm.rmaLabel">
+                <div ng-bind-html="vm.resultMessage"></div>
+                <div ng-show="vm.requestSubmitted">[% translate 'Request submitted.' %]</div>
+                <div class="btns">
+                    <a href="#" class="btn primary btn-done" ng-click="vm.closePopup($event)">[% translate 'Done' %]</a>
+                </div>
+            </div>
+
+            <div ng-show="vm.rmaLabel">
+                <div ng-show="vm.requestSubmitted">
+                    <div id="print-rma-label" class="rma-view">
+                        <div ng-bind-html="vm.rmaLabel"></div>
+                        <div style='page-break-after:always'></div>
+                        <div>
+                            <h3 class="return-label-header">[% translate 'Return Shipping Label' %]</h3>
+                            <h3>Instructions:</h3>
+                            <ol>
+                                <li>[% translate 'Print your shipping label and packing slip.' %]</li>
+                                <li>[% translate 'Place the packing slip and the items you are returning in the package.' %]</li>
+                                <li>[% translate 'Remove or cover the original shipping label and affix the return shipping label to the package.' %]</li>
+                            </ol>
+                        </div>
+                        <hr />
+                        <div class="packing-slip-content">
+                            <h2 class="packing-slip">[% translate 'PACKING SLIP' %]</h2>
+                            <div class="packing-block">
+                                <label><strong>[% translate 'Date' %]:</strong> </label>
+                                <span>{{vm.date | date:'MM-dd-yyyy'}}</span> <br />
+
+                                <label><strong>[% translate 'Order Date' %]:</strong> </label>
+                                <span>{{vm.order.orderDate | date: 'MM-dd-yyyy'}}</span><br />
+
+                                <label><strong>[% translate 'Customer Number' %]:</strong> </label>
+                                <span>{{vm.order.customerSequence || vm.order.customerNumber}}</span><br />
+
+                                <label><strong>[% translate 'Web Order Number' %]:</strong> </label>
+                                <span>{{vm.order.webOrderNumber}}</span><br />
+
+                                <label><strong>[% translate 'Invoice Number' %]:</strong> </label>
+                                <span>{{vm.order.properties['invoiceNumber']}}</span><br />
+
+                                <label><strong>[% translate 'Order Number' %]:</strong> </label>
+                                <span>{{vm.order.erpOrderNumber}}</span><br />
+                            </div>
+                       
+                            <div class="packing-block">
+                                <h3 class="rma-billing-info">[% translate 'BILLING INFORMATION' %]</h3>
+                                <div>{{vm.order.btCompanyName}}</div>
+                                <div>{{vm.order.btAddress1}} - {{vm.order.btAddress2}} {{vm.order.billToCity}} </div>
+                                <div>{{vm.order.billToState}} {{vm.order.billToPostalCode}} {{vm.order.btCountry}} </div>
+                            </div>
+                            <div class="packing-block">
+                                <h3>[% translate 'RMA COMMENTS' %] </h3>
+                                <div>
+                                    <span ng-bind="vm.returnNotes"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="rma-billing-info">[% translate 'RETURN DETAILS' %]</h3>
+                                <table>
+                                <tbody>
+                                    <tr>
+                                        <th>[% translate 'Item' %]</th>
+                                        <th>[% translate 'Description' %]</th>
+                                        <th>[% translate 'Qty Ordered' %]</th>
+                                        <th>[% translate 'Qty to Return' %]</th>
+                                        <th>[% translate 'Return Reason Code' %]</th>
+                                    </tr>
+                                    <tr ng-repeat="orderLine in vm.order.orderLines" ng-if="orderLine.rmaQtyRequested != 0">
+                                        <td ng-bind="orderLine.productErpNumber"></td>
+                                        <td ng-bind="orderLine.shortDescription"></td>
+                                        <td ng-bind="orderLine.qtyOrdered"></td>
+                                        <td ng-bind="orderLine.rmaQtyRequested"></td>
+                                        <td ng-bind="orderLine.returnReason"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btns">
+                    <a href="#" class="btn primary btn-done" ng-click="vm.closePopup($event)">[% translate 'Done' %]</a>
+                    <div>
+                        <a href="#" ng-click="vm.printRmaLabel()" class="btn primary btn-rma-print">[% translate 'Print' %]</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

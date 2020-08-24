@@ -1,0 +1,202 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Integration Job Summary</title>
+    <style>
+        /* Reset all elements to help ensure cross-browser consistency */
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        fieldset, img {
+            border: 0;
+        }
+
+        address, caption, cite, code, dfn, em, strong, th, var {
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        caption, th {
+            text-align: left;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-size: 100%;
+            font-weight: normal;
+        }
+
+        q:before, q:after {
+            content: '';
+        }
+
+        abbr, acronym {
+            border: 0;
+        }
+
+        body {
+            font: 12px Arial, Helvetica, sans-serif;
+        }
+
+        a:link, a:visited, a:active {
+            color: #666;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus {
+            color: #000;
+        }
+
+        h1 {
+            font-size: 18px; padding: 12px 0;
+        }
+
+        h2 {
+            font-size: 16px; padding: 8px 0; font-weight: bold;
+        }
+
+        h3 {
+            font-size: 14px; font-weight: bold; padding: 8px 0;
+        }
+
+        h4 {
+            font-weight: bold; padding: 8px 0;
+        }
+
+        td {
+            padding: 2px 5px;
+        }
+
+        tr.header td {
+            font-weight: bold;
+        }
+
+        td.right-align {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-report-wrapper">
+        <div class="client-info">
+            <table style="padding: 10px 0;" border="0" cellspacing="50">
+                <tr><td style="padding: 2px 5px;"><h1 style="font-size: 18px; padding: 12px 0;">Integration Job Summary - [[Model.PercentSuccess]]% Successful</h1></td></tr>
+                <tr><td style="padding: 2px 5px;"><h2 style="font-size: 16px; padding: 8px 0; font-weight: bold;">[% if Model.Environment == blank -%][[Model.ClientName]][% else -%][[Model.ClientName]] ([[Model.Environment]])[% endif -%]</h2></td></tr>
+                <tr><td><h3>Orders Processed: [[Model.OrdersProcessed]]</h3></td></tr>
+                <tr><td><h3>Abandoned Carts: [[Model.AbandonedCarts]]</h3></td></tr>
+                [% if Model.BatchJobsAny == false and Model.RealTimeJobsAny == false -%]
+                <tr><td style="padding: 2px 5px;"><h3 style="font-size: 14px; font-weight: bold; padding: 8px 0;">No jobs run since [[Model.LookBackDate]].</h3></td></tr>
+                [% endif -%]
+            </table>
+            <table style="padding: 10px 0;" border="0" cellspacing="50">
+                [% if Model.BatchJobsAny -%]
+                <tr><td style="padding: 2px 5px;" colspan="3">
+                    <h3 style="font-size: 14px; font-weight: bold; padding: 8px 0;">Batch Jobs Summary</h3></td></tr>
+                <tr style="font-weight: bold;" class="header">
+                    <td style="padding: 2px 5px;">Job Name</td>
+                    <td style="padding: 2px 5px;">Total</td>
+                    [% for status in Model.Statuses -%]
+                    <td style="padding: 2px 5px;">[[status]]</td>
+                    [% endfor -%]
+                </tr>
+
+                [% for jobsByName in Model.BatchJobsGroupByName -%]
+                <tr>
+                    <td style="padding: 2px 5px;">[[jobsByName.Key]]</td>
+                    <td style="padding: 2px 5px; text-align: center;" class="right-align">[[jobsByName.Count]]</td>
+                    [% for statusCount in jobsByName.StatusesCounts -%]
+                    <td style="padding: 2px 5px; text-align: center;" class="right-align">[[statusCount]]</td>
+                    [% endfor -%]
+                </tr>
+                [% endfor -%]
+                [% endif -%]
+
+                [% if Model.RealTimeJobsAny -%]
+                <tr>
+                    <td style="padding: 2px 5px;" colspan="3">
+                        <h3 style="font-size: 14px; font-weight: bold; padding: 8px 0;">RealTime Jobs Summary</h3>
+                    </td>
+                </tr>
+                <tr style="font-weight: bold;" class="header">
+                    <td style="padding: 2px 5px;">Job Name</td>
+                    <td style="padding: 2px 5px;">Total</td>
+                    [% for status in Model.Statuses -%]
+                    <td style="padding: 2px 5px;">[[status]]</td>
+                    [% endfor -%]
+                </tr>
+
+                [% for jobsByName in Model.RealTimeJobsGroupByName -%]
+                <tr>
+                    <td style="padding: 2px 5px;">[[jobsByName.Key]]</td>
+                    <td style="padding: 2px 5px; text-align: center;" class="right-align">[[jobsByName.Count]]</td>
+                    [% for statusCount in jobsByName.StatusesCounts -%]
+                    <td style="padding: 2px 5px; text-align: center;" class="right-align">[[statusCount]]</td>
+                    [% endfor -%]
+                </tr>
+                [% endfor -%]
+                [% endif -%]
+            </table>
+        </div>
+        <div class="job-details">
+            <table style="padding: 10px 0;" cellpadding="10">
+                [% if Model.BatchJobsAny -%]
+                <tr><td style="padding: 2px 5px;" colspan="4"><h3 style="font-size: 14px; font-weight: bold; padding: 8px 0;">Batch Job Details</h3></td></tr>
+                <tr style="font-weight: bold;" class="header">
+                    <td style="padding: 2px 5px;">Job #</td>
+                    <td style="padding: 2px 5px;">Name</td>
+                    <td style="padding: 2px 5px;">Start Time</td>
+                    <td style="padding: 2px 5px;">End Time</td>
+                    <td style="padding: 2px 5px;">Status</td>
+                </tr>
+
+                [% for jobsByStatus in Model.BatchJobsGroupByStatus -%]
+                [% for job in jobsByStatus.Jobs -%]
+                <tr>
+                    <td style="padding: 2px 5px;">[[job.JobNumber]]</td>
+                    <td style="padding: 2px 5px;">[[job.JobDefinitionName]]</td>
+                    <td style="padding: 2px 5px;">[[job.StartDateTime]]</td>
+                    <td style="padding: 2px 5px;">[[job.EndDateTime]]</td>
+                    <td style="padding: 2px 5px;">[[job.Status]]</td>
+                </tr>
+                [% endfor -%]
+                [% endfor -%]
+                [% endif -%]
+
+                [% if Model.RealTimeJobsAny -%]
+                <tr><td style="padding: 2px 5px;" colspan="4"><h3 style="font-size: 14px; font-weight: bold; padding: 8px 0;">RealTime Job Details</h3></td></tr>
+                <tr style="font-weight: bold;" class="header">
+                    <td style="padding: 2px 5px;">Job #</td>
+                    <td style="padding: 2px 5px;">Name</td>
+                    <td style="padding: 2px 5px;">Start Time</td>
+                    <td style="padding: 2px 5px;">End Time</td>
+                    <td style="padding: 2px 5px;">Status</td>
+                </tr>
+
+                [% for jobsByStatus in Model.RealTimeJobsGroupByStatus -%]
+                [% for job in jobsByStatus.Jobs -%]
+                <tr>
+                    <td style="padding: 2px 5px;">[[job.JobNumber]]</td>
+                    <td style="padding: 2px 5px;">[[job.JobDefinitionName]]</td>
+                    <td style="padding: 2px 5px;">[[job.StartDateTime]]</td>
+                    <td style="padding: 2px 5px;">[[job.EndDateTime]]</td>
+                    <td style="padding: 2px 5px;">[[job.Status]]</td>
+                </tr>
+                [% endfor -%]
+                [% endfor -%]
+                [% endif -%]
+            </table>
+        </div>
+    </div>
+</body>
+</html>

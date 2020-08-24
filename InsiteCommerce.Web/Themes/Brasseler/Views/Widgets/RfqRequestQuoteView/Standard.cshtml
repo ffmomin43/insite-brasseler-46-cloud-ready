@@ -1,0 +1,61 @@
+﻿<div ng-controller="RfqController as vm" ng-cloak>
+    <h1 ng-bind="!vm.isSalesRep ? '[% translate 'Request a Quote' EscapeSingleQuotes %]' : '[% translate 'Create a Quote' EscapeSingleQuotes %]'"></h1>
+    <div>
+        <div class="row" ng-show="vm.cart.cartLines !== null && vm.cart.cartLines.length > 0">
+            <form novalidate id="submitQuoteForm">
+                <div class="medium-5 large-5 columns col-notes">
+                    <div ng-show="vm.isSalesRep" class="row create-for">
+                        <div>
+                            <div class="medium-12 large-12 columns">
+                                <label>[% translate 'Creating quote for' %] <em class="redTxt">([% translate 'required' %])</em>:</label>
+                            </div>
+                            <select ng-model="vm.selectedUser" class="uom-selector billto-selector" name="users" id="users" autocomplete="off"
+                                    data-rule-required="true" data-msg-required="[% siteMessage 'Rfq_UserIsRequired' %]">
+                                <option value="" ng-selected="selected">[% translate 'Select a User' %]</option>
+                                <option ng-repeat="user in vm.users" value="{{user.id}}" ng-bind="user.displayName"></option>
+                            </select>
+                            <span class="field-validation-valid" data-valmsg-for="users" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div ng-init="vm.isJobQuote = vm.cart.type == 'Quote'" ng-if="vm.quoteSettings.jobQuoteEnabled">
+                        <label class="input-lbl">
+                            <input class="isc-isJobQuote" id="IsJobQuote" name="IsJobQuote" type="checkbox" ng-model="vm.isJobQuote" value="true">[% translate 'Quote for a Job' %]
+                        </label>
+                        <div class="card-name">
+                            <input ng-model="vm.jobName" ng-disabled="!vm.isJobQuote" id="jobName" name="JobName" type="text" required maxlength="50"
+                                   placeholder="[% translate 'Job Name' %]" data-val="true" data-val-required="[% siteMessage 'Rfq_Job_Name_required' %]" />
+                            <span class="field-validation-valid" data-valmsg-for="JobName" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="row add-notes">
+                        <div class="medium-12 large-12 columns">
+                            <label>[% translate 'Add Notes' %] <em>([% translate 'optional' %])</em>:</label>
+                        </div>
+                        <div class="medium-12 large-12 columns">
+                            <textarea rows="5" cols="45" ng-model="vm.notes"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="medium-7 large-7 columns col-items">
+                    <isc-cart-lines cart="vm.cart" include-quote-required="true" editable="true" id="cart-grid" class="item-list cart-items"></isc-cart-lines>
+                </div>
+            </form>
+        </div>
+
+        <div class="btns" ng-show="vm.cart.cartLines !== null && vm.cart.cartLines.length > 0">
+            <button ng-disabled="vm.disableSubmit"
+                    type="button" class="btn primary btn-submit-quote-request"
+                    ng-click="vm.submitQuote(vm.isSalesRep ? '[% urlForPage 'RfqQuoteDetailsPage' %]' : '[% urlForPage 'RfqConfirmationPage' %]')"
+                    ng-bind="!vm.isSalesRep ? '[% translate 'Submit Quote Request' EscapeSingleQuotes %]' : '[% translate 'Create Quote Proposal' EscapeSingleQuotes %]'"></button>
+        </div>
+
+        <div ng-show="vm.cart.cartLines === null || vm.cart.cartLines.length === 0">
+            <div id="tst_requestQuotePage_cartIsEmpty" class="cart-empty"><h3>[% siteMessage 'Rfq_EmptyQuoteMessage' %]</h3></div>
+            <div class="btns hide-for-small">
+                <a class="btn secondary btn-continue-shopping" href="[% urlForPage 'HomePage' %]">[% translate 'Continue Shopping' %]</a>
+            </div>
+        </div>
+    </div>
+</div>

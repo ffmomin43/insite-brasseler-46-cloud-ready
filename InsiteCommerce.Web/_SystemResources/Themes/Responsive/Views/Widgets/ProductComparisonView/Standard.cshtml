@@ -1,0 +1,152 @@
+﻿<div ng-show="vm.ready" ng-controller="CompareProductsController as vm" ng-cloak>
+    <div class="back-btn">
+        <a class="btn tertiary btn-return" id="tst_productComparison_goBack" href="javascript:void(0);" ng-click="vm.goBack()">[% translate 'Return to previous page' %]</a>
+    </div>
+
+    <div ng-if="vm.productsToCompare.length == 0">
+        <br/>
+        <span>[% siteMessage 'ProductCompare_NoProducts' %]</span>
+    </div>
+
+    <div class="pc-controls" ng-if="vm.productsToCompare && vm.productsToCompare.length > 0">
+        <h3 class="results-count">
+            <span class="result-num">{{vm.productsToCompare.length}}</span> <span class="result-lbl" id="tst_productComparison_itemsPager">{{'[% translate 'Items_pager' EscapeSingleQuotes %]'.toLowerCase() }}</span>
+        </h3>
+        <button class="btn tertiary btn-remove" id="tst_productComparison_removeAll" ng-click="vm.removeAllComparedProducts()">[% translate 'Remove All' %]</button>
+    </div>
+
+    <div role="compare-grid" ng-if="vm.productsToCompare && vm.productsToCompare.length > 0">
+        <div class="carousel-wrapper tst_productComparison_carousel">
+
+            <!-- product carousel without attributes -->
+            <isc-compare-products-carousel add-to-cart="vm.addToCart(product)" remove-compared-product="vm.removeComparedProduct(productId)"
+                                           products-to-compare="vm.productsToCompare" open-wish-list-popup="vm.openWishListPopup(product)"
+                                           product-settings="vm.productSettings" carousel-includes-brands="vm.carouselIncludesBrands">
+            </isc-compare-products-carousel>
+
+            <!-- large view only - lower part of carousel shows attribute values -->
+            <div class="pc-attr-container hide-for-small isc-large-attr-container">
+                <ul class="pc-attr-list">
+                    <li class="pc-attr" ng-repeat="attributeType in vm.relevantAttributeTypes">
+                        <span>{{attributeType.label}}</span>
+                        <div class="pc-attr-carousel-container isc-carousel">
+                            <ul class="pc-attr-carousel items slides">
+                                <li class="pc-value columns" ng-repeat="product in vm.productsToCompare">
+                                    <span id="tst_productComparison_{{::product.id}}_{{::attributeType.name}}" ng-bind="vm.getAttributeValuesForProduct(product, attributeType.id).join(', ')" data-productid="{{product.id}}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- small view only - show expanding list of attributes and products with no carousel -->
+            <div class="pc-attr-container hide-for-medium-up isc-small-attr-container">
+                <h3>[% translate 'Select by Attribute' %]</h3>
+                <ul class="pc-attr-list">
+                    <li class="pc-attr" ng-repeat="attributeType in vm.relevantAttributeTypes">
+                        <span>{{attributeType.label}}</span>
+                        <div class="pc-attr-carousel-container">
+                            <ul class="pc-attr-carousel">
+                                <li class="pc-value columns" ng-repeat="productAttributeValue in vm.getUniqueAttributeTypeValuesForAllProducts(attributeType.id)">
+                                    <span>{{productAttributeValue}}</span>
+                                    <ul class="item-list">
+                                        <li class="row item-block" ng-repeat="product in vm.getProductsThatContainAttributeTypeIdAndAttributeValue(attributeType.id, productAttributeValue)">
+                                            <div class="item-details" data-productid="{{product.id}}">
+                                                <isc-product-brand product="product" carousel-includes-brands="vm.carouselIncludesBrands"></isc-product-brand>
+                                                <div class="item-name">
+                                                    <a href="#">{{product.shortDescription}}</a>
+                                                </div>
+                                                <div class="item-num">
+                                                    <span class="item-num-sku">{{product.erpNumber}}</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <a href="#" class="carousel-control-nav carousel-control-prev flex-prev">
+                <span></span>
+            </a>
+            <a href="#" class="carousel-control-nav carousel-control-next flex-next">
+                <span></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="productComparison_carousel">
+    <div class="pc-carousel top-carousel isc-carousel">
+        <ul class="items slides tst_productComparison_slides">
+            <li class="columns isc-productContainer tst_productComparison_productContainer" id="tst_productComparison_{{::product.id}}" ng-repeat="product in vm.productsToCompare">
+                <div class="item-wrap pc-active-item">
+                    <div class="carousel-item-equalize">
+                        <div class="remove">
+                            <a class="btn btn-remove removeProductFromComparison" data-productid="{{product.id}}">
+                                <i class="foundicon-remove"></i>
+                            </a>
+                        </div>
+                        <div class="thumb-wrap">
+                            <div class="item-thumb">
+                                <a ng-href="{{::product.productDetailUrl}}">
+                                    <img ng-src="{{::product.mediumImagePath}}" alt="{{::product.altText}}" increment-images-loaded />
+                                </a>
+                            </div>
+                        </div>
+                        <isc-product-brand product="product" carousel-includes-brands="vm.carouselIncludesBrands"></isc-product-brand>
+                        <div class="item-name">
+                            <a ng-href="{{::product.productDetailUrl}}">{{::product.shortDescription}}</a>
+                        </div>
+                        <div class="product-info">
+                            <div class="item-num">
+                                <span class="item-num-sku">{{::product.erpNumber}}</span>
+                            </div>
+
+                            <div ng-if="product.canShowPrice && !product.pricing.failedToGetRealTimePrices">
+                                <div class="price">
+                                    <isc-product-price product="product" id-key="" ng-if="product.canShowPrice"></isc-product-price>
+                                    <span class="um displayUnitOfMeasure">
+                                        / <span class="isc-uomDisplay">{{product.unitOfMeasureDescription || product.unitOfMeasureDisplay}}</span>
+                                    </span>
+                                    <isc-product-price-saving product="product" currency-symbol="product.currencySymbol"></isc-product-price-saving>
+                                </div>
+
+                                <div ng-if="vm.showQuantityBreakPricing(product)" data-dropdown>
+                                    <isc-quantity-break-pricing product-id="product.id" break-prices="product.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                </div>
+                            </div>
+
+                            <div class="price" ng-if="product.pricing.failedToGetRealTimePrices">
+                                <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                            </div>
+                            <div ng-if="product && !vm.productSettings.canSeePrices">
+                                <div>[% siteMessage 'Pricing_SignInForPrice' %]</div>
+                            </div>
+
+                            <div class="um-pack" ng-if="product.canShowUnitOfMeasure">
+                                <div class="um">
+                                    <label ng-if="vm.showUnitOfMeasure(product)">[% translate 'U/M' %]:</label>
+                                    <isc-unit-of-measure-select-list product="product" alternate-units-of-measure="{{vm.productSettings.alternateUnitsOfMeasure}}" display-pack="true" change-unit-of-measure="vm.changeUnitOfMeasure(product)"></isc-unit-of-measure-select-list>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions-block">
+                            <div class="item-qty" ng-show="product.canAddToCart">
+                                <input type="text" ng-model="product.qtyOrdered" ng-init="product.qtyOrdered = product.minimumOrderQty || 1" class="qty numerictextbox tst_productComparison_qtyOrdered" />
+                            </div>
+                            <div class="action">
+                                <button class="btn primary btn-add-cart tst_productComparison_addToCart" ng-click="vm.addToCart({ product: product })" ng-if="product.canAddToCart" ng-disabled="!product.qtyOrdered || product.qtyOrdered == 0 || vm.addingToCart">[% translate 'Add to Cart' %]</button>
+                            </div>
+                            <a href="javascript:void(0);" class="btn secondary btn-add-list isc-addToWishlistPopup tst_productComparison_addToWishlist" ng-click="vm.openWishListPopup({ product: product })" ng-if="product.canAddToWishlist">[% translate 'Add to List' %]</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>

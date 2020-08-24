@@ -1,0 +1,66 @@
+﻿<div ng-controller="SavedOrderDetailController as vm" ng-init="vm.listPageUri = '[% urlForPage 'SavedOrderListPage' %]'" ng-cloak>
+    <div ng-show="vm.cart">
+        <div class="hide-for-small back-btn">
+            <a href="[% urlForPage 'SavedOrderListPage' %]" class="btn tertiary btn-return">[% translate 'Return to Saved Orders' %]</a>
+        </div>
+
+        <p class="error"><!-- TODO --></p>
+
+        <div class="order-details-top">
+            <div class="row">
+                <div class="medium-4 large-4 columns od-head">
+                    <h3 class="od-lbl">[% translate 'Date' %]</h3>
+                    <h3 id="tst_savedOrderDetail_orderDate" class="od-data" ng-bind="vm.cart.orderDate | date:'shortDate'"></h3>
+                </div>
+                <div class="medium-4 large-4 columns bill-info">
+                    <div class="oc-head">
+                        <h3>[% translate 'Billing Information' %]</h3>
+                    </div>
+                    <isc-address-display address="vm.cart.billTo" show-email="true"></isc-address-display>
+                </div>
+                <div class="medium-4 large-4 columns ship-info">
+                    <div class="oc-head">
+                        <h3>[% translate 'Shipping Information' %]</h3>
+                    </div>
+                    <isc-address-display address="vm.cart.shipTo" show-email="false"></isc-address-display>
+                </div>
+            </div>
+        </div>
+
+        <div class="row order-details">
+            <isc-cart-lines cart="vm.cart"
+                            include-inventory="true"
+                            show-add-to-list="true"
+                            include-quote-required="vm.showInventoryAvailability"
+                            failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory"
+                            class="large-12 columns item-list cart-items">
+            </isc-cart-lines>
+        </div>
+
+        <isc-cart-total-display cart="vm.cart" order-taxes="vm.cart.customerOrderTaxes" is-cart-page="true"></isc-cart-total-display>
+
+        <div class="btns">
+            <button type="button"
+                    class="btn primary btn-place-saved-order"
+                    ng-if="vm.canAddToCart"
+                    ng-click="vm.placeSavedOrder('[% urlForPage 'CartPage' %]')"
+                    ng-bind="vm.canAddAllToCart ? '[% translate 'Place Saved Order' EscapeSingleQuotes %]' : '[% translate 'Add All Available To Cart' EscapeSingleQuotes %]'">
+            </button>
+            <button ng-if="vm.canAddAllToList" type="button" class="btn primary" ng-click="vm.addAllToList()">[% translate 'Add All to List' %]</button>
+            <button type="button" class="btn secondary btn-delete-saved-order" ng-click="vm.deleteSavedOrder('[% urlForPage 'SavedOrderListPage' %]')">[% translate 'Delete Saved Order' %]</button>
+            <a href="javascript: window.print();" class="hide-for-small btn secondary btn-print">[% translate 'Print' %]</a>
+        </div>
+    </div>
+    <div ng-show="vm.validationMessage">
+        {{vm.validationMessage}}
+    </div>
+    <script type="text/ng-template" id="/PartialViews/Account-AddressDisplay">
+        [% partialView 'Account-AddressDisplay' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+        [% partialView 'Cart-CartLines' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Cart-CartTotalDisplay">
+        [% partialView 'Cart-CartTotalDisplay' %]
+    </script>
+</div>

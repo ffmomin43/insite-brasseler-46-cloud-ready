@@ -1,0 +1,20 @@
+﻿{% comment %}
+    usage example:
+    <isc-catalog-breadcrumb breadcrumbs="category.breadCrumbs" search-query="query"></isc-breadcrumb>
+
+    breadcrumbs is a list of objects of type BreadCrumbModel
+{% endcomment %}
+
+<ul class="breadcrumbs" ng-class="{bsearch: searchQuery}">
+    <li ng-repeat="crumb in breadcrumbs" ng-class="{'hide-for-small': (breadcrumbs.length - $index) != 2, 'current': $last}">
+        <a ng-if="crumb.url" ng-href="{{crumb.url}}">{{crumb.text}}</a>
+        <isc-no-element ng-show="!crumb.url">{{crumb.text}}</isc-no-element>
+    </li>
+    <li ng-if="searchQuery">
+        <a href="[% urlForPage 'HomePage' %]">[% translate 'Home' %]</a>
+    </li>
+    <li ng-if="searchQuery" class="hide-for-small current">
+        [% translate 'Search Results:' %]
+        <em>{{searchQuery}}</em>
+    </li>
+</ul>

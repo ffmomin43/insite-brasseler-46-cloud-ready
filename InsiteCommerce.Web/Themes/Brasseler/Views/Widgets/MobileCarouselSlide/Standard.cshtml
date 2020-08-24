@@ -1,0 +1,11 @@
+﻿[% capture Image %]
+<img src="[[Model.ImageUrl]]" alt=""/>
+[% endcapture %]
+
+<div class="widget-mobileCarouselSlide">
+    [%- if Model.IsLinkProvided -%]
+        <a class="cms-imageLink" href="[[Model.Link]]">[[Image]]</a>
+    [%- else -%]
+        [[Image]]
+    [%- endif -%]
+</div>

@@ -1,0 +1,45 @@
+﻿<div id="tst_selectDefaultCustomer" class="medium-6 large-6 columns manage-subs" ng-show="vm.billTos && vm.showSelectDefaultCustomer">
+    <h3>[% translate 'Default Billing & Shipping' %]</h3>
+    <span>[% siteMessage 'DefaultCustomer_SectionLabel' %]</span>
+    <div>
+        <div class="row pw-unsub">
+            <div class="small-5 columns">
+                <label for="notUseDefaultCustomer">[% translate 'Do not use defaults' %]</label>
+            </div>
+            <div class="small-7 columns">
+                <input type="radio" id="notUseDefaultCustomer" class="tst_selectDefaultCustomer_notUseDefaultCustomer" ng-value="false" ng-model="vm.useDefaultCustomer">
+            </div>
+        </div>
+        <div class="row pw-sub">
+            <div class="small-5 columns">
+                <label for="useDefaultCustomer">[% translate 'Use defaults' %]</label>
+            </div>
+            <div class="small-7 columns">
+                <input type="radio" id="useDefaultCustomer" class="tst_selectDefaultCustomer_useDefaultCustomer" ng-value="true" ng-model="vm.useDefaultCustomer">
+            </div>
+        </div>
+        <div ng-show="vm.useDefaultCustomer">
+            <div class="select-step select-customer-step">
+                <label for="selectBillTo">[% translate 'Billing Address' %]</label>
+                <select class="billto-selector tst_selectDefaultCustomer_billToSelector" id="selectBillTo" name="selectedBillTo"
+                        ng-model="vm.billTo" ng-change="vm.changeBillTo()"
+                        ng-options="billTo.label for billTo in vm.billTos">
+                    <option value="">[% translate 'Select Billing Address' %]</option>
+                </select>
+            </div>
+            <isc-delivery-method ng-if="vm.enableWarehousePickup" session="vm.session" fulfillment-method="vm.fulfillmentMethod" pick-up-warehouse="vm.pickUpWarehouse" prefix="account"></isc-delivery-method>
+            <div class="select-step select-ship-step" ng-show="vm.billTo">
+                <label ng-show="!vm.enableWarehousePickup || vm.fulfillmentMethod === 'Ship'" for="selectShipTo">[% translate 'Shipping Address' %]</label>
+                <label ng-show="vm.enableWarehousePickup && vm.fulfillmentMethod === 'PickUp'" for="selectShipTo">[% translate 'Recipient Address' %]</label>
+                <select name="selectShipTo" class="shipto-selector tst_selectDefaultCustomer_shipToSelector" id="selectShipTo"
+                        ng-model="vm.shipTo"
+                        ng-options="shipTo.label for shipTo in vm.billTo.shipTos">
+                    <option ng-bind="!vm.enableWarehousePickup || vm.fulfillmentMethod === 'Ship' ? '[% translate 'Select Shipping Address' EscapeSingleQuotes %]' : '[% translate 'Select Recipient Address' EscapeSingleQuotes %]'" value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="btns">
+            <button id="tst_selectDefaultCustomer_saveDefaultCustomer" ng-show="vm.showSaveButton()" ng-click="vm.setCustomer()" class="btn primary btn-save">[% translate 'Save Changes' %]</button>
+        </div>
+    </div>
+</div>

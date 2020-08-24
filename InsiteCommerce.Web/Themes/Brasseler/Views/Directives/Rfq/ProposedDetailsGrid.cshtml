@@ -1,0 +1,124 @@
+﻿<div>
+    <ul class="item-list cart-items">
+        <li class="row item-block checkout-item" ng-repeat="quoteLine in vm.quote.quoteLineCollection">
+
+            <isc-product-thumb product="quoteLine"></isc-product-thumb>
+
+            <div class="small-9 columns item-details">
+                <isc-product-brand product="quoteLine"></isc-product-brand>
+                <div class="item-name">
+                    <a ng-href="{{quoteLine.productUri}}">
+                        <span ng-bind="quoteLine.shortDescription"></span>
+                        <span ng-if="!quoteLine.isFixedConfiguration" ng-repeat="sectionOption in quoteLine.sectionOptions">
+                            <br /> <span ng-bind="sectionOption.sectionName + ':' + sectionOption.optionName"></span>
+                        </span>
+                    </a>
+                </div>
+
+                <isc-product-name product="quoteLine" no-link="true"></isc-product-name>
+
+                <div class="price" ng-if="!vm.quote.cartNotPriced">
+                    <isc-product-price product="quoteLine"></isc-product-price>
+                    <isc-unit-of-measure-display product="quoteLine"></isc-unit-of-measure-display>
+                </div>
+                <div class="price" ng-if="vm.quote.cartNotPriced">
+                    <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                </div>
+            </div>
+
+            <div class="small-12 columns q-details">
+                <div class="wrap">
+
+                    <span class="field-validation-valid" data-valmsg-for="{{quoteLine.id}}_qty" data-valmsg-replace="true"></span>
+
+                    <ul>
+                        <li><strong>[% translate 'Quoted Pricing' %]</strong></li>
+
+                        <li ng-if="!vm.quote.isJobQuote && (quoteLine.pricing.unitRegularBreakPrices === null || quoteLine.pricing.unitRegularBreakPrices.length === 0)">
+                            <span class="qtys">1+</span><span class="qprice" ng-bind="quoteLine.pricing.unitNetPriceDisplay"></span>
+                        </li>
+
+                        <li ng-if="!vm.quote.isJobQuote && (quoteLine.pricing.unitRegularBreakPrices !== null && quoteLine.pricing.unitRegularBreakPrices.length > 0)" ng-repeat="breakPrice in quoteLine.pricing.unitRegularBreakPrices">
+                            <!--Break Quantities-->
+                            <span class="qtys">
+                                <span ng-bind="breakPrice.breakQty"></span>
+                                <isc-no-element ng-if="!$last" ng-bind="' - ' + (quoteLine.pricing.unitRegularBreakPrices[($index+1)].breakQty-1)"></isc-no-element>
+                                <span ng-if="$last">
+                                    <span ng-if="quoteLine.maxQty > 0" ng-bind="' - ' + quoteLine.maxQty"></span>
+                                    <span ng-if="!quoteLine.maxQty || quoteLine.maxQty === 0" ng-bind="'+'"></span>
+                                </span>
+                            </span>
+                            <!--Break Prices-->
+                            <span class="qprice" ng-bind="breakPrice.breakPriceDisplay"></span>
+                        </li>
+
+                        <li ng-if="vm.quote.isJobQuote">
+                            <span class="qtys" ng-bind="quoteLine.qtyOrdered"></span><span class="qprice" ng-bind="quoteLine.pricing.unitNetPriceDisplay"></span>
+                        </li>
+                    </ul>
+
+                    <div class="item-opt">
+                        <div class="item-qty">
+                            <strong>[% translate 'QTY_quantity' %]: </strong>
+                            <input type="text"
+                                   name="{{quoteLine.id}}_qty"
+                                   class="numerictextbox qty"
+                                   ng-class="{'error' : !quoteLine.isValid}"
+                                   ng-model="quoteLine.qtyOrdered"
+                                   ng-keypress="vm.quantityKeyPress($event, quoteLine)"
+                                   ng-blur="vm.quantityBlur($event, quoteLine)"
+                                   ng-disabled="quoteLine.isPromotionItem || vm.quote.isJobQuote"
+                                   data-rule-required="true"
+                                   data-msg-required="{{::'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Quantity' EscapeSingleQuotes %]')}}"
+                                   data-rule-min="1"
+                                   data-msg-min="[% siteMessage 'Rfq_QtyNotInRangeMessage' %]"
+                                   data-rule-max="{{quoteLine.maxQty > 0 ? quoteLine.maxQty : '9999999999'}}"
+                                   data-msg-max="[% siteMessage 'Rfq_QtyNotInRangeMessage' %]" />
+                        </div>
+                        <div class="item-subtotal">
+                            <strong>[% translate 'Subtotal' %]:</strong>
+                            <span ng-bind="quoteLine.pricing.extendedUnitNetPriceDisplay"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="vm.quote.showLineNotes && !quoteLine.isPromotionItem" class="actions-panel edit">
+                <a href="" class="btn tertiary add-to-cart panel-trigger" data-cartnotes="true" ng-click="vm.notePanelClicked(quoteLine.id)">[% translate 'Line Notes' %]</a>
+                <div class="item-actions" data-cartnotes="true" ng-class="{open : (quoteLine.id == vm.openLineNoteId)}">
+                    <div class="item-actions-wrap">
+                        <div class="large-9 columns item-code-notes">
+                            <div class="row">
+                                <div ng-if="vm.quote.showCostCode" class="large-6 columns cost-code">
+                                    <label for="lineCostCode_{{quoteLine.id}}" ng-bind="vm.quote.costCodeLabel">:</label>
+                                    <select id="lineCostCode_{{quoteLine.id}}"
+                                            ng-if="vm.quote.canEditCostCode"
+                                            ng-model="quoteLine.costCode"
+                                            ng-options="code.costCode as code.description for code in vm.quote.costCodes"
+                                            ng-change="vm.updateLine(quoteLine)"></select>
+                                    <span ng-if="!vm.quote.canEditCostCode" ng-bind="vm.quote.costCodeLabel"></span>
+                                </div>
+                                <div class="large-6 columns item-notes">
+                                    <label for="lineNotes_{{quoteLine.id}}">[% translate 'Add Item Notes' %]:</label>
+                                    <input data-linenote-input type="text"
+                                           id="lineNotes_{{quoteLine.id}}"
+                                           name="lineNotes_{{quoteLine.id}}"
+                                           ng-disabled="!vm.quote.canModifyOrder"
+                                           ng-model="quoteLine.notes"
+                                           ng-keypress="vm.notesKeyPress($event,quoteLine)"
+                                           ng-blur="vm.updateLine(quoteLine)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+
+    <div class="medium-12 large-12 columns q-total">
+        <strong>[% translate 'Total' %]:</strong>
+        <span id="tst_RfqQuoteDetailsView_orderSubTotalDisplay" ng-bind="vm.quote.orderSubTotalDisplay"></span>
+    </div>
+</div>

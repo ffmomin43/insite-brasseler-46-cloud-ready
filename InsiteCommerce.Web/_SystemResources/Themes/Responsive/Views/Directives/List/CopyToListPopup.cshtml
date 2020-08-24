@@ -1,0 +1,53 @@
+﻿<div id="popup-copy-list" class="reveal-modal popup-copy-list" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <h2>[% translate 'Copy' %]</h2>
+        <div class="pop-content">
+            <div class="error" ng-show="vm.errorMessage || vm.showListNameErrorMessage">
+                <span ng-show="vm.errorMessage" class="field-validation-error" ng-bind="vm.errorMessage"></span>
+                <span ng-show="vm.showListNameErrorMessage" class="field-validation-error">
+                    {{::'[% siteMessage 'Lists_Enter_New_Wishlist_Name' EscapeSingleQuotes %]'}}
+                </span>
+            </div>
+            <form ng-show="!vm.copyToListCompleted" id="copyToListForm">
+                <fieldset ng-disabled="vm.copyInProgress">
+                    <p class="copy-instructions">[% translate 'Copy items to a new or existing list.' %]</p>
+                    <div class="row">
+                        <div class="large-4 columns copy-field-label">
+                            <span>[% translate 'Select List' %]:</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <input type="text" class="list-selector" id="selectList" name="selectedList"
+                                   ng-init="vm.listOptionsPlaceholder = '[% translate 'Search or select list' EscapeSingleQuotes %]'" ng-click="vm.totalListsCount && vm.openAutocomplete($event, '#selectList')"
+                                   ng-model="vm.listSearch" kendo-auto-complete k-options="vm.listOptions" ng-disabled="vm.newListName" />
+                            <span class="icon-arw-down-5" ng-click="!vm.newListName && vm.totalListsCount && vm.openAutocomplete($event, '#selectList')"></span>
+                        </div>
+                        <div class="large-4 columns copy-field-label">
+                            <span>[% translate 'New List Name' %]:</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <input type="text" ng-model="vm.newListName" ng-disabled="vm.selectedList" autofocus="autofocus"/>
+                        </div>
+                        <div class="row btns">
+                            <button ng-click="vm.closeModal()" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_copyToListPopup_copyToList_btn" ng-click="vm.copyToList()" class="btn primary btn-copy-list" type="button">[% translate 'Copy To List' %]</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="row" ng-show="vm.copyToListCompleted">
+                <div id="tst_copyToListPopup_message" class="message">
+                    [% translate 'Item(s) copied to' %] "<span ng-bind="vm.listName"></span>".
+                </div>
+                <div class="row btns">
+                    <button ng-click="vm.closeModal()" class="btn tertiary btn-cancel" type="button">[% translate 'Close' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <script id="totalListCountTemplate" type="text/template">
+        <div class="k-header" ng-show="vm.totalListsCount > vm.defaultPageSize">
+            [% translate 'Showing 1-{0} of {1}' %]
+        </div>
+    </script>
+</div>

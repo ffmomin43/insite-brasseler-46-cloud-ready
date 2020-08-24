@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>UserName Change Notification</title>
+</head>
+
+<body>
+    [% if Model.LogoImagePath != null and Model.LogoImagePath != "" -%]
+    <div>
+        <img src="[[Model.LogoImagePath]]" height="86" width="600" alt="Company Logo" />
+    </div>
+    [% endif -%]
+    <div style="margin-top: 30px;
+                margin-left: 20px;
+                margin-right: 20px;
+                max-width: 600px;">
+        <h1 style="font-weight: 600;
+                   font-family: 'Proxima Nova Condensed', Arial, sans-serif;
+                   letter-spacing: 0.025em;">
+            UserName Change Notification
+        </h1>
+        <p style="font-weight: 500;
+                  font-family: 'Proxima Nova Condensed', Arial, sans-serif;">
+            Hello [[Model.FirstName]] [[Model.LastName]],
+        </p>
+        <p style="font-weight: 500;
+                    font-family: 'Proxima Nova Condensed', Arial, sans-serif;">
+            Your user name has been changed from [[Model.OldUserName]] to [[Model.NewUserName]] effective immediately. Your password has not been altered due to this change.
+        </p>
+        <p style="font-weight: 500;
+                    font-family: 'Proxima Nova Condensed', Arial, sans-serif;">
+            If you have not requested this change, please contact a system administrator to report it.
+        </p>
+    </div>
+</body>
+</html>

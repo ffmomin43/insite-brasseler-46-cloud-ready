@@ -1,0 +1,78 @@
+body.ma-settings { }
+
+.ma-settings .btns {
+	width:100%;
+	clear:both;
+	}
+			
+	.ma-settings .btns a.btn  {
+		margin:1em 0;
+		float:right;
+		}
+
+@media all and (min-width: 768px) { 
+	
+.ma-settings .btns {
+	width:100%;
+	clear:both;
+	}
+	
+}
+		
+@media all and (max-width: 767px) { 
+	
+	.ma-settings .btns .btn {
+		width:100%;
+		margin-bottom:1em;
+		}	
+		
+	}
+.ma-settings .sub-email{margin-top: 18px;}
+
+/*Change Password ui*/
+.ma-settings {
+    .password-requirements {
+        margin-top: 69px;
+    }
+
+    .change-pw {
+        .pw-ex, .pw-new {
+            .username, .email {
+                font-weight: 700;
+            }
+        }
+    }
+
+    .manage-subs {
+        h3 {
+            margin-top: 0;
+        }
+
+        .email-text {
+            max-width: 360px;
+        }
+    }
+}
+/*BUSA_1092_View Password for Change password page*/
+.toggle-change-pswd-field {
+    position: absolute;
+    margin-top: -45px;
+    right: 20px;
+    cursor: pointer;
+    font: normal normal normal 14px/1 FontAwesome !important;
+    font-size: inherit !important;
+}
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+    .ma-settings {
+        .password-requirements {
+            margin-top: 0;
+        }
+
+        .change-pw {
+            .pw-ex, .pw-new, .pw-retype {
+                padding-bottom:15px;
+            }
+        }
+    }
+}

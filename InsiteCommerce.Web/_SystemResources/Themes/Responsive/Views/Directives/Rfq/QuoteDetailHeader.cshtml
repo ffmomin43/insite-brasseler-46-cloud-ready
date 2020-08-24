@@ -1,0 +1,43 @@
+﻿<div>
+    <div class="row">
+        <div class="medium-5 large-5 columns col-details">
+            <div class="main-details">
+                <div class="md-row">
+                    <h2>[% translate 'Status' %]: <span ng-bind="vm.quote.statusDisplay"></span></h2>
+                </div>
+                <div class="md-row">
+                    <div ng-show="vm.quote.isJobQuote">
+                        <h2>[% translate 'Job Name' %]: <span ng-bind="vm.quote.jobName"></span></h2>
+                    </div>
+                    <div ng-show="vm.quote.isEditable">
+                        <form novalidate id="updateExpirationDate">
+                            <h2>{{vm.quote.isJobQuote ? '[% translate 'Job Expiration Date' EscapeSingleQuotes %]' : '[% translate 'Quote Expiration Date' EscapeSingleQuotes %]'}}:</h2>
+                            <input type="text" id="expirationDate" name="expirationDate" class="datepicker q-ex-date"
+                                   isc-pick-a-date="vm.quote.expirationDate"
+                                   ng-class="{'error' : true}"
+                                   ng-attr-max-date="vm.quote.isJobQuote ? null : vm.quoteExpireDays"
+                                   data-rule-required="true"
+                                   data-msg-required="[% siteMessage 'Rfq_NoExpirationDate' %]"/>
+                            <span class="field-validation-valid" data-valmsg-for="expirationDate" data-valmsg-replace="true"></span>
+                        </form>
+                    </div>
+                    <div ng-show="vm.quote.expirationDate && !vm.quote.isEditable">
+                        <h2>{{vm.quote.isJobQuote ? '[% translate 'Job Expiration Date' EscapeSingleQuotes %]' : '[% translate 'Quote Expiration Date' EscapeSingleQuotes %]'}}: <span ng-bind="vm.quote.expirationDate | date:'shortDate'"></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2>[% translate 'Sales Rep' %]: <span ng-bind="vm.quote.salespersonName"></span></h2>
+                <h2 ng-show="vm.quote.isSalesperson">[% translate 'User' %]: <span id="tst_quoteDetailHeader_userName" ng-bind="vm.quote.userName"></span></h2>
+                <h2>[% translate 'Customer' %]: <span ng-bind="vm.quote.customerName"></span></h2>
+                <h2 ng-show="!vm.quote.isSalesperson">{{vm.quote.fulfillmentMethod === 'Ship' ? '[% translate 'Ship To' EscapeSingleQuotes %]' : '[% translate 'Pick Up' EscapeSingleQuotes %]'}}: <span ng-bind="vm.quote.shipToFullAddress" data-test-selector="tst_rfqQuoteDetailsHeader_shipToPickUpAddress"></span></h2>
+                <h2>[% translate 'Quote Number' %]: <span ng-bind="vm.quote.orderNumber"></span></h2>
+                <h2>[% translate 'Date Submitted' %]: <span ng-bind="vm.quote.orderDate | date:'shortDate'"></span></h2>
+                <h2>[% translate 'Notes' %]: <span ng-bind="vm.quote.notes"></span></h2>
+            </div>
+        </div>
+
+        <isc-rfq-messages quote="vm.quote"></isc-rfq-messages>
+
+    </div>
+</div>

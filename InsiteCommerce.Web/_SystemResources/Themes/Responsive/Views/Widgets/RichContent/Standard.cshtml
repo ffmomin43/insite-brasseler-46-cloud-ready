@@ -1,0 +1,5 @@
+﻿[% if Model.DisplayInline -%]
+    <span class="widget-richcontent [[Model.CssClass]]">[[Model.Body]]</span>
+[% else -%]
+    <div class="widget-richcontent [[Model.CssClass]]">[[Model.Body]]</div>
+[% endif -%]

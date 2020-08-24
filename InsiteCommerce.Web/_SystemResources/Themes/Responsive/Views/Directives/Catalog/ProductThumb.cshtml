@@ -1,0 +1,10 @@
+﻿{% comment %}
+    usage example:
+    <isc-product-thumb product="wishListLine"></isc-product-thumb>
+{% endcomment %}
+
+<div class="small-2 columns item-thumb">
+    <a ng-href="{{product.productUri}}">
+        <img ng-src="{{product.smallImagePath || product.mediumImagePath}}" alt="{{product.altText}}"/>
+    </a>
+</div>

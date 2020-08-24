@@ -1,0 +1,35 @@
+﻿<div>
+    <div class="search-no-results" ng-show="vm.orderHistory.orders.length === 0">
+        <h3>[% translate 'No orders found' %].</h3>
+    </div>
+    <div ng-show="vm.orderHistory.orders.length > 0">
+        <div class="overflow-table medium">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-date"><span class="sticky-first">[% translate 'Date' %]</span></th>
+                        <th class="col-ordernum">[% translate 'Order #' %]</th>
+                        <th class="col-shipto">[% translate 'Ship To / Pick Up' %]</th>
+                        <th class="col-status">[% translate 'Status' %]</th>
+                        <th class="col-webordernum" ng-if="vm.orderSettings.showWebOrderNumber">[% translate 'Web Order #' %]</th>
+                        <th class="col-po">[% translate 'PO #' %]</th>
+                        <th class="col-tot">[% translate 'Total' %]</th>
+                    </tr>
+                    <tr ng-repeat="order in vm.orderHistory.orders">
+                        <td class="col-date">
+                            <span class="sticky-first">
+                                <a ng-href="[% urlForPage 'OrderDetailPage' %]?orderNumber={{ order.webOrderNumber || order.erpOrderNumber }}" ng-bind="order.orderDate | date:'shortDate'"></a>
+                            </span>
+                        </td>
+                        <td class="col-ordernum"><a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{ order.erpOrderNumber }}" ng-bind="order.erpOrderNumber"></a></td>
+                        <td class="col-shipto" ng-bind="order.stCompanyName"></td>
+                        <td class="col-status" ng-bind="order.statusDisplay"></td>
+                        <td class="col-webordernum" ng-if="vm.orderSettings.showWebOrderNumber" ng-bind="order.webOrderNumber"></td>
+                        <td class="col-po" ng-bind="order.customerPO" ng-click="copyToSearch(order.customerPO)"></td>
+                        <td class="col-tot" ng-bind="order.orderTotalDisplay"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

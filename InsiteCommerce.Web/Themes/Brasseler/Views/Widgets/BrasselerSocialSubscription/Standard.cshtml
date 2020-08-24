@@ -1,0 +1,30 @@
+﻿[% comment %]BUSA-480 changed class large-6 to large-12[% endcomment %]
+<div class="small-6 medium-6 large-12 columns left-side" ng-controller="TopNavController as vm">
+    <div class="byline">
+        <ul ng-if="vm.session.currency.currencyCode=='CAD'">
+            <li><a href="https://brasselercanada.com/contact-us/" target="_blank">[% translate 'Support' %] </a>|</li>
+            <li><a href="https://brasselercanada.com/privacy/" target="_blank">[% translate 'Privacy' %]</a></li>
+        </ul>
+        <ul ng-cloak ng-if="vm.session.currency.currencyCode!='CAD'">
+            <li><a href="http://brasselerusadental.com/government/" target="_blank">[% translate 'Government' %] </a>|</li>
+            <li><a href="https://support.brasselerusa.com/support/home" target="_blank">[% translate 'Support' %] </a>|</li>
+            <li><a href="http://brasselerusa.com/privacy/" target="_blank">[% translate 'Privacy' %]</a></li>
+        </ul>
+    </div>
+    <div class="social-media">
+        <ul>
+            <li>
+                <a href="https://www.facebook.com/brasselerusa" target="_blank"><img src="/Images/fb.jpg" /></a>
+            </li>
+            <li>
+                <a href="https://plus.google.com/+brasseler/posts" target="_blank"><img src="/Images/gplug.jpg" /></a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/company/brasseler-usa" target="_blank"> <img src="/Images/linkedin.jpg" /></a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/user/BrasselerUSA" target="_blank"><img src="/Images/youtube.jpg" /></a>
+            </li>
+        </ul>
+    </div>
+</div>

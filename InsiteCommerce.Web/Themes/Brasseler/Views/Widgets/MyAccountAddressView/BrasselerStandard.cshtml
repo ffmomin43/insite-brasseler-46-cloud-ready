@@ -1,0 +1,26 @@
+﻿<form id="addressForm" ng-controller="MyAccountAddressController as vm" ng-show="vm.countries">
+    <div class="bill-to">
+        <h3>[% translate 'Billing Information' %]</h3>
+        <div class="bill-to-form">
+            <div class="billing-info">
+                <isc-My-Account-Address-Display prefix="bt" address="vm.billTo" countries="vm.countries" address-fields="vm.addressFields.billToAddressFields"
+                                  set-state-required-rule="vm.setStateRequiredRule('bt', vm.billTo)"></isc-My-Account-Address-Display>
+            </div>
+        </div>
+    </div>
+
+    <div class="ship-to">
+        <h3>[% translate 'Shipping Information' %]</h3>
+        <div class="ship-to-form">
+            <div class="shipping-info">
+                <div class="ship-select">
+                    <select id="shipTo" name="shipTo"
+                            ng-model="vm.shipTo"
+                            ng-options="shipTo.label for shipTo in vm.billTo.shipTos" ng-change="vm.checkSelectedShipTo()"></select>
+                </div>
+                <isc-My-Account-Address-Display prefix="st" address="vm.shipTo" countries="vm.countries" address-fields="vm.addressFields.shipToAddressFields"
+                                  is-read-only="vm.isReadOnly" set-state-required-rule="vm.setStateRequiredRule('st', vm.shipTo)"></isc-My-Account-Address-Display>
+            </div>
+        </div>
+    </div>
+</form>

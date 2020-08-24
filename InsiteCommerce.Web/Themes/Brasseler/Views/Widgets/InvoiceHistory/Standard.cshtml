@@ -1,0 +1,53 @@
+﻿<div class="widget-invoice-history [[Model.CssClass]]" ng-controller="InvoiceHistoryWidgetController as vm" ng-show="vm.invoiceHistory.invoices.length > 0 && vm.showInvoices" ng-cloak>
+    <div class="row">
+        <h3>[[Model.Title]]</h3>
+        <a id="tst_invoiceHistoryWidget_viewAll" href="[% urlForPage 'InvoicesPage' %]" class="btn secondary btn-view-all">[% translate 'View All' %]</a>
+        <div class="overflow-table medium hidden-for-small-only">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-date">[% translate 'Date' %]</th>
+                        <th class="col-invoicenum">[% translate 'Invoice #' %]</th>
+                        <th class="col-duedate">[% translate 'Due Date' %]</th>
+                        <th class="col-tot">[% translate 'Total' %]</th>
+                        <th class="col-actions">[% translate 'Actions' %]</th>
+                    </tr>
+                    <tr class="tst_invoiceHistoryWidget_invoice" ng-repeat="invoice in vm.invoiceHistory.invoices">
+                        <td class="col-date" ng-bind="invoice.invoiceDate | date:'shortDate'"></td>
+                        <td class="col-invoicenum"><a id="tst_invoiceHistoryWidget_link_{{invoice.invoiceNumber}}" ng-href="[% urlForPage 'InvoiceDetailPage' %]?invoiceNumber={{ invoice.invoiceNumber }}" ng-bind="invoice.invoiceNumber"></a></td>
+                        <td class="col-duedate" ng-bind="invoice.dueDate | date:'shortDate'"></td>
+                        <td class="col-tot" ng-bind="invoice.productTotalDisplay"></td>
+                        <td class="col-actions">
+                            <span id="tst_invoiceHistoryWidget_shareLink_{{invoice.invoiceNumber}}" class="icon-email" ng-click="vm.showShareModal($event, $index)"></span>
+                            <a id="tst_invoiceHistoryWidget_pdfLink_{{invoice.invoiceNumber}}" class="icon-print" href="/Invoice/GetPdf?invoiceNumber={{invoice.invoiceNumber}}" target="blank"></a>
+                            <isc-share-entity-popup entity-id="invoice.invoiceNumber" entity-name="Invoice" url="/api/v1/invoices/shareinvoice" file-link="/Invoice/GetPdf?invoiceNumber={{invoice.invoiceNumber}}" header-text="[% translate 'Email Invoice' %]"
+                                                    file-name="invoice_{{invoice.invoiceNumber}}.pdf" subject="[% translate 'Invoice #' %]{{invoice.invoiceNumber}}" submit-button-text="[% translate 'Email Invoice' %]"></isc-share-entity-popup>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ul class="invoices-list show-for-small-only">
+            <li class="row" ng-repeat="invoice in vm.invoiceHistory.invoices">
+                <div class="columns small-6">
+                    <div>
+                        <a ng-href="[% urlForPage 'InvoiceDetailPage' %]?invoiceNumber={{ invoice.invoiceNumber }}" ng-bind="'[% translate 'Invoice #' EscapeSingleQuotes %]' + invoice.invoiceNumber"></a>
+                    </div>
+                    <div ng-bind="invoice.invoiceDate | date:'shortDate'"></div>
+                    <div>[% translate 'Due Date' %]: {{invoice.dueDate | date:'shortDate'}}</div>
+                </div>
+                <div class="columns small-6">
+                    <div class="total-price" ng-bind="invoice.productTotalDisplay"></div>
+                </div>
+                <div tabindex="0" class="actions-menu">
+                    <span class="icon-more"></span>
+                    <ul class="actions-menu-list" >
+                        <li><a ng-click="vm.showShareModal($event, $index)" href="javascript:;">[% translate 'Share Invoice' %]</a></li>
+                        <li><a href="/Invoice/GetPdf?invoiceNumber={{invoice.invoiceNumber}}" target="blank">[% translate 'Print Invoice' %]</a></li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>

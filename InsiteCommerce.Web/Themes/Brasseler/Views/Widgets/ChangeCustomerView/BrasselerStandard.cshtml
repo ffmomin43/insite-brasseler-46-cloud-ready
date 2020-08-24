@@ -1,0 +1,56 @@
+﻿<div class="row" ng-controller="SelectCustomerController as vm" ng-cloak
+     home-page-url="[% urlForPage 'HomePage' %]"
+     dashboard-url="[% urlForPage 'MyAccountPage' %]"
+     addresses-url="[% urlForPage 'MyAccountAddressPage' %]"
+     checkout-address-url="[% urlForPage 'CheckoutAddressPage' %]"
+     review-and-pay-url="[% urlForPage 'ReviewAndPayPage' %]"
+     cart-url="[% urlForPage 'CartPage' %]">
+
+    <div class="large-6 columns si-step-2">
+        <div class="select-step select-customer-step">
+            <label for="selectBillTo">[% translate 'Select Bill To' %]</label>
+            <input type="text" class="billto-selector" id="selectBillTo" name="selectedBillTo"
+                   ng-init="vm.billToOptionsPlaceholder = '[% translate 'Select Bill To' EscapeSingleQuotes %]'" ng-click="vm.totalBillTosCount && vm.openAutocomplete($event, '#selectBillTo')"
+                   ng-model="vm.billToSearch" kendo-auto-complete k-options="vm.billToOptions" ng-change="vm.changeBillTo()" />
+            <span class="icon-arw-down-5" ng-click="vm.totalBillTosCount && vm.openAutocomplete($event, '#selectBillTo')" style="top: 2.05em; font-size: 16px;"></span>
+        </div>
+
+        <div class="select-step select-ship-step" ng-show="vm.billTo">
+            <label for="selectShipTo">[% translate 'Select Ship To' %]</label>
+            <select name="selectShipTo" class="shipto-selector" id="selectShipTo"
+                    ng-model="vm.shipTo"
+                    ng-options="shipTo.label for shipTo in vm.billTo.shipTos">
+                <option value="">[% translate 'Select Ship To' %]</option>
+            </select>
+        </div>
+        <p class="error">
+            <span class="field-validation-error" ng-if="vm.errorMessage">{{vm.errorMessage}}</span>
+        </p>
+        <div ng-show="vm.showIsDefaultCheckbox && vm.billTo && vm.shipTo && !vm.shipTo.isNew">
+            <input type="checkbox" id="useDefaultCustomer" ng-change="vm.setAsDefaultCustomer()" ng-model="vm.useDefaultCustomer">
+            <label for="useDefaultCustomer">[% siteMessage 'DefaultCustomer_SetToUser' %]</label>
+        </div>
+        <div class="btns">
+            <a id="cancelSelectCustomer" href="" class="btn secondary btn-cancel" ng-click="vm.cancel()">[% translate 'Cancel' %]</a>
+            <a id="setCustomer" href="" class="btn primary btn-continue" ng-class="{ disabled: !vm.billTo || !vm.shipTo }" ng-click="vm.setCustomer()">[% translate 'Continue' %]</a>
+        </div>
+    </div>
+</div>
+
+<div class="ng-cloak">
+    <isc-popup-template container-id="defaultCustomerChangedMessage">
+        [[Model.DefaultCustomerChangedMessage]]
+    </isc-popup-template>
+</div>
+
+<script id="totalBillToCountTemplate" type="text/template">
+    <div class="k-header" ng-show="vm.totalBillTosCount > vm.defaultPageSize">
+        [% translate 'Showing 1-{0} of {1}' %]
+    </div>
+</script>
+
+<script id="totalShipToCountTemplate" type="text/template">
+    <div class="k-header" ng-show="vm.totalShipTosCount > vm.defaultPageSize">
+        [% translate 'Showing 1-{0} of {1}' %]
+    </div>
+</script>

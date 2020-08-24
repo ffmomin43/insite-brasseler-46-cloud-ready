@@ -1,0 +1,20 @@
+﻿[
+  //{
+  //    "Text": "Permissions",
+  //    "SubmenuItems": [
+  //        {
+  //            "Href": "data/userProfiles",
+  //            "Text": "Users"
+  //        },
+  //        {
+  //            "Href": "data/roles",
+  //            "Text": "Roles",
+  //            "AllowedRoles":  "ISC_Admin,ISC_System"
+  //        }
+  //    ]
+  //},
+  //{
+  //    "Href": "about",
+  //    "Text": "About"
+  //}
+]

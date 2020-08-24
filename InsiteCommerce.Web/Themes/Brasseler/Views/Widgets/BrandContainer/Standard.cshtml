@@ -1,0 +1,14 @@
+﻿<div is-edit-mode="[[IsEditingMode]]" container-id="[[Model.ContainerId]]" ng-controller="BrandContainerController as vm" ng-cloak>
+    <div ng-show="vm.isEditMode || vm.hasLeftColumnContent || vm.hasRightColumnContent" class="widget-brandContainer medium-12 large-12 columns [[Model.CssClass]]">
+        <div class="row">
+            <div class="small-12 medium-6 columns left-brand-container" ng-class="{ 'medium-centered large-centered': !vm.isEditMode && !vm.hasRightColumnContent }"
+                 ng-show="vm.isEditMode || vm.hasLeftColumnContent">
+                [% zone 'LeftColumn' %]
+            </div>
+            <div class="small-12 medium-6 columns right-brand-container" ng-class="{ 'medium-centered large-centered': !vm.isEditMode && !vm.hasLeftColumnContent }"
+                 ng-show="vm.isEditMode || vm.hasRightColumnContent">
+                [% zone 'RightColumn' %]
+            </div>
+        </div>
+    </div>
+</div>

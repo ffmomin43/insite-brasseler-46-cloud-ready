@@ -1,0 +1,18 @@
+{
+    "version": "0.0.0",
+    "name": "InsiteCommerce.Web",
+    "devDependencies": {
+        "autoprefixer": "^6.3.0",
+        "grunt": "^1.0.3",
+        "grunt-contrib-sass": "^0.9.2",
+        "grunt-contrib-watch": "^1.1.0",
+        "grunt-postcss": "^0.7.0",
+        "grunt-teamcity": "^0.1.4",
+        "grunt-tslint": "3.3.0",
+        "load-grunt-tasks": "^3.4.0",
+        "tslint": "3.15.1",
+        "tslint-msbuild-path": "^0.9",
+        "tslint-teamcity-reporter": "2.0.0",
+        "typescript": "3.7"
+    }
+}

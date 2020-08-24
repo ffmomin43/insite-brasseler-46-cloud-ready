@@ -1,0 +1,51 @@
+﻿<ul class="item-list cart-items columns">
+    <li class="row item-block checkout-item" ng-repeat="quoteLine in quote.quoteLineCollection">
+        <isc-product-thumb product="quoteLine"></isc-product-thumb>
+
+        <div class="small-10 columns item-details">
+            <isc-product-brand product="quoteLine"></isc-product-brand>
+            <div class="item-name">
+                <a id="requestedDetailsGridShortDescriptionLink_{{quoteLine.id}}" ng-href="{{quoteLine.productUri}}">
+                    <span ng-bind="quoteLine.shortDescription"></span>
+                    <span ng-if="!quoteLine.isFixedConfiguration" ng-repeat="sectionOption in quoteLine.sectionOptions">
+                        <br /> <span ng-bind="sectionOption.sectionName + ':' + sectionOption.optionName"></span>
+                    </span>
+                </a>
+            </div>
+            <isc-product-name product="quoteLine" no-link="true"></isc-product-name>
+            <div class="price" ng-if="!quote.cartNotPriced">
+                <isc-product-price product="quoteLine"></isc-product-price>
+                <isc-unit-of-measure-display product="quoteLine"></isc-unit-of-measure-display>
+                <isc-product-price-saving product="quoteLine" currency-symbol="quote.currencySymbol"></isc-product-price-saving>
+                <div class="quantity-pricing">
+                    <isc-quantity-break-pricing product-id="quoteLine.id" break-prices="quoteLine.breakPrices"></isc-quantity-break-pricing>
+                </div>
+            </div>
+            <div class="price" ng-if="quote.cartNotPriced">
+                <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+            </div>
+            <div class="wrap">
+                <div class="item-opt">
+                    <div class="item-qty">
+                        <strong>[% translate 'QTY_quantity' %]: </strong><span ng-bind="quoteLine.qtyOrdered"></span>
+                    </div>
+                    <div class="item-subtotal">
+                        <span ng-if="!quoteLine.quoteRequired" ng-bind="quoteLine.pricing.extendedUnitNetPriceDisplay"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="large-9 columns item-code-notes">
+            <div class="row">
+                <div class="large-6 columns cost-code" ng-if="quote.showCostCode && quoteLine.costCode.length > 0">
+                    <strong><span ng-bind="quote.costCodeLabel"></span>:</strong>
+                    <span ng-bind="quoteLine.costCode"></span>
+                </div>
+                <div class="large-6 columns item-notes" ng-if="quote.showLineNotes && quoteLine.notes.length > 0">
+                    <strong>[% translate 'Item Notes' %]:</strong>
+                    <span ng-bind="quoteLine.notes"></span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

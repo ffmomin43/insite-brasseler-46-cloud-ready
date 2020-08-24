@@ -1,0 +1,77 @@
+﻿[[Model.Drop.DisabledMessage]]
+<div class="widget-recently-viewed [[Model.CssClass]]" ng-controller="RecentlyViewedController as vm" carousel-element-id="[[Model.Drop.RecentlyViewedCarouselId]]"
+     ng-init="vm.isProductDetailPage=[[Model.Drop.IsProductDetailPage]];vm.simplified=[[Model.Drop.Simplified]]" ng-cloak>
+    <h3 ng-if="vm.showRecentlyViewedCarousel()">[[Model.Title]]</h3>
+    <div class="row" role="cross-sells" ng-if="vm.showRecentlyViewedCarousel()" ng-cloak>
+        <div class="medium-12 large-12 columns">
+            <div class="carousel-wrapper">
+                <div class="rp-carousel csCarousel_recentlyViewed">
+                    <ul class="items slides">
+                        <li class="medium-3 large-3 columns isc-productContainer" ng-repeat="product in ::vm.products track by product.id">
+                            <div class="item-wrap">
+
+                                <div class="rp-carousel-item-equalize">
+                                    <div class="thumb-wrap">
+                                        <div class="item-thumb">
+                                            <a ng-href="{{::product.productDetailUrl}}">
+                                                <img ng-src="{{::product.mediumImagePath}}" alt="{{::product.altText}}" increment-images-loaded/>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <isc-product-brand product="product"></isc-product-brand>
+
+                                    <div class="item-name">
+                                        <a ng-href="{{::product.productDetailUrl}}">{{::product.shortDescription}}</a>
+                                    </div>
+
+                                    <div class="product-info">
+                                        <div class="item-num">
+                                            <span class="item-num-sku">{{::product.erpNumber}}</span>
+                                            <span class="item-num-mfg" ng-if="::(!!product.manufacturerItem)">[% translate 'MFG #' %]: {{::product.manufacturerItem}}</span>
+                                            <span class="item-num-my" ng-if="::(!!product.customerName)">[% translate 'My Part #' %]: {{::product.customerName}}</span>
+                                        </div>
+
+                                        <div ng-if="!vm.simplified" class="price">
+                                            <isc-product-price product="product" id-key="" ng-if="::product.canShowPrice"></isc-product-price>
+                                            <span class="um displayUnitOfMeasure" ng-if="vm.showUnitOfMeasureLabel(product)">
+                                                <span class="um-sep">/</span>
+                                                <span class="selected-uom">{{product.unitOfMeasureDescription || product.unitOfMeasureDisplay}}</span>
+                                            </span>
+                                            <isc-product-price-saving product="product" currency-symbol="product.currencySymbol"></isc-product-price-saving>
+                                            <div ng-if="vm.showQuantityBreakPricing(product)">
+                                                <isc-quantity-break-pricing product-id="product.id" block="recentlyViewed" break-prices="product.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                            </div>
+                                        </div>
+                                        <div class="price" ng-if="!vm.simplified && vm.failedToGetRealTimePrices">
+                                            <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                                        </div>
+                                        <div class="um-pack" ng-if="::!vm.simplified && product.canShowUnitOfMeasure">
+                                            <div class="um">
+                                                <label ng-if="::vm.showUnitOfMeasure(product)">[% translate 'U/M' %]:</label>
+                                                <isc-unit-of-measure-select-list product="product" alternate-units-of-measure="{{::vm.productSettings.alternateUnitsOfMeasure}}" display-pack="true" change-unit-of-measure="vm.changeUnitOfMeasure(product)"></isc-unit-of-measure-select-list>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="!vm.simplified" class="actions-block">
+                                        <div class="item-qty" ng-if="::product.canAddToCart">
+                                            <input type="text" ng-model="product.qtyOrdered" ng-init="product.qtyOrdered = product.minimumOrderQty || 1" class="qty numerictextbox"/>
+                                        </div>
+                                        <div class="action">
+                                            <button class="btn primary btn-add-cart" ng-click="vm.addToCart(product)" ng-if="::product.canAddToCart" ng-disabled="!product.qtyOrdered || product.qtyOrdered == 0 || vm.addingToCart">[% translate 'Add to Cart' %]</button>
+                                        </div>
+                                        <a href="javascript:void(0);" class="btn secondary btn-add-list isc-addToWishlistPopup" ng-click="vm.openWishListPopup(product)" ng-if="::product.canAddToWishlist">[% translate 'Add to List' %]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#" class="carousel-control-nav_recentlyViewed carousel-control-prev flex-prev"><span></span></a>
+                <a href="#" class="carousel-control-nav_recentlyViewed carousel-control-next flex-next"><span></span></a>
+            </div>
+        </div>
+    </div>
+</div>

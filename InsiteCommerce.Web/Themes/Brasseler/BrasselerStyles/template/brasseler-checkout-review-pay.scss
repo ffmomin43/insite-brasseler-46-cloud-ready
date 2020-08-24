@@ -1,0 +1,96 @@
+﻿/* Checkout Review Pay */
+.checkout-review-pay {
+    .order-summary-2 {
+        .order-subtotal {
+            width: 100%;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .btns {
+            .btn-place-order {
+                background-color: #00359c;
+
+                &:hover {
+                    background-color: #a50031;
+                }
+            }
+        }
+    }
+
+    .order-summary {
+        .order-details {
+            .item-list {
+                .item-block {
+                    border: 0 !important;
+                    margin: 0 !important;
+                    border-bottom: 1px solid #e0e0e0 !important;
+
+                    &:last-child{
+                        border-bottom: none !important;
+                    }
+
+                    .product-details {
+                        .price {
+                            .pd-price {
+                                display: inline-flex;
+
+                                .price-sale, .price-old {
+                                    margin-right: 5px;
+                                }
+
+                                span {
+                                    margin-right: 5px;
+                                }
+                            }
+                        }
+
+                        .qty-wrapper {
+                            float: right;
+
+                            @media screen and (max-width: 767px) {
+                                float: left;
+                            }
+
+                            .cart-btns {
+                                .item-opt {
+                                    @media screen and (max-width: 767px) {
+                                        height: inherit;
+                                    }
+                                }
+                            }
+                        }
+
+                        .product-name {
+                            h3 {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+    .payment-details {
+        .btn-apply {
+            @media screen and (max-width: 767px) {
+                width: 100%;
+            }
+        }
+    }
+
+    .checkout-review-pay {
+        table {
+            @media screen and (max-width: 767px) {
+                width: 100% !important;
+            }
+
+            tr td + td {
+                @media screen and (max-width: 767px) {
+                    width: 100% !important;
+                }
+            }
+        }
+    }

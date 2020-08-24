@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Failed PunchOut Order</title>
+    <style>
+        /* Reset all elements to help ensure cross-browser consistency */
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font: 12px Arial, Helvetica, sans-serif;
+        }
+
+        h4 {
+            font-size: 100%;
+            font-weight: normal;
+            font-weight: bold;
+            padding: 8px 0;
+        }
+
+        .email-wrapper {
+            width: 95%;
+            margin: 20px auto 0 auto;
+        }
+
+        .request-info {
+            margin-top: 20px;
+        }
+
+            .request-info table td {
+                padding: 2px 4px;
+            }
+
+        .message-info {
+            margin-top: 25px;
+        }
+
+            .message-info .label {
+                font-size: 100%;
+                font-weight: normal;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="email-wrapper">
+        <div class="request-info">
+            <table>
+                <tr>
+                    <td><h4>Date/Time Received</h4></td>
+                    <td>[[Model.RequestDate]]</td>
+                </tr>
+                <tr>
+                    <td><h4>Order ID</h4></td>
+                    <td>[[Model.OrderId]]</td>
+                </tr>
+                <tr>
+                    <td><h4>Bill To</h4></td>
+                    <td>[[Model.BillToName]]</td>
+                </tr>
+            </table>
+        </div>
+        <div class="message-info">
+            <div class="label">Message</div>
+            <div>[[Model.Message]]</div>
+        </div>
+    </div>
+</body>
+</html>

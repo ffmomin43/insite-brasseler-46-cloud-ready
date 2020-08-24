@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Shipment Confirmation</title>
+    <style type="text/css">
+        #EmailBox { font-family:Tahoma, Geneva, sans-serif;font-size: 10.5px; width: 600px; margin-left: auto; margin-right: auto;display: block; background-color: #fff }
+		#EmailOrderDetails, #EmailOrderDetails td { padding: 6px 9px 6px 0; font-size: 16px; }
+        #orderSummary { border: solid 1px #ccc; padding: 0; width: 580px; }
+        #orderSummary , #orderSummary table { border-collapse:collapse; }
+        #orderSummary th { background: #DEE5EC; font-size: 12px; font-weight: bold; color: #02325C; padding: 5px 3px; text-align: left; }
+        #orderSummary td { background: #F8FAFB; font-size: 12px; font-weight: normal; color: #000; padding: 5px 3px; }
+    </style>
+</head>
+<body>
+    <div id="EmailBox">
+        [% if Model.LogoImagePath != null and Model.LogoImagePath != "" -%]
+        <div>
+            <img src="[[Model.LogoImagePath]]" alt="Company Logo" width="225" height="50" border="0" />
+        </div>
+        [% endif -%]
+        <h1>Shipping Confirmation</h1>
+        Dear [[Model.BillingName]],
+        <br />
+        <p>
+            We have processed your order and it is ready to leave our warehouse.
+        </p>
+        <p>
+            You can check your order status and tracking number <a target="_blank" href="[[Model.OrderLink]]">here</a>.
+        </p>
+        <p>
+            Please Note: If your tracking number on the tracking results below do not immediately appear when you attempt to track your package, the shipping carrier may still be processing your information.
+        </p>
+        <table id="EmailOrderDetails">
+            <tr>
+                <td width="130"><strong>Order Number:</strong></td>
+                <td>[[Model.OrderNumber]]</td>
+            </tr>
+            <tr>
+                <td><strong>Order Placed</strong>:</td>
+                <td>[[Model.OrderDate]]</td>
+            </tr>
+        </table>
+
+        [% if Model.ShipmentPackages != null and Model.ShipmentPackagesCount > 0 && Model.PackageCount > 0 -%]
+        <table border="0" cellpadding="0" cellspacing="5" width="600" id="orderSummary">
+            <tr><th><b>Item Number</b></th><th><b>Description</b></th><th><b>Unit Of Measure</b></th><th><b>Qty Ordered</b></th><th><b>Qty Shipped</b></th></tr>
+            [% for shipmentPackage in Model.ShipmentPackages -%]
+            [% for shipmentPackageLine in shipmentPackage.ShipmentPackageLines -%]
+            <tr>
+                <td valign="top"><span class="main">[[shipmentPackageLine.ErpNumber]]</span></td>
+                <td valign="top"><span class="main">[[shipmentPackageLine.Description]]</span></td>
+                <td valign="top"><span class="main">[[shipmentPackageLine.UnitOfMeasure]]</span></td>
+                <td valign="top"><span class="main">[[shipmentPackageLine.QtyOrdered]]</span></td>
+                <td valign="top"><span class="main">[[shipmentPackageLine.QtyShipped]]</span></td>
+            </tr>
+            [% endfor -%]
+            [% endfor -%]
+        </table>
+        [% endif -%]
+
+        <br />
+        Thank You,
+        <br />
+        <strong>Insite Software</strong>
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+@media all and (max-width: 767px) {
+    .ma-order-approval {
+        .view-shipto-tbl td {
+            height: 90px !important;
+        }
+    }
+}
+
+@media all and (min-width: 767px) {
+    .ma-order-approval {
+        label.accord-head {
+            display: inline-block;
+        }
+    }
+}

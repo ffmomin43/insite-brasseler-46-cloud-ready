@@ -1,0 +1,56 @@
+﻿<div id="shareEntityPopupContainer" class="share-entity-modal popup-share reveal-modal" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <div class="columns share-modal-label">
+            <h2 ng-bind="vm.headerText"></h2>
+        </div>
+        <form novalidate id="shareEntityForm" class="custom shareEntityForm">
+            <div class="columns">
+                <h3><a id="tst_shareEntityModal_fileLink" href="{{vm.fileLink}}" ng-bind="vm.fileName" class="link" target="blank"></a></h3>
+                <div class="required-label">
+                    <span class="redTxt">*</span>
+                    <span>[% translate 'required' %]</span>
+                </div>
+                <div class="row share-email-to">
+                    <isc-share-entity-field field-label="[% translate ' Email To' %]"
+                                             field-name="emailTo"
+                                             field-value="vm.shareEntityModel.emailTo"
+                                             is-required="true"
+                                             is-email="true">
+                    </isc-share-entity-field>
+                </div>
+                <div class="row share-email-from">
+                    <isc-share-entity-field field-label="[% translate ' Email From' %]"
+                                             field-name="emailFrom"
+                                             field-value="vm.shareEntityModel.emailFrom"
+                                             is-required="true"
+                                             is-email="true">
+                    </isc-share-entity-field>
+                </div>
+                <div class="row share-subject">
+                    <isc-share-entity-field field-label="[% translate ' Subject' %]"
+                                             field-name="subject"
+                                             field-value="vm.shareEntityModel.subject"
+                                             is-email="false">
+                    </isc-share-entity-field>
+                </div>
+                <div class="row share-msg">
+                    <span>[% translate 'Message' %]</span>
+                    <textarea ng-model="vm.shareEntityModel.message" autofocus="autofocus"
+                              id="shareEntityMessage"
+                              name="message"
+                              data-msg-required="{{ '[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', 'Message') }}"></textarea>
+                    <span class="field-validation-valid" data-valmsg-for="message" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="columns btns">
+                <button ng-click="vm.closeModal()" class="btn secondary close-modal-button" type="button">[% translate 'Cancel' %]</button>
+                <button id="tst_shareEntityModal_shareEntity" ng-click="vm.shareEntity()" ng-bind="vm.submitButtonText" class="btn primary btn-create-wishlist" type="button"></button>
+            </div>
+        </form>
+        <div class="row messaging" ng-show="vm.isSuccess || vm.isError">
+            <span id="tst_shareEntityModal_isSuccess" ng-show="vm.isSuccess">[% siteMessage 'Entity_Share_Success' 'An email was successfully sent.' %]</span>
+            <span id="tst_shareEntityModal_isError" ng-show="vm.isError">[% siteMessage 'Entity_Share_Error' 'Email was not successfully sent, please verify form inputs.' %]</span>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>

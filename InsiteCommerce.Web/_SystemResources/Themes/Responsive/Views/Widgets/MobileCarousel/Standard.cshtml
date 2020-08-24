@@ -1,0 +1,20 @@
+﻿[% if IsEditingMode and CurrentPage.ContentKey == Model.PageContentKey -%]
+<div class="widget-mobileCarousel">
+    [% zone 'Mobile Carousel Slides' label: 'Carousel Slides' %]
+</div>
+[% else -%]
+<div class="columns">
+    <div isc-carousel class="widget-mobileCarousel slideshow-wrapper flexslider"
+         data-animation="slide"
+         data-animation_speed="[[Model.AnimationSpeed]]"
+         data-timer_speed="[[Model.TimerSpeed]]"
+         data-navigation_arrows="false"
+         data-slide_number="false"
+         data-bullets="false">
+        <div class="preloader"></div>
+        <ul class="slides">
+            [% zone 'Mobile Carousel Slides' surroundWith: 'li' label: 'Carousel Slides' %]
+        </ul>
+    </div>
+</div>
+[% endif -%]

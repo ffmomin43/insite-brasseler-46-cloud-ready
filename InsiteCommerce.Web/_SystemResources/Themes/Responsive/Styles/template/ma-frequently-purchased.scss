@@ -1,0 +1,209 @@
+﻿.widget-frequently-purchased {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+
+    .quote-required {
+        margin-right: 1em;
+
+        .f-dropdown.content {
+            min-width: 190px !important;
+        }
+
+        .f-dropdown.open:before {
+            bottom: -11px !important;
+        }
+
+        .f-dropdown.open:after {
+            opacity: .3;
+        }
+
+        .quote-tip {
+            z-index: 1;
+
+            .t-dropdown {
+                z-index: 1;
+            }
+
+            .f-dropdown {
+                z-index: 1000;
+            }
+        }
+    }
+
+    .quantity-pricing {
+        z-index: 1;
+
+        .t-dropdown {
+            z-index: 1;
+        }
+
+        .f-dropdown.content {
+            z-index: 1000;
+            width: auto;
+
+            .isc-pricebreaks {
+                min-width: 225px;
+
+                tr {
+                    border-bottom: none;
+                    height: 36px !important;
+
+                    td {
+                        line-height: 1.125rem;
+                        padding: 0.5625rem 0.625rem;
+                        vertical-align: inherit;
+                        border: none;
+                    }
+                }
+            }
+        }
+
+        .f-dropdown.open:before {
+            left: 15px;
+        }
+
+        .f-dropdown.open:after {
+            left: 14px;
+        }
+    }
+
+    .btn.primary.add-to-cart {
+        margin: 0;
+    }
+
+    .item-qty {
+        display: inline-block;
+        margin-right: 5px;
+        width: 3rem;
+        vertical-align: top;
+
+        input {
+            margin-bottom: 0;
+        }
+    }
+
+    .info-tbl {
+        width: 100%;
+
+        th {
+            font-size: 1em;
+            border-bottom-width: 1px;
+        }
+
+        td {
+            font-size: 1em;
+            padding: 1em .75em .75em 1em;
+            vertical-align: top;
+        }
+
+        th + th, td + td {
+            border-left: none;
+        }
+
+        .col-name {
+            .item-thumb {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+                float: left;
+            }
+
+            .item-num {
+                font-size: 0.875rem;
+            }
+        }
+
+        tr:not(:first-of-type) {
+            background-color: white;
+        }
+
+        .col-price {
+            width: 23%;
+            text-align: right;
+        }
+
+        .col-actions {
+            width: 22%;
+            min-width: 13em;
+            text-align: right;
+        }
+    }
+
+    .purchased-list {
+        list-style-type: none;
+        border: 1px solid #E0E0E0;
+        margin: 0;
+
+        li {
+            border-bottom: 1px solid #E0E0E0;
+            margin: 0;
+            padding: 0.8rem 0.9rem;
+            position: relative;
+
+            .col-name {
+                clear: both;
+                width: 100%;
+
+                .item-thumb {
+                    width: 50px;
+                    height: 50px;
+                    float: left;
+                    margin-right: 10px;
+                }
+
+                .item-num {
+                    font-size: 0.875rem;
+                }
+            }
+
+            .col-actions {
+                clear: both;
+                margin-left: 60px;
+
+                .price, .um {
+                    position: relative;
+                }
+
+                .actions {
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .widget-frequently-purchased {
+        .quote-required {
+            .f-dropdown.open:before {
+                left: 102px;
+            }
+
+            .f-dropdown.open:after {
+                left: 101px;
+            }
+        }
+
+        .quantity-pricing {
+            .f-dropdown.open:before {
+                left: 17px;
+            }
+
+            .f-dropdown.open:after {
+                left: 16px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .widget-frequently-purchased {
+        .hidden-for-small-only {
+            display: none !important;
+        }
+
+        .show-for-small-only {
+            display: block !important;
+        }
+    }
+}

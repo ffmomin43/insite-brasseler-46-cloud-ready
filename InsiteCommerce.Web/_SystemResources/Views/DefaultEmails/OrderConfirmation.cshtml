@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Order Confirmation</title>
+    <style>
+        /* Reset all elements to help ensure cross-browser consistency */
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+        table { border-collapse: collapse; border-spacing: 0; }
+        fieldset, img { border: 0; }
+        address, caption, cite, code, dfn, em, strong, th, var { font-style: normal; font-weight: normal; }
+        ol, ul { list-style: none; }
+        caption, th { text-align: left; }
+        h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+        q:before, q:after { content: ''; }
+        abbr, acronym { border: 0; }
+        body { font: 12px Arial, Helvetica, sans-serif; }
+        a:link, a:visited, a:active { color: #666; text-decoration: none; }
+        a:hover, a:focus { color: #000; }
+        h1 { font-size: 18px; padding: 12px 0; }
+        h2 { font-size: 14px; padding: 8px 0; font-weight: bold; }
+        h4 { font-weight: bold; padding: 8px 0; }
+
+        .email-wrapper { width: 95%; margin: 20px auto 0 auto; }
+        .order-info { margin-top: 20px; margin-bottom: 20px; }
+            .order-info table td { padding: 2px 4px; }
+
+        .bill-ship { vertical-align: top; }
+        .items { margin-top: 20px; }
+        .subtotal table td { padding: 2px 0; white-space: nowrap; }
+
+        .rp-totals-lft { width: 120px; text-align: left; }
+        .address-tbl th { vertical-align: middle; }
+        .order-subtotal { font-size: 12px; font-weight: bold; }
+        .order-total { font-size: 16px; font-weight: bold; }
+        .billing-info { padding-bottom: 100px; display: block; }
+        .summury-label { color: grey; font-weight: bold; white-space: nowrap; }
+        .summury-value { font-weight: bold; white-space: nowrap; text-align: right; }
+
+        .info-tbl { width: 80%; }
+            .info-tbl td { padding: 6px 2px; white-space: nowrap; }
+            .info-tbl th { padding: 3px 2px; white-space: nowrap; }
+            .info-tbl th { font-weight: bold; border-bottom: 1px solid #000; }
+            .info-tbl .item { width: 15%; text-align: left; }
+            .info-tbl .description { width: 45%; text-align: left; }
+            .info-tbl .qty { text-align: left; width: 10%; }
+            .info-tbl .cost { width: 15%; text-align: right; }
+            .info-tbl .extended { width: 15%; text-align: right; }
+            .info-tbl .right { text-align: right; }
+
+        .order-notes { clear: both; margin-top: 20px; padding-bottom: 20px; width: 45%; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        [% if Model.CheckingStatusUrl != null -%]
+        <a  href="[[Model.CheckingStatusUrl]]">Check Your Order Status</a>
+        [% endif -%]
+        <div class="order-info">
+            <table border="0" cellspacing="0">
+                <tr>
+                    <td class="order-conf-label"><h4>Order Number</h4></td>
+                    [% if Model.CheckingStatusUrl != null -%]
+                    <td class="order-conf-number"><a href="[[Model.CheckingStatusUrl]]">
+                        [% if Model.ErpOrderNumber != null and Model.ErpOrderNumber != "" -%]
+                        [[Model.ErpOrderNumber]]
+                        [% else -%]
+                        [[Model.OrderNumber]]
+                        [% endif -%]
+                    </a></td>
+                    [% else -%]
+                    <td class="order-conf-number">
+                        [% if Model.ErpOrderNumber != null and Model.ErpOrderNumber != "" -%]
+                        [[Model.ErpOrderNumber]]
+                        [% else -%]
+                        [[Model.OrderNumber]]
+                        [% endif -%]
+                    </td>
+                    [% endif -%]
+                </tr>
+                <tr>
+                    <td class="order-date-label"><h4>Order Date</h4></td>
+                    <td class="order-date">[[Model.OrderDate]]</td>
+                </tr>
+                [% if Model.CustomerPO != null and Model.CustomerPO != "" -%]
+                <tr>
+                    <td class="po-label"><h4>PO Number</h4></td>
+                    <td class="po-number">[[Model.CustomerPO]]</td>
+                </tr>
+                [% endif -%]
+                [% if Model.FulfillmentMethod != "PickUp" -%]
+                <tr>
+                    <td class="ship-via-label"><h4>Shipping Method</h4></td>
+                    <td class="ship-via">[[Model.ShipMethod]]</td>
+                </tr>
+                [% endif -%]
+            </table>
+        </div>
+        <div class="body-copy">
+            <div class="items">
+                <div class="billing-info">
+                    <table>
+                        <tr>
+                            <td class="bill-ship bill">
+                                <div>
+                                    <h4>Billing Information</h4>
+                                    <div>[[Model.BTDisplayName]]</div>
+                                    <div>
+                                        [% if Model.BTCompany != null and Model.BTCompany != "" -%]
+                                        [[Model.BTCompany]] <br />
+                                        [% endif -%]
+                                        [% if Model.BTAddress1 != null and Model.BTAddress1 != "" -%]
+                                        [[Model.BTAddress1]] <br/>
+                                        [% endif -%]
+                                        [% if Model.BTAddress2 != null and Model.BTAddress2 != "" -%]
+                                        [[Model.BTAddress2]] <br/>
+                                        [% endif -%]
+                                        [[Model.BTCity]], [[Model.BTState]] [[Model.BTPostalCode]]
+                                        [% if Model.BTCountry != null and Model.BTCountry != "" -%] <br />
+                                        [[Model.BTCountry]] <br />
+                                        [% endif -%]
+                                        [% if Model.BTPhone1 != null and Model.BTPhone1 != "" -%]
+                                        [[Model.BTPhone1]] <br />
+                                        [% endif -%]
+                                        [% if Model.BTEmail != null and Model.BTEmail != "" -%]
+                                        [[Model.BTEmail]] <br />
+                                        [% endif -%]
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="10%">&nbsp;</td>
+                            <td class="bill-ship ship">
+                                <div>
+                                    [% if Model.FulfillmentMethod == "PickUp" -%]
+                                    <h4>Pick Up Location</h4>
+                                    [% else -%]
+                                    <h4>Shipping Information</h4>
+                                    [% endif -%]
+                                    <div>[[Model.STDisplayName]]</div>
+                                    <div>
+                                        [% if Model.STCompany != null and Model.STCompany != "" -%]
+                                        [[Model.STCompany]] <br />
+                                        [% endif -%]
+                                        [% if Model.STAddress1 != null and Model.STAddress1 != "" -%]
+                                        [[Model.STAddress1]] <br/>
+                                        [% endif -%]
+                                        [% if Model.STAddress2 != null and Model.STAddress2 != "" -%]
+                                        [[Model.STAddress2]] <br/>
+                                        [% endif -%]
+                                        [[Model.STCity]], [[Model.STState]] [[Model.STPostalCode]] <br />
+                                        [% if Model.STCountry != null and Model.STCountry != "" -%]
+                                        [[Model.STCountry]] <br />
+                                        [% endif -%]
+                                        [% if Model.STPhone1 != null and Model.STPhone1 != "" -%]
+                                        [[Model.STPhone1]] <br />
+                                        [% endif -%]
+                                        [% if Model.STEmail != null and Model.STEmail != "" -%]
+                                        [[Model.STEmail]] <br />
+                                        [% endif -%]
+                                    </div>
+                                    [% if Model.RequestedDeliveryDate != null -%]
+                                    <div class="requested-delivery-date">Requested Delivery Date: [[Model.RequestedDeliveryDate]]</div>
+                                    [% endif -%]
+                                    [% if Model.RequestedPickupDate != null -%]
+                                    <div class="requested-delivery-date">Requested Pickup Date: [[Model.RequestedPickupDate]]</div>
+                                    [% endif -%]
+                                </div>
+                            </td>
+                            [% if Model.IsCreditCard -%]
+                            <td width="10%">&nbsp;</td>
+                            <td class="bill-ship card">
+                                <div>
+                                    <h4>Credit Card Billing Address</h4>
+                                    <div>
+                                        [% if Model.CCAddress1 != null and Model.CCAddress1 != "" -%]
+                                        [[Model.CCAddress1]] <br />
+                                        [% endif -%]
+                                        [% if Model.CCAddress2 != null and Model.CCAddress2 != "" -%]
+                                        [[Model.CCAddress2]] <br />
+                                        [% endif -%]
+                                        [[Model.CCCity]], [[Model.CCState]] [[Model.CCPostalCode]] <br />
+                                        [% if Model.CCCountry != null and Model.CCCountry != "" -%]
+                                        [[Model.CCCountry]] <br />
+                                        [% endif -%]
+                                    </div>
+                                </div>
+                            </td>
+                            [% endif -%]
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <br />
+                <table border="0" cellpadding="0" cellspacing="5" width="500" id="orderSummary" class="info-tbl">
+                    <tr>
+                        <th class="left"><b>Product Number</b></th>
+                        <th class="left"><b>Description</b></th>
+                        [% if Model.EnableBrands and Model.IsAnyProductWithBrand -%]
+                        <th class="left"><b>Brand</b></th>
+                        [% endif -%]
+                        <th class="right"><b>Qty</b></th>
+                        <th class="right"><b>Unit Price</b></th>
+                        <th class="right"><b>Extended Amount</b></th>
+                    </tr>
+                    [% for orderLine in Model.OrderLines -%]
+                    <tr>
+                        <td class="left">[[orderLine.ProductNumber]]<br/></td>
+                        <td class="left">[[orderLine.Description]]</td>
+                        [% if Model.EnableBrands and Model.IsAnyProductWithBrand -%]
+                        <td class="left">[[orderLine.BrandName]]</td>
+                        [% endif -%]
+                        <td class="right">[[orderLine.QtyOrderedDisplay]]</td>
+                        <td class="right">[[orderLine.UnitNetPriceDisplay]]</td>
+                        <td class="right">[[orderLine.ExtendedUnitNetPriceDisplay]]</td>
+                    </tr>
+                    [% endfor -%]
+                </table>
+            </div>
+            <br />
+            <div class="subtotal">
+                <table border="0" cellpadding="0" cellspacing="5">
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="summury-label">Order Subtotal&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: grey;">[[Model.OrderSubTotalDisplay]]</td>
+                    </tr>
+                    [% if Model.PromotionProductDiscountTotal > 0 -%]
+                    <tr>
+                        <td class="summury-label">Product Discounts Applied&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: #A5222B;">[[Model.PromotionProductDiscountTotalDisplay]]</td>
+                    </tr>
+                    [% endif -%]
+                    [% if Model.PromotionOrderDiscountTotal > 0 -%]
+                    <tr>
+                        <td class="summury-label">Order Discounts Applied&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: #A5222B;">[[Model.PromotionOrderDiscountTotalDisplay]]</td>
+                    </tr>
+                    [% endif -%]
+                    <tr>
+                        <td class="summury-label">Shipping & Handling&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: grey;">[[Model.FullShippingChargeDisplay]]</td>
+                    </tr>
+                    [% if Model.Handling > 0 -%]
+                    <tr>
+                        <td class="summury-label">Handling Amount&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: grey;">[[Model.HandlingDisplay]]</td>
+                    </tr>
+                    [% endif -%]
+                    [% if Model.PromotionShippingDiscountTotal > 0 -%]
+                    <tr>
+                        <td class="summury-label">Shipping Discounts Applied&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: #A5222B;">[[Model.PromotionShippingDiscountTotalDisplay]]</td>
+                    </tr>
+                    [% endif -%]
+                    [% if Model.CustomerOrderTaxes.size > 0 -%]
+                    [% for customerOrderTax in Model.CustomerOrderTaxes -%]
+                    <tr>
+                        [% if customerOrderTax.TaxDescription != null and customerOrderTax.TaxDescription != "" -%]
+                        <td class="summury-label">[[customerOrderTax.TaxDescription]]&nbsp;</td>
+                        [% else -%]
+                        <td class="summury-label">Tax&nbsp;</td>
+                        [% endif -%]
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: grey;">[[customerOrderTax.TaxAmountDisplay]]</td>
+                    </tr>
+                    [% endfor -%]
+                    [% else -%]
+                    <tr>
+                        <td class="summury-label">Tax&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: grey;">[[Model.TotalTaxDisplay]]</td>
+                    </tr>
+                    [% endif -%]
+                    [% if Model.CreditCardWillBeCharged -%]
+                    <tr>
+                        <td class="black label" colspan="2">
+                            <span style="font-size: 9px; height: 14px; white-space: nowrap;">THIS AMOUNT WILL BE CHARGED TO YOUR CREDIT CARD</span>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    [% endif -%]
+                    <tr>
+                        <td class="summury-label">Order Total&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: grey;">[[Model.OrderGrandTotalDisplay]]</td>
+                    </tr>
+                    [% if Model.GiftCardTotal > 0 -%]
+                    <tr>
+                        <td class="summury-label">Less Gift Certificates&nbsp;</td>
+                        <td width="50%">&nbsp;</td>
+                        <td class="summury-value" style="color: #A5222B;">[[Model.GiftCardTotalDisplay]]</td>
+                    </tr>
+                    [% endif -%]
+                </table>
+            </div>
+            <div class="order-notes">
+                <p>
+                    [% if Model.Notes != null and Model.Notes != "" -%]
+                    <h4>Order Notes</h4>
+                    <div style="white-space: pre-line">
+                        [[Model.Notes]]
+                    </div>
+                    [% endif -%]
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

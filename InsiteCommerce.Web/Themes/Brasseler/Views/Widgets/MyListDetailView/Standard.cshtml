@@ -1,0 +1,373 @@
+﻿<div ng-controller="MyListDetailController as vm" ng-init="vm.myListUrl='[% urlForPage 'MyListsPage' %]'" ng-cloak>
+    <div ng-if="vm.listModel">
+        <div class="list-title-wrapper">
+            <h1 id="tst_myListDetailView_pageTitle" class="page-title [[Model.CssClass]]" ng-bind="vm.listModel.name"></h1>
+            <div class="btns">
+                <button id="tst_myListDetailView_scheduleBtn" ng-if="vm.listSettings.enableWishListReminders" type="button" class="btn secondary" ng-click="vm.openScheduleReminderPopup(vm.listModel)">
+                    {{vm.listModel.schedule ? '[% translate 'Update Email Reminder' %]' : '[% translate 'Schedule Email Reminder' %]'}}
+                </button>
+                <a id="tst_myListDetailView_printBtn" href="/list/getpdf?listId={{::vm.listModel.id}}&sort={{vm.sort}}" target="_blank" class="btn secondary print-button" ng-click="vm.checkPrint($event)" ng-class="{ 'disabled' : vm.orderIsSaving }">[% translate 'Print' %]</a>
+                <button id="tst_myListDetailView_copyBtn" ng-if="vm.listSettings.allowMultipleWishLists" type="button" class="btn secondary" ng-click="vm.openCopyToPopup(vm.listModel)" ng-disabled="vm.listModel.wishListLineCollection.length === 0">[% translate 'Copy' %]</button>
+                <button id="tst_myListDetailView_shareBtn" ng-if="!vm.listModel.isSharedList && vm.listSettings.allowMultipleWishLists && vm.listSettings.allowListSharing" type="button" class="btn secondary" ng-click="vm.openSharePopup()">[% translate 'Share' %]</button>
+                <button id="tst_myListDetailView_deleteBtn" ng-if="!vm.listModel.isSharedList" type="button" class="btn secondary" ng-click="vm.openDeletePopup(vm.listModel)">[% translate 'Delete' %]</button>
+                <button id="tst_myListDetailView_editBtn" ng-if="!vm.listModel.isSharedList" type="button" class="btn secondary" ng-click="vm.openCreatePopup(vm.listModel)">[% translate 'Edit' %]</button>
+            </div>
+        </div>
+        <div class="list-header">
+            <p data-test-selector="tst_myListDetailView_description" ng-if="vm.listModel.description" class="list-description" ng-bind="vm.listModel.description"></p>
+            <div class="row">
+                <div class="medium-12 columns">
+                    <div ng-if="vm.listModel.updatedOn" class="item-updated">
+                        <span ng-if="vm.listModel.updatedOn">[% translate 'Updated' %]</span>
+                        <span data-test-selector="tst_myListDetailView_updatedOnDate" ng-bind="vm.listModel.updatedOn | date:'M/d/yyyy'"></span>
+                        <span ng-if="vm.listModel.updatedByDisplayName">[% translate 'by' %]</span>
+                        <span data-test-selector="tst_myListDetailView_username" ng-bind="vm.listModel.updatedByDisplayName"></span>
+                    </div>
+                    <div class="item-share-list">
+                        <isc-shared-list list="vm.listModel" session="vm.session" list-settings="vm.listSettings" show-no-permissions-tooltip="true"></isc-shared-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row list-info">
+    <div class="medium-7 columns item-summary">
+        <span class="item-summary-count"><span ng-bind="vm.pagination.totalItemCount" id="tst_myListDetailView_itemCount">x</span> [% translate 'items' %]</span>
+        <span class="item-list-total" ng-if="vm.listModel.wishListLineCollection.length > 0 && !vm.failedToGetRealTimePrices && vm.pagination.numberOfPages === 1">[% translate 'List Total' %]: <span ng-bind="vm.listTotal | currency: vm.currencySymbol">$0,000.00</span></span>
+
+        <div class="items-filtering">
+            <div class="search-btn">
+                <i class="icon-search"></i>
+                <input type="text" placeholder="[% translate 'Search list by keyword or item #' %]" ng-model="vm.searchTerm"/>
+                <i class="icon-close" ng-show="vm.searchTerm" ng-click="vm.clearSearch()"></i>
+            </div>
+        </div>
+    </div>
+    <div class="medium-5 columns middle-btns">
+                <button data-test-selector="tst_myListDetailView_addItems" ng-if="vm.listModel.allowEdit || !vm.listModel.isSharedList" type="button" class="btn tertiary hide-for-small" ng-click="vm.toggleAddToListSection()">[% translate 'Add Items' %] <i ng-class="{ 'icon-arw-up-3': vm.isAddToListSectionVisible, 'icon-arw-down-3': !vm.isAddToListSectionVisible }"></i></button>
+        <button id="tst_myListDetailView_addListToCartBtn" ng-if="vm.listModel.wishListLineCollection.length > 0" type="button" class="btn primary" ng-click="vm.addAllToCart(vm.listModel)"
+                        ng-disabled="!vm.allQtysIsValid() || !vm.listModel.canAddToCart || vm.inProgress">
+                    [% translate 'Add List To Cart' %]
+                </button>
+            </div>
+            <div class="add-item-to-list hide-for-small" ng-show="vm.isAddToListSectionVisible">
+                <div class="right">
+                    <div class="qo-search">
+                        <div class="qo-search-input">
+                            <div class="icon-wrapper">
+                                <i class="icon-search"></i>
+                            </div>
+                            <input id="qo-search-view" type="text" name="textfield" ng-init="vm.autocompleteOptions.placeholder = '[% translate 'Search by keyword or item #' EscapeSingleQuotes %]'" class="qo-searchbox"
+                                   kendo-auto-complete k-options="vm.autocompleteOptions" ng-model="vm.addingSearchTerm" ng-change="vm.addingSearchTermChanged()" isc-enter="vm.onEnterKeyPressedInAutocomplete()" />
+                        </div>
+                        <p class="error">
+                            <span id="errorMessage" class="field-validation-error" ng-show="vm.errorMessage">{{vm.errorMessage}}</span>
+                            <span id="successMessage" class="success-message" ng-show="vm.successMessage">{{vm.successMessage}}</span>
+                        </p>
+                    </div>
+                    <div class="item-qty">
+                        <label>[% translate 'QTY' %]</label>
+                        <input type="text" ng-model="vm.itemToAdd.qtyOrdered" ng-init="vm.itemToAdd.qtyOrdered = vm.itemToAdd.minimumOrderQty || 1" class="qty numerictextbox" />
+                    </div>
+                    <div class="um medium-3 row">
+                        <label>[% translate 'U/M' %]</label>
+                        <isc-unit-of-measure-select-list ng-show="vm.itemToAdd.productUnitOfMeasures.length > 0" product="vm.itemToAdd" alternate-units-of-measure="{{vm.productSettings.alternateUnitsOfMeasure}}"
+                                                 display-pack="false">
+                </isc-unit-of-measure-select-list>
+                        <div class="small-8 columns" ng-hide="vm.itemToAdd.productUnitOfMeasures.length > 1 && vm.productSettings.alternateUnitsOfMeasure">
+                            <select ng-model="vm.itemToAdd.selectedUnitOfMeasure">
+                                <option ng-if="vm.itemToAdd.productUnitOfMeasures.length === 1" value="{{vm.itemToAdd.productUnitOfMeasures[0].unitOfMeasure}}" selected="selected">
+                                    {{::vm.getUomDisplayValue(vm.itemToAdd.productUnitOfMeasures[0])}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn primary" ng-disabled="vm.itemToAdd.qtyOrdered == 0 || !vm.itemToAdd.qtyOrdered || vm.isAddingToList" ng-click="vm.addProductToList(vm.itemToAdd)">[% translate 'Add To List' %]</button>
+                </div>
+                <div class="right">
+                    <a ng-click="vm.openUploadListPopup(vm.listModel)">[% translate 'Upload Items' %]</a>
+                    <div class="hover-tooltip-wrapper">
+                        <i data-dropdown="qtip-upload-to-list" class="icon-help hover-tooltip"></i>
+                        <span id="qtip-upload-to-list" class="f-dropdown content hover-tooltip-content" data-dropdown-content>
+                            <span>[% siteMessage 'Lists_UploadLinkTooltip' %]</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-test-selector="tst_myListDetailView_noResultsMessage" ng-if="!vm.inProgress && vm.listModel.wishListLineCollection.length === 0" class="row no-results">
+            [% siteMessage 'Lists_NoItemsInList' %]
+        </div>
+<div ng-if="vm.listModel.wishListLineCollection.length > 0">
+    <div class="row multi-actions-block" ng-class="{ 'needs-border': !vm.canReorderList() }">
+        <div class="medium-5 columns items-multi-actions hide-for-small">
+                    <input id="select_all" type="checkbox" ng-click="vm.selectAll()" ng-checked="vm.isAllSelected()" />
+                    <label for="select_all">[% translate 'Select All' %]</label>
+                    <button type="button" ng-disabled="!vm.canPutAnySelectedToCart" class="btn secondary" ng-click="vm.addSelectedToCart()">[% translate 'Add To Cart' %]</button>
+                    <button id="tst_myListDetailView_deleteItemBtn" type="button" ng-if="vm.listModel.allowEdit || !vm.listModel.isSharedList" ng-click="vm.deleteSelectedItems()" data-reveal-id="popup-delete-item" ng-disabled="vm.checkedItemsCount === 0" class="btn secondary">
+                        [% translate 'Delete' %]
+                    </button>
+                </div>
+        <div class="medium-7 columns items-search-sort">
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getListLines()" can-edit-sort-order="vm.canChangeSortOrder()" is-sorting-mode="vm.isSortingMode"></isc-pager>
+                        </div>
+                    </div>
+    <div class="row drag-instruction" ng-show="vm.canReorderList()">[% translate 'Click' %] <i class="icon-sort-order"></i> [% translate 'and drag items to change their position in the list.' %]</div>
+    <div class="sort-parent-container">
+        <ul class="row item-list cart-items" ui-sortable="vm.sortableOptions" ng-model="vm.listModel.wishListLineCollection">
+            <li class="row item-block checkout-item isc-productContainer" ng-repeat="wishListLine in vm.listModel.wishListLineCollection track by wishListLine.id" id="tst_wishList_{{::wishListLine.productId}}_{{wishListLine.unitOfMeasure}}">
+                <div ng-if="vm.isRestricted(wishListLine) || vm.isDiscontinued(wishListLine)">
+                    <div class="notification-item">
+                        <div class="item-name">
+                            <span ng-bind="wishListLine.shortDescription"/>
+                    </div>
+                        <div class="item-num">
+                            <span class="item-num-sku" ng-bind="wishListLine.erpNumber"></span>
+                            <span ng-if="wishListLine.manufacturerItem" class="item-num-mfg">[% translate 'MFG #' %]: {{wishListLine.manufacturerItem}}</span>
+                            <span class="item-num-my" ng-if="wishListLine.customerName">[% translate 'My Part #' %]:{{ wishListLine.customerName }}</span>
+                </div>
+                        <span ng-if="vm.isRestricted(wishListLine)" id="tst_myListDetailView_{{wishListLine.productId}}_restricted">
+                            [% siteMessage 'Lists_Item_Not_Displayed_Due_To_Restrictions' %]
+                        </span>
+                        <span ng-if="vm.isDiscontinued(wishListLine)" id="tst_myListDetailView_{{wishListLine.productId}}_discontinued">
+                            [% siteMessage 'Lists_Item_Not_Displayed_Due_To_Discontinued' %]
+                        </span>
+                        <span ng-if="!vm.listModel.isSharedList">
+                            <a id="tst_myListDetailView_{{wishListLine.productId}}_removeUnavailableProduct" href="#" ng-click="vm.deleteLine(wishListLine)">[% translate 'Remove item' %]</a> [% translate 'from the list' %]?
+                        </span>
+            </div>
+                </div>
+                <div ng-if="!vm.isRestricted(wishListLine) && !vm.isDiscontinued(wishListLine)">
+                    <div class="columns item-controls hide-for-small">
+                        <input type="checkbox" class="item-select" ng-click="vm.checkProduct(wishListLine.id)" ng-checked="vm.isProductChecked(wishListLine.id)" />
+                        <i class="icon-sort-order handle" ng-show="vm.canReorderList()"></i>
+                    </div>
+                    <div class="columns item-sort-order-container hide-for-small">
+                        <div ng-show="vm.allowedChangeSortOrder()">
+                            <label>[% translate 'Sort order' %]</label>
+                            <input class="numerictextbox" type="text" ng-model="wishListLine.sortOrder" ng-keypress="vm.sortOrderKeyPress($event,wishListLine)" ng-change="vm.sortOrderUpdated(wishListLine)" ng-model-options="{ updateOn: 'blur' }"/>
+                        </div>
+                    </div>
+                    <div class="columns item-image-block">
+                            <div class="item-image">
+                                <isc-product-thumb product="wishListLine"></isc-product-thumb>
+                            </div>
+                            <div class="item-controls show-for-small">
+                            <i class="icon-sort-order handle" ng-show="vm.canReorderList()"></i>
+                            </div>
+                        </div>
+                    <div class="columns item-details">
+                            <div class="details-block">
+                                <isc-product-brand product="wishListLine"></isc-product-brand>
+                                <isc-product-name product="wishListLine"></isc-product-name>
+                                <div ng-show="vm.productSettings.showInventoryAvailability" class="availability">
+                                    <isc-availability-message availability="wishListLine.availability" failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory" product-settings="vm.productSettings" product-id="wishListLine.productId" unit-of-measure="wishListLine.unitOfMeasure" track-inventory="wishListLine.trackInventory"></isc-availability-message>
+                                </div>
+                            </div>
+                            <div class="hide-for-small">
+                                <div class="item-notes" ng-if="wishListLine.notes">
+                                    <i class="icon-notes"></i>
+                                    <span ng-bind="wishListLine.notes"></span>
+                                </div>
+                                <div class="item-bottom-actions">
+                                    <a ng-if="(vm.listModel.allowEdit || !vm.listModel.isSharedList)" href="#" data-reveal-id="popup-delete-item" ng-click="vm.setListItem(wishListLine)">[% translate 'Delete' %]</a>
+                                    <a ng-if="(vm.listModel.allowEdit || !vm.listModel.isSharedList) && !wishListLine.notes" href="#" data-reveal-id="popup-line-note" ng-click="vm.setListItem(wishListLine)">[% translate 'Add Note' %]</a>
+                                    <a ng-if="(vm.listModel.allowEdit || !vm.listModel.isSharedList) && wishListLine.notes" href="#" data-reveal-id="popup-line-note" ng-click="vm.setListItem(wishListLine)">[% translate 'Edit Note' %]</a>
+                                    <span class="item-added">
+                                        <span>[% translate 'Added' %]</span>
+                                        <span ng-bind="wishListLine.createdOn | date:'M/d/yyyy'">8/22/17</span>
+                                        <span ng-if="wishListLine.isSharedLine && wishListLine.createdByDisplayName">
+                                            [% translate 'by' %] <span ng-bind="wishListLine.createdByDisplayName">Name</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="columns item-sort-order-container show-for-small">
+                        <div ng-show="vm.allowedChangeSortOrder()" >
+                            <label>[% translate 'Sort order' %]</label>
+                            <input class="numerictextbox" type="text" ng-model="wishListLine.sortOrder" ng-keypress="vm.sortOrderKeyPress($event,wishListLine)" ng-change="vm.sortOrderUpdated(wishListLine)" ng-model-options="{ updateOn: 'blur' }"/>
+                        </div>
+                    </div>
+                    <div class="columns item-pricing-and-actions">
+                            <div class="item-pricing">
+                                <div ng-show="wishListLine.canShowPrice && !vm.failedToGetRealTimePrices">
+                                    <isc-product-price product="wishListLine"></isc-product-price>
+                                    <span class="selected-uom" ng-if="wishListLine.unitOfMeasureDescription || wishListLine.unitOfMeasureDisplay">/ {{wishListLine.unitOfMeasureDescription || wishListLine.unitOfMeasureDisplay}}</span>
+                                    <isc-product-price-saving product="wishListLine" currency-symbol="wishListLine.currencySymbol"></isc-product-price-saving>
+                                    <div class="quantity-pricing" ng-if="!wishListLine.quoteRequired">
+                                        <isc-quantity-break-pricing product-id="wishListLine.id" break-prices="wishListLine.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                    </div>
+                                </div>
+                                <div ng-if="wishListLine.canShowPrice && vm.failedToGetRealTimePrices">
+                                    <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="um-pack" ng-if="wishListLine.productUnitOfMeasures.length > 1 && vm.productSettings.alternateUnitsOfMeasure">
+                                        <div class="um">
+                                            <label>[% translate 'U/M' %]:</label>
+                                            <isc-unit-of-measure-select-list product="wishListLine" alternate-units-of-measure="{{vm.productSettings.alternateUnitsOfMeasure}}" read-only="{{ !vm.listModel.allowEdit && vm.listModel.isSharedList }}"
+                                                                         display-pack="false" change-unit-of-measure="vm.changeUnitOfMeasure(wishListLine)">
+                                        </isc-unit-of-measure-select-list>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-actions-block">
+                                <div class="add-to-cart-block">
+                                    <div>
+                                        <div class="action" ng-if="wishListLine.canAddToCart">
+                                            <button class="btn primary btn-add-cart" ng-click="vm.addLineToCart(wishListLine)" ng-disabled="!wishListLine.qtyOrdered || wishListLine.qtyOrdered == 0">[% translate 'Add to Cart' %]</button>
+                                        </div>
+                                        <div class="item-qty" ng-if="wishListLine.canEnterQuantity">
+                                            <input type="text" class="numerictextbox qty tst_wishListLine_qty" ng-model="wishListLine.qtyOrdered" ng-keypress="vm.quantityKeyPress(wishListLine,$event)" ng-change="vm.quantityUpdated(wishListLine)" ng-model-options="{ updateOn: 'blur' }" />
+                                        </div>
+                                    </div>
+                                    <div ng-if="(!vm.listModel.isSharedList || vm.listModel.allowEdit)" class="update-qty-link">
+                                        <a ng-if="vm.changedSharedListLinesQtys[wishListLine.id.toString()]" ng-click="vm.updateSavedQuantities()" href="#"><i class="icon-update"></i>[% translate 'Update saved QTY' %]</a>
+                                        <span ng-if="vm.listLinesWithUpdatedQty[wishListLine.id.toString()] && !vm.changedSharedListLinesQtys[wishListLine.id.toString()] && !vm.inProgress"><i class="icon-check"></i>[% translate 'QTY updated' %]</span>
+                                    </div>
+                                </div>
+                                <div class="show-for-small">
+                                    <div class="item-notes" ng-if="wishListLine.notes">
+                                        <i class="icon-notes"></i>
+                                        <span ng-bind="wishListLine.notes"></span>
+                                    </div>
+                                    <div class="item-bottom-actions">
+                                        <a ng-if="(vm.listModel.allowEdit || !vm.listModel.isSharedList)" href="#" data-reveal-id="popup-delete-item" ng-click="vm.setListItem(wishListLine)">[% translate 'Delete' %]</a>
+                                        <a ng-if="(vm.listModel.allowEdit || !vm.listModel.isSharedList) && !wishListLine.notes" href="#" data-reveal-id="popup-line-note" ng-click="vm.setListItem(wishListLine)">[% translate 'Add Note' %]</a>
+                                        <a ng-if="(vm.listModel.allowEdit || !vm.listModel.isSharedList) && wishListLine.notes" href="#" data-reveal-id="popup-line-note" ng-click="vm.setListItem(wishListLine)">[% translate 'Edit Note' %]</a>
+                                        <span class="item-added">
+                                            <span>[% translate 'Added' %]</span>
+                                            <span ng-bind="wishListLine.createdOn | date:'M/d/yyyy'">8/22/17</span>
+                                            <span ng-if="wishListLine.isSharedLine && wishListLine.createdByDisplayName">
+                                                [% translate 'by' %] <span ng-bind="wishListLine.createdByDisplayName">Name</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                    </li>
+                    <li ng-if="filteredLines.length === 0" class="search-no-results">[% siteMessage 'Lists_NoResultsMessage' %]</li>
+                </ul>
+            </div>
+
+    <isc-pager pagination="vm.pagination" bottom="true" storage-key="vm.paginationStorageKey" update-data="vm.getListLines()"></isc-pager>
+            <div ng-if="vm.listModel.wishListLineCollection.length > 0">
+                <div class="row multi-actions-block">
+                    <div class="medium-5 columns items-multi-actions hide-for-small">
+                        <input id="select_all" type="checkbox" ng-click="vm.selectAll()" ng-checked="vm.isAllSelected()" />
+                        <label for="select_all">[% translate 'Select All' %]</label>
+                        <button type="button" ng-disabled="!vm.canPutAnySelectedToCart" class="btn secondary" ng-click="vm.addSelectedToCart()">[% translate 'Add To Cart' %]</button>
+                        <button id="tst_myListDetailView_deleteItemBtn" type="button" ng-if="vm.listModel.allowEdit || !vm.listModel.isSharedList" ng-click="vm.deleteSelectedItems()" data-reveal-id="popup-delete-item" ng-disabled="vm.checkedItemsCount === 0" class="btn secondary">
+                            [% translate 'Delete' %]
+                        </button>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="vm.getListErrorMessage" ng-bind="vm.getListErrorMessage" class="row no-results"></div>
+    <div ng-if="vm.inviteIsNotAvailable" class="row no-results">
+        [% siteMessage 'Lists_InviteIsNotAvailable' %]
+    </div>
+    <div>
+        <isc-leave-list-popup close-modal="vm.closeModal(selector)" leave-list="vm.leaveList(url)" redirect-to-url="[% urlForPage 'MyListsPage' %]"></isc-leave-list-popup>
+        <div id="popup-delete-item" class="reveal-modal popup-delete-item" data-reveal data-reveal-init>
+            <div class="modal-wrap">
+                <h2>[% translate 'Delete Item' %]</h2>
+                <div class="pop-content">
+                    <div class="row">
+                        <div class="row">
+                            <div>
+                                <p>[% translate 'Are you sure you want to delete this item' %]?</p>
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <button ng-click="vm.closeModal('#popup-delete-item')" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_deleteItemPopup_deleteBtn" ng-click="vm.deleteListItem()" class="btn primary" type="button">[% translate 'Delete' %]</button>
+                        </div>
+                    </div>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+            </div>
+        </div>
+        <div id="popup-line-note" class="reveal-modal popup-line-note" data-reveal data-reveal-init>
+            <div class="modal-wrap">
+                <h2 ng-bind="vm.editNote ? '[% translate 'Edit Note' EscapeSingleQuotes %]' : '[% translate 'Add Note' EscapeSingleQuotes %]'"></h2>
+                <div class="pop-content">
+                    <form name="vm.noteForm">
+                        <div class="row select-list">
+                            <div class="row create-note">
+                                <div>
+                                    <textarea ng-model="vm.listLineNote" isc-limit-number-of-characters="300" name="listLineNote" ng-maxlength="300"></textarea>
+                                </div>
+                                <div class="max-field-tooltip">
+                                    <isc-characters-left-counter form-element="vm.noteForm.listLineNote" field-model="vm.listLineNote" limit="300"></isc-characters-left-counter>
+                                    [% translate 'characters left' %].
+                                </div>
+                            </div>
+                            <div id="error" class="error" ng-show="vm.noteErrorMessage">
+                                <span ng-show="vm.noteErrorMessage" class="field-validation-error" ng-bind="vm.noteErrorMessage"></span>
+                            </div>
+                            <div class="row btns">
+                                <button ng-if="vm.editNote" ng-click="vm.deleteNote()" class="btn tertiary" type="button">[% translate 'Delete Note' %]</button>
+                                <button ng-click="vm.closeModal('#popup-line-note')" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                                <button ng-click="vm.saveNote()" class="btn primary" type="button"
+                                        ng-bind="vm.editNote ? '[% translate 'Save' EscapeSingleQuotes %]' : '[% translate 'Add Note' EscapeSingleQuotes %]'"></button>
+                            </div>
+                        </div>
+                    </form>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="messageConfigurableProduct" value="[% siteMessage 'ListUpload_CannotOrderConfigurable' %]" />
+    <input type="hidden" id="messageStyledProduct" value="[% siteMessage 'ListUpload_CannotOrderStyled' %]" />
+    <input type="hidden" id="alreadyInList" value="[% siteMessage 'Lists_Already_In_List' %]" />
+    <input type="hidden" id="messageAddedProduct" value="[% siteMessage 'Lists_Item_Was_Added' %]" />
+    <input type="hidden" id="messageEnterProductName" value="[% siteMessage 'Lists_Enter_Product_Name' %]" />
+    <input type="hidden" id="messageNotFound" value="[% siteMessage 'Product_NotFound' %]" />
+</div>
+
+<script type="text/ng-template" id="/PartialViews/List-SharedList">
+    [% partialView 'List-SharedList' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-DeleteListPopup">
+    [% partialView 'List-DeleteListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-CreateListPopup">
+    [% partialView 'List-CreateListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ShareListPopup">
+    [% partialView 'List-ShareListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-CopyToListPopup">
+    [% partialView 'List-CopyToListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ShareDetailsPopup">
+    [% partialView 'List-ShareDetailsPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-LeaveListPopup">
+    [% partialView 'List-LeaveListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ManageSharingPopup">
+    [% partialView 'List-ManageSharingPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-UploadToListPopup">
+    [% partialView 'List-UploadToListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ScheduleReminderPopup">
+    [% partialView 'List-ScheduleReminderPopup' %]
+</script>

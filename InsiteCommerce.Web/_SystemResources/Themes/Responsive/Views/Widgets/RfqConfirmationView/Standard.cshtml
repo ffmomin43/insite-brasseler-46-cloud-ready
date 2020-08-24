@@ -1,0 +1,37 @@
+﻿<div ng-controller="QuoteConfirmationController as vm" ng-cloak>
+    <h1>{{ vm.quote.isJobQuote ? '[% translate 'Job Quote' EscapeSingleQuotes %]' : '[% translate 'Sales Quote' EscapeSingleQuotes %]'}} <span ng-bind="vm.quote.statusDisplay"></span></h1>
+
+    <div class="btns hide-for-small">
+        <a href="[% urlForPage 'RfqMyQuotesPage' %]" class="btn secondary btn-view-quotes">[% translate 'View My Quotes' %]</a>
+        <a href="[% urlForPage 'HomePage' %]" class="btn secondary btn-continue-shopping">[% translate 'Continue Shopping' %]</a>
+        <a href="javascript: window.print();" class="btn tertiary btn-print">[% translate 'Print' %]</a>
+    </div>
+
+    <div class="cm">[% zone 'TopContent' %]</div>
+    <div class="row order-details">
+        <div class="medium-5 large-5 columns col-details">
+            <h2 ng-if="vm.quote.isJobQuote">[% translate 'Job Name' %]: <span ng-bind="vm.quote.jobName"></span></h2>
+            <h2>[% translate 'Sales Rep' %]: <span ng-bind="vm.quote.salespersonName"></span></h2>
+            <h2>[% translate 'Customer' %]: <span ng-bind="vm.quote.billTo.customerName"></span></h2>
+            <h2>{{vm.quote.fulfillmentMethod === 'PickUp' ? '[% translate 'Pick Up' EscapeSingleQuotes %]' : '[% translate 'Ship To' EscapeSingleQuotes %]'}}: <span ng-bind="vm.quote.shipToFullAddress" data-test-selector="tst_rfqConfirmation_shipToPickUpAddress"></span></h2>
+            <h2>[% translate 'Quote Number' %]: <span><a id="tst_rfqConfirmation_orderNumber" ng-href="[% urlForPage 'RfqQuoteDetailsPage' %]?quoteId={{vm.quote.id}}" ng-bind="vm.quote.orderNumber"></a></span></h2>
+            <h2>[% translate 'Date Submitted' %]: <span ng-bind="vm.quote.orderDate | date:'shortDate'"></span></h2>
+            <div ng-if="vm.quote.notes.trim().length > 0">
+                <h2>[% translate 'Notes' %]:</h2>
+                <p><span ng-bind="vm.quote.notes"></span></p>
+            </div>
+        </div>
+        <div class="large-7 columns col-items">
+            <isc-cart-lines cart="vm.quote" include-quote-required="true" class="item-list cart-items"></isc-cart-lines>
+        </div>
+    </div>
+
+    <div class="btns show-for-small">
+        <a href="[% urlForPage 'RfqMyQuotesPage' %]" class="btn secondary btn-view-quotes">[% translate 'View My Quotes' %]</a>
+        <a href="[% urlForPage 'HomePage' %]" class="btn secondary btn-continue-shopping">[% translate 'Continue Shopping' %]</a>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+    [% partialView 'Cart-CartLines' %]
+</script>

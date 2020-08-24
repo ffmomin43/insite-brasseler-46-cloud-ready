@@ -1,0 +1,34 @@
+﻿@using Insite.WebFramework.Content
+@using Insite.ContentLibrary.Pages
+@model Insite.WebFramework.Content.AbstractPage
+
+@helper Nav(AbstractPage navigationItem)
+{
+    var subItems = Content.GetChildPagesForVariantKey<ContentPage>(navigationItem.VariantKey.Value).Where(o => !o.ExcludeFromNavigation).OrderBy(x => x.SortOrder).ToList();
+    var hasSubItems = subItems.Any();
+
+    if (!hasSubItems)
+    {
+        <li>
+            <a href="@GenerateUrl(navigationItem)">@navigationItem.Title</a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <span class="nav-item-container" onclick="insite.nav.goToSubnav(this)">
+                <a href="@GenerateUrl(navigationItem)">@navigationItem.Title</a>
+                <label id="tst_mainMenu_nav_@navigationItem.ContentKey" for="nav-@navigationItem.ContentKey" class="toggle-sub" onclick="insite.nav.goToSubnav(this)">&#9658;</label>
+            </span>
+            <input type="checkbox" name="nav" id="nav-@navigationItem.ContentKey" class="subnav-check" />
+            <ul id="sub-@navigationItem.ContentKey" class="subnav sub-tier-panel">
+                <li class="sub-heading">@navigationItem.Title</li>
+                @foreach (var subItem in subItems)
+                {
+                    @Nav(subItem)
+                }
+            </ul>
+        </li>
+    }
+}
+@Nav(Model)

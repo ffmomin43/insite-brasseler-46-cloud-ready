@@ -1,0 +1,237 @@
+﻿@using InSiteCommerce.Brasseler.ContentLibrary.Pages
+@using Insite.WebFramework.Mvc
+@using Insite.WebFramework.Mvc.Extensions
+@model BrasselerCatalogNavigationPage
+
+<div id="brasseler_mobile">
+    @if (Model.IsShoppingListMenu)
+    {
+        var cat = 1;
+        var shoppingList = Model.BrasselerCategoryLinks.Where(s => s.IsShoppingListCategory).FirstOrDefault();
+        if (shoppingList != null)
+        {
+            if (shoppingList.CategoryNavLink.NavLinks != null && shoppingList.CategoryNavLink.NavLinks.Count > 0)
+            {
+                <li>
+                    <span class="nav-item-container">
+                        <a href="@shoppingList.CategoryNavLink.Url">@shoppingList.CategoryNavLink.LinkText</a>
+                        <label for="nav-cat" class="toggle-sub" onclick="insite.nav.goToSubnav(this)">&#9658;</label>
+                    </span>
+                    <input type="checkbox" name="nav" id="nav-cat" class="subnav-check">
+                    <ul id="sub-cat" class="subnav sub-tier-panel active-nav hide-item">
+                        <li class="sub-heading">[% translate 'Products' %]</li>
+                        @foreach (var category in shoppingList.CategoryNavLink.NavLinks)
+                        {
+                            @Nav(category, "cat" + cat.ToString(), true);
+                            cat++;
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@shoppingList.CategoryNavLink.Url)">@shoppingList.CategoryNavLink.LinkText</a>
+                </li>
+            }
+        }
+
+    }
+    else
+    {
+        var cat = 1;
+        var categoryList = Model.BrasselerCategoryLinks.Where(s => !s.IsShoppingListCategory);
+        if (categoryList.FirstOrDefault() != null && categoryList.Count() > 0)
+        {
+            <li>
+                <span class="nav-item-container">
+                    <a href="#" onclick="$(this).next().click(); return false;">[% translate 'Products' %]</a>
+                    <label for="nav-cat" class="toggle-sub" onclick="insite.nav.goToSubnav(this)">&#9658;</label>
+                </span>
+                <input type="checkbox" name="nav" id="nav-cat" class="subnav-check">
+                <ul id="sub-cat" class="subnav sub-tier-panel active-nav hide-item">
+                    <li class="sub-heading">[% translate 'Products' %]</li>
+                    @foreach (var category in categoryList.ToList())
+                    {
+                        @Nav(category.CategoryNavLink, "cat" + cat.ToString(), true);
+                        cat++;
+                    }
+                </ul>
+            </li>
+        }
+    }
+
+    @helper Nav(NavLinkDto navLink, string suffix, bool includeSubNav = false)
+    {
+var categoryCounter = 1;
+if (navLink != null)
+{
+    if (navLink.NavLinks == null || !navLink.NavLinks.Any())
+    {
+            <li>
+                <a href="@Url.Link(navLink)">@navLink.LinkText</a>
+            </li>
+    }
+    else
+    {
+            <li>
+                <span class="nav-item-container">
+                    <a href="@Url.Link(navLink)">@navLink.LinkText</a>
+                    <label for="nav-@(suffix)" class="toggle-sub" onclick="insite.nav.goToSubnav(this)">&#9658;</label>
+                </span>
+                <input type="checkbox" name="nav" id="nav-@(suffix)" class="subnav-check" />
+                <ul id="sub-@(suffix)" class="subnav sub-tier-panel">
+                    <li class="sub-heading">@navLink.LinkText</li>
+                    @foreach (var subLink in navLink.NavLinks)
+                    {
+                        categoryCounter++;
+                        @Nav(subLink, suffix = suffix + categoryCounter)
+                    }
+                </ul>
+            </li>
+    }
+}
+}
+</div>
+
+<div id="brasseler_desktop">
+
+    @if (Model.IsShoppingListMenu)
+    {
+        var shoppingList = Model.BrasselerCategoryLinks.Where(s => s.IsShoppingListCategory).FirstOrDefault();
+        if (shoppingList != null)
+        {
+            if (shoppingList.CategoryNavLink.NavLinks != null && shoppingList.CategoryNavLink.NavLinks.Count > 0)
+            {
+                var dropcount = 1;
+                <div class="dropdown">
+                    <button class="dropbtn">@shoppingList.CategoryNavLink.LinkText</button>
+                    <div class="dropdown-content">
+                        @foreach (var category in shoppingList.CategoryNavLink.NavLinks)
+                        {
+                            if (category.NavLinks != null && category.NavLinks.Count() > 0)
+                            {
+                                @:<div id="drop-@dropcount" class="dropleft">
+                                    <a target="_self" class="drop_levl1" href="@category.Url">
+                                        @category.LinkText
+                                        <label class="toggle-sub" onclick="return false;">▼</label>
+                                    </a>
+                                    @:<div class="dropleft-content" style="width: 1263px;">
+                                        @:<h2 class="title"> @category.LinkText</h2>
+                                        <div class="column-1">
+                                            @foreach (var sublink in category.NavLinks)
+                                            {
+                                                <div class="sub-item">
+                                                    <div class="menu-image"><img src="@category.SmallImagePath"></div>
+                                                    <ul class="submenu-list">
+                                                        <li><a target="_self" href="@sublink.Url" class="image-title">@sublink.LinkText</a></li>
+                                                        @if (sublink.NavLinks != null && sublink.NavLinks.Count() > 0)
+                                                        {
+                                                            foreach (var sublinkchild in sublink.NavLinks)
+                                                            {
+                                                                <li><a target="_self" href="@sublinkchild.Url">@sublinkchild.LinkText</a></li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            }
+                                        </div>
+                                            @:</div>
+                                        @:</div>
+                            }
+                            else
+                            {
+                                <a target="_self" href="@category.Url">@category.LinkText</a>
+                            }
+                            dropcount++;
+                        }
+                    </div>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        var categoryList = Model.BrasselerCategoryLinks.Where(s => !s.IsShoppingListCategory);
+        if (categoryList.FirstOrDefault() != null && categoryList.Count() > 0)
+        {
+            var dropcount = 1;
+            <div class="dropdown">
+                <button class="dropbtn">[% translate 'SHOP PRODUCTS' %]</button>
+                <div class="dropdown-content">
+                    @foreach (var category in categoryList.ToList())
+                    {
+                        if (category.CategoryNavLink.NavLinks != null && category.CategoryNavLink.NavLinks.Count() > 0)
+                        {
+                            var items = 1;
+                            var count = 0;
+
+                            @:<div id="drop-@dropcount" class="dropleft">
+                                <a target="_self" class="drop_levl1" href="@category.CategoryNavLink.Url">
+                                    @category.CategoryNavLink.LinkText
+                                    <label class="toggle-sub" onclick="return false;">▼</label>
+                                </a>
+                                @:<div class="dropleft-content" style="width: 1263px;">
+                                    @:<h2 class="title"> @category.CategoryNavLink.LinkText</h2>
+                                                foreach (var sublink in category.CategoryNavLink.NavLinks)
+                            {
+                                if (count == 0)
+                                {
+                                    @:<div class="column-1">
+                                                    }
+                                <div class="sub-item">
+                                    <div class="menu-image"><img src="@sublink.SmallImagePath"></div>
+                                    <ul class="submenu-list">
+                                        <li><a target="_self" href="@sublink.Url" class="image-title">@sublink.LinkText</a></li>
+                                        @if (sublink.NavLinks != null && sublink.NavLinks.Count() > 0)
+                                        {
+                                            foreach (var sublinkchild in sublink.NavLinks)
+                                            {
+                                                <li class="header_separator"><a target="_self" href="@sublinkchild.Url">@sublinkchild.LinkText</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                                if (count == 3 || category.CategoryNavLink.NavLinks.Count() == items)
+                                {
+                                    @:</div>
+                                    count = -1;
+                                }
+                                count++;
+                                items++;
+                            }
+                            @:</div>
+                        @:</div>
+                        }
+                        else
+                        {
+                            <div id="drop-@dropcount" class="dropleft">
+                                <a target="_self" class="drop_levl1" href="@category.CategoryNavLink.Url">
+                                    @category.CategoryNavLink.LinkText
+                                    <label class="toggle-sub" onclick="return false;">▼</label>
+                                </a>
+                                <div class="dropleft-content" style="width: 1263px;">
+                                </div>
+                            </div>
+                        }
+                        dropcount++;
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        if ($(window).width() > 1024) {
+            $('.nav-item-container, .dropdown, .subnav, .dropdown-content').hover(
+                function() {
+                $('body').addClass('main-navigation-hover');
+            },
+            function() {
+                $('body').removeClass('main-navigation-hover');
+            }
+            );
+        }
+    }); 
+</script>

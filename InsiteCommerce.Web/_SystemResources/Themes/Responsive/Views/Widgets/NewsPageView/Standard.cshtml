@@ -1,0 +1,19 @@
+﻿
+<div class="medium-12 large-12 columns">
+    <div class="news-list-header">
+        [% zone 'News Header' %]
+    </div>
+    <div class="news-page-full">
+        <h2 class="news-heading">[[Model.Drop.Title]]</h2>
+        <div class="news-publish-info">
+            <strong>[[Model.Drop.Author]]</strong>
+            <em>[[Model.Drop.PublishDate]]</em>
+        </div>
+        <div class="news-page-content">
+            [[Model.Drop.NewsContents]]
+        </div>
+    </div>
+    <div class="news-list-footer">
+        [% zone 'News Footer' %]
+    </div>
+</div>

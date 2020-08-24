@@ -1,0 +1,24 @@
+﻿{% comment %}
+    usage example:
+    <isc-product-price product="product" id-key=""></isc-product-price>
+
+    product is of format ProductDto, CartLineModel, or WishListLineModel
+    ***id-key is required only for table view on product list***
+{% endcomment %}
+
+<div ng-if="product.quoteRequired" class="quote-required">
+    <span>[% translate 'Requires Quote' %]</span>
+    <div class="quote-tip">
+        <a href="#" data-dropdown="{{::('qtip-cart-' + product.id + '-' + idKey)}}" class="t-dropdown tst_productPrice_quoteRequiredLink">
+            <i class="icon-help"></i>
+        </a>
+        <div id="{{::('qtip-cart-' + product.id + '-' + idKey)}}" class="f-dropdown content" data-dropdown-content>
+            <div class="tt-wrap">[% siteMessage 'Rfq_TooltipMessage' %]</div>
+        </div>
+    </div>
+</div>
+
+<span id="tst_productPrice_{{::product.id}}_{{product.unitOfMeasure}}" ng-if="(!product.quoteRequired && product.pricing)" class="tst_price price pd-price">
+    <isc-product-sale-price-label product="product" hide-sale-price-label="hideSalePriceLabel"></isc-product-sale-price-label>
+    <span data-test-selector="tst_productPrice_{{product.productId || product.id}}" class="unit-net-price" ng-class="{'price-sale' : product.pricing.isOnSale || product.isDiscounted || product.isPromotionItem}" ng-bind-html="vm.getUnitNetPriceDisplay(product)"></span>
+</span>

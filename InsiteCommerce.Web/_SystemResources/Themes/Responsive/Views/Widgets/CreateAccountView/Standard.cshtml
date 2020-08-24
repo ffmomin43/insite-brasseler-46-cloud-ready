@@ -1,0 +1,88 @@
+﻿<div class="ma-settings" ng-controller="CreateAccountController as vm" ng-cloak>
+    <div class="row">
+        <div class="medium-6 large-6 columns ca-form">
+            <form id="createAccountForm">
+                <div class="required-msg">
+                    <span class="redTxt">*</span> [% translate 'Required' %]
+                </div>
+                <div class="row ca-form-email">
+                    <div class="medium-5 large-5 columns">
+                        <label for="CreateNewAccountInfo_EmailAddress">[% translate 'Email Address' %] <span class="redTxt">*</span></label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <input type="text" id="CreateNewAccountInfo_EmailAddress" name="CreateNewAccountInfo.EmailAddress"
+                               data-rule-required="true"
+                               data-msg-required="{{ '[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Email Address' EscapeSingleQuotes %]') }}"
+                               data-rule-email="true"
+                               data-msg-email="{{ '[% siteMessage 'Field_Invalid' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Email Address' EscapeSingleQuotes %]') }}"
+                               ng-model="vm.email">
+                        <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.EmailAddress" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="row ca-form-username" ng-if="!vm.settings.useEmailAsUserName">
+                    <div class="medium-5 large-5 columns">
+                        <label for="CreateNewAccountInfo_UserName">[% translate 'Username' %] <span class="redTxt">*</span></label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <input type="text" id="CreateNewAccountInfo_UserName" name="CreateNewAccountInfo.UserName"
+                               data-rule-required="true"
+                               data-msg-required="{{ '[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Username' EscapeSingleQuotes %]') }}"
+                               ng-model="vm.userName">
+                        <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.UserName" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="row ca-form-password">
+                    <div class="medium-5 large-5 columns">
+                        <label for="CreateNewAccountInfo_Password">[% translate 'Password' %] <span class="redTxt">*</span></label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <input type="password" id="CreateNewAccountInfo_Password" name="CreateNewAccountInfo.Password"
+                               data-rule-required="true"
+                               data-msg-required="{{ '[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]') }}"
+                               data-rule-minlength="{{settings.passwordMinimumLength}}"
+                               data-msg-minlength="{{ '[% siteMessage 'ChangePasswordInfo_Password_Too_Short' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength) }}"
+                               ng-model="vm.password">
+                        <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.Password" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="row ca-form-retype">
+                    <div class="medium-5 large-5 columns">
+                        <label for="CreateNewAccountInfo_ConfirmPassword">[% translate 'Confirm Password' %]<span class="redTxt">*</span></label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <input type="password" id="CreateNewAccountInfo_ConfirmPassword" name="CreateNewAccountInfo.ConfirmPassword"
+                               data-rule-required="true"
+                               data-msg-required="{{ '[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Confirm Password' EscapeSingleQuotes %]') }}"
+                               data-rule-equalto="#CreateNewAccountInfo_Password"
+                               data-msg-equalto="[% siteMessage 'CreateNewAccountInfo_PasswordCombination_DoesNotMatch' %]"
+                               ng-model="vm.confirmPassword">
+                        <span class="field-validation-valid" data-valmsg-for="CreateNewAccountInfo.ConfirmPassword" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="newsletter" ng-if="vm.settings.allowSubscribeToNewsLetter">
+                    <label class="input-lbl">
+                        <input type="checkbox" id="CreateNewAccountInfo_NewsletterSubscription" name="CreateNewAccountInfo.NewsletterSubscription" ng-model="vm.isSubscribed">
+                        <input type="hidden" name="CreateNewAccountInfo.NewsletterSubscription" value="false">
+                        [% siteMessage 'SignIn_Sign_Up_Newsletter' %]
+                    </label>
+                </div>
+                <div class="error">
+                    <span class="field-validation-error" ng-if="vm.createError" ng-bind="vm.createError"></span>
+                </div>
+                <div class="btns">
+                    <button type="submit" class="btn primary" ng-click="vm.createAccount()">[% translate 'Create Account' %]</button>
+                </div>
+            </form>
+        </div>
+        <div class="medium-6 large-6 columns manage-subs password-requirements">
+            <h4>[% translate 'Password requirements' %]:</h4>
+            <div>
+                <div class="pw-note">{{'[% translate 'Password must be at least {0} characters long' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength)}}</div>
+                <div class="pw-note" ng-if="vm.settings.minRequiredDigits">[% translate 'Password must include at least one number' %]</div>
+                <div class="pw-note" ng-if="vm.settings.minRequiredNonAlphanumericCharacters">[% translate 'Password must include at least one non alphanumeric character' %]</div>
+                <div class="pw-note" ng-if="vm.settings.minRequiredUppercase">[% translate 'Password must include at least one uppercase character' %]</div>
+                <div class="pw-note" ng-if="vm.settings.minRequiredLowercase">[% translate 'Password must include at least one lowercase character' %]</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+/*Wishlist ui*/
+.ma-my-lists .item-list .item-details, .ma-my-lists .list-info .item-details, .ma-my-list-details .item-list .item-details, .ma-my-list-details .list-info .item-details {
+  float: left;
+}
+.ma-my-lists .item-list .item-controls .btn-add-cart, .ma-my-lists .item-list .add-to-cart-block .btn-add-cart, .ma-my-lists .item-list .middle-btns .btn-add-cart, .ma-my-lists .list-info .item-controls .btn-add-cart, .ma-my-lists .list-info .add-to-cart-block .btn-add-cart, .ma-my-lists .list-info .middle-btns .btn-add-cart, .ma-my-list-details .item-list .item-controls .btn-add-cart, .ma-my-list-details .item-list .add-to-cart-block .btn-add-cart, .ma-my-list-details .item-list .middle-btns .btn-add-cart, .ma-my-list-details .list-info .item-controls .btn-add-cart, .ma-my-list-details .list-info .add-to-cart-block .btn-add-cart, .ma-my-list-details .list-info .middle-btns .btn-add-cart {
+  background-color: #00359c;
+}
+.ma-my-lists .item-list .item-controls .btn-add-cart:hover, .ma-my-lists .item-list .add-to-cart-block .btn-add-cart:hover, .ma-my-lists .item-list .middle-btns .btn-add-cart:hover, .ma-my-lists .list-info .item-controls .btn-add-cart:hover, .ma-my-lists .list-info .add-to-cart-block .btn-add-cart:hover, .ma-my-lists .list-info .middle-btns .btn-add-cart:hover, .ma-my-list-details .item-list .item-controls .btn-add-cart:hover, .ma-my-list-details .item-list .add-to-cart-block .btn-add-cart:hover, .ma-my-list-details .item-list .middle-btns .btn-add-cart:hover, .ma-my-list-details .list-info .item-controls .btn-add-cart:hover, .ma-my-list-details .list-info .add-to-cart-block .btn-add-cart:hover, .ma-my-list-details .list-info .middle-btns .btn-add-cart:hover {
+  background-color: #a50031;
+}
+.ma-my-lists .list-title-wrapper .btns .btn-icon, .ma-my-list-details .list-title-wrapper .btns .btn-icon {
+  background-color: #fff !important;
+  color: #0035A2;
+  font-weight: 400;
+  margin-left: 15px;
+  padding: 11px 0;
+}
+.ma-my-lists .list-title-wrapper .btns .btn-icon .font-icon, .ma-my-list-details .list-title-wrapper .btns .btn-icon .font-icon {
+  margin-right: 7px;
+}
+
+.popup-delete-item .modal-wrap, .popup-line-note .modal-wrap, .popup-copy-list .modal-wrap, .popup-share-list .modal-wrap, .popup-delete-list .modal-wrap, .popup-create-list .modal-wrap {
+  max-width: 500px;
+}
+.popup-delete-item .modal-wrap .btns, .popup-line-note .modal-wrap .btns, .popup-copy-list .modal-wrap .btns, .popup-share-list .modal-wrap .btns, .popup-delete-list .modal-wrap .btns, .popup-create-list .modal-wrap .btns {
+  margin-top: 0;
+}
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+  .ma-my-list-details .list-title-wrapper .btns {
+    display: inline;
+  }
+  .ma-my-list-details .list-title-wrapper .btns .btn-icon:first-child {
+    margin-left: 0;
+  }
+
+  .popup-delete-item, .popup-line-note, .popup-copy-list, .popup-share-list, .popup-delete-list, .popup-create-list {
+    height: auto;
+  }
+}
+
+/*# sourceMappingURL=brasseler-ma-whishlist.css.map */

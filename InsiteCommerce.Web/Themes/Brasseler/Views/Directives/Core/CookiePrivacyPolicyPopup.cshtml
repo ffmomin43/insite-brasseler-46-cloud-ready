@@ -1,0 +1,9 @@
+﻿<div class="cookie-privacy-policy-popup" ng-if="ctrl.showPopup" ng-cloak>
+    <div class="policy-text">[% siteMessage 'Core_CookiePrivacyPolicy' %]</div>
+    <div class="policy-btns">
+        <button class="policy-accept btn secondary" ng-click="ctrl.accept()">[% siteMessage 'Core_CookiePrivacyPolicyAccept' %]</button>
+        <button class="policy-hide btn" ng-click="ctrl.hidePopup()">
+            <i class="icon-close"></i>
+        </button>
+    </div>
+</div>

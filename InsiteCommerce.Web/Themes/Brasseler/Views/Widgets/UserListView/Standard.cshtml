@@ -1,0 +1,64 @@
+﻿<div id="tst_userListView" ng-controller="UserListController as vm" ng-cloak>
+    <div class="cm">[% zone 'TopContent' %]</div>
+    <a id="tst_userListView_createNewUser" ng-href="[% urlForPage 'UserSetupPage' %]" class="btn primary btn-create">[% translate 'Create New User' %]</a>
+
+    <section class="accordion search-users">
+        <div>
+            <input type="checkbox" id="accord-1" class="accord-check" />
+            <label id="tst_userListView_searchUsers" for="accord-1" class="accord-head">[% translate 'Search Users' %]</label>
+            <article class="accord-content">
+                <div class="row">
+                    <div class="medium-4 large-4 columns">
+                        <div class="search-order-num">
+                            <input id="tst_userListView_searchUserName" type="text" name="search-users" ng-model="vm.searchText" isc-enter="vm.search(vm.sort, true)" placeholder="[% translate 'Enter Username' %]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-4 large-4 columns btns">
+                        <a id="tst_userListView_search" href="" class="btn primary btn-search" ng-click="vm.search(vm.sort, true)">[% translate 'Search' %]</a>
+                        <a href="" class="btn secondary btn-clear" ng-click="vm.clearSearch()">[% translate 'Clear' %]</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <div>
+        <div ng-if="vm.pagination.totalItemCount > 0">
+            <h3 class="results-count"><span class="result-num" ng-cloak>{{vm.pagination.totalItemCount}}</span> <span class="result-lbl">[% translate 'Users' %]</span></h3>
+
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.search(vm.sort)"></isc-pager>
+
+            <table id="tst_userListView_userTable" class="info-tbl user-admin-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-username"><a href="" ng-click="vm.sortBy('UserName')" ng-class="vm.getSortClass('UserName')" class="sort">[% translate 'Username' %]</a></th>
+                        <th class="col-name"><a href="" ng-click="vm.sortBy('LastName')" ng-class="vm.getSortClass('LastName')" class="sort">[% translate 'Name' %]</a></th>
+                        <th class="col-active">[% translate 'Status' %]</th>
+                        <th class="col-role"><a href="" ng-click="vm.sortBy('Role')" ng-class="vm.getSortClass('Role')" class="sort">[% translate 'Role' %]</a></th>
+                        <th class="col-loc">[% translate 'Last Sign In' %]</th>
+                    </tr>
+
+                    <tr ng-repeat="user in vm.users">
+                        <td class="col-username"><a ng-href="[% urlForPage 'UserSetupPage' %]?userId={{user.id}}" class="sort sort-ascending tst_userListView_username" ng-cloak>{{user.userName}}</a></td>
+                        <td class="col-name" ng-cloak>{{user.lastName}}<span><span ng-if="user.lastName && user.firstName">, </span></span>{{user.firstName}}</td>
+                        <td class="col-active">
+                            <span ng-if="user.isApproved && user.activationStatus == '[[Model.EmailNotSentUserActivationStatus]]'">[% translate 'Email not sent' %]</span>
+                            <span ng-if="user.isApproved && user.activationStatus == '[[Model.EmailSentUserActivationStatus]]'">[% translate 'Email sent' %]</span>
+                            <span ng-if="user.isApproved && user.activationStatus == '[[Model.ActivatedUserActivationStatus]]'">[% translate 'Active' %]</span>
+                            <span ng-if="!user.isApproved">[% translate 'Deactivated' %]</span>
+                        </td>
+                        <td class="col-role" ng-cloak>{{user.role}}</td>
+                        <td class="col-loc" ng-cloak>{{user.lastLoginOn | date:'short'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" bottom="true" update-data="vm.search(vm.sort)"></isc-pager>
+        </div>
+        <div class="search-no-results" ng-if="vm.pagination.totalItemCount === 0">
+            <div>[[Model.NoUsersFoundMessage]]</div>
+        </div>
+    </div>
+</div>

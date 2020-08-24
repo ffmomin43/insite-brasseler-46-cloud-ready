@@ -1,0 +1,44 @@
+﻿<div id="popup-create-list" class="reveal-modal popup-create-list" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <h2 ng-bind="vm.list ? '[% translate 'Edit Details' EscapeSingleQuotes %]' : '[% translate 'Create List' EscapeSingleQuotes %]'"></h2>
+        <div class="pop-content">
+            <form name="vm.listForm" ng-submit="vm.list ? vm.updateWishList() : vm.createWishList()" novalidate>
+                <div class="row select-list">
+                    <div class="row create-list">
+                        <div class="is-required-field-tooltip">* [% translate 'is required' %]</div>
+                        <div>
+                            <label>[% translate 'List Name' %] *</label>
+                        </div>
+                        <div>
+                            <input type="text" ng-model="vm.listName" name="listName" class="list-name" data-test-selector="tst_createListPopUp_enterListName" placeholder="[% translate 'Enter list name' %]" autofocus="autofocus" isc-limit-number-of-characters="100" ng-maxlength="100" required />
+                        </div>
+                        <div class="max-field-tooltip spacer-element">
+                            <isc-characters-left-counter form-element="vm.listForm.listName" field-model="vm.listName" limit="100"></isc-characters-left-counter>
+                            [% translate 'characters left' %].
+                        </div>
+                        <div>
+                            <label>[% translate 'Description' %]</label>
+                        </div>
+                        <div>
+                            <textarea ng-model="vm.listDescription" isc-limit-number-of-characters="300" name="listDescription" data-test-selector="tst_createListPopUp_description" ng-maxlength="300"></textarea>
+                        </div>
+                        <div class="max-field-tooltip">
+                            <isc-characters-left-counter form-element="vm.listForm.listDescription" field-model="vm.listDescription" limit="300" data-test-selector="tst_createListPopUp_charactersLeft"></isc-characters-left-counter>
+                            [% translate 'characters left' %].
+                        </div>
+                    </div>
+                    <div id="error" class="error" ng-show="vm.listForm.$submitted && (vm.errorMessage || vm.listForm.listName.$error.required || vm.listForm.listName.$error.maxlength)">
+                        <span ng-show="vm.errorMessage" class="field-validation-error" ng-bind="vm.errorMessage"></span>
+                        <span ng-show="vm.listForm.listName.$error.required" class="field-validation-error">[% siteMessage 'Lists_List_Name_Required' %]</span>
+                        <span ng-show="vm.listForm.listName.$error.maxlength" class="field-validation-error">{{::'[% siteMessage 'Lists_List_Name_Too_Long' EscapeSingleQuotes %]'.replace('{0}', 255)}}</span>
+                    </div>
+                    <div class="row btns">
+                        <button ng-click="vm.closeModal()" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                        <button class="btn primary btn-add-wishlist" data-test-selector="tst_createListPopUp_createList" type="submit" ng-bind="vm.list ? '[% translate 'Save' EscapeSingleQuotes %]' : '[% translate 'Create List' EscapeSingleQuotes %]'"></button>
+                    </div>
+                </div>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

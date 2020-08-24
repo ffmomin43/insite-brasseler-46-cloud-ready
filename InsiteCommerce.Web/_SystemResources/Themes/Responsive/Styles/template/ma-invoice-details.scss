@@ -1,0 +1,189 @@
+.ma-invoice-details {
+    .valid-error {
+        margin: 1.5em 0;
+    }
+
+    .order-details-top {
+        margin-bottom: 1.5em;
+        border: 1px solid #DCDCDC;
+        padding: 1em;
+
+        h3 {
+            margin-bottom: .4em;
+        }
+
+        .od-head, .bill-info, .ship-info, .notes, .ship-method {
+            margin-bottom: .8em;
+        }
+    }
+
+    .order-details-top .od-head {
+        display: inline-block;
+
+        h3 {
+            float: left;
+            margin-top: 0;
+        }
+
+        .od-data {
+            font-weight: normal;
+        }
+    }
+
+    .order-details-top h3.od-lbl {
+        padding-right: 1em;
+        clear: left;
+    }
+
+    .order-details-top ul {
+        list-style: none;
+        margin: 0;
+    }
+
+    .order-details-top .large-4 + .large-4 {
+        float: left;
+    }
+
+    h3 {
+        margin-top: 0;
+        text-align: left;
+    }
+
+    .row.order-details {
+        margin-bottom: 1em;
+    }
+
+    .page-title {
+        display: none;
+    }
+
+    .ship-info {
+        display: inline-block;
+    }
+
+    /* Cart Items */
+    .cart-items {
+        margin-bottom: 1em;
+    }
+
+    .btns {
+        float: left;
+        padding-top: 1.3em;
+    }
+
+    .btns .btn {
+        float: right;
+        margin-left: 1em;
+    }
+    /* Cart Items */
+    ul.cart-items {
+        list-style: none;
+    }
+
+    .item-list .item-details,
+    .item-list .item-code-notes {
+        float: right;
+    }
+
+    .item-list .item-code-notes .cost-code,
+    .item-list .item-code-notes .item-notes {
+        width: 100%;
+        margin-bottom: 0.25em;
+    }
+
+    .item-list .item-code-notes .cost-code strong,
+    .item-list .item-code-notes .item-notes strong {
+        margin-right: 0.5em;
+    }
+}
+
+.share-entity-modal.reveal-modal {
+    max-width: 480px;
+    overflow: auto;
+    height: 93vh;
+
+    .modal-wrap {
+        padding: 0;
+
+        .link {
+            color: #555555 !important;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .required-label {
+            margin-bottom: 1em;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .btns {
+            border-top: 1px solid #e1e1e1;
+            padding-top: 1em;
+        }
+
+        .messaging {
+            display: inline-block;
+        }
+
+        .close-reveal-modal {
+            top: .55em;
+        }
+
+        .share-modal-label {
+            border-bottom: 1px solid #e1e1e1;
+            margin-bottom: 1em;
+        }
+
+        .close-modal-button {
+            margin-right: .5em;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-invoice-details {
+        .cart-items {
+            overflow: auto;
+            max-height: 460px;
+        }
+
+        ul.cart-items {
+            border-top: 1px solid #E0E0E0;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-invoice-details {
+        .item-list .item-details div.price,
+        .item-list .item-details div.item-opt {
+            display: inline-block;
+            height: auto;
+            text-align: right;
+        }
+
+        .item-list .item-details div.item-opt {
+            line-height: 1em;
+        }
+
+        .item-list .item-details div.price {
+            .price-sale, .selected-uom {
+                display: block;
+            }
+
+            span {
+                margin: 0 0;
+            }
+        }
+
+        .item-list .item-details,
+        .item-list .item-code-notes {
+            padding-right: 1em !important;
+        }
+    }
+}

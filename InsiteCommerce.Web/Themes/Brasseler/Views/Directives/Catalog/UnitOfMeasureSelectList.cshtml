@@ -1,0 +1,19 @@
+﻿{% comment %}
+    Usage
+    <isc-unit-of-measure-select-list product="wishListLine"
+                                     alternate-units-of-measure="true" display-pack="false"
+        change-unit-of-measure="changeUnitOfMeasure(product)">
+    </isc-unit-of-measure-select-list>
+{% endcomment %}
+<div class="small-8 columns" ng-if="(alternateUnitsOfMeasure == 'true' && product.productUnitOfMeasures.length > 1)">
+    <select ng-disabled="readOnly == 'true'" ng-model="product.selectedUnitOfMeasure" ng-change="changeUnitOfMeasure()" name="unitOfMeasure" class="uom-selector tst_unitOfMeasure_selectList" data-uom-selector="true" data-productid="{{::product.id}}" autocomplete="off">
+        <option ng-repeat="uom in product.productUnitOfMeasures" value="{{uom.unitOfMeasure}}"
+                ng-selected="{{product.selectedUnitOfMeasure == uom.unitOfMeasure}}">
+            {{::(uom.description ? uom.description : uom.unitOfMeasureDisplay)}} {{::(uom.qtyPerBaseUnitOfMeasure !== 1 ? "/" + uom.qtyPerBaseUnitOfMeasure : "")}}
+        </option>
+    </select>
+</div>
+
+<div ng-if="::(displayPack && product.packDescription)" class="pack-container">
+    <span class="small-4 columns pack"><span class="pack-label">[% translate 'Pack' %]:</span> {{::product.packDescription}}</span>
+</div>

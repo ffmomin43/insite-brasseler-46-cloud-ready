@@ -1,0 +1,163 @@
+﻿.outstanding-detail {
+    .btns {
+        padding-top: 0;
+    }
+
+    .order-details {
+        margin-top: 10px;
+        border: 1px solid #E1E1E1;
+    }
+
+    .order-details-top {
+        word-break: break-word;
+
+        .od-head {
+            .od-lbl-title {
+                width: 30%;
+
+                @media screen and (max-width: 767px) {
+                    width: 50%;
+                }
+            }
+
+            .od-data-cont {
+                font-weight: 700;
+                width: 60%;
+
+                @media screen and (max-width: 767px) {
+                    width: 50%;
+                }
+            }
+
+            .od-lbl {
+                @media all and (min-width: 768px) and (max-width: 1023px) {
+                    width: 60%;
+                }
+            }
+        }
+
+        .bill-info, .ship-info {
+            margin-top: 20px;
+        }
+    }
+
+    .order-subtotal {
+        .invoice-bal {
+            color: #feac2c;
+        }
+    }
+
+    .subtotal-btns {
+        #orderDetailViewReturnRequestButton {
+            background-color: #00359C !important;
+            margin-bottom: 10px;
+
+            &:disabled {
+                background-color: #f1f1f1 !important;
+                -webkit-box-shadow: inset 0 0 10px 0 #dedede !important;
+                box-shadow: inset 0 0 10px 0 #dedede !important;
+            }
+        }
+
+        .payment-history {
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+            color: #00359c;
+        }
+    }
+
+    .heading-block {
+        padding: 15px 20px;
+        background: #f6f6f6;
+        border-bottom: 1px solid #e1e1e1;
+
+        @media screen and (max-width: 767px) {
+            font-size: 12px;
+            padding: 15px;
+        }
+
+        .order-head {
+            margin-bottom: 0;
+        }
+
+        .view {
+            float: right;
+            color: slategray;
+            font-weight: 700;
+        }
+
+        .make-payment {
+            margin-bottom: 0 !important;
+            text-align: right !important;
+            padding: 5px 0;
+            float: right;
+            box-shadow: none !important;
+            background-color: transparent !important;
+            color: slategray;
+            &:before{
+                    content: "\e600";
+                    font-family: 'good-oatmeal-v2';
+                    speak: none;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    font-variant-ligatures: normal;
+                    font-variant-caps: normal;
+                    font-variant-numeric: normal;
+                    font-variant-east-asian: normal;
+                    text-transform: none;
+                    line-height: 1;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    width: auto;
+                    height: auto;
+                    line-height: inherit;
+                    vertical-align: baseline;
+                    background-image: none;
+                    background-position: 0 0;
+                    background-repeat: repeat;
+                    font-size: 1em;
+                    padding-right: 0.5em;
+            }
+        }
+    }
+
+    .payment-history-block {
+        border: 1px solid #E0E0E0;
+        margin-top: 30px;
+
+        .main-block {
+            padding: 10px 20px;
+
+            @media screen and (max-width: 767px) {
+                font-size: 12px;
+                padding: 10px 15px;
+            }
+
+            .head-block {
+                border-bottom: 1px solid slategray;
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+
+                .payment-label {
+                    color: slategray;
+                    margin: 0;
+                }
+            }
+
+            .amt {
+                text-align: right;
+                float: right;
+            }
+
+            .invoice-data {
+                line-height: 18px;
+            }
+        }
+        .detail-msg{
+                padding: 5px 20px 10px;
+        }
+    }
+}

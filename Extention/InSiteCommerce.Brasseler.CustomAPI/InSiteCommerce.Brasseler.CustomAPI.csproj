@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB37BC54-1D60-4182-A105-634EDEB911E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InSiteCommerce.Brasseler.CustomAPI</RootNamespace>
+    <AssemblyName>InSiteCommerce.Brasseler.CustomAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Stage\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Cart">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Cart.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Common">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Core">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Core.Interfaces">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Core.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Customers">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Customers.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data.Entities">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Data.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data.Providers.EntityFramework">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Data.Providers.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Data.Repositories">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Data.Repositories.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Order">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Order.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.PaymentGateway.Cenpos">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.PaymentGateway.Cenpos.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Payments">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Payments.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Public.Core">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Public.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.Punchout">
+      <HintPath>..\packages\Insite.Commerce.Private.4.4.0.59365\lib\net452\Insite.Punchout.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Entities\BackOrders.cs" />
+    <Compile Include="Data\Entities\Brand.cs" />
+    <Compile Include="Data\Entities\InvoiceInforTransaction.cs" />
+    <Compile Include="Data\Entities\InvoiceTransaction.cs" />
+    <Compile Include="Data\Entities\OrderSourceCode.cs" />
+    <Compile Include="Data\Entities\PriceMatrixBrasseler.cs" />
+    <Compile Include="Data\Entities\ProductCurrencyMappingBrasseler.cs" />
+    <Compile Include="Data\Entities\ReturnRequest.cs" />
+    <Compile Include="Data\Entities\RmaResponse.cs" />
+    <Compile Include="Data\Entities\SampleProductTracking.cs" />
+    <Compile Include="Data\Entities\SubscriptionBrasseler.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\BackOrdersMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\InvoiceInforTransactionMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\InvoiceTransactionMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\OrderSourceCodeMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\PriceMatrixBrasselerMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\ProductCurrencyBrasselerEntityMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\RmaRequestMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\RmaResponseMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\SampleProductTrackingMapping.cs" />
+    <Compile Include="Data\Providers\EntityFramework\EntityMappings\SubscriptionBrasselerMapping.cs" />
+    <Compile Include="Data\Repositories\BackOrdersRepository.cs" />
+    <Compile Include="Data\Repositories\InvoiceInforTransactionRepository.cs" />
+    <Compile Include="Data\Repositories\InvoiceTransactionRepository.cs" />
+    <Compile Include="Data\Repositories\OrderSourceCodeRepository.cs" />
+    <Compile Include="Data\Repositories\PriceMatrixBrasselerRepository.cs" />
+    <Compile Include="Data\Repositories\ProductPriceMappingBrasselerRepository.cs" />
+    <Compile Include="Data\Repositories\RmaRequestRepository.cs" />
+    <Compile Include="Data\Repositories\RmaResponseRepository.cs" />
+    <Compile Include="Data\Repositories\SampleProductTrackingRepository.cs" />
+    <Compile Include="Data\Repositories\SubscriptionBrasselerRepository.cs" />
+    <Compile Include="Data\Repositories\UserPaymentProfileRepository.cs" />
+    <Compile Include="Plugins\Helper\XmlToModelConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Handlers\AddBrandHandler.cs" />
+    <Compile Include="Services\Handlers\CartSubscriptionDtoHandler.cs" />
+    <Compile Include="Services\Handlers\GetUserPaymentProfileCollectionHandler.cs" />
+    <Compile Include="Services\Handlers\InvoiceTransactionHandler.cs" />
+    <Compile Include="Services\Handlers\PatchUserPaymentProfileHandler.cs" />
+    <Compile Include="Services\Handlers\RemoveUserPaymentProfileHandler.cs" />
+    <Compile Include="Services\IUserPaymentProfileService.cs" />
+    <Compile Include="Services\OutstandingInvoiceService.cs" />
+    <Compile Include="Services\Parameters\AddBrandParameter.cs" />
+    <Compile Include="Services\Parameters\GetUserPaymentProfileCollectionParameter.cs" />
+    <Compile Include="Services\Parameters\GetUserPaymentProfileParameter.cs" />
+    <Compile Include="Services\Parameters\PatchUserPaymentProfileParameter.cs" />
+    <Compile Include="Services\Parameters\RemoveUserPaymentProfileParameter.cs" />
+    <Compile Include="Services\Results\AddBrandResult.cs" />
+    <Compile Include="Services\Results\GetUserPaymentProfileCollectionResult.cs" />
+    <Compile Include="Services\Results\GetUserPaymentProfileResult.cs" />
+    <Compile Include="Services\Results\PatchUserPaymentProfileResult.cs" />
+    <Compile Include="Services\Results\RemoveUserPaymentProfileResult.cs" />
+    <Compile Include="Services\Results\UserPaymentProfileResult.cs" />
+    <Compile Include="Services\UserPaymentProfileService.cs" />
+    <Compile Include="WebApi\V1\ApiModels\ARInvoiceDetailModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\AROpenInvoicesModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\ARSummaryModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\CartModel_Brasseler.cs" />
+    <Compile Include="WebApi\V1\ApiModels\GetOutstandingInvoiceParameter.cs" />
+    <Compile Include="WebApi\V1\ApiModels\InvoiceList.cs" />
+    <Compile Include="WebApi\V1\ApiModels\OutstandingOrderModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\PayOpenInvoicesCreditCard.cs" />
+    <Compile Include="WebApi\V1\ApiModels\PayOpenInvoicesHead.cs" />
+    <Compile Include="WebApi\V1\ApiModels\PayOpenInvoicesInvoice.cs" />
+    <Compile Include="WebApi\V1\ApiModels\PayOpenInvoicesRequest.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryRequestModel\LabelRecoveryRequest.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryRequestModel\LabelRecoveryRequestModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryRequestModel\Translate.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelImage.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelRecoveryResponse.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelRecoveryResponseModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\LabelResults.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\Receipt.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\LabelRecoveryResponseModel\StatusResponse.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Address.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\BillShipper.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\LabelImageFormat.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\LabelSpecification.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Package.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\PackageWeight.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\PaymentInformation.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Phone.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\ReferenceNumber.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Request.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\ShipRequestModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\ServiceAccessToken.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Ship.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Shipment.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\ShipmentCharge.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\ShipmentRequest.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\Shipper.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\TransactionReference.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\UPSSecurity.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipRequestModel\UsernameToken.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\BillingWeight.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\Charges.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\PackageResults.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\Response.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ResponseStatus.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipmentCharges.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipmentResponse.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipmentResults.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ShippingLabel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ShippingReceipt.cs" />
+    <Compile Include="WebApi\V1\ApiModels\RMA\ShipResponseModel\ShipResponseModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\UserPaymentProfileCollectionModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\UserPaymentProfileCollectionParameter.cs" />
+    <Compile Include="WebApi\V1\ApiModels\UserPaymentProfileModel.cs" />
+    <Compile Include="WebApi\V1\ApiModels\UserPaymentProfileParameter.cs" />
+    <Compile Include="WebApi\V1\Dtos\CartSubscriptionDto.cs" />
+    <Compile Include="WebApi\V1\Dtos\GetOutstandingInvoicesDto.cs" />
+    <Compile Include="WebApi\V1\Dtos\GetOutstandingOrderDto.cs" />
+    <Compile Include="WebApi\V1\Mappers\DeleteUserPaymentProfileMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\GetUserPaymentProfileCollectionMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\GetUserPaymentProfileMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\Interfaces\IDeleteUserPaymentProfileMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\Interfaces\IGetUserPaymentProfileCollectionMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\Interfaces\IGetUserPaymentProfileMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\Interfaces\IPatchUserPaymentProfileMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\Interfaces\IPostBrandMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\PatchUserPaymentProfileMapper.cs" />
+    <Compile Include="WebApi\V1\Mappers\UserPaymentProfileMapperStartupTask.cs" />
+    <Compile Include="WebApi\V1\OutstandingInvoicesV1Controller.cs" />
+    <Compile Include="WebApi\V1\SubscriptionCartV1Controller.cs" />
+    <Compile Include="WebApi\V1\UserPaymentProfileV1Controller.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Entities\brand.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InSiteCommerce.Brasseler.SystemSettings\InSiteCommerce.Brasseler.SystemSettings.csproj">
+      <Project>{b82e66f0-dc32-4c61-b06a-3691d9e04ede}</Project>
+      <Name>InSiteCommerce.Brasseler.SystemSettings</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

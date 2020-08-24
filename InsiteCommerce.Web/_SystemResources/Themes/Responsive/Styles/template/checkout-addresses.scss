@@ -1,0 +1,118 @@
+.checkout-addresses {
+    .return-link {
+        margin: 1.5em 0;
+    }
+
+    .checkout-head h1 {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    .checkout-crumbs {
+        display: inline-block;
+    }
+
+    .checkout-crumbs div {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    .checkout-crumbs .crumb-current {
+        font-weight: bold;
+    }
+
+    .btns .btn {
+        margin: 1em 0;
+        float: right;
+    }
+
+    .pick-up-location p {
+        font-size: 16px;
+        line-height: 1.5em;
+    }
+
+    h3 {
+        .change-mode {
+            margin-left: 15px;
+        }
+    }
+
+    section ul {
+        list-style: none;
+        margin: 0;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .checkout-addresses {
+        .checkout-crumbs > div:not(.crumb-current) {
+            display: none;
+        }
+
+        .checkout-addresses .btns .btn {
+            width: 100%;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .checkout-addresses {
+        h3 {
+            margin-top: 0;
+        }
+
+        .ship-select {
+            min-height: 110px;
+            display: inline-block;
+        }
+
+        .bill-to, .ship-to, .pick-up-location {
+            float: left;
+            width: 42%;
+            padding-top: 0 !important;
+            padding-left: 2em;
+        }
+
+        .newsletter-signup {
+            margin: 1em 0;
+        }
+
+        .select-address div.custom {
+            display: none !important;
+        }
+
+        .required-msg {
+            font-size: .875em;
+            min-height: 109px;
+            margin-bottom: 0;
+        }
+
+        .same-as-billto {
+            margin-bottom: .75em;
+        }
+
+        .select-address {
+            margin-bottom: 1em;
+        }
+
+        .btns {
+            display: flex;
+            display: -webkit-flex;
+            width: 84%;
+            margin-left: 42%;
+            padding-left: 2em;
+
+            .btn {
+                margin: 3em 1em 0 0;
+            }
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .checkout-addresses {
+        .ship-to .title, .bill-to .title {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+﻿<div class="reveal-modal address-error-popup" data-reveal data-reveal-init>
+    <div class="modal-wrap" ng-init="vm.checkoutAddressUrl = '[% urlForPage 'CheckoutAddressPage' %]'; vm.myAccountAddressUrl = '[% urlForPage 'MyAccountAddressPage' %]'">
+        <p class="messaging" ng-init="vm.reviewAndPayPageUrl = '[% urlForPage 'ReviewAndPayPage' %]'">
+            <span ng-if="vm.isAddressEditAllowed">[% siteMessage 'Cart_InvalidAddress_Update' %]</span>
+            <span ng-if="!vm.isAddressEditAllowed">[% siteMessage 'Cart_InvalidAddress_ContactSupport' %]</span>
+        </p>
+        <div class="btns">
+            <a ng-if="vm.isAddressEditAllowed && vm.continueUrl" ng-href="{{ vm.continueUrl }}" class="btn primary btn-continue">[% translate 'Continue' %]</a>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>

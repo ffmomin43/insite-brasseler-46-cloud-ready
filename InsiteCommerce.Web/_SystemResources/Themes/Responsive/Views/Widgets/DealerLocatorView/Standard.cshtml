@@ -1,0 +1,106 @@
+﻿<div ng-controller="DealerCollectionController as vm" ng-cloak>
+    <form name="dealerSearchForm" ng-submit="vm.getDealers()" novalidate>
+        <div class="row dealer-search">
+            <div class="medium-6 large-6 columns dealer-search-loc">
+                <h4>[% siteMessage 'DealerLocator_LocationSearchLabel' %]</h4>
+                <input type="text" name="addressSearchField" class="addressSearchField" ng-model="vm.addressSearchField" required />
+            </div>
+            <div class="medium-6 large-6 columns dealer-search-name">
+                <h4>[% siteMessage 'DealerLocator_NameSearchLabel' %]</h4>
+                <input type="text" name="name" class="nameSearchField" ng-model="vm.storeName" />
+                <button type="submit" class="btn primary fastClick dealer-search">
+                    <i id="tst_dealerLocatorPage_searchIcon" class="foundicon-search"></i><span>[% translate 'Search' %]</span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div id='tst_dealerResults_geocodeError' ng-if="!vm.locationKnown">
+        <span class="field-validation-error">
+            [% siteMessage 'DealerLocator_GeocodeErrorMessage' %]
+        </span>
+    </div>
+    <div id='tst_dealerResults_noResults' ng-if="vm.locationKnown && vm.dealers.length == 0">
+        <span class="field-validation-error">
+            [% siteMessage 'DealerLocator_NoResultsMessage' %]
+        </span>
+    </div>
+    <div class="dealer-loc-map" id="dealer-loc-map">
+        <ng-map name="dealersmap" zoom="11" style="height: 650px;" styles="[{featureType:'poi',stylers:[{visibility:'off'}]},{featureType:'transit',stylers:[{visibility:'off'}]},{featureType:'road',elementType:'labels.icon',stylers:[{visibility:'off'}]}]"></ng-map>
+    </div>
+
+    <div class="dealer-loc-results" ng-if="vm.dealers.length > 0">
+        <div class="results-count">
+            <div class="rcount">
+                <strong ng-cloak>{{ vm.pagination.totalItemCount }}</strong> [% translate 'results' %]
+            </div>
+            <div class="distance-unit">
+                <label><input type="radio" name="milesKmGroup" class="Imperial" ng-model="vm.distanceUnitOfMeasure" ng-value="0" />[% translate 'mi' %]</label>
+                <label><input type="radio" name="milesKmGroup" class="Metric" ng-model="vm.distanceUnitOfMeasure" ng-value="1" />[% translate 'km' %]</label>
+            </div>
+        </div>
+
+        <ul id="tst_dealerResultsList" class="sl-list">
+            <li ng-repeat="dealer in vm.dealers">
+                <div class="result-num">{{::vm.getDealerNumber($index)}}</div>
+                <div class="dealer-deetz">
+                    <div class="dealer-name">
+                        <a ng-href="[% urlForPage 'DealerPage' %]?dealerId={{dealer.id}}" ng-cloak>{{dealer.name}}</a>
+                    </div>
+                    <div class="dealer-addy" ng-cloak>
+                        {{dealer.address1}}<br/>
+                        <span ng-if="dealer.address2">{{dealer.address2}}<br /></span>
+                        {{dealer.city}}, {{dealer.state}}, {{dealer.postalCode}}<br/>
+                        {{dealer.phone1}}
+                    </div>
+
+                    <div class="dealer-hours-map" ng-if="dealer.htmlContent">
+                        <h4>[% translate 'Hours' %]</h4>
+                        <div ng-bind-html="dealer.htmlContent|trusted"></div>
+                    </div>
+                    <div class="dealer-links">
+
+                        <div class="dealer-hours" ng-if="dealer.htmlContent">
+                            <a href="#" ng-click="vm.onOpenHoursClick($event)" data-dropdown="dealer-hours-{{dealer.id}}" class="t-dropdown">[% translate 'Hours' %]</a>
+                        </div>
+
+                        <a ng-href="http://maps.google.com/maps?daddr={{dealer.address1}} {{dealer.address2}}, {{dealer.city}}, {{dealer.state}} {{dealer.postalCode}}" class="dealer-directions" target="_blank">[% translate 'Directions' %]</a>
+
+                        <span ng-if="dealer.webSiteUrl" ng-cloak>
+                            <a ng-href="{{dealer.webSiteUrl}}" class="dealer-www" target="_blank">[% translate 'Website' %]</a>
+                        </span>
+                        <span ng-if="vm.distanceUnitOfMeasure===0" class="dealer-distance miles" ng-cloak>{{ dealer.distance.toFixed(2) }} [% translate 'mi' %]  </span>
+                        <span ng-if="vm.distanceUnitOfMeasure===1" class="dealer-distance kilometers" ng-cloak>{{ (dealer.distance * 1.60934).toFixed(2) }} [% translate 'km' %]</span>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <isc-pager pagination="vm.pagination" bottom="true" update-data="vm.searchDealers()"></isc-pager>
+    </div>
+
+    <div ng-repeat="dealer in vm.dealers" class="dealer-hours" ng-if="dealer.htmlContent">
+        <div id="dealer-hours-{{dealer.id}}" class="f-dropdown content" data-dropdown-content>
+            <div class="tt-wrap" ng-bind-html="dealer.htmlContent|trusted"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="dealerMarkerPopup">
+    <div class="dealer-win">
+        <div class="dealer-deetz">
+            <div class="dealer-name">
+                <a ng-href="[% urlForPage 'DealerPage' %]?dealerId={{dealer.id}}" ng-bind="dealer.name"></a>
+            </div>
+            <div class="dealer-addy">{{dealer.address1}}<br />{{dealer.address2}}<br ng-if="dealer.address2" />{{dealer.city}}, {{dealer.state}} {{dealer.postalCode}}<br />{{dealer.phone}}</div>
+            <div class="dealer-hours-map" ng-if="dealer.htmlContent">
+                <h4>[% translate 'Hours' %]</h4>
+                <div ng-bind-html="dealer.htmlContent | trusted"></div>
+            </div>
+            <a ng-href="{{'http://maps.google.com/maps?daddr=' + dealer.address1 + ' ' + dealer.address2 + ', ' + dealer.city + ', ' + dealer.state + ' ' + dealer.postalCode}}" class='dealer-directions'>[% translate 'Directions' %]</a>
+            <span ng-if="dealer.webSiteUrl"><a ng-href="{{dealer.webSiteUrl}}" class='dealer-www' target='_blank'>[% translate 'Website' %]</a></span>
+            <span ng-if="dealer.distanceUnitOfMeasure === '0'" class="dealer-distance miles">{{(dealer.distance).toFixed(2)}} [% translate 'mi' %]</span>
+            <span ng-if="dealer.distanceUnitOfMeasure === '1'" class="dealer-distance kilometers">{{(dealer.distance * 1.60934).toFixed(2)}} [% translate 'km' %]</span>
+        </div>
+    </div>
+</script>

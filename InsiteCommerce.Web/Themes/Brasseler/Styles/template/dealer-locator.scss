@@ -1,0 +1,564 @@
+.dealer-locator {
+    /* Fix to make google maps UI appear correctly. */
+    .gm-style img {
+        max-width: none;
+    }
+
+    .gm-style label {
+        width: auto;
+        display: inline;
+    }
+
+    .error.messaging {
+        display: none;
+    }
+    /* Map Placeholder */
+    .dealer-loc-map {
+        position: relative;
+        text-align: center;
+        height: 360px;
+        background: #F4F4F4;
+        overflow: hidden;
+    }
+    /* END Map Placeholder */
+    h1.locate-head {
+        padding-bottom: .25em;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 0;
+    }
+
+    h1.locate-head:before {
+        font-family: 'good-oatmeal-v2';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 32px;
+        content: "\e615";
+        padding-right: .25em;
+        color: SlateGray;
+    }
+
+    h1.directions {
+        margin-bottom: 1em;
+    }
+
+    .dealer-search button.dealer-search span {
+        font-size: 1.2em;
+    }
+
+    .dealer-search button.dealer-search i:before {
+        content: "\e001";
+        font-size: 1.2em;
+        line-height: 1em;
+    }
+
+    .dealer-search label h4 {
+        margin-bottom: .5em;
+    }
+
+    span.field-validation-error {
+        margin-bottom: 1em;
+    }
+    /* Results List */
+    .dealer-loc-results {
+    }
+
+    .dealer-loc-results .results-count {
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+        height: 45px;
+        line-height: 45px;
+    }
+
+    .dealer-loc-results .results-count > div {
+        float: left;
+        display: inline-block;
+    }
+
+    .dealer-loc-results .results-count .distance-unit {
+        float: right;
+        text-align: right;
+    }
+
+    .dealer-loc-results .results-count .distance-unit label {
+        float: left;
+        display: inline-block;
+        margin-left: 1.5em;
+    }
+
+    .dealer-loc-results .results-count .distance-unit input {
+        margin-right: .25em;
+    }
+
+    .dealer-loc-results ul {
+        list-style-type: none;
+        margin: 0;
+        float: left;
+    }
+
+    .dealer-loc-results .sl-list li {
+        position: relative;
+        float: left;
+        width: 100%;
+        margin: 1em 0 0 0;
+        padding-bottom: 1em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .dealer-loc-results .result-num {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-weight: 600;
+        width: 2.5em;
+        color: DodgerBlue;
+    }
+
+    .dealer-loc-results .dealer-deetz {
+        display: block;
+        float: left;
+        width: 100%;
+        padding-left: 2.5em;
+    }
+
+    .dealer-loc-results .dealer-deetz .dealer-name {
+        font-weight: 700;
+        line-height: 1.4em;
+        margin-bottom: .25em;
+    }
+
+    .dealer-loc-results .dealer-deetz .dealer-addy {
+        font-size: 0.875em;
+        line-height: 1.5em;
+    }
+    /* Hours Tooltip */
+    .dealer-loc-results .dealer-hours-map {
+        display: none;
+    }
+
+    .dealer-loc-results .dealer-hours {
+        z-index: 3;
+        margin-right: 1em;
+    }
+
+    .dealer-loc-results .dealer-links .dealer-hours {
+        display: inline-block;
+        position: relative;
+    }
+
+    .dealer-hours .f-dropdown.content {
+        width: auto !important;
+        max-width: none !important;
+        padding: .25em;
+    }
+
+    .dealer-hours .f-dropdown .tt-wrap {
+        white-space: nowrap;
+        padding: .5em 1em;
+        max-width: 245px !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .dealer-hours .f-dropdown .tt-wrap * {
+        font-size: 12px !important;
+        line-height: 1.2em !important;
+    }
+
+    .dealer-hours .f-dropdown .tt-wrap p {
+        margin-bottom: .5em !important;
+    }
+
+    .dealer-hours .f-dropdown .tt-wrap *:last-child {
+        margin-bottom: 0;
+    }
+
+    .dealer-hours .f-dropdown:before {
+        border-color: white transparent transparent transparent !important;
+        bottom: -12px !important;
+        top: auto !important;
+        border-top-style: solid;
+    }
+
+    .dealer-hours .f-dropdown:after {
+        border-color: #cccccc transparent transparent transparent !important;
+        bottom: -14px !important;
+        top: auto !important;
+    }
+
+    .dealer-loc-results .dealer-deetz .dealer-links {
+        width: 100%;
+        margin-top: .5em;
+    }
+
+    .dealer-loc-results .dealer-deetz .dealer-distance {
+        font-size: 0.875em;
+        line-height: 1.75em;
+        opacity: 0.7;
+        float: right;
+    }
+
+    .dealer-loc-results .dealer-deetz .dealer-directions,
+    .dealer-loc-results .dealer-deetz .dealer-www {
+        margin-right: 1em;
+    }
+    /* Results paging */
+    body [role="main"] .dealer-loc-results div.paginator-34 {
+        margin-bottom: 0;
+    }
+
+    .dealer-loc-results .paginator-34 ul,
+    .dealer-loc-results .paginator-34 ul li.pagination {
+        float: none;
+    }
+
+    .dealer-loc-results .pbtm .pagination {
+        margin-bottom: 0.25em;
+    }
+
+    .pagination > div.hidden { /* keeps page controls centered */
+        display: inline-block;
+        visibility: hidden;
+    }
+    /* Dealer Page */
+    .dealer-page .dealer-deetz {
+        padding: 0 2em 0 0;
+        max-width: 450px;
+    }
+
+    .dealer-page .dealer-hours {
+        margin-top: .5em;
+    }
+    /* Result Pins */
+    .home-marker {
+        position: relative;
+        z-index: 1;
+        font-family: 'good-oatmeal-v2';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        font-size: 16px;
+        line-height: 1;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: inline-block;
+        width: auto;
+        height: auto;
+        line-height: inherit;
+        vertical-align: baseline;
+        background-image: none;
+        background-position: 0 0;
+        background-repeat: repeat;
+    }
+
+    .home-marker:before {
+        position: relative;
+        z-index: 1;
+        font-family: 'good-oatmeal-v2';
+        font-weight: normal;
+        font-style: normal;
+        text-decoration: inherit;
+        content: "\e615";
+        font-size: 1.5em;
+        color: SlateGray;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+        text-shadow: 1px 1px 0 #fff;
+    }
+
+    .dealer-page .home-marker:before {
+        font-size: 2.5em;
+        color: DodgerBlue;
+    }
+
+    .home-marker:after {
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -6px;
+        margin-bottom: -1px;
+        content: "";
+        width: 12px;
+        height: 5px;
+        background: #000;
+        opacity: 0.3;
+        -moz-border-radius: 100px / 50px;
+        -webkit-border-radius: 100px / 50px;
+        border-radius: 100px / 50px;
+    }
+
+    .dealer-page .home-marker:after {
+        margin-left: -8px;
+        margin-bottom: -3px;
+        width: 16px;
+        height: 7px;
+        opacity: 0.3;
+    }
+
+    .loc-marker {
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+        background: DodgerBlue;
+        border: 1px solid #fff;
+        color: #fff;
+        font-family: 'sourcesanspro';
+        font-size: 16px;
+        font-weight: 600;
+        padding: 2px .25em;
+        min-width: 30px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .loc-marker:hover, .loc-marker:focus {
+        background: #fff;
+        color: DodgerBlue;
+        z-index: 3;
+    }
+
+    .loc-marker:hover:after, .loc-marker:focus:after {
+        border-top-color: #fff;
+    }
+
+    .loc-marker span:after {
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -10px;
+        margin-bottom: -7px;
+        content: "";
+        width: 20px;
+        background: #000;
+        opacity: 0.45;
+        -moz-border-radius: 100px / 50px;
+        -webkit-border-radius: 100px / 50px;
+        border-radius: 100px / 50px;
+        -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 1);
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 1);
+    }
+
+    .loc-marker:after, .loc-marker:before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .loc-marker:after {
+        border-color: rgba(126, 213, 94, 0);
+        border-top-color: DodgerBlue;
+        border-width: 5px;
+        margin-left: -5px;
+    }
+    /* Dealer Deetz Window */
+    .dealer-win {
+        display: block;
+        background: #fff;
+        text-align: left;
+        font-family: 'sourcesanspro';
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 1.4em;
+    }
+
+    .dealer-win .dealer-deetz {
+        display: block;
+        float: left;
+        width: 230px;
+        padding: .5em;
+    }
+
+    .dealer-win .dealer-deetz .dealer-name {
+        font-weight: 700;
+        line-height: 1.4em;
+        margin-bottom: .25em;
+    }
+
+    .dealer-win .dealer-deetz .dealer-addy {
+        font-size: 0.875em;
+        line-height: 1.5em;
+    }
+    /* Hours Tooltip */
+    .dealer-win .dealer-hours {
+        display: none;
+    }
+
+    .dealer-win .dealer-hours-map > div * {
+        font-size: 12px !important;
+        line-height: 1.2em !important;
+    }
+
+    .dealer-win .dealer-hours-map > div p {
+        margin-bottom: .5em !important;
+    }
+
+    .dealer-win .dealer-deetz .dealer-links {
+        width: 100%;
+        margin-top: .5em;
+    }
+
+    .dealer-win .dealer-deetz .dealer-distance {
+        font-size: 0.875em;
+        line-height: 1.75em;
+        opacity: 0.7;
+        float: right;
+    }
+
+    .dealer-win .dealer-deetz .dealer-directions,
+    .dealer-win .dealer-deetz .dealer-www {
+        margin-right: 1em;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .dealer-locator {
+        .dealer-search .dealer-search-name h4 {
+            margin-top: 0;
+        }
+
+        .dealer-search button.dealer-search {
+            width: 100%;
+        }
+
+        .dealer-search button.dealer-search i:before,
+        .dealer-search button.dealer-search span {
+            margin-right: .5em;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .dealer-locator {
+        .dealer-search label {
+            cursor: default;
+        }
+
+        .dealer-search .dealer-search-loc {
+            width: 55%;
+        }
+
+        .dealer-search .dealer-search-name {
+            width: 45%;
+            float: left !important;
+        }
+
+        .dealer-search .dealer-search-name input {
+            width: 70%;
+            display: inline-block;
+            float: left;
+        }
+
+        .dealer-search button.dealer-search {
+            display: inline-block;
+            float: left;
+            margin-bottom: 0;
+            margin-left: .5em;
+            padding: 0.45em 1em;
+        }
+
+        .dealer-search button.dealer-search span {
+            display: none;
+        }
+
+        .dealer-search input {
+            height: 2.5em;
+        }
+    }
+}
+
+@media all and (min-width: 920px) {
+    .dealer-locator {
+        .dealer-loc-results .results-count .distance-unit {
+            padding-right: 1em;
+        }
+
+        .dealer-search .dealer-search-loc {
+            width: 45%;
+        }
+    }
+}
+
+@media all and (min-width: 480px) {
+    .dealer-locator {
+        .dealer-hours .f-dropdown .tt-wrap {
+            max-width: 350px !important;
+        }
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .dealer-locator {
+        .dealer-hours .f-dropdown .tt-wrap {
+            max-width: 245px !important;
+        }
+    }
+}
+
+/* Large Screen */
+@media all and (min-width: 1024px) {
+    .dealer-locator {
+        .dealer-loc-map {
+            width: 68%;
+            float: right;
+            height: 642px;
+        }
+
+        .dealer-loc-results {
+            width: 32%;
+            float: left;
+        }
+
+        .dealer-loc-results .sl-list {
+            position: relative;
+            max-height: 607px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            margin-top: 20px;
+            top: -20px;
+        }
+
+        .dealer-loc-results .sl-list.paging {
+            max-height: 549px;
+        }
+
+        .dealer-loc-results .dealer-deetz {
+            padding-right: 1em;
+            padding-left: 2em;
+        }
+
+        .dealer-loc-results .results-paging {
+            border-top: 1px solid #ddd;
+        }
+
+        .dealer-loc-results .results-count {
+            height: 35px;
+            line-height: 30px;
+        }
+
+        .dealer-deetz .dealer-hours,
+        .dealer-deetz .dealer-directions,
+        .dealer-deetz .dealer-www {
+            font-size: 0.875em;
+            line-height: 1.75em;
+        }
+    }
+}

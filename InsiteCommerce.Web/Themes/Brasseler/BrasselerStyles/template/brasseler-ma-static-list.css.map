@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGY,qDAAc;EACV,KAAK,EAAE,IAAI;;;AAOvB,2BAAY;EACR,SAAS,EAAE,KAAK;;;AAIpB,2BAAY;EACR,SAAS,EAAE,KAAK",
+"sources": ["brasseler-ma-static-list.scss"],
+"names": [],
+"file": "brasseler-ma-static-list.css"
+}

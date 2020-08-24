@@ -1,0 +1,12 @@
+﻿{% comment %}
+    usage example:
+    <isc-product-name product="productDto" no-link="true"></isc-product-name>
+{% endcomment %}
+<div id="tst_productName_productId_{{::product.id}}">
+    <div ng-if="!noLink" class="item-name"><a ng-href="{{product.productUri}}" ng-bind="product.shortDescription"></a></div>
+    <div class="item-num">
+        <span class="item-num-sku" ng-bind="product.erpNumber"></span>
+        <span class="item-num-mfg" ng-if="product.manufacturerItem">[% translate 'MFG #' %]: <span ng-bind="product.manufacturerItem"></span></span>
+        <span class="item-num-my" ng-if="product.customerName">[% translate 'My Part #' %]: <span ng-bind="product.customerName"></span></span>
+    </div>
+</div>

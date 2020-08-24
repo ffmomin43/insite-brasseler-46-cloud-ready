@@ -1,0 +1,96 @@
+﻿<div ng-controller="MyListsController as vm" ng-cloak ng-init="vm.myListDetailUrl='[% urlForPage 'MyListDetailPage' %]';">
+    <div class="row list-top-actions" ng-if="vm.listSettings.allowMultipleWishLists">
+        <div class="medium-6 columns"></div>
+        <div class="medium-6 columns list-top-actions-sort">
+            <input type="text" class="list-search-filter" ng-model="vm.filter" ng-model-options="{ debounce: 500 }" ng-change="vm.getWishLists(true, true)"
+                   placeholder="[% translate 'Search lists by name' EscapeSingleQuotes %]"/>
+            <span ng-show="vm.wishListCount > 0">
+                <span class="sort-label">[% translate 'Sort By' %]</span>
+                <select ng-model="vm.sort" ng-change="vm.changeSortBy()">
+                    <option value="ModifiedOn DESC">[% translate 'Last Updated' %]</option>
+                    <option value="Name ASC">[% translate 'List Name: A-Z' %]</option>
+                    <option value="Name DESC">[% translate 'List Name: Z-A' %]</option>
+                </select>
+            </span>
+            <button class="btn primary" ng-click="vm.openCreatePopup()" data-test-selector="tst_myListsPage_createList">[% translate 'Create List' %]</button>
+        </div>
+    </div>
+    <div ng-if="vm.wishListCount > 0">
+        <div class="cm">[% zone 'TopContent' %]</div>
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getWishLists()"></isc-pager>
+        <ul class="item-list">
+            <li ng-repeat="wishList in vm.wishListCollection" class="row item-block" data-test-selector="tst_myListsPage_list_{{$index}}">
+                <div class="medium-6 columns item-details">
+                    <div class="description-block">
+                        <div class="item-name">
+                            <a id="tst_wishListView_link_{{wishList.id}}" ng-href="{{::vm.myListDetailUrl}}?id={{::wishList.id}}" ng-bind="wishList.name"></a>
+                        </div>
+                        <div ng-if="wishList.description" class="item-desc">
+                            <span ng-bind="wishList.description"></span>
+                        </div>
+                        <div ng-if="wishList.updatedOn || wishList.updatedByDisplayName" class="item-updated">
+                            <span ng-if="wishList.updatedOn">[% translate 'Updated' %]</span>
+                            <span ng-bind="wishList.updatedOn | date:'M/d/yyyy'" data-test-selector="tst_myListPage_updatedOnDate"></span>
+                            <span ng-if="wishList.updatedByDisplayName">[% translate 'by' %]</span>
+                            <span ng-bind="wishList.updatedByDisplayName" data-test-selector="tst_myListPage_updatedByUsername"></span>
+                        </div>
+                    </div>
+                    <div class="images-block">
+                        <div class="item-images">
+                            <a ng-repeat="line in wishList.wishListLineCollection | limitTo: 3" ng-href="{{line.productUri}}" title="{{line.shortDescription}}">
+                                <img ng-src="{{line.smallImagePath}}" alt="{{line.altText}}" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="medium-3 columns item-shared">
+                    <isc-shared-list list="wishList" session="vm.session" list-settings="vm.listSettings"></isc-shared-list>
+                </div>
+                <div class="medium-3 columns item-controls">
+                    <div>
+                        <button class="btn primary btn-add-cart" ng-click="vm.addAllToCart(wishList)" ng-disabled="!wishList.canAddToCart || !wishList.wishListLinesCount > 0 || vm.inProgress">[% translate 'Add List To Cart' %]</button>
+                    </div>
+                    <div>
+                        <a ng-show="vm.listSettings.allowEditingOfWishLists && !wishList.isSharedList" ng-click="vm.openDeletePopup(wishList)">[% translate 'Delete List' %]</a>
+                        <a id="tst_wishListView_leaveLink_{{wishList.id}}" ng-show="vm.listSettings.allowEditingOfWishLists && wishList.isSharedList && !vm.isSharedByCustomer(wishList)" href="javascript:void(0);" data-reveal-id="popup-leave-list" ng-click="vm.setWishList(wishList)">[% translate 'Leave List' %]</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" bottom="true" update-data="vm.getWishLists()"></isc-pager>
+    </div>
+    <div class="search-no-results" ng-if="vm.wishListCount === 0">
+        <h3>[% siteMessage 'Lists_NoListsFound' %]</h3>
+    </div>
+    <div>
+        <isc-leave-list-popup close-modal="vm.closeModal(selector)" leave-list="vm.leaveList(url)"></isc-leave-list-popup>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/List-SharedList">
+    [% partialView 'List-SharedList' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-DeleteListPopup">
+    [% partialView 'List-DeleteListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-CreateListPopup">
+    [% partialView 'List-CreateListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ShareListPopup">
+    [% partialView 'List-ShareListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ShareDetailsPopup">
+    [% partialView 'List-ShareDetailsPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-LeaveListPopup">
+    [% partialView 'List-LeaveListPopup' %]
+</script>
+
+<script type="text/ng-template" id="/PartialViews/List-ManageSharingPopup">
+    [% partialView 'List-ManageSharingPopup' %]
+</script>

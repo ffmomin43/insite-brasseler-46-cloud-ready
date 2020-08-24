@@ -1,0 +1,18 @@
+﻿<div>
+    <a id="tst_productDetail_imageZoom" href="javascript:;" class="pd-item-link" data-reveal-id="imgZoom">
+        <img ng-if="vm.selectedImage.imageType === 'Static'" id="{{vm.mainPrefix}}ProductImage" class="tst_productDetailPage_mainImage" ng-src="{{vm.selectedImage.mediumImagePath}}" alt="{{vm.selectedImage.altText}}">
+        <div ng-if="vm.imageProvider === 'SIRV' && vm.selectedImage.imageType === '360'" class="Sirv sirv-image" data-src="{{vm.selectedImage.mediumImagePath}}"></div>
+    </a>
+    <isc-product-image-carousel product-images="vm.product.productImages" selected-image="vm.selectedImage" prefix="main" max-tries="2000" get-carousel-width="vm.getMainImageWidth()" image-provider="{{::vm.imageProvider}}"></isc-product-image-carousel>
+    <div id="imgZoom" class="product-detail reveal-modal modal-zoom" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <img ng-if="vm.selectedImage.imageType === 'Static'" id="{{vm.zoomPrefix}}ProductImage" class="tst_productDetailPage_zoomImage imgZoom" ng-src="{{vm.selectedImage.largeImagePath ? vm.selectedImage.largeImagePath : vm.selectedImage.mediumImagePath}}" alt="{{vm.selectedImage.altText}}">
+            <div ng-if="vm.imageProvider === 'SIRV' && vm.selectedImage.imageType === '360'" class="Sirv sirv-image" data-src="{{vm.selectedImage.mediumImagePath}}"></div>
+            <div class="zoom-carousel-wrapper">
+                <isc-product-image-carousel ng-if="vm.showCarouselOnZoomModal" product-images="vm.product.productImages" selected-image="vm.selectedImage" prefix="zoom"
+                                            max-tries="2000" get-carousel-width="vm.getZoomImageWidth()" image-provider="{{::vm.imageProvider}}"></isc-product-image-carousel>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

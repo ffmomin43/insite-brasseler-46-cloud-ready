@@ -1,0 +1,33 @@
+﻿<div id="popup-share-details" class="reveal-modal popup-share-details" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <h2>[% translate 'Share Details' %]</h2>
+        <div class="pop-content">
+            <div>
+                <div class="row">
+                    <div>
+                        <p>
+                            <span class="row-title">[% translate 'List Owner' %]:</span>
+                            <span ng-bind="vm.list.sharedByDisplayName"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.list.sharedUsers && vm.list.sharedUsers.length > 0">
+                    <div>
+                        <span class="row-title">[% translate 'Shared with' %]:</span>
+                    </div>
+                    <div class="shared-users-list">
+                        <div ng-repeat="user in vm.list.sharedUsers" ng-bind="user.displayName"></div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.isSharedByCustomer()">
+                    <p>[% translate 'Shared with all users on billing account.' %]</p>
+                </div>
+                <div class="row btns">
+                    <button id="tst_shareDetailsPopup_leaveList_btn" data-reveal-id="popup-leave-list" ng-click="vm.broadcastList()" ng-if="vm.leaveListIsAllowed()" class="btn tertiary" type="button">[% translate 'Leave List' %]</button>
+                    <button ng-click="vm.closeModal()" class="btn primary btn-cancel" type="button">[% translate 'Close' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

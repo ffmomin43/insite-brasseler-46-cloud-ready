@@ -1,0 +1,300 @@
+﻿[% capture SignOutLink %]
+<a href="javascript:void(0)" class="btn secondary sign-out fastClick tst_header_signOutButton" ng-click="vm.signOut('[[Model.Drop.SignOutReturnUrl]]')">
+    <span>[[Model.Drop.SignOutText]]</span>
+</a>
+[% endcapture %]
+
+<script type="text/javascript">
+    var insite = insite || {};
+    insite.navAdjustments = [];
+</script>
+
+<div ng-controller="TopNavController as vm" class="top-nav-container" ng-cloak dashboard-url="[% urlForPage 'MyAccountPage' %]">
+    <input type="hidden" id="tst_currentLanguage" value="{{::vm.session.language.id}}" />
+    <div ng-if="vm.session.hasRfqUpdates" ng-cloak>
+        <div class="head-msg">
+            <span>
+                [% translate 'You have new quote information.' %]
+                <a ng-href="{{::vm.dashboardUrl}}">[% translate 'View My Dashboard' %]</a>
+            </span>
+            <a class="close-msg isc-closemsg" ng-click="vm.closeQuoteInformation()">×</a>
+        </div>
+    </div>
+
+    <div class="top-content">
+        [% zone 'Top' %]
+    </div>
+
+    <div role="top-panel">
+        <div class="top-slide">
+            <div id="searchPanel">
+                <isc-product-search id="narrowSearch"></isc-product-search>
+            </div>
+            <div id="userPanel">
+                <form>
+                    <div class="row collapse" ng-show="::((vm.session.isAuthenticated || vm.session.rememberMe) && !vm.session.isGuest)">
+                        <div class="small-12 columns right">
+                            <div class="inf-cust">
+                                <span class="inf-label">[% translate 'Customer #' %]:</span>
+                                <span class="inf-value" id="tst_userNav_customerNumber" ng-bind="::vm.session.billTo.customerNumber.toString().length > 1 ? vm.session.billTo.customerNumber.toString().substring(1) : vm.session.billTo.customerNumber"></span>
+                            </div>
+                            <div class="inf-ship">
+                                <span class="inf-label">[% translate 'Ship To' %]:</span>
+                                <span class="inf-value">
+                                    <span id="tst_userNav_shipToCompanyName" ng-bind="::vm.session.shipTo.companyName"></span>
+                                    <span id="tst_userNav_shipToName" ng-cloak ng-if="::(vm.session.shipTo.lastName || vm.session.shipTo.firstName)">
+                                        {{::vm.session.shipTo.lastName}} {{::vm.session.shipTo.firstName}},
+                                    </span>
+                                    <span ng-bind="::vm.session.shipTo.fullAddress"></span>
+                                </span>
+                            </div>
+                            <a ng-if="::vm.session.displayChangeCustomerLink" href="[% urlForPage 'ChangeCustomerPage' %]" id="tst_header_changeCustomer" class="btn primary btn-change-custship">
+                                [% translate 'Change Customer/Ship To' %]
+                            </a>
+                        </div>
+                        <div class="small-12 medium-12 large-12 columns int-settings" ng-show="vm.languages.length > 1 || vm.currencies.length > 1">
+                            <button class="btn tertiary isettings">
+                                <span class="flag-ind" ng-if="vm.languages.length > 1 && vm.session.language && vm.session.language.imageFilePath">
+                                    <img ng-cloak ng-src="{{::vm.session.language.imageFilePath}}" alt="{{::vm.session.language.description}}" />
+                                </span>
+                                <span class="language-code" ng-if="vm.languages.length > 1 && vm.session.language && !vm.session.language.imageFilePath" ng-bind="::vm.session.language.languageCode"></span>
+                                <span class="currency-symbol" ng-if="vm.currencies.length > 1 && vm.session.currency" ng-bind="::vm.session.currency.currencySymbol"></span>
+                                <span>[% translate 'International Settings' %]</span>
+                            </button>
+                        </div>
+
+                        <div class="small-12 columns user-info">
+                            <div class="user-button">
+                                <i class="social foundicon-torso"></i>
+                                <span class="cust-name" ng-bind="::vm.session.userLabel"></span>
+                                <!-- <span class="user-role" ng-if="::vm.session.userRoles" ng-bind="::('(' + vm.session.userRoles + ')')"></span>-->
+                            </div>
+                            [[SignOutLink]]
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="isettingsPanel">
+                <form>
+                    <div class="row collapse">
+                        <div class="small-12 medium-6 large-6 columns isettings-multilang" ng-if="vm.languages.length > 1">
+                            <label>
+                                <img ng-cloak ng-if="::vm.session.language.imageFilePath" ng-src="{{::vm.session.language.imageFilePath}}" alt="{{::vm.session.language.description}}" />
+                                <span class="currency-symbol" ng-if="::!vm.session.language.imageFilePath" ng-bind="::vm.session.language.languageCode"></span>
+                            </label>
+                            <select id="currentLanguage"
+                                    ng-model="vm.session.language"
+                                    ng-options="language.description for language in vm.languages"
+                                    ng-change="vm.setLanguage()"></select>
+                        </div>
+                        <div class="small-12 medium-6 large-6 columns isettings-currency" ng-if="vm.currencies.length > 1">
+                            <label>
+                                <span class="currency-symbol" ng-if="::vm.session.currency" ng-bind="::vm.session.currency.currencySymbol"></span>
+                            </label>
+                            <select id="currentCurrency"
+                                    ng-model="vm.session.currency"
+                                    ng-options="currency.description for currency in vm.currencies"
+                                    ng-change="vm.setCurrency(null)"></select>
+                        </div>
+                        <div class="ui-lock small-12 columns right isettings-buttons">
+                            <button class="user-button btn secondary isettings-cancel">[% translate 'Cancel' %]</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <nav role="secondary-nav">
+        <div class="row">
+            <ul role="user-nav" id="tst_userNav">
+                <li role="sign-in" ng-cloak ng-show="::(vm.session && (!vm.session.isAuthenticated && !vm.session.rememberMe || vm.session.isGuest))">
+                    <a href="[% urlForPage 'SignInPage' %]" isc-redirect-to-sign-in return-to-url="true" class="btn sign-in fastClick tst_header_signInButton"><span>[% translate 'Sign In' %]</span></a>
+                </li>
+                <li role="user-options" ng-show="::((vm.session.isAuthenticated || vm.session.rememberMe) && !vm.session.isGuest)">
+                    <a href="#" class="user-button fastClick" id="tst_userNav_userName_button">
+                        <i ng-cloak class="social foundicon-torso"></i>
+                        <span class="cust-name" ng-bind="::vm.session.userLabel"></span>
+                    </a>
+                    <a class="ex fastClick">
+                        <i class="foundicon-remove"></i>
+                        <span class="cust-name" ng-bind="::vm.session.userLabel"></span>
+                    </a>
+                </li>
+                <li role="isettings-btn" ng-show="vm.languages.length > 1 || vm.currencies.length > 1">
+                    <button class="btn tertiary isettings fastClick">
+                        <span class="flag-ind" ng-if="vm.languages.length > 1 && vm.session.language && vm.session.language.imageFilePath">
+                            <img ng-cloak ng-src="{{::vm.session.language.imageFilePath}}" alt="{{::vm.session.language.description}}" />
+                        </span>
+                        <span class="language-code" ng-if="vm.languages.length > 1 && vm.session.language && !vm.session.language.imageFilePath" ng-bind="::vm.session.language.languageCode"></span>
+                        <span class="currency-symbol" ng-if="vm.currencies.length > 1 && vm.session.currency" ng-bind="::vm.session.currency.currencySymbol"></span>
+                    </button>
+                    <button class="ex fastClick"><i class="foundicon-remove"></i></button>
+                </li>
+                <li role="sign-out" id="tst_header_signOutButton" ng-cloak ng-show="::((vm.session.isAuthenticated || vm.session.rememberMe) && !vm.session.isGuest)">
+                    [[SignOutLink]]
+                </li>
+                <li role="currency" ng-if="vm.currencies.length > 1" id="tst_currencyMenu">
+                    <div class="sn-currency">
+                        <ul>
+                            <li class="has-sub">
+                                <a id="tst_header_currentCurrency" href="#">
+                                    <span class="currency-symbol" ng-bind="::vm.session.currency.currencySymbol"></span>
+                                    <span class="currency-label" ng-bind="::vm.session.currency.description"></span>
+                                </a>
+                                <ul>
+                                    <li ng-repeat="currency in vm.currencies" ng-class="{'currency-current': currency.id === vm.session.currency.id}">
+                                        <a href="" ng-click="vm.setCurrency(currency.id)" id="tst_currencyMenu_{{currency.id}}">
+                                            <span class="currency-symbol" ng-bind="::currency.currencySymbol"></span>
+                                            <span class="currency-label" ng-bind="::currency.description"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul role="search">
+                <li class="search-button">
+                    <a class="search fastClick" id="searchButton" href="#search"><i class="foundicon-search"></i><span>[% translate 'Search' %]</span></a>
+                    <a class="ex fastClick"><i class="foundicon-remove"></i></a>
+                </li>
+            </ul>
+            <ul ng-cloak class="top_rit" ng-if="vm.session.currency.currencyCode!='CAD'">
+                [% if [[Model.Drop.SignOutText]] != 'Cancel PunchOut' %]
+                <li style="margin: 7px 0px;"><a style="border-right: 1px solid;" href="http://brasselerusa.com/">Corporate</a></li>
+                <li style="margin: 7px 0px;"><a style="border-right: 1px solid;" href="http://brasselerusadental.com">Dental</a></li>
+                <li style="margin: 7px 0px;"><a style="border-right: 1px solid;" href="http://brasselerusamedical.com">Medical</a></li>
+                [% endif %]
+                <li style="margin: 7px 0px; border-top:1px solid; border-bottom:1px solid;"><a href="https://shop.brasselerusa.com">Shop</a></li>
+                <li role="multi-lang" ng-show="vm.languages.length > 1">
+                    <div class="sn-lang">
+                        <ul>
+                            <li class="has-sub">
+                                <a href="#">
+                                    <img ng-if="vm.session.language.imageFilePath" ng-src="{{vm.session.language.imageFilePath}}"
+                                         alt="{{vm.session.language.description}}" />
+                                    <span ng-bind="vm.session.language.description"></span>
+                                </a>
+                                <ul>
+                                    <li ng-repeat="language in vm.languages" ng-class="{'lang-current': language.id === vm.session.language.id}">
+                                        <a href="" ng-click="vm.setLanguage(language.id)">
+                                            <img ng-if="language.imageFilePath" ng-src="{{language.imageFilePath}}" alt="{{language.description}}" />
+                                            <span ng-bind="language.description"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <!--top bar links for canada-->
+            <ul ng-cloak class="top_rit" ng-if="vm.session.currency.currencyCode=='CAD'">
+                [% if [[Model.Drop.SignOutText]] != 'Cancel PunchOut' %]
+                <li style="margin: 7px 0px;"><a style="border-right: 1px solid;" href="https://brasselercanada.com/">[% translate 'Corporate' %]</a></li>
+                [% endif %]
+                <li style="margin: 7px 0px; border-top:1px solid; border-bottom:1px solid;"><a href="https://shop.brasseler.ca">[% translate 'Shop' %]</a></li>
+                <li role="multi-lang" ng-if="vm.languages.length > 1">
+                    <div class="sn-lang">
+                        <ul>
+                            <li class="has-sub">
+                                <a href="#">
+                                    <img ng-if="vm.session.language.imageFilePath" ng-src="{{vm.session.language.imageFilePath}}"
+                                         alt="{{vm.session.language.description}}" />
+                                    <span ng-bind="vm.session.language.description"></span>
+                                </a>
+                                <ul>
+                                    <li ng-repeat="language in vm.languages" ng-class="{'lang-current': language.id === vm.session.language.id}">
+                                        <a href="" ng-click="vm.setLanguage(language.id)">
+                                            <img ng-if="language.imageFilePath" ng-src="{{language.imageFilePath}}" alt="{{language.description}}" />
+                                            <span ng-bind="language.description"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<header id="header" role="masthead" class="use-fastclick sign-in cms-rearrangeable" ng-controller="HeaderController as vm">
+    <div class="head-row">
+        <div class="row logo-row small-12 columns">
+            <div class="clearfix">
+                <div class="header-zone lft">
+                    [% zone 'Left' %]
+                </div>
+                <div class="header-zone rt">
+                    [% zone 'Right' %]
+                </div>
+                <isc-product-search id="wideSearch"></isc-product-search>
+            </div>
+        </div>
+        <div class="isc-nav-bar">
+            <div class="isc-nav-wrap">
+                <label for="main-nav-check" class="toggle burger" onclick="insite.nav.activatePanel()" title="Menu">&#9776;</label>
+                [% if Model.Drop.DisplayCart -%]
+                <div class="cart-button">
+                    <a id="microCartLink" class="cart-link" href="[% urlForPage 'CartPage' %]"><span ng-bind="vm.cart.totalCountDisplay"></span></a>
+                </div>
+                [% endif -%]
+            </div>
+        </div>
+    </div>
+    <div class="ui-lock"></div>
+</header>
+<div class="ui-lock"></div>
+
+<div class="container menu-container">
+    <div id="wideNav">
+        <input type="checkbox" name="nav" id="main-nav-check" />
+        <!-- Remove the class 'prevent-li-below-window' to stop insite.nav.js from modifying position of sub ULs -->
+        <div class="isc-primary-nav prevent-li-below-window menu-list">
+            [% BrasselerNavigationMenu %]
+            <div class="isc-primary-nav-top">
+                <!-- To Do 3.7.1 - change navigation back function to use below label element -->
+                <label class="toggle isc-primary-nav-back isc-hidden" onclick="insite.nav.goBack()" title="Back">&#9668;</label>
+                <label class="toggle close-all" onclick="insite.nav.uncheckBoxes('nav')">&times;</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="header_productSearch">
+    <div class="search-container">
+        <form>
+            <div class="search-input">
+                <label for="criteria">[% translate 'Search' %]</label>
+
+                <input ng-model="vm.criteria" type="text" class="isc-searchAutoComplete tst_header_searchInput"
+                       ng-init="vm.autocompleteOptions.placeholder = '[% translate 'keyword or item #' EscapeSingleQuotes %]';
+                            vm.translations = [
+                                {key: 'category', text: '[% translate 'Categories' EscapeSingleQuotes %]'},
+                                {key: 'content', text: '[% translate 'Content' EscapeSingleQuotes %]'},
+                                {key: 'product', text: '[% translate 'Products' EscapeSingleQuotes %]'},
+                                {key: 'manufacturerItemNumber', text: '[% translate 'MFG #' EscapeSingleQuotes %]'},
+                                {key: 'partNumber', text: '[% translate 'Part #' EscapeSingleQuotes %]'},
+                                {key: 'customerPartNumber', text: '[% translate 'My Part #' EscapeSingleQuotes %]'},
+                                {key: 'UNSPSC', text: '[% translate 'UNSPSC #' EscapeSingleQuotes %]'}]"
+                       kendo-auto-complete
+                       k-options="vm.autocompleteOptions"
+                       isc-enter="vm.onEnter()"
+                       name="criteria"
+                       ng-blur="vm.startAutocomplete()"
+                       onfocus="$(this).data('kendoAutoComplete').search()">
+            </div>
+            <div class="search-history">
+                <div class="search-history-label"><span>[% translate 'Search History' %]</span></div>
+                <div class="clear-search-history"><a href="#" ng-click="vm.clearSearchHistory()">[% translate 'Clear Search History' %]</a></div>
+            </div>
+            <div class="search-button">
+                <button class="btn primary fastClick" ng-click="vm.search()">[% translate 'Go' %]</button>
+            </div>
+        </form>
+    </div>
+</script>

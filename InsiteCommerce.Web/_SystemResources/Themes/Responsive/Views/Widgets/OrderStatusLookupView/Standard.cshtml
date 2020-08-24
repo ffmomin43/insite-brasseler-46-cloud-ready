@@ -1,0 +1,34 @@
+﻿<div ng-controller="OrderStatusLookupController as vm" order-status-page-url="[% urlForPage 'OrderStatusPage' %]" ng-cloak>
+    <div class="row">
+        <div class="medium-6 large-6 columns">
+            <form novalidate name="vm.orderStatusLookupForm">
+                <div class="row">
+                    <div class="medium-6 large-6 columns">
+                        <label for="OrderStatusLookup_OrderNumber">[% translate 'Order Number' %]</label>
+                        <input type="text" id="OrderStatusLookup_OrderNumber" name="orderNumber"
+                               required
+                               ng-model="vm.orderNumber" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 large-6 columns">
+                        <label for="OrderStatusLookup_EmailOrPostalCode">[% translate 'Email Address or Postal Code' %]</label>
+                        <input type="text" id="OrderStatusLookup_EmailOrPostalCode" name="emailOrPostalCode"
+                               required
+                               ng-model="vm.emailOrPostalCode" />
+                    </div>
+                </div>
+                <p class="error">
+                    <span class="field-validation-error" id="tst_orderStatusLookupPage_orderNumberRequired" ng-if="vm.orderStatusLookupForm.$submitted && vm.orderStatusLookupForm.orderNumber.$error.required">[% siteMessage 'OrderStatusLookup_OrderNumberRequired' %]</span>
+                    <span class="field-validation-error" id="tst_orderStatusLookupPage_emailOrPostalCodeRequired" ng-if="vm.orderStatusLookupForm.$submitted && vm.orderStatusLookupForm.emailOrPostalCode.$error.required">[% siteMessage 'OrderStatusLookup_EmailOrPostalCodeRequired' %]</span>
+                    <span class="field-validation-error" id="tst_orderStatusLookupPage_orderStatusLookupError" ng-if="vm.orderStatusLookupError">{{vm.orderStatusLookupError}}</span>
+                </p>
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <button type="submit" class="btn primary" id="tst_orderStatusLookupPage_checkStatus" ng-click="vm.checkOrderStatus()">[% translate 'Check Your Order Status' %]</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

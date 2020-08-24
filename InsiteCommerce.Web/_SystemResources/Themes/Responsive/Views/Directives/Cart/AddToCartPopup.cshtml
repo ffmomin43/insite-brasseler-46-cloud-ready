@@ -1,0 +1,10 @@
+﻿<div id="tst_addToCartPopup" class="reveal-modal pop-allpurpose add-to-cart-popup" data-reveal data-reveal-init>
+    <div class="modal-wrap ">
+        <div ng-show="vm.productSettings.showAddToCartConfirmationDialog || vm.showAddToCartPopup">
+            <h4><span ng-bind="vm.isAddAll ? '[% translate 'Add All to Cart' EscapeSingleQuotes %]' : '[% translate 'Add to Cart' EscapeSingleQuotes %]'"></span></h4>
+            <span ng-bind="vm.isAddAll ? (vm.notAllAdded ? '[% siteMessage 'Lists_Items_Not_All_Added_To_Cart' EscapeSingleQuotes %]' : '[% siteMessage 'Cart_AllProductsAddedToCart' EscapeSingleQuotes %]') : '[% siteMessage 'Cart_ProductAddedToCart' EscapeSingleQuotes %]'"></span>
+        </div>
+        <div ng-show="vm.isQtyAdjusted"><b>[% siteMessage 'Cart_QuantityAdjusted' %]</b></div>
+        <a id="tst_addToCartPopup_close" class="close-reveal-modal">&#215;</a>
+    </div>
+</div>

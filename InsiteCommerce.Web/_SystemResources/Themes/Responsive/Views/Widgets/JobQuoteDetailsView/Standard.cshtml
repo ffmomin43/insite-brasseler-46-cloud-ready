@@ -1,0 +1,70 @@
+﻿<div ng-controller="JobQuoteDetailsController as vm" ng-cloak
+     checkout-address-url="[% urlForPage 'CheckoutAddressPage' %]">
+    <div ng-show="vm.job">
+        <div class="row">
+            <div class="large-5 columns col-details">
+                <h2>[% translate 'Job Number' %]: <span ng-bind="vm.job.orderNumber"></span></h2>
+                <h2>[% translate 'Name' %]: <span ng-bind="vm.job.jobName"></span></h2>
+                <h2>[% translate 'Expiration Date' %]: <span ng-bind="vm.job.expirationDate | date:'shortDate'"></span></h2>
+            </div>
+        </div>
+        <form id="jobQuoteDetails" novalidate>
+            <div class="overflow-table none">
+                <table class="info-tbl job-items">
+                    <tbody>
+                        <tr>
+                            <th class="col-desc">[% translate 'Description' %]</th>
+                            <th class="col-qty-job">[% translate 'Job Qty' %]</th>
+                            <th class="col-qty-sold">[% translate 'Purchased Qty' %]</th>
+                            <th class="col-qty-remaining">[% translate 'Qty Remaining' %]</th>
+                            <th ng-if="vm.job.isEditable" class="col-qty-order">[% translate 'Order Qty' %]</th>
+                        </tr>
+                        <tr ng-repeat="product in vm.job.jobQuoteLineCollection">
+                            <td class="col-desc">
+                                <isc-product-brand product="product"></isc-product-brand>
+                                <div class="item-name">
+                                    <a ng-href="{{product.productUri}}" ng-bind="product.shortDescription"></a>
+                                </div>
+                                <div class="item-num">
+                                    <span class="item-num-sku" ng-bind="product.erpNumber"></span>
+                                    <span ng-if="product.manufacturerItem" class="item-num-mfg">[% translate 'MFG #' %]: {{product.manufacturerItem}}</span>
+                                </div>
+                                <div class="availability">
+                                    <span ng-if="product.availability.messageType != '[[Model.AvailabilityMessage_NoMessage]]'"
+                                          ng-class="{'instock': product.availability.messageType == '[[Model.AvailabilityMessage_Available]]', 'lowstock': product.availability.messageType == '[[Model.AvailabilityMessage_LowStock]]', 'outstock': product.availability.messageType == '[[Model.AvailabilityMessage_OutOfStock]]'}"
+                                          class="instock"
+                                          ng-bind="product.availability.message"></span>
+                                </div>
+                                <div ng-if="product.pricing" class="pricing">
+                                    <span class="item-price" ng-bind="product.pricing.unitNetPriceDisplay"></span>
+                                    <span class="um displayUnitOfMeasure isc-uomDisplay" ng-bind="product.unitOfMeasureDescription || product.unitOfMeasureDisplay"></span>
+                                </div>
+                            </td>
+                            <td class="col-qty-job" ng-bind="product.qtyOrdered"></td>
+                            <td class="col-qty-sold" ng-bind="product.qtySold"></td>
+                            <td class="col-qty-remaining" ng-bind="vm.quantityRemaining(product)"></td>
+                            <td ng-if="vm.job.isEditable" class="col-qty-order">
+                                <input type="text"
+                                       id="qtyOrder_{{$index}}"
+                                       class="numerictextbox"
+                                       name="qtyOrder_{{$index}}"
+                                       ng-model="product.qtyRequested"
+                                       ng-disabled="vm.quantityRemaining(product) <= 0"
+                                       data-rule-max="{{vm.quantityRemaining(product)}}"
+                                       data-msg-max="[% translate 'Order quantity exceeds quantity remaining' %]" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="vm.job.isEditable" class="sub-amount">
+                <span>[% translate 'Sub-Total' %]:</span>
+                <span id="jobSubTotal" ng-bind="vm.orderTotal() | currency:vm.job.currencySymbol"></span>
+            </div>
+            <button ng-if="vm.job.isEditable" class="btn primary" ng-disabled="!vm.orderTotal() > 0" ng-click="vm.generateOrder()" type="submit" id="generateOrderBtn">[% translate 'Generate Order' %]</button>
+        </form>
+    </div>
+    <div ng-show="vm.validationMessage">
+        {{vm.validationMessage}}
+    </div>
+</div>

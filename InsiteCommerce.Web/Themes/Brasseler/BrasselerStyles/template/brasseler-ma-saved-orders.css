@@ -1,0 +1,5 @@
+.ma-saved-orders .overflow-table .info-tbl tr:nth-of-type(odd), .ma-smart-supply .overflow-table .info-tbl tr:nth-of-type(odd), .ma-invoice-history .overflow-table .info-tbl tr:nth-of-type(odd) {
+  background-color: #f9f9f9 !important;
+}
+
+/*# sourceMappingURL=brasseler-ma-saved-orders.css.map */

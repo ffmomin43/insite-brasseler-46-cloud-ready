@@ -1,0 +1,11 @@
+﻿@using System.Web.Optimization
+@model Insite.WishLists.Content.MyListDetailPage
+
+@Scripts.Render("/SystemResources/Scripts/Libraries/xlsx/0.8.0/xlsx.full.min.js")
+@Scripts.Render("/SystemResources/Scripts/Libraries/papaparse/4.1/papaparse.min.js")
+
+<div class="row main-row ma-my-list-details">
+    <div class="medium-12 large-12 columns">
+        @Html.Zone(Model, "Content")
+    </div>
+</div>

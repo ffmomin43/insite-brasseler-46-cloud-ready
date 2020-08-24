@@ -1,0 +1,63 @@
+﻿/*Wishlist ui*/
+
+.ma-my-lists, .ma-my-list-details {
+    .item-list, .list-info {
+        .item-details {
+            float: left;
+        }
+
+        .item-controls, .add-to-cart-block, .middle-btns {
+            .btn-add-cart {
+                background-color: #00359c;
+
+                &:hover {
+                    background-color: #a50031;
+                }
+            }
+        }
+    }
+
+    .list-title-wrapper{
+        .btns {
+            .btn-icon {
+                background-color: #fff !important;
+                color: #0035A2;
+                font-weight: 400;
+                margin-left: 15px;
+                padding: 11px 0;
+
+                .font-icon {
+                    margin-right: 7px;
+                }
+            }
+        }
+    }
+}
+
+.popup-delete-item, .popup-line-note, .popup-copy-list, .popup-share-list, .popup-delete-list, .popup-create-list {
+    .modal-wrap {
+        max-width: 500px;
+        .btns{
+            margin-top:0;
+        }
+    }
+}
+
+// Wishlist ui Mobile
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+    .ma-my-list-details {
+        .list-title-wrapper {
+            .btns {
+                display: inline;
+
+                .btn-icon:first-child{
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+    .popup-delete-item, .popup-line-note, .popup-copy-list, .popup-share-list, .popup-delete-list, .popup-create-list {
+        height: auto;
+    }
+}

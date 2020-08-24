@@ -1,0 +1,40 @@
+﻿<form id="addressForm" ng-controller="MyAccountAddressController as vm" ng-show="vm.countries">
+    <div class="bill-to">
+        <h3>[% translate 'Billing Information' %]</h3>
+        <div class="bill-to-form">
+            <div class="billing-info">
+                <div class="required-msg" style="height: 53px; margin: 0"><span class="redTxt">*</span>[% translate 'Required' %]</div>
+                <isc-address-edit prefix="bt" address="vm.billTo" countries="vm.countries" address-fields="vm.addressFields.billToAddressFields"
+                                  set-state-required-rule="vm.setStateRequiredRule('bt', vm.billTo)"></isc-address-edit>
+            </div>
+        </div>
+    </div>
+
+    <div class="ship-to">
+        <h3>[% translate 'Shipping Information' %]</h3>
+        <div class="ship-to-form">
+            <div class="shipping-info">
+                <div class="ship-select">
+                    <select id="shipTo" name="shipTo"
+                            ng-model="vm.shipTo"
+                            ng-options="shipTo.label for shipTo in vm.billTo.shipTos" ng-change="vm.checkSelectedShipTo()"></select>
+                </div>
+                <isc-address-edit prefix="st" address="vm.shipTo" countries="vm.countries" address-fields="vm.addressFields.shipToAddressFields"
+                                  is-read-only="vm.isReadOnly" set-state-required-rule="vm.setStateRequiredRule('st', vm.shipTo)"></isc-address-edit>
+            </div>
+        </div>
+    </div>
+
+    <div class="btns"><button type="button" id="tst_addressForm_save" class="btn primary btn-save" ng-click="vm.save()">[% translate 'Save' %]</button></div>
+</form>
+
+<isc-popup-template title="[% translate 'Address Saved'%]" container-id="saveSuccess">
+    [% translate 'Address Saved'%]
+</isc-popup-template>
+
+<script type="text/ng-template" id="/PartialViews/Account-AddressEdit">
+    [% partialView 'Account-AddressEdit' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Account-AddressField">
+    [% partialView 'Account-AddressField' %]
+</script>

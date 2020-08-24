@@ -1,0 +1,141 @@
+.outstanding-detail .btns {
+  padding-top: 0;
+}
+.outstanding-detail .order-details {
+  margin-top: 10px;
+  border: 1px solid #E1E1E1;
+}
+.outstanding-detail .order-details-top {
+  word-break: break-word;
+}
+.outstanding-detail .order-details-top .od-head .od-lbl-title {
+  width: 30%;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-detail .order-details-top .od-head .od-lbl-title {
+    width: 50%;
+  }
+}
+.outstanding-detail .order-details-top .od-head .od-data-cont {
+  font-weight: 700;
+  width: 60%;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-detail .order-details-top .od-head .od-data-cont {
+    width: 50%;
+  }
+}
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  .outstanding-detail .order-details-top .od-head .od-lbl {
+    width: 60%;
+  }
+}
+.outstanding-detail .order-details-top .bill-info, .outstanding-detail .order-details-top .ship-info {
+  margin-top: 20px;
+}
+.outstanding-detail .order-subtotal .invoice-bal {
+  color: #feac2c;
+}
+.outstanding-detail .subtotal-btns #orderDetailViewReturnRequestButton {
+  background-color: #00359C !important;
+  margin-bottom: 10px;
+}
+.outstanding-detail .subtotal-btns #orderDetailViewReturnRequestButton:disabled {
+  background-color: #f1f1f1 !important;
+  -webkit-box-shadow: inset 0 0 10px 0 #dedede !important;
+  box-shadow: inset 0 0 10px 0 #dedede !important;
+}
+.outstanding-detail .subtotal-btns .payment-history {
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  color: #00359c;
+}
+.outstanding-detail .heading-block {
+  padding: 15px 20px;
+  background: #f6f6f6;
+  border-bottom: 1px solid #e1e1e1;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-detail .heading-block {
+    font-size: 12px;
+    padding: 15px;
+  }
+}
+.outstanding-detail .heading-block .order-head {
+  margin-bottom: 0;
+}
+.outstanding-detail .heading-block .view {
+  float: right;
+  color: slategray;
+  font-weight: 700;
+}
+.outstanding-detail .heading-block .make-payment {
+  margin-bottom: 0 !important;
+  text-align: right !important;
+  padding: 5px 0;
+  float: right;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: slategray;
+}
+.outstanding-detail .heading-block .make-payment:before {
+  content: "\e600";
+  font-family: 'good-oatmeal-v2';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: auto;
+  height: auto;
+  line-height: inherit;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0 0;
+  background-repeat: repeat;
+  font-size: 1em;
+  padding-right: 0.5em;
+}
+.outstanding-detail .payment-history-block {
+  border: 1px solid #E0E0E0;
+  margin-top: 30px;
+}
+.outstanding-detail .payment-history-block .main-block {
+  padding: 10px 20px;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-detail .payment-history-block .main-block {
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+}
+.outstanding-detail .payment-history-block .main-block .head-block {
+  border-bottom: 1px solid slategray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.outstanding-detail .payment-history-block .main-block .head-block .payment-label {
+  color: slategray;
+  margin: 0;
+}
+.outstanding-detail .payment-history-block .main-block .amt {
+  text-align: right;
+  float: right;
+}
+.outstanding-detail .payment-history-block .main-block .invoice-data {
+  line-height: 18px;
+}
+.outstanding-detail .payment-history-block .detail-msg {
+  padding: 5px 20px 10px;
+}
+
+/*# sourceMappingURL=brasseler-outstanding-invoice-detail.css.map */

@@ -1,0 +1,51 @@
+.ma-assign-edit-shipto {
+    .tbl-assign-shipto .col-shipto > div {
+        display: inline-block;
+        margin-right: 1em;
+    }
+
+    .tbl-assign-shipto .col-shipto .ship-num {
+        min-width: 20px;
+    }
+
+    .tbl-assign-shipto .col-shipto select {
+        max-width: 200px;
+        margin-bottom: 0;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-assign-edit-shipto {
+        .tbl-assign-shipto .col-default input {
+            margin-left: 1em;
+        }
+
+        .tbl-assign-shipto .col-shipto {
+            min-width: 270px;
+        }
+
+        .btns .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-assign-edit-shipto {
+        .results-count {
+            display: inline-block;
+        }
+
+        .btns {
+            display: inline-block;
+            float: right;
+            margin-bottom: 1em;
+        }
+
+        .btns .btn {
+            float: right;
+            margin-left: 1em;
+        }
+    }
+}

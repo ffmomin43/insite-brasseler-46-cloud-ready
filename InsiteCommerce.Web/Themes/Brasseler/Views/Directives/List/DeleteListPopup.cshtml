@@ -1,0 +1,21 @@
+﻿<div id="popup-delete-list" class="reveal-modal popup-delete-list" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <h2>[% translate 'Delete List' %]</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div>
+                        <p>
+                            [% translate 'Are you sure you want to delete' %] <span ng-bind="vm.list.name" class="list-name"></span>?
+                        </p>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <button ng-click="vm.closeModal()" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                    <button id="tst_deleteListPopup_deleteBtn" ng-click="vm.deleteList()" class="btn primary" type="button">[% translate 'Delete' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

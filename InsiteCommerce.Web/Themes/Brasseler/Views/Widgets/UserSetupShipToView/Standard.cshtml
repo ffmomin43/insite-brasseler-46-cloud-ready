@@ -1,0 +1,66 @@
+﻿<div ng-controller="UserShipToController as vm" ng-cloak>
+    <div class="medium-12 large-12 columns">
+        <div class="hide-for-small back-btn">
+            <a class="btn tertiary btn-return" ng-href="[% urlForPage 'UserSetupPage' %]?userId={{vm.userProfileId}}">[% translate 'Return to User Setup' %]</a>
+        </div>
+        <div class="error" ng-show="!vm.saveSuccess && vm.errorMessage" ng-cloak>
+            <span class="field-validation-error" ng-show="vm.errorMessage">{{vm.errorMessage}}</span>
+        </div>
+        <div class="messaging" ng-show="vm.saveSuccess" ng-cloak>
+            <span>[% translate 'User Created/Updated.' %]</span>
+        </div>
+        <form ng-submit="vm.saveShipToCollection()">
+            <div class="btns">
+                <button class="btn primary btn-save">[% translate 'Save' %]</button>
+                <a ng-href="[% urlForPage 'UserSetupPage' %]?userId={{vm.userProfileId}}" class="btn secondary btn-cancel">[% translate 'Cancel' %]</a>
+            </div>
+
+            <h3 class="results-count" ng-cloak><span class="result-num">{{vm.pagination.totalItemCount}}</span> <span class="result-lbl">records</span></h3>
+
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.search()"></isc-pager>
+
+            <div class="overflow-table none">
+            <table class="info-tbl tbl-assign-shipto">
+                <thead>
+                    <tr>
+                        <th class="col-shipto"><a ng-click="vm.sortBy('ShipTo')" ng-class="vm.getSortClass('ShipTo')" class="sort">[% translate 'Ship To #' %]</a></th>
+                        <th class="col-city"><a ng-click="vm.sortBy('City')" ng-class="vm.getSortClass('City')" class="sort">[% translate 'City' %]</a></th>
+                        <th class="col-state"><a ng-click="vm.sortBy('State')" ng-class="vm.getSortClass('State')" class="sort">[% translate 'State' %]</a></th>
+                        <th class="col-street"><a ng-click="vm.sortBy('Address')" ng-class="vm.getSortClass('Address')" class="sort">[% translate 'Street Address' %]</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="shipTo in vm.userShipToCollection">
+                        <td class="col-shipto">
+                            <div class="ship-num sto-sto" ng-cloak>{{shipTo.shipToNumber}}</div>
+                            <div class="assign-st sto-assign">
+                                <label class="input-lbl">
+                                    <input ng-bind-data-assign="shipTo.ShipToNumber" type="checkbox" ng-model="shipTo.assign" ng-disabled="shipTo.shipToNumber.length === 0" />
+                                    [% translate 'Assign' %]
+                                </label>
+                            </div>
+                            <div class="cost-code sto-dcc">
+                                <select ng-model="shipTo.costCode">
+                                    <option value="">[% translate 'Select Cost Code' %]</option>
+                                    <option ng-repeat="cc in vm.costCodeCollection" value="{{cc.costCode}}" ng-bind="cc.costCode"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="col-city" ng-cloak>{{shipTo.city}}</td>
+                        <td class="col-state" ng-cloak>{{shipTo.state}}</td>
+                        <td class="col-street" ng-cloak>{{shipTo.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <isc-pager pagination="vm.pagination" bottom="true" storage-key="vm.paginationStorageKey" update-data="vm.search()"></isc-pager>
+
+            <div class="btns">
+                <button class="btn primary btn-save">[% translate 'Save' %]</button>
+                <a ng-href="[% urlForPage 'UserSetupPage' %]?userId={{vm.userProfileId}}" class="btn secondary btn-cancel">[% translate 'Cancel' %]</a>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿<div ng-controller="EmailSubscriptionController as vm" class="widget-emailsubscription [[Model.CssClass]]" ng-cloak>
+    <form id="emailSubscriptionForm[[Model.ContentKey]]" action="[% urlFor '/Email/SubscribeToList' %]">
+        <label for="emailAddress[[Model.ContentKey]]">[[Model.Instructions]]</label>
+        <input type="text" class="subscribe-box" name="EmailAddress" id="emailAddress[[Model.ContentKey]]" placeholder="[[Model.PlaceHolderText]]"
+               data-val-required="[[Model.EmailIsRequiredErrorMessage]]" data-val="true"
+               data-rule-regex="{{'[% emailRegex %]'}}"
+               data-val-regex="[[Model.EmailIsInvalidErrorMessage]]" />
+        <button ng-show="!vm.submitted" class="btn primary btn-subscribe" type="submit" ng-click="vm.submit($event)">[% translate 'Subscribe' %]</button>
+        <span data-valmsg-replace="true" data-valmsg-for="EmailAddress"></span>
+        <span ng-show="vm.submitted" class="successMessage">[[Model.SuccessMessage]]</span>
+    </form>
+</div>

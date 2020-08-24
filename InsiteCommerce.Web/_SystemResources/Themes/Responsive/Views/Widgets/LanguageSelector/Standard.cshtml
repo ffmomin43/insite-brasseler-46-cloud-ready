@@ -1,0 +1,19 @@
+﻿<div ng-controller="LanguageController as vm" class="widget-language-selector [[Model.CssClass]]" ng-cloak>
+    <div ng-show="vm.languages.length > 1">
+        <div ng-click="vm.openLanguagesMenu($event)" class="sn-lang-selector">
+            <a href="#" class="lang-button">
+                <img ng-cloak ng-if="::vm.session.language.imageFilePath" ng-src="{{::vm.session.language.imageFilePath}}"
+                     alt="{{::vm.session.language.description}}"/>
+                <span ng-bind="::vm.session.language.description"></span>
+            </a>
+            <ul ng-if="vm.showLanguagesMenu" class="languages-menu">
+                <li ng-repeat="language in vm.languages" ng-class="{'lang-current': language.id === vm.session.language.id}">
+                    <a href="#" ng-click="vm.setLanguage(language.id)">
+                        <img ng-cloak ng-if="::language.imageFilePath" ng-src="{{::language.imageFilePath}}" alt="{{::language.description}}"/>
+                        <span ng-bind="::language.description"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

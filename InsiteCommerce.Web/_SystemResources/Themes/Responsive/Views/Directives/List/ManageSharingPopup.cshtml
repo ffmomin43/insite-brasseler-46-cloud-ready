@@ -1,0 +1,69 @@
+﻿<div id="popup-manage-sharing" class="reveal-modal popup-manage-sharing" data-reveal data-reveal-init>
+    <div class="modal-wrap" ng-if="!vm.privateSectionIsActive">
+        <h2>[% translate 'Manage Sharing' %]</h2>
+        <div class="pop-content">
+            <form>
+                <fieldset ng-disabled="vm.inProcess">
+                    <div>
+                        <div class="row">
+                            <div class="top-btns">
+                                <button id="tst_manageSharingPopup_inviteOthers" class="btn secondary" ng-if="!vm.isSharedByCustomer()" ng-click="vm.inviteOthers()" type="button">[% translate 'Invite Others' %]</button>
+                                <button id="tst_manageSharingPopup_openMakeListPrivate" class="btn secondary" type="button" ng-click="vm.openMakeListPrivatePopup()">[% translate 'Make List Private' %]</button>
+                            </div>
+                            <div class="list-options">
+                                <div class="list-question">[% translate 'Allow editing?' %]</div>
+                                <div class="list-option">
+                                    <input id="manage-edit-yes" name="manage-mode" ng-model="vm.allowEditList"
+                                           ng-click="vm.changeEditMode()" type="radio" value="true"/>
+                                    <label for="manage-edit-yes">[% translate 'Yes, allow editing.' %]</label>
+                                </div>
+                                <div class="list-option">
+                                    <input id="manage-edit-no" name="manage-mode" ng-model="vm.allowEditList"
+                                           ng-click="vm.changeEditMode()" type="radio" value="false"/>
+                                    <label for="manage-edit-no">[% translate 'No, the list can only be viewed.' %]</label>
+                                </div>
+                            </div>
+                            <div ng-if="vm.isSharedByCustomer()">
+                                <p>[% translate 'Shared with all users on billing account.' %]</p>
+                            </div>
+                            <div class="list-options" ng-if="vm.list.sharedUsers && vm.list.sharedUsers.length > 0">
+                                <div class="list-question">[% translate 'Shared with' %]:</div>
+                                <div class="list-option-container">
+                                    <div class="list-option" ng-repeat="(sharedUserIndex, sharedUser) in vm.list.sharedUsers">
+                                        <span ng-bind="sharedUser.displayName || sharedUser.id"></span>
+                                        <a id="tst_manageSharingPopup_removeShare_{{sharedUser.id}}" href="#" ng-click="vm.removeShareLine(sharedUser.id, sharedUserIndex)">[% translate 'Remove' %]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <button id="tst_manageSharingPopup_done" ng-click="vm.closeModal()" class="btn primary" type="button">[% translate 'Done' %]</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap" ng-if="vm.privateSectionIsActive">
+        <h2>[% translate 'Are you sure?' %]</h2>
+        <div class="pop-content">
+            <form>
+                <fieldset ng-disabled="vm.inProcess">
+                    <div>
+                        <div class="row">
+                            <div>
+                                <p>[% siteMessage 'Lists_Shared_Users_Will_No_Longer_Have_Access' %]</p>
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <button id="tst_manageSharingPopup_returnToManageSharing" ng-click="vm.returnToManageSharing()" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_manageSharingPopup_makeListPrivate" ng-click="vm.makeListPrivate()" class="btn primary" type="button">[% translate 'Make List Private' %]</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

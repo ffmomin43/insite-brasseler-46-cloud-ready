@@ -1,0 +1,25 @@
+﻿[% if Model.Drop.RootPageExists -%]
+<div class="widget-navlist [[Model.CssClass]]">
+    <h4>[[Model.Drop.RootPageTitle]]</h4>
+    <ul>
+        [% for childPage in Model.Drop.ChildPages -%]
+        <li>
+            <a href="[[childPage.Url]]" class="[[childPage.CssClass]] cms-navlist-navitem">[[childPage.Title]]</a>
+            [% if childPage.ChildPages %]
+            <ul>
+                [% for grandChildPage in childPage.ChildPages -%]
+                <li>
+                    <a href="[[grandChildPage.Url]]" class="[[grandChildPage.CssClass]]">[[grandChildPage.Title]]</a>
+                </li>
+                [% endfor %]
+            </ul>
+            [% endif %]
+        </li>
+        [% endfor -%]
+    </ul>
+</div>
+[% else -%]
+    [% if IsViewingMode == false -%]
+    <p>There was no page found for the content name '[[Model.RootPageName]]', edit this item to resolve the issue</p>
+    [% endif -%]
+[% endif -%]

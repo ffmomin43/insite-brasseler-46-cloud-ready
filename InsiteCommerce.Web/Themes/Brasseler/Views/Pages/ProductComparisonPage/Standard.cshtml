@@ -1,0 +1,14 @@
+﻿@model Insite.Catalog.Content.ProductComparisonPage
+@using Insite.WebFramework.Mvc.Extensions
+
+@{
+    ViewBag.Title = "CompareProducts";
+}
+
+<div class="row main-row  product-comparison" ng-cloak>
+    <div class="large-12 columns">
+        <div class="content">
+            @Html.Zone(Model, "Content")
+        </div>
+    </div>
+</div>

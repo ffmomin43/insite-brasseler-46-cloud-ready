@@ -1,0 +1,162 @@
+.ma-order-details .widget-breadcrumb.breadcrumbs, .ma-invoice-details .widget-breadcrumb.breadcrumbs {
+  margin: 0;
+}
+.ma-order-details .btns .btn-print, .ma-invoice-details .btns .btn-print {
+  background-color: #fff !important;
+  color: #0035A2;
+  font-weight: 400;
+  margin-left: 15px;
+  padding: 11px 0;
+}
+.ma-order-details .btns .btn-print .font-icon, .ma-invoice-details .btns .btn-print .font-icon {
+  margin-right: 5px;
+}
+.ma-order-details .order-details-top, .ma-invoice-details .order-details-top {
+  border: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.ma-order-details .order-details-top .od-head, .ma-invoice-details .order-details-top .od-head {
+  display: block;
+}
+.ma-order-details .order-details-top .od-head .od-data, .ma-invoice-details .order-details-top .od-head .od-data {
+  font-weight: 700;
+}
+.ma-order-details .order-details-top .od-head .od-lbl, .ma-invoice-details .order-details-top .od-head .od-lbl {
+  width: 50%;
+  padding-right: 0;
+}
+.ma-order-details .order-details-top .bill-info, .ma-order-details .order-details-top .ship-info, .ma-invoice-details .order-details-top .bill-info, .ma-invoice-details .order-details-top .ship-info {
+  margin-bottom: 0;
+}
+.ma-order-details .ship-track, .ma-invoice-details .ship-track {
+  margin-top: 15px;
+}
+.ma-order-details .order-subtotal, .ma-invoice-details .order-subtotal {
+  border: 1px solid #DCDCDC;
+  margin: 0;
+}
+.ma-order-details .order-subtotal .sub-label, .ma-order-details .order-subtotal .sub-amount, .ma-invoice-details .order-subtotal .sub-label, .ma-invoice-details .order-subtotal .sub-amount {
+  font-size: 14px;
+}
+.ma-order-details .order-subtotal .promo-applied .sub-amount, .ma-invoice-details .order-subtotal .promo-applied .sub-amount {
+  float: right;
+}
+.ma-order-details .subtotal-btns, .ma-invoice-details .subtotal-btns {
+  padding: 0 15px;
+}
+.ma-order-details .subtotal-btns .btn-reorder-all, .ma-invoice-details .subtotal-btns .btn-reorder-all {
+  float: right;
+  width: 100%;
+  background-color: #00359c !important;
+  margin-top: 15px;
+}
+.ma-order-details .subtotal-btns .btn-rma, .ma-invoice-details .subtotal-btns .btn-rma {
+  float: right;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.ma-order-details .subtotal-btns #orderDetailViewReturnRequestButton, .ma-invoice-details .subtotal-btns #orderDetailViewReturnRequestButton {
+  background-color: #555555 !important;
+}
+.ma-order-details .cart-items .item-block.checkout-item, .ma-invoice-details .cart-items .item-block.checkout-item {
+  border-bottom: 1px solid #e0e0e0;
+}
+.ma-order-details .cart-items .item-block.checkout-item:last-child, .ma-invoice-details .cart-items .item-block.checkout-item:last-child {
+  border-bottom: 0;
+}
+.ma-order-details .cart-items .item-block.checkout-item .order-detail-btns, .ma-invoice-details .cart-items .item-block.checkout-item .order-detail-btns {
+  float: right;
+  display: inline-flex;
+}
+.ma-order-details .cart-items .item-block.checkout-item .order-detail-btns .btn-reorder, .ma-invoice-details .cart-items .item-block.checkout-item .order-detail-btns .btn-reorder {
+  margin-left: 15px;
+}
+.ma-order-details .order-details, .ma-invoice-details .order-details {
+  margin: 35px 0 0 0;
+  border: 1px solid #E0E0E0;
+}
+.ma-order-details .order-details .checkout-item .item-details .item-opt .item-qty .hide-for-large-up, .ma-invoice-details .order-details .checkout-item .item-details .item-opt .item-qty .hide-for-large-up {
+  display: inherit !important;
+}
+.ma-order-details .order-details .checkout-item .item-details .item-name a, .ma-invoice-details .order-details .checkout-item .item-details .item-name a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.ma-order-details .order-details-top .od-head .od-lbl {
+  width: 48%;
+}
+
+@media print {
+  .ma-order-details .breadcrumbs, .ma-invoice-details .breadcrumbs {
+    display: none;
+  }
+  .ma-order-details h1, .ma-invoice-details h1 {
+    margin-top: 0;
+  }
+}
+.rma-popup .rma-view {
+  overflow-y: scroll;
+  height: 500px;
+}
+.rma-popup .rma-view label {
+  display: inline-block;
+}
+.rma-popup .rma-view .return-label-header {
+  text-align: right;
+  margin-right: 15px;
+}
+.rma-popup .rma-view .packing-slip-content h3 {
+  text-decoration: underline;
+}
+.rma-popup .rma-view .packing-slip-content .packing-slip {
+  text-align: center;
+}
+.rma-popup .rma-view .packing-slip-content .packing-block {
+  margin-bottom: 15px;
+}
+.rma-popup table {
+  width: 98%;
+  border: 0;
+}
+.rma-popup table img {
+  width: 100%;
+}
+.rma-popup .instructions-div .instructions-table table.small_text {
+  width: 100% !important;
+}
+.rma-popup .instructions-div table:nth-child(3) {
+  display: none;
+}
+.rma-popup .btns .btn-rma-print {
+  margin-right: 15px;
+}
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+  .ma-order-details .btns, .ma-invoice-details .btns {
+    display: flex;
+    margin-bottom: 11px;
+  }
+  .ma-order-details .btns .btn-print, .ma-invoice-details .btns .btn-print {
+    margin-left: 0;
+    padding: 0 15px;
+    width: auto;
+  }
+  .ma-order-details .order-details-top, .ma-invoice-details .order-details-top {
+    padding: 0 15px;
+  }
+  .ma-order-details .cart-items, .ma-invoice-details .cart-items {
+    border-bottom: 0 !important;
+  }
+  .ma-order-details .item-list .item-details .item-opt, .ma-invoice-details .item-list .item-details .item-opt {
+    margin-top: 8px;
+  }
+
+  .rma-popup .btns .btn-rma-print {
+    margin-right: 0;
+  }
+}
+
+/*# sourceMappingURL=brasseler-ma-order-details.css.map */

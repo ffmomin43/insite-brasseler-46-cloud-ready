@@ -1,0 +1,383 @@
+.outstanding-list .top-list {
+  background-color: #f9f9f9;
+  border: 1px solid #f1f1f1;
+  padding: 10px;
+  margin-bottom: 25px;
+}
+.outstanding-list .top-list .current-balance {
+  font-size: 24px;
+  color: #708090;
+  font-weight: 700;
+  padding-top: 5px;
+}
+.outstanding-list .top-list .current-text {
+  font-size: 14px;
+  color: #708090;
+  font-weight: 700;
+  padding-top: 5px;
+}
+.outstanding-list .top-list .btns {
+  padding: 10px 0;
+}
+.outstanding-list .top-list .btns .btn-acc-balance {
+  margin-bottom: 0;
+  margin-bottom: 0;
+  background-color: #00359c;
+  color: #ffffff;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-list .top-list .btns {
+    float: left;
+  }
+}
+.outstanding-list .top-list .negBal {
+  margin-top: 15px;
+  font-size: 14px;
+  line-height: 18px;
+}
+.outstanding-list .titles {
+  text-align: right;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-list .titles {
+    display: flex;
+  }
+}
+.outstanding-list .titles .applyCredit {
+  margin-right: 10px;
+}
+.outstanding-list .list-action-accord {
+  float: right;
+}
+.outstanding-list .accordion label.accord-head {
+  display: inline-block;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-list .accordion label.accord-head {
+    font-size: 13px;
+  }
+}
+.outstanding-list .accordion .content-block {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+.outstanding-list .accordion .content-block .panel-body {
+  height: auto;
+  overflow: visible;
+  visibility: visible;
+  margin-bottom: .125em;
+  padding: 1.25em;
+  border: 1px solid #d5d5d5;
+}
+.outstanding-list .accordion .content-block .panel-body .credit-title {
+  font-weight: 700;
+}
+.outstanding-list .collapse.in {
+  display: block;
+}
+.outstanding-list .collapse {
+  display: none;
+}
+.outstanding-list .collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition-property: height,visibility;
+  -o-transition-property: height,visibility;
+  transition-property: height,visibility;
+  -webkit-transition-duration: .35s;
+  -o-transition-duration: .35s;
+  transition-duration: .35s;
+  -webkit-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.outstanding-list .batch-actions {
+  max-width: 150px;
+}
+.outstanding-list .selectAll {
+  margin-left: 11px;
+  display: inline-block;
+}
+.outstanding-list .batchaction {
+  background: SlateGray;
+  border: 1px solid SlateGray;
+}
+.outstanding-list .batchaction:disabled {
+  border: none;
+}
+.outstanding-list .batchaction:hover, .outstanding-list .batchaction:focus {
+  opacity: 1;
+}
+.outstanding-list .search-orders .accord-head, .outstanding-list .search-orders .accord-content {
+  float: right;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-list .search-orders .accord-head, .outstanding-list .search-orders .accord-content {
+    float: left;
+    margin-bottom: 20px;
+  }
+}
+.outstanding-list .accord-content {
+  width: 100%;
+  margin-bottom: 20px !important;
+}
+.outstanding-list .accord-content .btns .btn-search {
+  margin-left: 15px;
+  margin-bottom: 0;
+}
+.outstanding-list .accord-content .btns .btn-clear {
+  margin-bottom: 0;
+}
+.outstanding-list .accord-content .search-date .datepicker.picker__input {
+  width: 120px;
+}
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  .outstanding-list .accord-content .search-date .datepicker.picker__input {
+    width: 55px;
+  }
+}
+.outstanding-list .accord-content .apply-pay {
+  width: auto !important;
+  margin-bottom: 15px;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody .tooltip {
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+  left: 0;
+  padding: 0;
+}
+@media screen and (max-width: 767px) {
+  .outstanding-list .outstanding-list-table .info-tbl tbody .tooltip {
+    z-index: 1;
+  }
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody .tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100%;
+  background-color: #708090;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 130%;
+  left: -15px;
+  margin: auto;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody .tooltip .tooltiptext:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 40%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #708090 transparent transparent transparent;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody td.col-select {
+  text-align: center;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody td.col-select input[type="checkbox"], .outstanding-list .outstanding-list-table .info-tbl tbody td.col-select input[type="radio"] {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody .disabledColor {
+  background-color: #f9f9f9 !important;
+}
+.outstanding-list .outstanding-list-table .info-tbl tbody .col-ship-to {
+  width: 20%;
+}
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  .outstanding-list .outstanding-list-table .info-tbl tbody tr th a {
+    padding-right: 15px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .outstanding-list .outstanding-list-table .info-tbl th, .outstanding-list .outstanding-list-table .info-tbl td {
+    font-size: 12px;
+  }
+}
+
+.payment-block {
+  display: inline-block;
+  width: 100%;
+}
+.payment-block .payment-content {
+  display: flex;
+}
+@media screen and (max-width: 767px) {
+  .payment-block .payment-content {
+    display: block;
+  }
+}
+.payment-block .payment-content .payment-amt, .payment-block .payment-content .notes {
+  width: 50%;
+}
+@media screen and (max-width: 767px) {
+  .payment-block .payment-content .payment-amt, .payment-block .payment-content .notes {
+    width: 100%;
+  }
+}
+.payment-block .payment-content .payment-amt {
+  padding-right: 30px;
+}
+@media screen and (max-width: 767px) {
+  .payment-block .payment-content .payment-amt {
+    padding-right: 0;
+  }
+}
+.payment-block .payment-content .payment-amt .title {
+  display: inline-block;
+  width: 60%;
+}
+.payment-block .payment-content .payment-amt .title .radio-select {
+  vertical-align: middle;
+  margin-right: 0;
+}
+.payment-block .payment-content .payment-amt .data {
+  display: inline-block;
+  float: right;
+  max-width: 35%;
+}
+.payment-block .payment-content .payment-amt .data .txt-amt {
+  text-align: right;
+}
+@media screen and (max-width: 767px) {
+  .payment-block .payment-content .payment-amt .data .txt-amt {
+    max-width: 95px;
+  }
+}
+.payment-block .payment-content .payment-amt .data input[type='number'] {
+  -moz-appearance: textfield;
+}
+.payment-block .payment-content .payment-amt .data input::-webkit-outer-spin-button,
+.payment-block .payment-content .payment-amt .data input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.payment-block .payment-content .payment-amt .other-amt-input .error {
+  word-break: break-word;
+  width: 100%;
+  max-width: 145px;
+}
+@media screen and (max-width: 767px) {
+  .payment-block .payment-content .payment-amt .other-amt-input .error {
+    max-width: 95px;
+  }
+}
+.payment-block .payment-content .payment-amt .payment-other-amt {
+  margin-top: 10px;
+}
+.payment-block .payment-content .notes .notes-text {
+  min-height: 72px;
+  margin-bottom: 27px;
+}
+.payment-block .payment-content .apply-pay {
+  width: 65% !important;
+}
+@media (min-width: 320px) and (max-width: 1024px) {
+  .payment-block .payment-content .apply-pay {
+    width: 100% !important;
+  }
+}
+.payment-block .payment-content .apply-pay .invoice-bal {
+  margin-top: 5px;
+}
+.payment-block .payment-content .apply-pay .invoice-bal .title {
+  width: 75% !important;
+}
+.payment-block .payment-content .apply-pay .other-amt-block {
+  display: flex;
+}
+.payment-block .payment-content .apply-pay .other-amt-block .other-title {
+  width: 75% !important;
+  padding: 8px 0;
+}
+.payment-block .payment-content .apply-pay .other-amt-block input[type='number'] {
+  -moz-appearance: textfield;
+  text-align: right;
+}
+.payment-block .payment-content .apply-pay .other-amt-block input::-webkit-outer-spin-button,
+.payment-block .payment-content .apply-pay .other-amt-block input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.OutstandingInvoicesPaymentPopUp {
+  margin-top: 10px;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap {
+  overflow-y: scroll;
+  max-height: 520px;
+  padding: 12px 16px 17px;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .exp-month, .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .security-code, .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .card-type, .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .card-num {
+  padding: 0;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details h2 {
+  margin-top: 0;
+}
+@media screen and (max-width: 767px) {
+  .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .card-name, .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .exp-year {
+    padding: 0;
+  }
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .exp-date {
+  display: inline-block;
+}
+@media screen and (max-width: 767px) {
+  .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .exp-date {
+    display: block;
+  }
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .exp-date .exp-year {
+  padding-top: 25px;
+}
+@media screen and (max-width: 767px) {
+  .OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .exp-date .exp-year {
+    padding-top: 0;
+  }
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .row:after {
+  clear: none;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .payment-details .error {
+  margin-top: 5px;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .popup-btn {
+  float: right;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .popup-btn .cancel-btn {
+  position: relative !important;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1em;
+  padding: .7em 1.2em;
+  color: #fff;
+  top: 0;
+  right: 0;
+  height: inherit;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .popup-btn .btn-make-payment {
+  margin-left: 10px;
+  background: #00359c;
+  margin-bottom: 0;
+}
+.OutstandingInvoicesPaymentPopUp .modal-wrap .popup-btn .btn-make-payment:hover {
+  color: #ffffff;
+}
+
+.outstanding {
+  border: 1px solid red;
+}
+
+/*# sourceMappingURL=brasseler-outstanding-invoice-list.css.map */

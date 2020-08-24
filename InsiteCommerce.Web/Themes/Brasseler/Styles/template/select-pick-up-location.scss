@@ -1,0 +1,444 @@
+﻿.select-pick-up-location-popup {
+    height: 100%;
+    overflow-y: auto;
+
+    .warehouses-map-container {
+        & > div {
+            padding: 0;
+        }
+    }
+
+    .locations-container {
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+
+        .warehouse-item {
+            padding-left: 0;
+        }
+
+        .search-container {
+            input {
+                width: 85%;
+                display: inline-block;
+                height: 2.5em;
+            }
+
+            button.location-search {
+                margin-left: .5em;
+                padding: 0 0.75em 0 0;
+                color: #555555;
+                background: none;
+
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .selected-warehouse-block {
+        .selected-location-title {
+            display: none;
+        }
+
+        & > div {
+            font-size: 0.875em;
+            line-height: 1.5em;
+        }
+    }
+
+    .warehouse-location-results {
+        float: left;
+        padding-top: 8px;
+
+        .results-count {
+            height: 35px;
+            line-height: 30px;
+            float: left;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+
+            .result-count {
+                float: left;
+                display: inline-block;
+                margin-left: 10px;
+
+                span {
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .distance-unit {
+            padding-right: 1em;
+            float: right;
+            text-align: right;
+            display: inline-block;
+
+            label {
+                float: left;
+                display: inline-block;
+                margin-left: 1.5em;
+            }
+
+            input {
+                margin-right: .25em;
+            }
+        }
+
+        .sl-list {
+            list-style-type: none;
+            margin: 20px 0 0 0;
+            float: left;
+            position: relative;
+            max-height: 607px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            top: -20px;
+
+            li {
+                position: relative;
+                float: left;
+                width: 100%;
+                margin: 1em 0 0 0;
+                padding-bottom: 1em;
+                border-bottom: 1px solid #ddd;
+
+                .result-num {
+                    position: absolute;
+                    top: 0;
+                    left: 10px;
+                    font-weight: 600;
+                    width: 2.5em;
+                    color: DodgerBlue;
+                }
+            }
+        }
+    }
+
+    .warehouse-item {
+        padding-right: 1em;
+        padding-left: 3em;
+        display: block;
+        float: left;
+        width: 100%;
+
+        .warehouse-select-block {
+            float: right;
+
+            button {
+                margin: 0;
+
+                &.tertiary {
+                    cursor: not-allowed;
+
+                    &:hover {
+                        color: #636363;
+                    }
+                }
+            }
+        }
+
+        .warehouse-name {
+            font-weight: 700;
+            line-height: 1.4em;
+            margin-bottom: .25em;
+        }
+
+        .warehouse-address {
+            font-size: 0.875em;
+            line-height: 1.5em;
+        }
+
+        .warehouse-links {
+            width: 100%;
+            margin-top: .5em;
+
+            .warehouse-distance {
+                font-size: 0.875em;
+                line-height: 1.75em;
+                opacity: 0.7;
+                float: right;
+            }
+
+            .warehouse-directions {
+                margin-right: 1em;
+            }
+
+            .warehouse-hours {
+                display: inline-block;
+                position: relative;
+                z-index: 3;
+                margin-right: 1em;
+            }
+        }
+    }
+
+    .pick-up-loc-map {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .paginator-34 * {
+        vertical-align: inherit;
+    }
+
+    .home-marker {
+        position: relative;
+        z-index: 1;
+        font-family: 'good-oatmeal-v2';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        font-size: 16px;
+        line-height: 1;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: inline-block;
+        width: auto;
+        height: auto;
+        line-height: inherit;
+        vertical-align: baseline;
+        background-image: none;
+        background-position: 0 0;
+        background-repeat: repeat;
+
+        &:before {
+            position: relative;
+            z-index: 1;
+            font-family: 'good-oatmeal-v2';
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: inherit;
+            content: "\e615";
+            font-size: 1.5em;
+            color: SlateGray;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 0 #fff;
+        }
+
+        &:after {
+            position: absolute;
+            z-index: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -6px;
+            margin-bottom: -1px;
+            content: "";
+            width: 12px;
+            height: 5px;
+            background: #000;
+            opacity: 0.3;
+            -moz-border-radius: 100px / 50px;
+            -webkit-border-radius: 100px / 50px;
+            border-radius: 100px / 50px;
+        }
+    }
+
+    .loc-marker {
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+        background: #F06101;
+        border: 1px solid #fff;
+        color: #fff;
+        font-family: 'sourcesanspro';
+        font-size: 16px;
+        font-weight: 600;
+        padding: 2px .25em;
+        min-width: 30px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+
+        &:hover, &:focus {
+            background: #fff !important;
+            color: #F06101;
+            z-index: 3;
+        }
+
+        &:hover:after, &:focus:after {
+            border-top-color: #fff !important;
+        }
+
+        span:after {
+            position: absolute;
+            z-index: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -10px;
+            margin-bottom: -7px;
+            content: "";
+            width: 20px;
+            background: #000;
+            opacity: 0.45;
+            -moz-border-radius: 100px / 50px;
+            -webkit-border-radius: 100px / 50px;
+            border-radius: 100px / 50px;
+            -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 1);
+            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 1);
+        }
+
+        &:after, &:before {
+            top: 100%;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: rgba(126, 213, 94, 0);
+            border-top-color: #F06101;
+            border-width: 5px;
+            margin-left: -5px;
+        }
+
+        &.selected {
+            background: DodgerBlue;
+            color: DodgerBlue;
+
+            &:hover, &:focus {
+                color: #fff;
+            }
+
+            &:after {
+                border-top-color: DodgerBlue;
+            }
+        }
+    }
+
+    .f-dropdown.content {
+        .tt-wrap {
+            white-space: pre-wrap;
+        }
+    }
+
+    .warehouse-details {
+        display: block;
+        background: #fff;
+        text-align: left;
+        font-family: 'sourcesanspro';
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 1.4em;
+
+        .warehouse-marker-item {
+            display: block;
+            float: left;
+            width: 230px;
+            padding: .5em;
+
+            .warehouse-hours-map {
+                h4 {
+                    margin-bottom: 0;
+                }
+
+                div {
+                    white-space: pre-wrap;
+                }
+            }
+
+            .warehouse-name {
+                font-weight: 700;
+                line-height: 1.4em;
+                margin-bottom: .25em;
+            }
+
+            .warehouse-address {
+                font-size: 0.875em;
+                line-height: 1.5em;
+            }
+
+            .warehouse-distance {
+                font-size: 0.875em;
+                line-height: 1.75em;
+                opacity: 0.7;
+                float: right;
+            }
+
+            .warehouse-directions {
+                margin-right: 1em;
+            }
+        }
+    }
+
+    .pager-wrapper {
+        margin-right: 10px;
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .select-pick-up-location-popup {
+        .pick-up-loc-map {
+            height: 642px;
+        }
+    }
+}
+
+@media all and (max-width: 768px) {
+    .select-pick-up-location-popup {
+        .selected-location-title {
+            display: none;
+        }
+
+        .selected-warehouse-block {
+            border: 1px solid #ddd;
+            padding: 0 10px 10px 10px;
+
+            .selected-location-title {
+                display: block;
+            }
+        }
+
+        .locations-container {
+            border: none;
+
+            .search-container {
+                input {
+                    width: 100%;
+                }
+
+                button.location-search {
+                    margin-left: 0;
+                    padding: 0.55em 1em;
+                    color: #ffffff;
+                    background-color: #555555;
+                    width: 100%;
+
+                    span {
+                        display: inline;
+                        width: 100%;
+                    }
+
+                    .foundicon-search {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .warehouses-map-container {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+}
+
+
+@media all and (max-width: 640px) {
+    .select-pick-up-location-popup {
+        .map-container {
+            padding: 0;
+        }
+    }
+}

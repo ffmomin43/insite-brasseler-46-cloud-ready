@@ -1,0 +1,283 @@
+.quick-order-2 {
+    h1 {
+        float: left;
+    }
+
+    .page-top-link {
+        float: right;
+        font-weight: bold;
+    }
+
+    #errorMessage {
+        display: inline-block;
+        width: 100%;
+        float: left;
+        max-width: 350px;
+        padding: 0.25em 1em;
+        font-size: 0.9em;
+        line-height: 1.5em;
+        font-weight: 600;
+        margin-top: -1px;
+        margin-bottom: 1rem;
+        font-style: italic;
+        background: #F04124 none repeat scroll 0% 0%;
+        color: #FFF;
+    }
+
+    .qo-search {
+        .qo-search-input {
+            .qo-searchbox {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .btn{
+            width: 100%;
+            float: right;
+        }
+    }
+
+    .qo-tbl .qo-items {
+        padding-right: 1em;
+    }
+
+    .qo-item {
+        border-top: 1px solid #E0E0E0;
+        padding: 0.5em 0 0 0;
+        margin: 0.5em 0;
+        width: 100%;
+        float: left;
+    }
+
+    .qo-item div.remove {
+        display: inline-block;
+        float: right;
+    }
+
+    .qo-item div.price {
+        display: inline-block;
+        vertical-align: middle;
+        float: left;
+    }
+
+    .qo-item div.price div.quantity-pricing {
+        display: inline-block;
+    }
+
+    .qo-item div.price .price-saving {
+        display: block;
+    }
+
+    .qo-item div.qo-opt {
+        display: inline-block;
+        vertical-align: middle;
+        float: right;
+        text-align: right;
+        width: 100%;
+        clear: both;
+        padding-right: 1em;
+        height: 2.5em;
+        line-height: 2.5em;
+    }
+
+    .qo-item div.qo-opt .um-pack label {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0.875em;
+        margin-right: 0.25em;
+    }
+
+    .qo-item div.qo-opt .um-pack select {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        width: auto;
+        max-width: 100px;
+    }
+
+    .qo-item div.qo-opt .qo-qty {
+        margin-left: 1em;
+    }
+
+    .qo-item label {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qo-item input {
+        display: inline-block;
+        vertical-align: middle;
+        width: 60px;
+        margin-bottom: 0;
+    }
+
+    .qo-item .qo-subtotal {
+        min-width: 90px;
+    }
+
+    .qo-item div.um-pack {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qo-item div.um-pack .um {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qo-item div.um-pack .um-sep {
+        display: none;
+    }
+
+    .qo-item div.um-pack .pack-size {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qo-item .qo-opt > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qo-item .qo-opt > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qo-total {
+        float: left;
+        width: 100%;
+        text-align: right;
+        padding: 1em 0;
+        margin: 1em 0;
+        border-top: 1px solid #bbb;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .btns {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 1em;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .btn primary btn-add-to-quick-order {
+        width: 25%;
+    }
+
+    .qo-item .item-num, .qo-item .item-name {
+        padding-right: 3.5em !important;
+    }
+    /* Remove btn */
+    .qo-item div.remove {
+        display: inline-block;
+        float: right;
+        margin-right: 0;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .quick-order-2 {
+        h1 {
+            float: none;
+        }
+
+        .page-top-link {
+            float: none;
+            margin-bottom: 15px;
+            margin-top: -5px;
+            display: block;
+        }
+
+        .qo-item div.qo-opt {
+            height: auto;
+            line-height: auto;
+        }
+
+        .btns .btn {
+            width: 100%;
+            margin-top: 1em;
+            margin-bottom: .5em;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .quick-order-2 {
+        .qo-search {
+            float: left;
+            width: 100%;
+            padding: 1em 0;
+
+            .qo-qty, .qo-um {
+                width: 15%;
+                margin-right: 2%;
+            }
+
+            .qo-search-input {
+                width: 38%;
+                display: inline-block;
+                float: left;
+                margin-right: 2%;
+            }
+
+            .btn {
+                width: 25%;
+                float: right;
+            }
+        }
+
+        .qo-tbl {
+            float: left;
+            width: 70%;
+        }
+
+        .qo-item .qo-subtotal {
+            min-width: 110px;
+        }
+
+        .btns {
+            float: right;
+            width: 25%;
+            text-align: right;
+        }
+    }
+}
+
+.popup-select-variant-product {
+    max-width: 400px;
+    text-align: left;
+
+    .modalTitle {
+        margin-bottom: 10px;
+    }
+
+    .row {
+        span {
+            display: inline-block;
+            width: 25%;
+            word-wrap: break-word;
+            vertical-align: middle;
+        }
+
+        div {
+            display: inline-block;
+            width: 70%;
+        }
+    }
+
+    .btn {
+        width: 100%;
+        margin: 0px;
+    }
+
+    .price {
+        height: 30px;
+        margin: 5px 0px;
+    }
+}

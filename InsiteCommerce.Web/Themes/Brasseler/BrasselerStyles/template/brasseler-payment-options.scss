@@ -1,0 +1,165 @@
+body.payment-options { }
+
+.AddNewCardContainer {
+    position: relative;
+
+    &.reveal-modal {
+        position: absolute;
+
+        .modal-wrap {
+            width: 800px;
+            margin-top: 96px;
+            margin-bottom: 96px;
+
+            .card-type, .card-name, .card-num {
+                &.medium-6 {
+                    @media all and (min-width: 768px) {
+                        width: 47%;
+                    }
+                }
+
+                &.small-12 {
+                    @media all and (max-width: 767px) {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .exp-date {
+                display: inline-block;
+                width: 100%;
+
+                .security-code {
+                    padding: 0px;
+                    position: relative;
+                    bottom: 26px;
+
+                    @media all and (max-width: 767px) {
+                        top: -5px;
+                    }
+
+                    .securityCode {
+                        height: 2.6em;
+                    }
+                }
+
+                .exp-month {
+                    padding: 0px;
+                }
+
+                .exp-year {
+                    @media all and (max-width: 767px) {
+                        padding: 0px;
+                    }
+                }
+            }
+            /*.addressOptions{
+                .billto-selector{} 
+            }*/
+            .address-options {
+                .address-1, .address-2, .country, .state, .city, .zipcode, .email, .phone {
+                    padding: 0px;
+                }
+
+                .address-1, .country, .city, .email {
+                    padding-right: 1.25em;
+
+                    @media all and (max-width: 767px) {
+                        padding-right: 0px;
+                    }
+                }
+
+                .addressOptions {
+                    &.medium-6 {
+                        @media all and (min-width: 768px) {
+                            width: 47%;
+                        }
+                    }
+                }
+            }
+
+            .close-reveal-modal {
+                right: 0px;
+                top: 5px;
+
+                @media all and (max-width: 767px) {
+                    right: 10px;
+                    top: 7px;
+                    font-size: 1.6em;
+                }
+            }
+        }
+    }
+
+    .error {
+        padding: 10px 0;
+
+        @media all and (max-width: 767px) {
+            padding: 5px;
+        }
+    }
+}
+.payment-options {
+    .info-tbl {
+        th{
+           padding: 1em .7em;
+        } 
+        .btn-save {
+            color: white !important;
+            background-color: #00359c !important;
+            width: 105px;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .btn-cancel {
+            color: white !important;
+            background-color: #00359c !important;
+            width: 105px;
+            display: none;
+        }
+
+        .edit {
+            color: white !important;
+            background-color: #55565a;
+            width: 105px;
+        }
+
+        .set-default {
+            color: white !important;
+            background-color: #00359c !important;
+        }
+
+        .btn-default {
+            color: white !important;
+            background-color: #ff0000 !important;
+            width: 105px;
+        }
+
+        .edit-click { }
+    }
+}
+
+.error-message {
+    color: red;
+}
+
+/* Payement options mobile*/
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .overflow-table {
+        .info-tbl {
+            tbody {
+                tr {
+                    th:first-child:before {
+                        height: 63px;
+                    }
+
+                    th.edit-click:before {
+                        height: 158px;
+                    }
+                }
+            }
+        }
+    }
+}
+

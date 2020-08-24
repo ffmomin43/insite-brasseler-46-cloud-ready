@@ -1,0 +1,60 @@
+﻿<div class="row" ng-controller="ChangeAccountPasswordController as vm" ng-cloak
+     success-url="[% urlForPage 'AccountSettingsPage' %]">
+    <div class="medium-6 large-6 columns change-pw">
+        <h3>[% translate 'Enter your new password' %].</h3>
+        <form novalidate id="changePasswordForm" name="changePasswordForm" ng-submit="vm.changePassword()">
+            <div class="row pw-ex">
+                <div class="medium-5 large-5 columns">
+                    <label for="existingPassword">[% translate 'Current Password' %]</label>
+                </div>
+                <div class="medium-7 large-7 columns">
+                    <input type="password" id="existingPassword" name="existingPassword" ng-model="vm.password" required placeholder="[% translate 'Enter current password' %]" />
+                    <!-- BUSA-1092 Added eye icon on password field -->
+                    <span id="eyeIconCurrentPassword" class="fa fa-fw fa-eye-slash toggle-change-pswd-field" ng-click="vm.togglePasswordField('existingPassword', 'eyeIconCurrentPassword')"></span>
+                    <span class="field-validation-error" ng-show="changePasswordForm.$submitted && changePasswordForm.existingPassword.$error.required">{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]')}}</span>
+                </div>
+            </div>
+            <div class="row pw-new">
+                <div class="medium-5 large-5 columns">
+                    <label for="newPassword">[% translate 'New Password' %]</label>
+                </div>
+                <div class="medium-7 large-7 columns">
+                    <input type="password" id="newPassword" name="newPassword" ng-model="vm.newPassword" required minlength="{{vm.settings.passwordMinimumLength}}" placeholder="[% translate 'Enter new password' %]" />
+                    <!-- BUSA-1092 Added eye icon on password field -->
+                    <span id="eyeIconNewPassword" class="fa fa-fw fa-eye-slash toggle-change-pswd-field" ng-click="vm.togglePasswordField('newPassword', 'eyeIconNewPassword')"></span>
+                    <span class="field-validation-error" ng-show="changePasswordForm.$submitted && changePasswordForm.newPassword.$error.required">{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]')}}</span>
+                    <span class="field-validation-error" ng-show="changePasswordForm.$submitted && changePasswordForm.newPassword.$error.minlength">{{'[% siteMessage 'ChangePasswordInfo_Password_Too_Short' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength)}}</span>
+                </div>
+            </div>
+            <div class="row pw-retype">
+                <div class="medium-5 large-5 columns">
+                    <label for="confirmPassword">[% translate 'Confirm New Password' %]</label>
+                </div>
+                <div class="medium-7 large-7 columns">
+                    <input type="password" id="confirmPassword" name="confirmPassword" ng-model="vm.confirmPassword" required isc-compare-to="vm.newPassword" placeholder="[% translate 'Confirm new password' %]" />
+                    <!-- BUSA-1092 Added eye icon on password field -->
+                    <span id="eyeIconConfirmNewPassword" class="fa fa-fw fa-eye-slash toggle-change-pswd-field" ng-click="vm.togglePasswordField('confirmPassword', 'eyeIconConfirmNewPassword')"></span>
+                    <span class="field-validation-error" ng-show="changePasswordForm.$submitted && changePasswordForm.newPassword.$error.required">{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Password' EscapeSingleQuotes %]')}}</span>
+                    <span class="field-validation-error" ng-show="changePasswordForm.$submitted && changePasswordForm.confirmPassword.$error.compareTo">[% siteMessage 'CreateNewAccountInfo_PasswordCombination_DoesNotMatch' %]</span>
+                </div>
+            </div>
+            <p class="error">
+                <span class="field-validation-error" ng-if="vm.changePasswordError" ng-bind="vm.changePasswordError"></span>
+            </p>
+            <div class="btns">
+                <button type="button" class="btn secondary btn-cancel" onclick="javascript: history.back();">[% translate 'Cancel' %]</button>
+                <button type="submit" class="btn primary btn-save">[% translate 'Save' %]</button>
+            </div>
+        </form>
+    </div>
+    <div class="medium-6 large-6 columns manage-subs password-requirements">
+        <h4>[% translate 'Password requirements' %]:</h4>
+        <div>
+            <div class="pw-note">{{'[% translate 'Password must be at least {0} characters long' EscapeSingleQuotes %]'.replace('{0}', vm.settings.passwordMinimumLength)}}</div>
+            <div class="pw-note" ng-if="vm.settings.minRequiredDigits">[% translate 'Password must include at least one number' %]</div>
+            <div class="pw-note" ng-if="vm.settings.minRequiredNonAlphanumericCharacters">[% translate 'Password must include at least one non alphanumeric character' %]</div>
+            <div class="pw-note" ng-if="vm.settings.minRequiredUppercase">[% translate 'Password must include at least one uppercase character' %]</div>
+            <div class="pw-note" ng-if="vm.settings.minRequiredLowercase">[% translate 'Password must include at least one lowercase character' %]</div>
+        </div>
+    </div>
+</div>

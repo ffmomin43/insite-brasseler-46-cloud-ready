@@ -1,0 +1,91 @@
+.ma-saved-payments {
+    .accordion {
+        margin-bottom: 10px;
+
+        .actions {
+            margin-top: 15px;
+        }
+
+        input.accord-check:checked {
+            ~ article.accord-content {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            + label.accord-head {
+                color: black;
+            }
+        }
+
+        .card-info, .address-block {
+            label {
+                font-weight: 600;
+            }
+        }
+
+        .accord-head img {
+            margin-right: 8px;
+            width: 30px;
+        }
+
+        .address-block, .accord-head, .card-info {
+            word-break: break-all;
+        }
+    }
+}
+
+.popup-delete-card {
+    .modal-wrap {
+        max-width: 480px;
+    }
+
+    p {
+        margin-left: 15px;
+    }
+
+    .btns {
+        padding-right: 15px;
+    }
+}
+
+.popup-edit-saved-payment, .popup-add-saved-payment {
+    .modal-wrap {
+        max-width: 600px;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 0.25em;
+        vertical-align: middle;
+    }
+
+    .checkbox-label {
+        margin-bottom: 1em;
+    }
+
+    .btns .btn {
+        margin-bottom: 0.5em;
+
+        &.btn-cancel {
+            margin-right: 0.5em;
+        }
+    }
+
+    .tokenex-iframe-block {
+        height: 37.8px;
+        margin: 0 0 1rem 0;
+    }
+
+    .tokenex-error, .unique-error {
+        margin-top: -1rem;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .ma-saved-payments {
+    }
+
+    .popup-edit-saved-payment, .popup-add-saved-payment {
+        overflow-y: scroll;
+        height: 100%;
+    }
+}

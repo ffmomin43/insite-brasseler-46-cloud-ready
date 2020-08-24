@@ -1,0 +1,84 @@
+.sign-in {
+    .si-step-1 {
+        margin-bottom: 1.5em;
+    }
+
+    .btns, .external-providers {
+        margin-top: .25em;
+
+        a.btn {
+            margin-bottom: 1em;
+        }
+    }
+
+    .tiny-lnk {
+        font-size: 0.875em;
+        margin: 0.25em 0;
+    }
+
+    .remember-me {
+        input {
+            margin-top: 1.1em;
+            margin-right: 0em;
+            vertical-align: text-bottom;
+        }
+
+        label {
+            margin-bottom: 1em;
+        }
+    }
+
+    .external-provider {
+        margin-right: 10px;
+    }
+}
+
+.popup-sign-in-required {
+    .modal-wrap {
+        max-width: 530px;
+    }
+}
+
+@media all and (min-width: 641px) and (max-width: 1024px) {
+    .sign-in {
+        .si-step-1 .large-6 {
+            width: 100%;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .sign-in {
+        .si-form, .si-acct {
+            width: 100%;
+        }
+
+        .btns, .external-providers {
+            a.btn, .btn {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .sign-in {
+        .si-acct {
+            width: 40%;
+
+            .btn {
+                float: right;
+                margin-left: 1em;
+                margin-bottom: 1em;
+            }
+
+            h3 {
+                margin-top: 0;
+            }
+        }
+
+        .btns {
+            text-align: right;
+        }
+    }
+}

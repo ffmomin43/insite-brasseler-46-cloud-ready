@@ -1,0 +1,39 @@
+﻿@using Insite.WebFramework.Mvc.Extensions
+@using Insite.ContentLibrary.Pages
+
+@model CatalogNavigationPage
+
+@foreach (var topLevelLink in Model.CategoryNavRoot.NavLinks)
+{
+    <li class="top-level-category top-level-item">
+        <a href="@Url.Link(topLevelLink)" ng-click="vm.hideB2CNav($event)">
+            <span>@topLevelLink.LinkText</span>
+            @if (topLevelLink.NavLinks != null && topLevelLink.NavLinks.Count > 0)
+            {
+                <label class="toggle-sub"></label>
+            }
+        </a>
+        @if (topLevelLink.NavLinks != null && topLevelLink.NavLinks.Count > 0)
+        {
+            <ul class="second-level-subnav">
+                @foreach (var secondLevelLink in topLevelLink.NavLinks)
+                {
+                    <li class="second-level-category">
+                        <a href="@Url.Link(secondLevelLink)" ng-click="vm.hideB2CNav($event)">@secondLevelLink.LinkText</a>
+                        @if (secondLevelLink.NavLinks != null && secondLevelLink.NavLinks.Count > 0)
+                        {
+                            <ul class="third-level-subnav">
+                                @foreach (var thirdLevelLink in secondLevelLink.NavLinks)
+                                {
+                                    <li class="third-level-category">
+                                        <a href="@Url.Link(thirdLevelLink)" ng-click="vm.hideB2CNav($event)">@thirdLevelLink.LinkText</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+    </li>
+}

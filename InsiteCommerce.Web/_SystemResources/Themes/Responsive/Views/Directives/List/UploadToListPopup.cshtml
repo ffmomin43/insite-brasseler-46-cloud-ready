@@ -1,0 +1,111 @@
+﻿<div id="popup-upload-list" class="reveal-modal popup-upload-list" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <h2 id="tst_sharePopup_title">[% translate 'Upload Items To List' %]</h2>
+        <div class="clearfix"></div>
+        <div class="row">
+
+            <div class="medium-6 large-6 columns list-upload-input">
+                <div class="instructions">
+                    [% siteMessage 'ListUpload_Instructions_UploadExcel' %]
+                </div>
+                <div class="oui-box">
+                    <div class="oui-browse">
+                        <button id="buttonFileUpload" class="primary btn dark-blue" ng-click="vm.onButtonFileUploadClick()">[% translate 'Browse' %]</button>
+                        <input id="hiddenFileUpload" style="display: none" type="file" onchange="angular.element(this).data('_scope').vm.setFile(this)">
+                        <span id="tst_listUpload_fileTitle" class="file-title" ng-bind="!vm.fileName ? '[% translate 'No file selected.' EscapeSingleQuotes %]' : vm.fileName"></span>
+                    </div>
+                    <div class="first-row-option">
+                        <input id="firstRowCheckbox" type="checkbox" ng-model="vm.firstRowHeading"/><label for="firstRowCheckbox">[% translate 'First row is column headings' %]</label>
+                    </div>
+                    <div class="oui-message showing" ng-show="vm.badFile || vm.uploadLimitExceeded">
+                        <div id="tst_listUpload_badFile" class="upload-error" ng-show="vm.badFile">
+                            [% siteMessage 'ListUpload_UploadError' %]
+                        </div>
+                        <div id="tst_listUpload_uploadLimitExceeded" class="upload-error" ng-show="vm.uploadLimitExceeded">
+                            [% siteMessage 'ListUpload_RowsLimitExceeded' %]
+                        </div>
+                    </div>
+                    <div class="oui-lists">
+                        <button id="tst_listUpload_uploadFile" class="primary btn" ng-click="vm.uploadFile()" ng-disabled="!vm.file || vm.badFile">[% translate 'Upload Items To List' %]</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="medium-6 large-6 columns list-upload-instructions">
+                <div class="instructions">
+                    <h3 class="no-margin-top">[% translate 'Instructions' %]</h3>
+                    <ol>
+                        <li>
+                            [% siteMessage 'ListUpload_Instructions_Line1_Part1' %] <a target="_blank" href="/Excel/ListUploadTemplate.xlsx" download="ListUploadTemplate.xlsx">[% translate 'Upload Template' %]</a> [% siteMessage 'ListUpload_Instructions_Line1_Part2' %]
+                            <ul>
+                                <li>[% siteMessage 'ListUpload_Instructions_Line2' %]</li>
+                                <li>[% siteMessage 'ListUpload_Instructions_Line3' %]</li>
+                                <li>[% siteMessage 'ListUpload_Instructions_Line4' %]</li>
+                            </ul>
+                        </li>
+                        <li>[% siteMessage 'ListUpload_Instructions_Line5' %]</li>
+                        <li>[% siteMessage 'ListUpload_Instructions_Line6' %]</li>
+                        <li>[% siteMessage 'ListUpload_Instructions_Line7' %]</li>
+                        <li><b><em>[% siteMessage 'ListUpload_Instructions_Line8' %]</em></b></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="listUploadingIssuesPopup" class="reveal-modal popup-share ma-list-upload" data-options="close_on_background_click: false;" data-reveal data-reveal-init>
+                <div class="ou-modal issues wide modal-wrap">
+                    <i class="exclamation-triangle"></i>
+                    <h3 class="underline">[% siteMessage 'ListUpload_UploadError' %]:</h3>
+                    <div class="ou-table-wrapper">
+                        <table class="ou-issues-table">
+                            <thead>
+                            <tr>
+                                <td class="up-row-num">[% translate 'Row #' %]</td>
+                                <td class="up-item-num">[% translate 'Item #' %]</td>
+                                <td class="up-qty">[% translate 'QTY' %]</td>
+                                <td class="up-um">[% translate 'U/M' %]</td>
+                                <td class="up-reason">[% translate 'Reason' %]</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="tst_listUpload_issueRow" ng-repeat="errorProduct in vm.errorProducts">
+                                <td class="up-row-num" ng-bind="errorProduct.index"></td>
+                                <td class="up-item-num" ng-bind="errorProduct.name"></td>
+                                <td class="up-qty" ng-bind="errorProduct.qtyRequested"></td>
+                                <td class="up-um" ng-bind="errorProduct.umRequested"></td>
+                                <td class="up-reason">
+                                    <span ng-if="errorProduct.error === 'ConfigurableProduct'">[% siteMessage 'ListUpload_CannotOrderConfigurable' %]</span>
+                                    <span ng-if="errorProduct.error === 'StyledProduct'">[% siteMessage 'ListUpload_CannotOrderStyled' %]</span>
+                                    <span ng-if="errorProduct.error === 'InvalidUnit'">[% translate 'Invalid U/M' %]</span>
+                                    <span ng-if="errorProduct.error === 'NotFound'">[% siteMessage 'Product_NotFound' %]</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="button-container">
+                        <button id="tst_listUploadIssues_uploadProducts" class="btn primary dark-blue slim no-margin-bottom" ng-disabled="!vm.products || vm.products.length === 0" ng-click="vm.uploadProducts('#listUploadingIssuesPopup')">[% translate 'Continue Upload' %]</button>
+                        <button id="tst_listUploadIssues_cancelUpload" class="btn tertiary slim no-margin-bottom" ng-click="vm.hideUploadingIssuesPopup()">[% translate 'Cancel Upload' %]</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div id="listUploadSuccessPopup" class="reveal-modal popup-share ma-list-upload" data-reveal>
+                <div class="ou-modal modal-wrap success">
+                    <i class="fa fa-check"></i>
+                    <h3>{{vm.uploadedItemsCount}} [% translate 'items uploaded' %].</h3>
+                    <button id="tst_listUploadSuccess_uploadProducts" class="btn primary dark-blue slim no-margin-bottom" ng-click="vm.hideUploadSuccessPopup()">[% translate 'Return To List' %]</button>
+                </div>
+            </div>
+
+            <div id="listUploadingPopup" class="reveal-modal address-error-popup ma-list-upload" data-reveal data-options="close_on_background_click: false;" data-reveal-init>
+                <div class="modal-wrap ou-modal">
+                    <div class="loader"></div>
+                    <h3>{{(!vm.uploadCancelled) ? "[% translate 'Uploading Items' %]..." : "[% translate 'Cancelling' %]..."}}</h3>
+                    <button id="tst_listUpload_cancelUpload" class="btn tertiary slim no-margin-bottom" ng-click="vm.cancelUpload()" ng-show="vm.allowCancel" ng-enable="!vm.uploadCancelled">[% translate 'Cancel Upload' %]</button>
+                </div>
+            </div>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>

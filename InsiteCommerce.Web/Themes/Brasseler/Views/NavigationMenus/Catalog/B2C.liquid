@@ -1,0 +1,32 @@
+﻿[% comment %]
+This uses NavigationMenuItemDrop as the model
+[% endcomment %]
+
+[% for topLevelItem in Model.Children %]
+    <li class="top-level-category top-level-item">
+        <a href="[[topLevelItem.Url]]" ng-click="vm.hideB2CNav($event)">
+            <span>[[topLevelItem.Title]]</span>
+            [% if topLevelItem.Children.size > 0 %]
+                <label class="toggle-sub"></label>
+            [% endif %]
+        </a>
+        [% if topLevelItem.Children.size > 0 %]
+            <ul class="second-level-subnav">
+                [% for secondLevelItem in topLevelItem.Children %]
+                    <li class="second-level-category">
+                        <a href="[[secondLevelItem.Url]]" ng-click="vm.hideB2CNav($event)">[[secondLevelItem.Title]]</a>
+                        [% if secondLevelItem.Children.size > 0 %]
+                            <ul class="third-level-subnav">
+                                [% for thirdLevelItem in secondLevelItem.Children %]
+                                    <li class="third-level-category">
+                                        <a href="[[thirdLevelItem.Url]]" ng-click="vm.hideB2CNav($event)">[[thirdLevelItem.Title]]</a>
+                                    </li>
+                                [% endfor %]
+                            </ul>
+                        [% endif %]
+                    </li>
+                [% endfor %]
+            </ul>
+        [% endif %]
+    </li>
+[% endfor %]

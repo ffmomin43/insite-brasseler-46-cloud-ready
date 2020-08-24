@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[% translate 'Share Order' %]</title>
+    <style>
+        h1, h2, h3, h4, h5, h6 {
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 18px;
+            padding: 4px 2px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        q:before, q:after {
+            content: '';
+        }
+
+        body {
+            font-family: Helvetica, Arial, Sans-Serif;
+            font-size: 16px;
+            color: #252525;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .order-total > td {
+            border-top: 1px solid #DCDCDC;
+            font-weight: bold;
+        }
+
+        .main-block {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .general-information {
+            width: 100%;
+            position: relative;
+            float: left;
+            display: block;
+            vertical-align: top;
+        }
+
+        .order-details-top {
+            margin-bottom: 20px;
+            border: 1px solid #DCDCDC;
+            padding: 14px;
+            width: 100%;
+        }
+
+            .order-details-top > ul {
+                list-style: none;
+            }
+
+        .row:before, .row:after {
+            content: " ";
+            display: table;
+        }
+
+        .order-details-left {
+            width: 50%;
+            padding-left: 5px;
+            padding-right: 5px;
+            vertical-align: top;
+        }
+
+        .order-details-left table {
+            width: 100%;
+        }
+
+        .order-details-left table td {
+            padding: 5px 0;
+        }
+
+        .ship-info {
+            margin-bottom: 5px;
+            padding-top: 15px;
+        }
+
+        .order-details-right {
+            width: 50%;
+            padding-left: 5px;
+            padding-right: 5px;
+            vertical-align: top;
+        }
+
+        .bill-info {
+            margin-bottom: .8em;
+            margin: 0;
+            padding: 7px 0 0 0;
+        }
+
+        .notes {
+            margin-bottom: 5px;
+        }
+
+        .list-item {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .summary-block {
+            width: 35%;
+            padding-left: 5px;
+            vertical-align: top;
+        }
+
+        .order-subtotal {
+            border: 1px solid #DCDCDC;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-subtotal .subtotal-title {
+            padding-top: 20px;
+        }
+
+        .order-subtotal tr td {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .sub-amount, .sub-label {
+            padding-bottom: 3px;
+            padding-top: 3px;
+            padding-left: 5px;
+        }
+
+        .promotions {
+            font-style: italic;
+        }
+
+        .od-lbl {
+            width: auto;
+            padding-right: 5px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        .od-data {
+            color: #252525;
+            margin-bottom: 0;
+        }
+
+        .oc-head {
+            margin-bottom: 4px;
+            padding-top: 0;
+            padding-bottom: 0;
+            font-weight: bold;
+        }
+
+            .oc-head > h3 {
+                font-weight: bold;
+            }
+
+        .sub-amount {
+            text-align: right;
+            padding-right: 5px;
+        }
+
+        .order-total {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .order-total .sub-label, .order-total .sub-amount {
+                padding-bottom: 10px;
+            }
+
+        .discount-total .sub-amount {
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+
+        .order-details, .shipment-packages {
+            border: 1px solid #DCDCDC;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .shipment-packages > td {
+            text-align: left;
+        }
+
+        .products-header > th, .shipment-packages-header > th {
+            background-color: #eeeeee;
+            padding: 8px 7px;
+        }
+
+        .product-line > td, .shipment-package-line > td {
+            border-bottom: 1px solid #DCDCDC;
+            padding: 5px 7px;
+        }
+
+        .item-name > h3 {
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
+        .item-num > h3 {
+            margin-top: 6px;
+        }
+
+        .item-notes > h3 {
+            margin-top: 6px;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .product-line, .shipment-package-line {
+            vertical-align: top;
+        }
+
+        .item-subtotal {
+            font-weight: bold;
+        }
+
+        .ship-method {
+            float: none;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    [% if Model.LogoImagePath != null and Model.LogoImagePath != "" -%]
+    <div>
+        <img src="[[Model.LogoImagePath]]" max-height="150" max-width="300" alt="Company Logo" />
+    </div>
+    [% endif -%]
+    <div>
+        <h2>[% translate 'Order #' %]
+        [% if Model.WebOrderNumber != null and Model.WebOrderNumber != "" -%]
+            [[Model.WebOrderNumber]]
+        [% else -%]
+            [[Model.ErpOrderNumber]]
+        [% endif -%]
+        </h2>
+        <table class="main-block">
+            <tr>
+                <td class="general-information">
+                    <table class="order-details-top">
+                        <tr>
+                            <td class="order-details-left">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h3 class="od-lbl">[% translate "Order Date" %]:</h3></td>
+                                        <td>
+                                            <h3 class="od-data">[[Model.OrderDateDisplay]]</h3></td>
+                                    </tr>
+                                    [% if Model.StatusDisplay != null and Model.StatusDisplay != "" -%]
+                                        <tr>
+                                            <td>
+                                                <h3 class="od-lbl">[% translate "Status" %]:</h3></td>
+                                            <td>
+                                                <h3 class="od-data">[[Model.StatusDisplay]]</h3></td>
+                                        </tr>
+                                    [% endif -%]
+                                    <tr>
+                                        <td>
+                                            <h3 class="od-lbl">[% translate "Terms" %]:</h3></td>
+                                        <td>
+                                            <h3 class="od-data">[[Model.Terms]]</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h3 class="od-lbl">[% translate "PO #" %]:</h3></td>
+                                        <td>
+                                            <h3 class="od-data">[[Model.CustomerPO]]</h3></td>
+                                    </tr>
+                                </table>
+                                <div class="ship-info">
+                                    <div class="oc-head">
+                                        <h3>[% translate "Shipping Address" %]</h3>
+                                    </div>
+                                    <p class="list-item">[[Model.STCompanyName]]</p>
+                                    <p class="list-item">[[Model.STAddress1]]</p>
+                                    [% if Model.STAddress2 != null and Model.STAddress2 != "" -%]
+                                        <p class="list-item">[[Model.STAddress2]]</p>
+                                    [% endif -%]
+                                    <p class="list-item">[[Model.ShipToCity]]
+                                    [% if Model.ShipToCity != null and Model.ShipToCity != "" and Model.ShipToState != null and Model.ShipToState != "" -%]
+                                        , [[Model.ShipToState]] [[Model.ShipToPostalCode]]
+                                    [% endif -%]
+                                    </p>
+                                    <p class="list-item">[[Model.STCountry]]</p>
+                                </div>
+                            </td>
+                            <td class="order-details-right">
+                                <div class="bill-info">
+                                    <div class="oc-head">
+                                        <h3>[% translate "Billing Address" %]</h3>
+                                    </div>
+                                    <p class="list-item">[[Model.BTCompanyName]]</p>
+                                    <p class="list-item">[[Model.BTAddress1]]</p>
+                                    [% if Model.BTAddress2 != null and Model.BTAddress2 != "" -%]
+                                        <p class="list-item">[[Model.BTAddress2]]</p>
+                                    [% endif -%]
+                                    <p class="list-item">[[Model.BillToCity]]
+                                    [% if Model.BillToCity != null and Model.BillToCity != "" and Model.BillToState != null and Model.BillToState != "" -%]
+                                        , [[Model.BillToState]] [[Model.BillToPostalCode]]
+                                    [% endif -%]
+                                    </p>
+                                    <p class="list-item">[[Model.BTCountry]]</p>
+                                </div>
+                                [% if Model.ShipCode != null and Model.ShipCode != "" -%]
+                                    <div class="ship-method">
+                                        <div class="oc-head">
+                                            <h3>[% translate "Shipping Method" %]</h3>
+                                        </div>
+                                        <div>[[Model.ShipCode]]</div>
+                                    </div>
+                                [% endif -%]
+                                [% if Model.RequestedDeliveryDateDisplay != null -%]
+                                    <div class="ship-method">
+                                        <div class="oc-head">
+                                            <h3>[% translate "Requested Delivery Date" %]</h3>
+                                        </div>
+                                        <div>[[Model.RequestedDeliveryDate]]</div>
+                                    </div>
+                                [% endif -%]
+                                [% if Model.Notes != null and Model.Notes != "" -%]
+                                    <div class="notes">
+                                        <div class="oc-head">
+                                            <h3>[% translate "Order Notes" %]</h3>
+                                        </div>
+                                        <div>[[Model.Notes]]</div>
+                                    </div>
+                                [% endif -%]
+                            </td>
+                        </tr>
+                    </table>
+                    [% if Model.ShipmentPackages.size > 0 -%]
+                        <table class="shipment-packages">
+                            <tr class="shipment-packages-header">
+                                <th class="left">[% translate "Ship Date" %]</th>
+                                <th class="left">[% translate "Carrier" %]</th>
+                                <th class="left">[% translate "Service" %]</th>
+                                <th class="left">[% translate "Tracking #" %]</th>
+                            </tr>
+                            [% for package in Model.ShipmentPackages -%]
+                                <tr class="shipment-package-line">
+                                    <td><h3>[[package.ShipmentDateDisplay]]</h3></td>
+                                    <td><h3>[[package.Carrier]]</h3></td>
+                                    <td><h3>[[package.ShipVia]]</h3></td>
+                                    <td><h3>[[package.TrackingNumber]]</h3></td>
+                                </tr>
+                            [% endfor -%]
+                        </table>
+                    [% endif -%]
+                </td>
+                <td class="summary-block">
+                    <table class="order-subtotal">
+                        <tr>
+                            <td class="subtotal-title" colspan="2">
+                                <h3 class="oc-head">[% translate "Order Summary" %]</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sub-label">[% translate "Subtotal" %]</td>
+                            <td class="sub-amount">[[Model.OrderSubTotalDisplay]]</td>
+                        </tr>
+                        [% for promotion in Model.OrderPromotions -%]
+                            [% if promotion.PromotionResultType == "AmountOffOrder" or promotion.PromotionResultType == "PercentOffOrder" -%]
+                                <tr class="promotions">
+                                    <td class="sub-label">[[promotion.Name]]</td>
+                                    <td class="sub-amount">-[[promotion.AmountDisplay]]</td>
+                                </tr>
+                            [% endif -%]
+                        [% endfor -%]
+                        <tr>
+                            <td class="sub-label">[% translate "Shipping" %]</td>
+                            <td class="sub-amount">[[Model.ShippingChargesDisplay]]</td>
+                        </tr>
+                        [% for promotion in Model.OrderPromotions -%]
+                            [% if promotion.PromotionResultType == "AmountOffShipping" or promotion.PromotionResultType == "PercentOffShipping" -%]
+                                <tr class="promotions">
+                                    <td class="sub-label">[[promotion.Name]]</td>
+                                    <td class="sub-amount">-[[promotion.AmountDisplay]]</td>
+                                </tr>
+                            [% endif -%]
+                        [% endfor -%]
+                        <tr>
+                            <td class="sub-label">[% translate "Handling" %]</td>
+                            <td class="sub-amount">[[Model.HandlingChargesDisplay]]</td>
+                        </tr>
+                        <tr>
+                            <td class="sub-label">[% translate "Misc. Charge" %]</td>
+                            <td class="sub-amount">[[Model.OtherChargesDisplay]]</td>
+                        </tr>
+                        [% if Model.TotalTaxDisplay != null and Model.TotalTaxDisplay != "" and Model.OrderHistoryTaxes.size == 0 -%]
+                            <tr>
+                                <td class="sub-label">[% translate "Tax" %]</td>
+                                <td class="sub-amount">[[Model.TotalTaxDisplay]]</td>
+                            </tr>
+                        [% endif -%]
+                        [% for orderHistoryTax in Model.OrderHistoryTaxes -%]
+                            <tr class="sub-label">
+                                [% if orderHistoryTax.TaxDescription != null and orderHistory.TaxDescription != "" -%]
+                                    <td class="sub-label">[[orderHistoryTax.TaxDescription]]</td>
+                                [% else -%]
+                                    <td class="sub-label">[% translate "Taxes" %]</td>
+                                [% endif -%]
+                                <td class="sub-amount">[[orderHistoryTax.TaxAmountDisplay]]</td>
+                            </tr>
+                        [% endfor -%]
+                        <tr class="order-total">
+                            <td class="sub-label">[% translate "Total" %]</td>
+                            <td class="sub-amount">[[Model.OrderGrandTotalDisplay]]</td>
+                        </tr>
+                        [% if Model.TotalDiscountDisplay != null and Model.TotalDiscountDisplay != "" -%]
+                            <tr class="discount-total">
+                                <td class="sub-amount" colspan="2">[% translate "You saved" %] [[Model.CurrencySymbol]][[Model.TotalDiscountDisplay]]</td>
+                            </tr>
+                        [% endif -%]
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="order-details">
+            <tr class="products-header">
+                <th class="left">[% translate "Product" %]</th>
+                <th class="right">[% translate "Price" %]</th>
+                <th class="right">[% translate "QTY" %]</th>
+                <th class="right">[% translate "Subtotal" %]</th>
+            </tr>
+            [% for line in Model.OrderLines -%]
+                <tr class="product-line">
+                    <td>
+                        <div class="item-name">
+                            <h3>
+                                [% if line.ShortDescription != null and line.ShortDescription != "" -%]
+                                    [[line.ShortDescription]]
+                                [% else -%]
+                                    [[line.Description]]
+                                [% endif -%]
+                            </h3>
+                        </div>
+                        <div class="item-num">
+                            <h3>
+                                [[line.ProductErpNumber]]
+                                [% if line.ManufacturerItem != null and line.ManufacturerItem != "" -%]
+                                    [% translate "MFG #:" %] [[line.ManufacturerItem]]
+                                [% endif -%]
+                            </h3>
+                        </div>
+                        [% for promotion in Model.OrderPromotions -%]
+                            [% if promotion.OrderHistoryLineId == line.Id -%]
+                                <h3 class="promotions">[[promotion.Name]]</h3>
+                            [% endif -%]
+                        [% endfor -%]
+                    </td>
+                    <td>
+                        <div class="price right">
+                            <h3 class="price-sale">[[line.UnitNetPriceDisplay]]</h3>
+                            <h3 class="selected-uom">[[line.UnitOfMeasure]]</h3>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="item-qty right">
+                            <h3>[[ line.QtyOrderedDisplay ]]</h3>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="right">
+                            <h3 class="item-subtotal">[[line.ExtendedUnitNetPriceDisplay]]</h3>
+                        </div>
+                    </td>
+                </tr>
+            [% endfor -%]
+        </table>
+    </div>
+</body>
+</html>

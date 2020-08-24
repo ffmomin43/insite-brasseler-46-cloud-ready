@@ -1,0 +1,23 @@
+﻿<div id="popup-select-child-product" class="reveal-modal popup-select-child-product" data-reveal>
+    <div class="modal-wrap">
+        <div class="modalTitle">[% translate 'Select options before adding to order' %]:</div>
+        <div class="pop-content">
+            <div class="row" ng-repeat="styleTrait in vm.styleTraitFiltered | orderBy: 'sortOrder'">
+                <span>{{styleTrait.nameDisplay}}:</span>
+                <div>
+                    <select id="{{'tst_popupSelectChildProduct_styleSelect_' + styleTrait.name}}" ng-model="vm.styleSelection[$index]" ng-change="vm.styleChange(vm.styleSelection[$index], {{$index}})"
+                            ng-options="style.valueDisplay for style in styleTrait.styleValues | orderBy: 'sortOrder' track by style.styleTraitValueId">
+                        <option value=""> {{styleTrait.unselectedValue ? "" : "Select"}} {{styleTrait.unselectedValue ? styleTrait.unselectedValue : styleTrait.nameDisplay}}</option>
+                    </select>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+        <div class="price">
+            <isc-product-price product="vm.product"></isc-product-price>
+        </div>
+        <div>
+            <button id="tst_popupSelectChildProduct_addToQuickOrderBtn" class="btn primary" ng-click="vm.addToQuickOrderForm()" ng-disabled="!vm.product.id">[% translate 'Add to Quick Order Form' %]</button>
+        </div>
+    </div>
+</div>

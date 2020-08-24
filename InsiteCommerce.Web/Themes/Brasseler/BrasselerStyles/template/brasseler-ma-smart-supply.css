@@ -1,0 +1,105 @@
+body [role="main"] .section-container .content {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 0;
+}
+
+.ma-smart-supply .btns {
+  margin-top: .5em;
+  float: left;
+  width: 100%;
+}
+
+.ma-smart-supply .btns .btn {
+  float: right;
+}
+
+@media all and (max-width: 767px) {
+  .ma-smart-supply .btns .btn {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .ma-smart-supply .search-date .small-6 {
+    position: inherit;
+  }
+
+  .ma-smart-supply .search-open-inv {
+    margin: .5em 0 1em 0;
+  }
+}
+@media all and (min-width: 768px) {
+  .ma-smart-supply .btns .btn {
+    margin-left: 1em;
+  }
+
+  .ma-smart-supply .search-orders .columns {
+    float: left;
+  }
+}
+/* MA search */
+.search-orders h3 {
+  margin-top: 0;
+}
+
+@media all and (min-width: 768px) {
+  .ma-smart-supply label.accord-head {
+    display: inline-block;
+  }
+
+  .search-orders .search-col-1 {
+    width: 38.333%;
+  }
+
+  .search-orders .search-col-2 {
+    width: 44.333%;
+  }
+
+  .search-orders .search-date em {
+    display: inline-block;
+    float: left;
+    line-height: 38px;
+    margin-right: .75em;
+  }
+
+  .search-orders .search-date input {
+    width: 100px;
+    display: inline-block;
+  }
+
+  .search-orders .search-date .row .small-6 {
+    width: auto;
+  }
+
+  .search-orders .search-date [class*="column"] + [class*="column"]:last-child {
+    float: left;
+    padding: 0;
+  }
+}
+/* Date Picker Positioning */
+.ma-smart-supply .search-date {
+  position: relative;
+}
+
+.ma-smart-supply .picker {
+  right: 0% !important;
+}
+
+.ma-smart-supply .search-date-to .picker__holder {
+  right: 0% !important;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .smartsupplylist .info-tbl tr td:first-child,
+  .smartsupplylist .info-tbl tr th:first-child {
+    min-width: 0;
+    width: inherit;
+  }
+  .smartsupplylist .info-tbl tr td:first-child:before,
+  .smartsupplylist .info-tbl tr th:first-child:before {
+    min-width: 0;
+    width: inherit;
+  }
+}
+
+/*# sourceMappingURL=brasseler-ma-smart-supply.css.map */

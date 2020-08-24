@@ -1,0 +1,192 @@
+﻿<div ng-controller="ProductDetailController as vm" ng-cloak>
+    <isc-catalog-breadcrumb ng-show="vm.product" breadcrumbs="vm.breadCrumbs"></isc-catalog-breadcrumb>
+    <div class="row pd-grid isc-productContainer">
+        <div class="detail-info">
+            <div class="name-price">
+                <isc-product-brand product="vm.product" show-logo="true"></isc-product-brand>
+                <h1 id="tst_productDetail_shortDescription">{{vm.product.shortDescription}}</h1>
+                <isc-product-name product="vm.product" no-link="true"></isc-product-name>
+
+                <div ng-if="vm.product.canShowPrice && !vm.failedToGetRealTimePrices" class="pd-price-um">
+                    <isc-product-price product="vm.product"></isc-product-price>
+                    <span id="tst_productDetail_unitOfMeasureLabel" ng-if="vm.product.unitOfMeasureDisplay || vm.product.unitOfMeasureDescription" class="um isc-uomDisplay">
+                        / {{vm.product.unitOfMeasureDescription || vm.product.unitOfMeasureDisplay}}
+                    </span>
+                    <isc-product-price-saving product="vm.product" currency-symbol="vm.product.currencySymbol"></isc-product-price-saving>
+                </div>
+                <div ng-show="vm.product.canShowPrice && !vm.product.quoteRequired && !vm.failedToGetRealTimePrices">
+                    <isc-quantity-break-pricing product-id="vm.product.id" break-prices="vm.product.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                </div>
+                <div class="item-price" ng-if="vm.failedToGetRealTimePrices">
+                    <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                </div>
+                <div ng-if="vm.product && !vm.settings.canSeePrices">
+                    <div>[% siteMessage 'Pricing_SignInForPrice' %]</div>
+                </div>
+                <div ng-if="(!vm.product.isConfigured || vm.product.isFixedConfiguration || vm.configurationCompleted) && !vm.product.isStyleProductParent" class="availability">
+                    <isc-availability-message availability="vm.product.availability" failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory" product-settings="vm.settings" product-id="vm.product.id" configuration="vm.configuration" unit-of-measure="vm.product.unitOfMeasure" page="ProductDetail" track-inventory="vm.product.trackInventory"></isc-availability-message>
+                </div>
+            </div>
+            <div class="small-12 detail-image">
+                <isc-product-images ng-if="vm.product" product="vm.product" image-provider="{{vm.settings.imageProvider}}"></isc-product-images>
+            </div>
+            <div class="pd-cm-wrap">
+                <div ng-show="vm.product.isConfigured && vm.product.configurationDto && vm.product.configurationDto.isKit">
+                    <div ng-repeat="section in vm.product.configurationDto.sections" class="pd-kit">
+                        <div ng-show="section.sectionName" class="pd-kit-name" style="font-weight: bold">{{section.sectionName}}:</div>
+                        <div ng-repeat="option in section.options" class="pd-kit-value">
+                            {{option.description}}
+                        </div>
+                    </div>
+                </div>
+                <isc-sorted-attribute-value-list ng-if="!vm.settings.displayAttributesInTabs && (vm.product.attributeTypes.length > 0 || vm.product.brand)" attribute-types="vm.product.attributeTypes" brand="vm.product.brand" maximum-number="5" class="attribute-list"></isc-sorted-attribute-value-list>
+
+                <div id="tst_productDetail_htmlContent" class="product-cm" ng-bind-html="vm.product.htmlContent|trusted"></div>
+            </div>
+            <div class="product-reviews"></div>
+            <ul ng-if="!vm.settings.displayDocumentsInTabs && vm.product.documents.length > 0" class="doclinks">
+                <li ng-if="vm.languageId === document.languageId || document.languageId === null" ng-repeat="document in vm.product.documents" class="doc-{{$index}}">
+                    <a id="tst_productDetail_{{document.id}}" ng-href="{{document.filePath}}" target="_new">{{document.name}} <em ng-if="document.documentType">({{document.documentType}})</em></a>
+                </li>
+            </ul>
+        </div>
+        <div class="detail-options">
+            <div class="panel" ng-show="vm.product.isConfigured && vm.product.configurationDto && !vm.product.configurationDto.isKit || vm.product.styleTraits.length > 0">
+                <div class="row collapse">
+                    <!-- Configuration part -->
+                    <div ng-show="vm.product.isConfigured && vm.product.configurationDto != null && !vm.product.configurationDto.isKit">
+                        <div ng-repeat="section in vm.product.configurationDto.sections" class="pd-kit">
+                            <span>{{section.sectionName}}</span>
+                            <select ng-model="vm.configurationSelection[$index]" name="tst_productDetail_configurationSection_{{section.sectionName}}" ng-change="vm.configChanged()"
+                                    ng-options="option.description for option in section.options track by option.sectionOptionId">
+                                <option value="">Select {{section.sectionName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Style part -->
+                    <div class="small-12 columns pd-style-opt" ng-repeat="styleTrait in vm.styleTraitFiltered | orderBy: 'sortOrder'">
+                        <span>{{styleTrait.nameDisplay}}</span>
+                        <select name="{{'tst_styleSelect_' + styleTrait.name}}" ng-model="vm.styleSelection[$index]" ng-change="vm.styleChange(vm.styleSelection[$index], {{$index}})"
+                                ng-options="style.valueDisplay for style in styleTrait.styleValues | orderBy: 'sortOrder' track by style.styleTraitValueId">
+                            <option value=""> {{styleTrait.unselectedValue ? "" : "Select"}} {{styleTrait.unselectedValue ? styleTrait.unselectedValue : styleTrait.nameDisplay}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right small-12 detail-add">
+                <div class="small-12 fc-um">
+                    <label ng-if="vm.settings.alternateUnitsOfMeasure && vm.product.productUnitOfMeasures.length > 1" class="small-12">[% translate 'U/M' %]:</label>
+                    <isc-unit-of-measure-select-list product="vm.product" alternate-units-of-measure="{{vm.settings.alternateUnitsOfMeasure}}"
+                                                     display-pack="true" change-unit-of-measure="vm.changeUnitOfMeasure(vm.product)"></isc-unit-of-measure-select-list>
+                </div>
+                <div class="small-12 fc-qty" ng-if="vm.product.canEnterQuantity || vm.configurationCompleted || vm.styleSelectionCompleted && !vm.product.canConfigure">
+                    <label class="small-12">[% translate 'QTY_quantity' %]</label>
+                    <input id="tst_productDetail_qtyOrdered" type="text" value="1" class="small-12 numerictextbox" ng-model="vm.product.qtyOrdered">
+                </div>
+                <span class="field-validation-error" ng-if="vm.showUnitError"><span ng-bind="vm.parentProduct.unitOfMeasureDisplay"></span>[% siteMessage 'StyledProduct_WrongUnitOfMeasure' %]</span>
+                <div class="small-12 pd-buttons">
+                    <div class="small-12 primary-button">
+                        <button ng-show="vm.isAddToCartVisible()"
+                                id="tst_productDetail_addToCart" ng-click="vm.addToCart(vm.product)"
+                                role="button" class="btn primary btn-add-to-cart" ng-disabled="!vm.product.qtyOrdered || vm.product.qtyOrdered == 0 || vm.showUnitError || vm.addingToCart">
+                            [% translate 'Add To Cart' %]
+                        </button>
+                    </div>
+                    <div ng-if="vm.product.canConfigure && (vm.product.styleTraits.length === 0 || vm.styleSelectionCompleted)" class="small-12 primary-button">
+                        <a id="tst_productDetail_configure" href="[% urlFor '/Configuration/Configure' %]/{{vm.product.erpNumber}}" role="button" class="btn primary btn-configure">[% translate 'Configure' %]</a>
+                    </div>
+                    <div class="small-12 primary-button">
+                        <a id="tst_productDetail_productSubscription" href="" class="btn primary btn-product-subscription"
+                           ng-show="vm.product.isSubscription && vm.product.allowedAddToCart && (vm.product.canAddToCart || vm.configurationCompleted || vm.styleSelectionCompleted && !vm.product.canConfigure)"
+                           ng-click="vm.openProductSubscriptionPopup(vm.product)"
+                           ng-disabled="!vm.product.qtyOrdered || vm.product.qtyOrdered == 0 || vm.showUnitError">
+                            [% translate 'Delivery Schedule' %]
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="small-12 secondary-button">
+                <a id="tst_productDetail_addToWishList" ng-if="vm.product.canAddToWishlist || vm.styleSelectionCompleted" ng-click="vm.openWishListPopup(vm.product)" role="button"
+                   class="btn secondary btn-add-to-list" href="javascript:void(0);">[% translate 'Add to List' %]</a>
+                <div ng-show="vm.product" class="small-12 detail-share">
+                    <a id="tst_productDetail_share" href="javascript:void(0);" ng-click="vm.openSharePopup(vm.product)" class="pd-zoom">[% translate 'Share' %]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="vm.product.specifications.length > 0 || vm.product.attributeTypes.length > 0 || vm.product.documents.length > 0 || vm.product.brand.name" class="row pd-specs">
+        <div id="tst_productDetail_specifications" class="detail-specs easy-resp-tabs">
+            <ul class="resp-tabs-list">
+                <li ng-if="vm.settings.displayAttributesInTabs && vm.settings.attributesTabSortOrder === 'DisplayFirst' && (vm.product.attributeTypes.length > 0 || vm.product.brand.name)">[% translate 'Attributes' %]</li>
+                <li ng-if="vm.settings.displayDocumentsInTabs && vm.settings.documentsTabSortOrder === 'DisplayFirst' && vm.product.documents.length > 0">[% translate 'Documents' %]</li>
+                <li ng-repeat="specification in vm.product.specifications | filter: { isActive: 'true' } | orderBy: 'sortOrder'" ng-class="{active: ($first)}">
+                    {{specification.nameDisplay}}
+                </li>
+                <li ng-if="vm.settings.displayAttributesInTabs && vm.settings.attributesTabSortOrder === 'DisplayLast' && (vm.product.attributeTypes.length > 0 || vm.product.brand.name)">[% translate 'Attributes' %]</li>
+                <li ng-if="vm.settings.displayDocumentsInTabs && vm.settings.documentsTabSortOrder === 'DisplayLast' && vm.product.documents.length > 0">[% translate 'Documents' %]</li>
+            </ul>
+            <div class="resp-tabs-container">
+                <div ng-if="vm.settings.displayAttributesInTabs && vm.settings.attributesTabSortOrder === 'DisplayFirst' && (vm.product.attributeTypes.length > 0 || vm.product.brand.name)">
+                    <table class="info-tbl spec-attributes">
+                        <tbody>
+                            <tr ng-if="vm.product.brand.name" class="row">
+                                <td class="col-label small-4">[% translate 'Brand' %]</td>
+                                <td class="col-value small-8" ng-bind="vm.product.brand.name"></td>
+                            </tr>
+                            <tr ng-repeat="attributeType in vm.product.attributeTypes | orderBy : ['label', 'name']" class="row">
+                                <td class="col-label small-4" ng-bind="attributeType.label || attributeType.name"></td>
+                                <td class="col-value small-8"><isc-no-element ng-repeat="attributeValue in attributeType.attributeValues | orderBy  : ['sortOrder','valueDisplay']">{{attributeValue.valueDisplay}}{{$last ? '' : ', '}}</isc-no-element></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="vm.settings.displayDocumentsInTabs && vm.settings.documentsTabSortOrder === 'DisplayFirst' && vm.product.documents.length > 0">
+                    <ul class="spec-documents">
+                        <li ng-if="vm.languageId === document.languageId || document.languageId === null" ng-repeat="document in (orderedDocuments = (vm.product.documents | orderBy : 'documentType'))" class="doc-{{$index}}">
+                            <div ng-if="document.documentType && document.documentType !== orderedDocuments[$index - 1].documentType" class="doc-type"><strong ng-bind="document.documentType"></strong></div>
+                            <a ng-href="{{document.filePath}}" target="_new">{{document.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-repeat="specification in vm.product.specifications | filter: { isActive: 'true' } | orderBy: 'sortOrder'" ng-bind-html="specification.htmlContent|trusted"></div>
+                <div ng-if="vm.settings.displayAttributesInTabs && vm.settings.attributesTabSortOrder === 'DisplayLast' && (vm.product.attributeTypes.length > 0 || vm.product.brand.name)">
+                    <table class="info-tbl spec-attributes">
+                        <tbody>
+                            <tr ng-if="vm.product.brand.name" class="row">
+                                <td class="col-label small-4">[% translate 'Brand' %]</td>
+                                <td class="col-value small-8" ng-bind="vm.product.brand.name"></td>
+                            </tr>
+                            <tr ng-repeat="attributeType in vm.product.attributeTypes | orderBy : ['label', 'name']" class="row">
+                                <td class="col-label small-4" ng-bind="attributeType.label || attributeType.name"></td>
+                                <td class="col-value small-8"><isc-no-element ng-repeat="attributeValue in attributeType.attributeValues | orderBy  : ['sortOrder','valueDisplay']">{{attributeValue.valueDisplay}}{{$last ? '' : ', '}}</isc-no-element></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="vm.settings.displayDocumentsInTabs && vm.settings.documentsTabSortOrder === 'DisplayLast' && vm.product.documents.length > 0">
+                    <ul class="spec-documents">
+                        <li ng-if="vm.languageId === document.languageId || document.languageId === null" ng-repeat="document in (orderedDocuments = (vm.product.documents | orderBy : 'documentType'))" class="doc-{{$index}}">
+                            <div ng-if="document.documentType && document.documentType !== orderedDocuments[$index - 1].documentType" class="doc-type"><strong ng-bind="document.documentType"></strong></div>
+                            <a ng-href="{{document.filePath}}" target="_new">{{document.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Catalog-TellAFriendPopup">
+    [% partialView 'Catalog-TellAFriendPopup' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Catalog-CrossSellCarousel">
+    [% partialView 'Catalog-CrossSellCarousel' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Catalog-ProductImages">
+    [% partialView 'Catalog-ProductImages' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Catalog-ProductImageCarousel">
+    [% partialView 'Catalog-ProductImageCarousel' %]
+</script>

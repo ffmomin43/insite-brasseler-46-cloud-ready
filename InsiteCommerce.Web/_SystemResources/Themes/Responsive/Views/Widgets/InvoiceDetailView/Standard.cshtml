@@ -1,0 +1,186 @@
+﻿<div ng-controller="InvoiceDetailController as vm" ng-cloak>
+    <div ng-show="vm.invoice">
+        <div class="row">
+            <div class="small-6 columns">
+                <h2>[% translate 'Invoice #' %] {{vm.invoice.invoiceNumber}}</h2>
+            </div>
+            <div class="btns small-6 columns">
+                <a id="tst_invoiceDetailPage_print" href="/Invoice/GetPdf?invoiceNumber={{vm.invoice.invoiceNumber}}" class="hide-for-small btn secondary btn-print" ng-show="vm.invoice" target="_blank">[% translate 'Print' %]</a>
+                <a id="tst_invoiceDetailPage_email" ng-click="vm.showShareModal()" href="javascript:;" class="btn secondary btn-print" ng-show="vm.invoice">[% translate 'Email' %]</a>
+                <isc-share-entity-popup entity-id="vm.invoice.invoiceNumber" entity-name="Invoice" url="/api/v1/invoices/shareinvoice" file-link="/Invoice/GetPdf?invoiceNumber={{vm.invoice.invoiceNumber}}" header-text="[% translate 'Email Invoice' %]"
+                                        file-name="invoice_{{vm.invoice.invoiceNumber}}.pdf" subject="[% translate 'Invoice #' %]{{vm.invoice.invoiceNumber}}" submit-button-text="[% translate 'Email Invoice' %]"></isc-share-entity-popup>
+            </div>
+        </div>
+        <p class="valid-error" ng-if="vm.validation" ng-bind="vm.validation.exceptionMessage"></p>
+        <div class="row">
+            <div class="medium-7 columns">
+                <div class="order-details-top">
+                    <div class="row">
+                        <div class="large-6 columns">
+                            <div class="od-head">
+                                <h3 class="od-lbl">[% translate 'Invoice Date' %]:</h3>
+                                <h3 class="od-data" ng-bind="vm.invoice.invoiceDate | date:'shortDate'"></h3>
+                                <h3 class="od-lbl">[% translate 'Invoice Due Date' %]:</h3>
+                                <h3 class="od-data" ng-bind="vm.invoice.dueDate | date:'shortDate'"></h3>
+                                <h3 class="od-lbl">[% translate 'Terms' %]:</h3>
+                                <h3 class="od-data" ng-bind="vm.invoice.terms"></h3>
+                                <h3 class="od-lbl">[% translate 'PO #' %]:</h3>
+                                <h3 class="od-data" ng-bind="vm.invoice.customerPO"></h3>
+                            </div>
+                            <div class="ship-info">
+                                <div class="oc-head">
+                                    <h3>[% translate 'Shipping Address' %]</h3>
+                                </div>
+                                <ul>
+                                    <li ng-bind="vm.invoice.stCompanyName"></li>
+                                    <li ng-bind="vm.invoice.stAddress1"></li>
+                                    <li ng-if="vm.invoice.stAddress2" ng-bind="vm.invoice.stAddress2"></li>
+                                    <li ng-bind="vm.stFormat"></li>
+                                    <li ng-bind="vm.invoice.stCountry"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="large-6 columns">
+                            <div class="bill-info">
+                                <div class="oc-head">
+                                    <h3>[% translate 'Billing Address' %]</h3>
+                                </div>
+                                <ul>
+                                    <li ng-bind="vm.invoice.btCompanyName"></li>
+                                    <li ng-bind="vm.invoice.btAddress1"></li>
+                                    <li ng-if="vm.invoice.btAddress2" ng-bind="vm.invoice.btAddress2"></li>
+                                    <li ng-bind="vm.btFormat"></li>
+                                    <li ng-bind="vm.invoice.btCountry"></li>
+                                </ul>
+                            </div>
+                            <div ng-if="vm.invoice.shipCode" class="ship-method">
+                                <div class="oc-head">
+                                    <h3>[% translate 'Shipping Method' %]</h3>
+                                </div>
+                                <div ng-bind="vm.invoice.shipViaDescription || vm.invoice.shipCode"></div>
+                            </div>
+                            <div ng-if="vm.invoice.notes" class="notes">
+                                <div class="oc-head">
+                                    <h3>[% translate 'Order Notes' %]</h3>
+                                </div>
+                                <div ng-bind="vm.invoice.notes"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="medium-5 columns">
+                <div class="order-subtotal">
+                    <div class="oc-head">
+                        <h3>[% translate 'Invoice Summary' %]</h3>
+                    </div>
+                    <div class="row">
+                        <div class="small-6 columns sub-label">[% translate 'Subtotal' %]</div>
+                        <div class="small-6 columns sub-amount" ng-bind="vm.invoice.productTotalDisplay"></div>
+                    </div>
+                    <div class="row promo-applied" ng-if="vm.invoice.discountAmount > 0">
+                        <div class="small-6 columns sub-label">[% translate 'Discounts' %]</div>
+                        <div class="small-6 columns sub-amount" ng-bind="'-' + vm.invoice.discountAmountDisplay"></div>
+                    </div>
+                    <div class="row" ng-if="vm.invoice.shippingAndHandling > 0">
+                        <div class="small-6 columns sub-label">[% translate 'Shipping & Handling' %]</div>
+                        <div class="small-6 columns sub-amount" ng-bind="vm.invoice.shippingAndHandlingDisplay"></div>
+                    </div>
+                    <div class="row" ng-if="vm.invoice.otherCharges > 0">
+                        <div class="small-6 columns sub-label">[% translate 'Other Charges' %]</div>
+                        <div class="small-6 columns sub-amount" ng-bind="vm.invoice.otherChargesDisplay"></div>
+                    </div>
+                    <div class="row" ng-if="vm.invoice.invoiceHistoryTaxes.length == 0">
+                        <div class="small-6 columns sub-label">[% translate 'Taxes' %]</div>
+                        <div class="small-6 columns sub-amount" ng-bind="vm.invoice.taxAmountDisplay"></div>
+                    </div>
+                    <div class="row" ng-repeat="invoiceHistoryTax in vm.invoice.invoiceHistoryTaxes | orderBy:'sortOrder'">
+                        <div class="small-6 columns sub-label">
+                            <span ng-show="invoiceHistoryTax.taxDescription" ng-bind="invoiceHistoryTax.taxDescription"></span>
+                            <span ng-hide="invoiceHistoryTax.taxDescription">[% translate 'Tax' %]</span>
+                        </div>
+                        <div class="small-6 columns sub-amount" ng-bind="invoiceHistoryTax.taxAmountDisplay"></div>
+                    </div>
+                    <div class="row order-total">
+                        <div class="small-6 columns sub-label">[% translate 'Total' %]</div>
+                        <div class="small-6 columns sub-amount" ng-bind="vm.invoice.invoiceTotalDisplay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row order-details">
+            <div class="large-12 columns">
+                <ul class="item-list cart-items">
+                    <li class="row item-block header">
+                        <div class="small-2 columns">
+                            <h4>[% translate 'Product' %]</h4>
+                        </div>
+                        <div class="small-10 columns">
+                            <div class="small-6 small-offset-6 large-4 large-offset-4 columns">
+                                <h4 class="right">[% translate 'Price' %]</h4>
+                            </div>
+                            <div class="large-2 columns show-for-large-up">
+                                <h4 class="right">[% translate 'Qty Invoiced' %]</h4>
+                            </div>
+                            <div class="large-2 columns show-for-large-up">
+                                <h4 class="right">[% translate 'Subtotal' %]</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row item-block checkout-item" ng-repeat="line in vm.invoice.invoiceLines track by line.id">
+                        <div class="small-2 columns item-thumb">
+                            <a ng-href="{{ line.productUri }}">
+                                <img ng-src="{{ line.mediumImagePath }}" alt="{{ line.altText }}"/>
+                            </a>
+                        </div>
+                        <div class="small-10 columns item-details">
+                            <div class="small-6 large-4 columns">
+                                <isc-product-brand product="line"></isc-product-brand>
+                                <div class="item-name">
+                                    <a ng-if="line.productUri" ng-href="{{ line.productUri }}">{{ line.shortDescription || line.description }}</a>
+                                    <span ng-if="!line.productUri">{{ line.shortDescription || line.description }}</span>
+                                </div>
+                                <div class="item-num">
+                                    <span class="item-num-sku" ng-bind="line.productERPNumber"></span>
+                                    <span class="item-num-mfg" ng-if="line.manufacturerItem">[% translate 'MFG #' %]:{{ line.manufacturerItem }}</span>
+                                </div>
+                            </div>
+                            <div class="price small-6 large-4 columns">
+                                <span class="price-sale" ng-bind="line.unitPriceDisplay"></span>
+                                <span class="selected-uom" ng-bind="line.unitOfMeasure"></span>
+                            </div>
+                            <div class="small-12 medium-6 large-2 columns">
+                                <div class="item-opt">
+                                    <div class="item-qty">
+                                        <strong class="hide-for-large-up">[% translate 'Qty Invoiced' %]:</strong>
+                                        <span ng-bind="line.qtyInvoiced"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small-12 medium-6 large-2 columns">
+                                <div class="item-opt">
+                                    <div class="item-subtotal" ng-bind="line.lineTotalDisplay"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-10 columns item-code-notes" ng-if="line.notes">
+                            <div class="large-6 columns item-notes">
+                                <strong>[% translate 'Item Notes' %]:</strong><span ng-bind="line.notes"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-show="vm.validationMessage">
+        {{vm.validationMessage}}
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Common-ShareEntityModal">
+    [% partialView 'Common-ShareEntityModal' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Common-ShareEntityField">
+    [% partialView 'Common-ShareEntityField' %]
+</script>

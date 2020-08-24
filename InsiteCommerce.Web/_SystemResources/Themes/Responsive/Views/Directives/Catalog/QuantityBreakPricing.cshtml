@@ -1,0 +1,28 @@
+﻿{% comment %}
+usage example:
+<isc-quantity-break-pricing product-id="product.id" block="optional" break-prices="product.pricing.unitRegularBreakPrices">
+</isc-quantity-break-pricing>
+
+break-prices must be an array objects of format BreakPriceDto
+a data-dropdown attribute is needed on static part of the page for foundation to correctly initialize this drop down
+{% endcomment %}
+<div class="quantity-pricing" ng-if="(breakPrices && breakPrices.length > 1)">
+    <a href="" data-dropdown="qty-price-{{::(productId + block)}}" class="t-dropdown tst_quantityBreakPricing_link">[% translate 'Quantity Pricing' %]</a>
+    <div id="qty-price-{{::(productId + block)}}" class="f-dropdown content" data-dropdown-content>
+        <div class="quantity-pricing-popup">
+            <div class="tt-wrap">
+                <table class="isc-pricebreaks">
+                    <tbody>
+                        <tr ng-repeat="bp in breakPrices | orderBy:'breakQty'">
+                            <td class="col-1" ng-bind="bp.breakQty"></td>
+                            <td class="col-2">
+                                <span class="qty-price" ng-bind="bp.breakPriceDisplay"></span>
+                            </td>
+                            <td class="col-3" ng-bind="bp.savingsMessage"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

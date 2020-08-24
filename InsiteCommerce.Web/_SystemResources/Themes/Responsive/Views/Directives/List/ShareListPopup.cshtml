@@ -1,0 +1,278 @@
+﻿<div id="popup-share-list" class="reveal-modal popup-share-list" data-reveal data-reveal-init
+     ng-init="vm.defaultShareText='[% translate 'I'd like to share my list of products with you.' EscapeSingleQuotes %]';
+     vm.defaultInviteText='[% translate 'I'd like to invite you to my shared list of products.' EscapeSingleQuotes %]'">
+    <div class="modal-wrap" ng-if="!vm.shareWizardStep">
+        <h2 id="tst_sharePopup_title">[% translate 'Share List' %]</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div>
+                        <p class="popup-instruction">[% siteMessage 'Lists_Send_Copy_Or_Allow_Others_Access_List' %]</p>
+                    </div>
+                    <div class="list-options">
+                        <div class="list-question">[% translate 'How would you like to share this list?' %]</div>
+                        <div class="list-option">
+                            <input id="send-copy" name="share-mode" ng-model="vm.shareListOption" type="radio" value="sendCopy" class="tst_shareList_shareListOption_sendCopy" />
+                            <label for="send-copy">[% translate 'Send a copy.' %]</label>
+                        </div>
+                        <div class="list-option">
+                            <input id="share-with-others" name="share-mode" ng-model="vm.shareListOption" type="radio" value="shareList" class="tst_shareList_shareListOption_shareList" />
+                            <label for="share-with-others">[% translate 'Allow others to view or edit this list.' %]</label>
+                            <div class="hover-tooltip-wrapper">
+                                <i data-dropdown="qtip-share-list" class="icon-help hover-tooltip"></i>
+                                <span id="qtip-share-list" class="f-dropdown content hover-tooltip-content" data-dropdown-content>
+                                    <span>[% siteMessage 'Lists_Invite_Individuals_Or_Make_Available_To_All_Customer_Users_Tooltip' %]</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <button id="tst_sharePopup_cancel" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                    <button id="tst_sharePopup_next" ng-click="vm.shareNextStep(vm.shareListOption)" class="btn primary" type="button">[% translate 'Next' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap share-large" ng-if="vm.shareWizardStep === 'sendCopy'">
+        <h2 id="tst_sharePopup_sendCopy_title">[% translate 'Send A Copy' %]</h2>
+        <div class="pop-content">
+            <form name="vm.sendCopyForm" ng-submit="vm.sendACopy('listCopySent')" novalidate>
+                <fieldset ng-disabled="vm.isDisabled">
+                    <div class="row">
+                        <div class="row main-content">
+                            <div>
+                                <label class="field-name">[% translate 'Your Name' %]<span class="redTxt">*</span></label>
+                            </div>
+                            <div>
+                                <input type="text" ng-model="vm.yourName" name="yourName" placeholder="[% translate 'Enter your name' %]" autofocus="autofocus" required />
+                            </div>
+                            <div>
+                                <label class="field-name">[% translate 'Recipient Email Address' %]<span class="redTxt">*</span></label>
+                            </div>
+                            <div>
+                                <input type="text" ng-model="vm.recipientEmailAddress" name="recipientEmailAddress" class="reset-bottom-margin" placeholder="[% translate 'Enter recipient email address' %]" required />
+                            </div>
+                            <div class="bottom-field-tooltip">[% siteMessage 'Lists_Use_Comma_As_Delimiter' %]</div>
+                            <div>
+                                <label class="field-name">[% translate 'Message' %]</label>
+                            </div>
+                            <div>
+                                <textarea ng-model="vm.shareMessage" isc-limit-number-of-characters="300" name="shareMessage" ng-maxlength="300"></textarea>
+                            </div>
+                            <div class="max-field-tooltip">
+                                <isc-characters-left-counter form-element="vm.sendCopyForm.shareMessage" field-model="vm.shareMessage" limit="300"></isc-characters-left-counter>
+                                [% translate 'characters left' %].
+                            </div>
+                        </div>
+                        <div id="error" class="error" ng-show="vm.sendCopyForm.$submitted && (vm.sendCopyForm.recipientEmailAddress.$error.required || vm.recipientEmailIsInvalid || vm.sendCopyForm.yourName.$error.required)">
+                            <span ng-show="vm.sendCopyForm.recipientEmailAddress.$error.required" class="field-validation-error">[% siteMessage 'Lists_Recipient_Email_Address_Required' %]</span>
+                            <span ng-show="vm.recipientEmailIsInvalid" class="field-validation-error">[% siteMessage 'AddressInfo_EmailAddress_Validation' %]</span>
+                            <span ng-show="vm.sendCopyForm.yourName.$error.required" class="field-validation-error">[% siteMessage 'Lists_Your_Name_Required' %]</span>
+                        </div>
+                        <div class="row btns">
+                            <div class="back-navigation">
+                                <button id="tst_sharePopup_back" ng-click="vm.shareBackStep('')" class="btn tertiary" type="button">[% translate 'Back' %]</button>
+                            </div>
+                            <button id="tst_sharePopup_cancel" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_sharePopup_send" class="btn primary" type="submit">[% translate 'Send' %]</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap" ng-if="vm.shareWizardStep === 'listCopySent'">
+        <h2 id="tst_sharePopup_listCopySent_title">[% translate 'List Copy Sent' %]</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div>
+                        <p class="popup-instruction">[% translate 'A copy of your list has been sent.' %]</p>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <button id="tst_sharePopup_close" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Close' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap" ng-if="vm.shareWizardStep === 'shareList'">
+        <h2 id="tst_sharePopup_shareList_title">[% translate 'Allow Others To Access List' %]</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div class="list-options">
+                        <div class="list-question">[% siteMessage 'Lists_Share_List_Or_Make_Available_To_All_Customer_Users' %]</div>
+                        <div class="list-option">
+                            <input id="share-list" name="share-details" ng-model="vm.shareByOption" type="radio" value="shareByEmail" class="tst_shareList_shareByOption_shareByEmail" />
+                            <label for="share-list">[% translate 'Share list.' %]</label>
+                            <div class="hover-tooltip-wrapper">
+                                <i data-dropdown="qtip-share-list-by-email" class="icon-help hover-tooltip"></i>
+                                <span id="qtip-share-list-by-email" class="f-dropdown content hover-tooltip-content" data-dropdown-content>
+                                    <span>[% siteMessage 'Lists_Share_List_With_Anyone_Via_Email' %]</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list-option">
+                            <input id="share-by-billing" name="share-details" ng-model="vm.shareByOption" type="radio" value="shareByBilling" class="tst_shareList_shareByOption_shareByBilling" />
+                            <label for="share-by-billing">[% siteMessage 'Lists_Make_List_Available_To_All_Customer_Users' %]</label>
+                            <div class="hover-tooltip-wrapper">
+                                <i data-dropdown="qtip-share-list-by-billing" class="icon-help hover-tooltip"></i>
+                                <span id="qtip-share-list-by-billing" class="f-dropdown content hover-tooltip-content" data-dropdown-content>
+                                    <span>[% siteMessage 'Lists_Make_List_Available_To_All_Customer_Users_Tooltip' %]</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-options">
+                        <div class="list-question">[% translate 'Allow editing?' %]</div>
+                        <div class="list-option">
+                            <input id="allow-edit-yes" name="edit-mode" ng-model="vm.allowEditList" type="radio" value="true" class="tst_shareList_allowEditList_true" />
+                            <label for="allow-edit-yes">[% translate 'Yes, allow editing.' %]</label>
+                        </div>
+                        <div class="list-option">
+                            <input id="allow-edit-no" name="edit-mode" ng-model="vm.allowEditList" type="radio" value="false" class="tst_shareList_allowEditList_false" />
+                            <label for="allow-edit-no">[% translate 'No, the list can only be viewed.' %]</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <div class="back-navigation">
+                        <button id="tst_sharePopup_back" ng-click="vm.shareBackStep('')" class="btn tertiary" type="button">[% translate 'Back' %]</button>
+                    </div>
+                    <button id="tst_sharePopup_cancel" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                    <button id="tst_sharePopup_next" ng-click="vm.shareNextStep(vm.shareByOption)" class="btn primary" type="button">[% translate 'Next' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap share-large" ng-if="vm.shareWizardStep === 'shareByBilling'">
+        <h2 id="tst_sharePopup_shareByBilling_title">[% translate 'Share With Billing Account' %]</h2>
+        <div class="pop-content">
+            <form name="vm.shareWithBillingForm">
+                <fieldset ng-disabled="vm.isDisabled">
+                    <div class="row">
+                        <div class="row">
+                            <div>
+                                <p class="popup-instruction">[% siteMessage 'Lists_Your_List_Will_Be_Available_To_All_Customer_Users' %]</p>
+                            </div>
+                            <div class="main-content">
+                                <div class="check-field">
+                                    <input id="sendNotification" ng-model="vm.sendNotificationToUsers" type="checkbox" class="tst_shareList_sendNotification" />
+                                    <label for="sendNotification">[% translate 'Send an email notification to users.' %]</label>
+                                </div>
+                                <div ng-if="vm.sendNotificationToUsers">
+                                    <div>
+                                        <label class="field-name">[% translate 'Message' %]</label>
+                                    </div>
+                                    <div>
+                                        <textarea ng-model="vm.notificationMessage" isc-limit-number-of-characters="300" name="notificationMessage" ng-maxlength="300"></textarea>
+                                    </div>
+                                    <div class="max-field-tooltip">
+                                        <isc-characters-left-counter form-element="vm.shareWithBillingForm.notificationMessage" field-model="vm.notificationMessage" limit="300"></isc-characters-left-counter>
+                                        [% translate 'characters left' %].
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <div class="back-navigation">
+                                <button id="tst_sharePopup_back" ng-click="vm.shareBackStep('shareList')" class="btn tertiary" type="button">[% translate 'Back' %]</button>
+                            </div>
+                            <button id="tst_sharePopup_cancel" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_sharePopup_finish" ng-click="vm.shareWithBilling('notificationSent')" class="btn primary" type="button">[% translate 'Finish' %]</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap" ng-if="vm.shareWizardStep === 'notificationSent'">
+        <h2 id="tst_sharePopup_notificationSent_title">[% translate 'Confirmation' %]</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div>
+                        <p ng-if="!vm.sendNotificationToUsers" class="popup-instruction">[% translate 'Your list has been shared with all users on the billing account.' %]</p>
+                        <p ng-if="vm.sendNotificationToUsers" class="popup-instruction">[% translate 'A notification email has been sent.' %]</p>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <button id="tst_sharePopup_close" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Close' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap share-large" ng-if="vm.shareWizardStep === 'shareByEmail'">
+        <h2 id="tst_sharePopup_shareByEmail_title">[% translate 'Share List: Invite others to view or edit' %]</h2>
+        <div class="pop-content">
+            <form name="vm.sendInviteForm" ng-submit="vm.inviteOthers('inviteOthersSent')" novalidate>
+                <fieldset ng-disabled="vm.isDisabled">
+                    <div class="row">
+                        <div class="row main-content">
+                            <div>
+                                <label class="field-name">[% translate 'Your Name' %]<span class="redTxt">*</span></label>
+                            </div>
+                            <div>
+                                <input id="tst_ShareListPopup_invite_yourName" type="text" ng-model="vm.yourName" name="yourName" placeholder="[% translate 'Enter your name' %]" autofocus="autofocus" required />
+                            </div>
+                            <div>
+                                <label class="field-name">[% translate 'Recipient Email Address' %]<span class="redTxt">*</span></label>
+                            </div>
+                            <div>
+                                <input id="tst_ShareListPopup_invite_email" type="text" ng-model="vm.recipientEmailAddress" name="recipientEmailAddress" class="reset-bottom-margin" placeholder="[% translate 'Enter recipient email address' %]" required />
+                            </div>
+                            <div class="bottom-field-tooltip">[% siteMessage 'Lists_Use_Comma_As_Delimiter' %]</div>
+                            <div>
+                                <label class="field-name">[% translate 'Message' %]</label>
+                            </div>
+                            <div>
+                                <textarea ng-model="vm.inviteMessage" isc-limit-number-of-characters="300" name="inviteMessage" ng-maxlength="300"></textarea>
+                            </div>
+                            <div class="max-field-tooltip">
+                                <isc-characters-left-counter form-element="vm.sendInviteForm.inviteMessage" field-model="vm.inviteMessage" limit="300"></isc-characters-left-counter>
+                                [% translate 'characters left' %].
+                            </div>
+                        </div>
+                        <div id="error" class="error" ng-show="vm.sendInviteForm.$submitted && (vm.sendInviteForm.recipientEmailAddress.$error.required || vm.recipientEmailIsInvalid || vm.sendInviteForm.yourName.$error.required)">
+                            <span ng-show="vm.sendInviteForm.recipientEmailAddress.$error.required" class="field-validation-error">[% siteMessage 'Lists_Recipient_Email_Address_Required' %]</span>
+                            <span ng-show="vm.recipientEmailIsInvalid" class="field-validation-error">[% siteMessage 'AddressInfo_EmailAddress_Validation' %]</span>
+                            <span ng-show="vm.sendInviteForm.yourName.$error.required" class="field-validation-error">[% siteMessage 'Lists_Your_Name_Required' %]</span>
+                        </div>
+                        <div class="row btns">
+                            <div class="back-navigation">
+                                <button id="tst_sharePopup_back" ng-click="vm.customBackStep ? vm.customBackStep() : vm.shareBackStep('shareList')" class="btn tertiary" type="button">[% translate 'Back' %]</button>
+                            </div>
+                            <button id="tst_sharePopup_cancel" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_sharePopup_send" class="btn primary" type="submit">[% translate 'Send' %]</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+    <div class="modal-wrap" ng-if="vm.shareWizardStep === 'inviteOthersSent'">
+        <h2 id="tst_sharePopup_inviteOthersSent_title">[% translate 'List Shared' %]</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div>
+                        <p class="popup-instruction">[% translate 'Your invite to the shared list has been sent.' %]</p>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <button id="tst_sharePopup_close" ng-click="vm.closeModal('#popup-share-list')" class="btn secondary btn-cancel" type="button">[% translate 'Close' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

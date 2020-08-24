@@ -1,0 +1,19 @@
+﻿<div>
+    <div id="{{vm.prefix}}-img-carousel-wrapper" class="images-carousel-wrapper" ng-if="vm.productImages.length > 1">
+        <div id="{{vm.prefix}}-img-carousel" class="img-carousel">
+            <ul class="items slides">
+                <li id="tst_productDetailPage_{{vm.prefix}}Thumbnail_{{image.sortOrder}}" class="medium-2 large-2 columns isc-imageContainer" ng-class="{'active': image.mediumImagePath === vm.selectedImage.mediumImagePath}"
+                    ng-repeat="image in vm.productImages" ng-click="vm.selectImage(image)">
+                    <div class="item-wrap">
+                        <img ng-if="image.imageType === 'Static'" class="tst_productDetailPage_thumbnail" ng-src="{{image.smallImagePath ? image.smallImagePath : image.mediumImagePath}}" alt="{{image.altText}}" increment-images-loaded />
+                        <img ng-if="vm.imageProvider === 'SIRV' && image.imageType === '360'" ng-src="{{image.mediumImagePath.split('?')[0] + '?thumb'}}" alt="{{image.altText}}" increment-images-loaded />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <span>
+            <a href="#" class="{{vm.prefix}}-carousel-control-nav img-carousel-control-prev flex-prev"><span></span></a>
+            <a href="#" class="{{vm.prefix}}-carousel-control-nav img-carousel-control-next flex-next"><span></span></a>
+        </span>
+    </div>
+</div>

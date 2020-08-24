@@ -1,0 +1,104 @@
+﻿<div>
+    <div id="popup-product-subscription" class="reveal-modal popup-product-subscription" data-reveal data-reveal-init>
+        <div class="modal-wrap">
+            <div class="pop-content">
+                <div class="row">
+                    <span>[% translate 'Delivery Period' %]</span>
+                    <select ng-model="vm.productSubscription.subscriptionCyclePeriod"
+                            ng-options="cyclePeriod for cyclePeriod in vm.subscriptionCyclePeriodOptions"></select>
+                </div>
+                <div class="row">
+                    <span>[% translate 'Periods Per Cycle' %]</span>
+                    <input id="tst_productSubscriptionPopup_periodsPerCycle" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                           ng-model="vm.productSubscription.subscriptionPeriodsPerCycle" />
+                </div>
+                <div class="row">
+                    <span>[% translate 'Total # of Cycles' %]</span>
+                    <input id="tst_productSubscriptionPopup_totalCycles" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                           ng-model="vm.productSubscription.subscriptionTotalCycles" />
+                </div>
+                <div class="row">
+                    <input type="checkbox" id="subscription_all_months"
+                           ng-model="vm.productSubscription.subscriptionAllMonths"/>
+                    <label for="subscription_all_months">[% translate 'Include All Months' %]</label>
+                </div>
+                <div ng-hide="vm.productSubscription.subscriptionAllMonths">
+                    <div class="month-column-1">
+                        <div class="row">
+                            <input type="checkbox" id="subscription_january"
+                                   ng-model="vm.productSubscription.subscriptionJanuary"/>
+                            <label for="subscription_january">[% translate 'January' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_february"
+                                   ng-model="vm.productSubscription.subscriptionFebruary"/>
+                            <label for="subscription_february">[% translate 'February' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_march"
+                                   ng-model="vm.productSubscription.subscriptionMarch"/>
+                            <label for="subscription_march">[% translate 'March' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_april"
+                                   ng-model="vm.productSubscription.subscriptionApril"/>
+                            <label for="subscription_april">[% translate 'April' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_may"
+                                   ng-model="vm.productSubscription.subscriptionMay"/>
+                            <label for="subscription_may">[% translate 'May' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_june"
+                                   ng-model="vm.productSubscription.subscriptionJune"/>
+                            <label for="subscription_june">[% translate 'June' %]</label>
+                        </div>
+                    </div>
+                    <div class="month-column-2">
+                        <div class="row">
+                            <input type="checkbox" id="subscription_july"
+                                   ng-model="vm.productSubscription.subscriptionJuly">
+                            <label for="subscription_july">[% translate 'July' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_august"
+                                   ng-model="vm.productSubscription.subscriptionAugust"/>
+                            <label for="subscription_august">[% translate 'August' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_september"
+                                   ng-model="vm.productSubscription.subscriptionSeptember"/>
+                            <label for="subscription_september">[% translate 'September' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_october"
+                                   ng-model="vm.productSubscription.subscriptionOctober"/>
+                            <label for="subscription_october">[% translate 'October' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_november"
+                                   ng-model="vm.productSubscription.subscriptionNovember"/>
+                            <label for="subscription_november">[% translate 'November' %]</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="subscription_december"
+                                   ng-model="vm.productSubscription.subscriptionDecember"/>
+                            <label for="subscription_december">[% translate 'December' %]</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button ng-click="vm.saveProductSubscription(cartLine)"
+                            id="tst_productSubscription_save" role="button" class="btn primary btn-save-product-subscription">
+                        [% translate 'Save Delivery Schedule' %]
+                    </button>
+                    <button ng-click="vm.cancelProductSubscription(cartLine)"
+                            id="tst_productSubscription_cancel" role="button" class="btn tertiary btn-cancel-product-subscription">
+                        [% translate 'Cancel' %]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

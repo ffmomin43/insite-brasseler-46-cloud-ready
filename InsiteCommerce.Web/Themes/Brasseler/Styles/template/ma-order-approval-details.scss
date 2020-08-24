@@ -1,0 +1,127 @@
+.ma-order-approval-details {
+    .error {
+        margin: 1.5em 0;
+    }
+
+    .order-details-top {
+        margin-bottom: 1.5em;
+    }
+
+    .order-details-top .od-head h3 {
+        width: 50%;
+        float: left;
+    }
+
+    .order-details-top h3 {
+        margin-top: 0;
+    }
+
+    .order-details-top h3.od-lbl {
+        padding-right: 1em;
+        clear: left;
+    }
+
+    .order-details-top ul {
+        list-style: none;
+        margin: 0;
+    }
+    /* Cart Items */
+    .cart-items {
+        margin-bottom: 1em;
+    }
+
+    .btns {
+        float: left;
+        clear: both;
+        width: 100%;
+        margin-bottom: 1.5em;
+    }
+
+    .btns .btn {
+        float: right;
+        margin-left: 1em;
+    }
+    /* Cart Items */
+    ul.cart-items {
+        list-style: none;
+    }
+
+    .item-list .item-details,
+    .item-list .item-code-notes {
+        float: right;
+    }
+
+    .item-block {
+        .price {
+            span {
+                margin: 0 0;
+            }
+
+            .price-saving {
+                display: block;
+            }
+
+            .selected-uom {
+                margin-right: 1rem;
+            }
+
+            .quantity-pricing {
+                margin-left: 0 !important;
+                display: block !important;
+            }
+        }
+    }
+
+    .item-list .item-code-notes .cost-code,
+    .item-list .item-code-notes .item-notes {
+        width: 100%;
+        margin-bottom: 0.25em;
+    }
+
+    .item-list .item-code-notes .cost-code strong,
+    .item-list .item-code-notes .item-notes strong {
+        margin-right: 0.5em;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-order-approval-details {
+        .cart-items {
+            overflow: auto;
+            max-height: 460px;
+        }
+
+        ul.cart-items {
+            border-top: 1px solid #E0E0E0;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-order-approval-details {
+        .order-subtotal {
+            width: 50%;
+            float: right;
+        }
+
+        .item-list .item-details {
+            div.price, div.item-opt {
+                display: inline-block;
+                height: auto;
+            }
+
+            .item-opt {
+                line-height: 1rem;
+
+                .item-subtotal {
+                    min-width: 110px;
+                }
+            }
+        }
+
+        .item-list .item-details,
+        .item-list .item-code-notes {
+            padding-right: 1em !important;
+        }
+    }
+}

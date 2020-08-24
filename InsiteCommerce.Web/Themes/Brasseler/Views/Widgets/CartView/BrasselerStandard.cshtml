@@ -1,0 +1,94 @@
+﻿[% capture ContinueShoppingButton %]
+<div class="hide-for-medium-up return-link">
+    <a ng-show="vm.cart.displayContinueShoppingLink" ng-click="vm.continueShopping($event)" href="[% urlForPage 'HomePage' %]">[% translate 'Continue Shopping' %]</a>
+</div>
+[% endcapture %]
+
+[% capture CheckoutButtons %]
+<a id="btnCartCheckoutPunchout" ng-if="vm.cart.properties['isPunchout']" ng-href="/punchout/punchoutsubmitporequisition.isch" isc-full-redirect class="btn primary btn-checkout">[% translate 'Punchout' %]</a>
+<a ng-if="vm.cart.canCheckOut && !vm.cart.properties['isPunchout']" class="btn primary btn-checkout tst_cartPage_checkout"
+   ng-href="{{vm.cart.canBypassCheckoutAddress ? '[% urlForPage 'ReviewAndPayPage' %]' + vm.cart.cartIdParam : '[% urlForPage 'CheckoutAddressPage' %]' + vm.cart.cartIdParam}}">[% translate 'Checkout' %]</a>
+<a ng-if="!vm.cart.canCheckOut && !vm.cart.properties['isPunchout'] && !vm.cart.canRequisition" class="btn primary btn-checkout tst_cartPage_checkoutDisabled disabled" href="javascript:void(0)">[% translate 'Checkout' %]</a>
+<a ng-if="vm.cart.canRequestQuote" href="[% urlForPage 'RfqRequestQuotePage' %]" class="btn primary btn-request-quote tst_cartPage_submitQuote"
+   ng-bind="vm.cart.isSalesperson ? '[% translate 'Create a Quote' EscapeSingleQuotes %]' : '[% translate 'Request a Quote' EscapeSingleQuotes %]'" ng-disabled="vm.cart.isAwaitingApproval"></a>
+<a ng-if="vm.cart.properties['isPunchout']" ng-href="/punchout/punchoutsubmitporequisition.isch?operation=cancel" isc-full-redirect class="btn primary btn-checkout">[% translate 'Cancel PunchOut' %]</a>
+<a ng-if="vm.cart.canSaveOrder && !vm.cart.properties['isNewUser']" href="javascript: void(0);" class="btn secondary btn-save-order tst_cartPage_saveOrder" ng-click="vm.saveCart('[% urlForPage 'SavedOrderDetailPage' %]', '[% urlForPage 'SignInPage' %]')">[% translate 'Save Order' %]</a>
+<a ng-if="vm.canAddAllToList && !vm.cart.properties['isNewUser']" href="javascript: void(0);" class="btn primary add-list btn-wishlist btn-add-to-list" ng-click="vm.addAllToList()">[% translate 'Add Cart Items to Wishlist' %]</a>
+<a ng-if="vm.cart.canRequisition && !vm.cart.properties['isNewUser']" href="#" class="btn primary btn-submit-requisition tst_cartPage_submitRequisition" ng-class="{'disabled': vm.requisitionSubmitting}" ng-click="vm.submitRequisition('[% urlForPage 'RequisitionConfirmationPage' %]')">[% translate 'Submit Requisition' %]</a>
+<!--<a href="javascript:void(0);" class="btn secondary btn-clear-all tst_cartPage_removeAll" ng-click="vm.emptyCart('[% urlForPage 'CartPage' %]')">[% translate 'Remove All' %]</a>-->
+[% endcapture %]
+
+<div ng-controller="CartController as vm" ng-cloak ng-show="vm.cart">
+    [[ContinueShoppingButton]]
+    <div class="new-cart">
+        <h3 class="results-count">
+            CART
+            <span class="result-num" ng-if="vm.cart.cartLines.length > 0" ng-bind="vm.cart.totalCountDisplay"></span> <span ng-if="vm.cart.cartLines.length > 0" class="result-lbl">Items</span>
+        </h3>
+        <div class="cart-left">
+            <div id="tst_cartPage_cartIsEmpty" ng-if="vm.cart.cartLines.length == 0" class="cart-empty">
+                <h3>[% siteMessage 'Cart_NoOrderLines' %]</h3>
+            </div>
+            <div ng-if="vm.cart.cartLines.length > 0">
+                <div id="tst_cartPage_approvingMessage" ng-if="vm.cart.isAwaitingApproval" class="app-for">
+                    <h3>[% translate 'Approving Order For' %]: <em ng-bind="vm.cart.initiatedByUserName"></em></h3>
+                </div>
+                <div ng-if="vm.cart.quoteRequiredCount > 0" class="quote-items-note messaging">
+                    [% siteMessage 'Rfq_QuoteRequiredMsg' %]
+                </div>
+                <div ng-show="vm.cart.hasInsufficientInventory" class="messaging--error" id="tst_cartPage_hasInsufficientInventory_message">
+                    [% siteMessage 'Cart_InsufficientInventoryAtCheckout' %]
+                </div>
+                <div ng-show="vm.cart.cartNotPriced" class="messaging--error">
+                    [% siteMessage 'Cart_NoPriceAvailableAtCheckout' %]
+                </div>
+                <div ng-show="vm.productsCannotBePurchased" class="messaging--error">
+                    [% siteMessage 'Cart_ProductsCannotBePurchased' %]
+                </div>
+                <div class="hide-for-medium-up btns hide-for-print">
+                    [[CheckoutButtons]]
+                </div>
+                <div id="cartgrid">
+                    <isc-volume-grp-cart-lines cart="vm.cart" editable="true"
+                                               include-quote-required="true"
+                                               include-inventory="vm.showInventoryAvailability"
+                                               failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory"
+                                               inventory-check="true"
+                                               promotions="vm.promotions"
+                                               is-cart-page="true"
+                                               show-add-to-list="true"
+                                               class="item-list cart-items">
+                    </isc-volume-grp-cart-lines>
+                </div>
+            </div>
+            <div class="btns hide-for-small">
+                <a id="tst_cartPage_continueShopping" ng-show="vm.cart.displayContinueShoppingLink" href="[% urlForPage 'HomePage' %]" ng-click="vm.continueShopping($event)" class="btn secondary btn-continue-shopping">[% translate 'Continue Shopping' %]</a>
+            </div>
+        </div>
+        <div ng-if="vm.cart.cartLines.length > 0" class="cart-right">
+            <isc-brasseler-cart-total-display ng-if="!vm.cart.cartNotPriced" cart="vm.cart" promotions="vm.promotions" order-taxes="vm.cart.customerOrderTaxes" is-cart-page="true"></isc-brasseler-cart-total-display>
+            <div class="btns hide-for-print" id="tst_cartPage_buttons">
+                [[CheckoutButtons]]
+            </div>
+            <div class="smart-supply-img" ng-if="vm.cart.properties['isCustomerEligibleSubscription']=='true'">
+                <a id="smartSupplyPromotionPopup" href="javascript:void(0);" data-reveal-id="smartSupplyPromotionPopupContainer">
+                    <img src="/Images/UserFiles/Subscription/Display-Ad-SmartSupply.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+    [[ContinueShoppingButton]]
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+    [% partialView 'Cart-CartLines' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Cart-VolumeGrpCartLines">
+    [% partialView 'Cart-VolumeGrpCartLines' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Cart-CartTotalDisplay">
+    [% partialView 'Cart-CartTotalDisplay' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Catalog-CrossSellCarousel">
+    [% partialView 'Cart-CartLines' %]
+</script>

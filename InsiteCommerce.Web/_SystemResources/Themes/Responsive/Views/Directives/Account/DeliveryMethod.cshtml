@@ -1,0 +1,24 @@
+﻿<div id="tst_{{::vm.prefix}}_fulfillmentMethodSection" class="delivery-method">
+    <div class="ship-block">
+        <h3>[% translate 'Fulfillment Method' %]</h3>
+        <div class="delivery-method-options">
+            <div id="tst_{{::vm.prefix}}_fulfillmentMethod_shipOption" class="delivery-method-option">
+                <input type="radio" name="{{::vm.prefix}}-fulfillmentMethod" ng-change="vm.changeFulfillmentMethod()" ng-model="vm.fulfillmentMethod" value="Ship" id="{{::vm.prefix}}-shipMethod" />
+                <label for="{{::vm.prefix}}-shipMethod">[% translate 'Ship' %]</label>
+            </div>
+            <div id="tst_{{::vm.prefix}}_fulfillmentMethod_pickUpOption" class="delivery-method-option">
+                <input type="radio" name="{{::vm.prefix}}-fulfillmentMethod" ng-change="vm.changeFulfillmentMethod()" ng-model="vm.fulfillmentMethod" value="PickUp" id="{{::vm.prefix}}-pickUpMethod" />
+                <label for="{{::vm.prefix}}-pickUpMethod">[% translate 'Pick Up' %]</label>
+            </div>
+        </div>
+        <div ng-if="!vm.session.isAuthenticated && vm.fulfillmentMethod === 'Ship'">
+            <a href="[% urlForPage 'SignInPage' %]" id="tst_{{::vm.prefix}}_fulfillmentMethod_signInLink" isc-redirect-to-sign-in return-to-url="true" class="sign-in fastClick"><span>[% translate 'Sign in' %]</span></a>
+            <span>[% translate 'or enter address during checkout' %].</span>
+        </div>
+    </div>
+    <div id="tst_{{::vm.prefix}}_fulfillmentMethod_warehouseInfo" ng-if="vm.fulfillmentMethod === 'PickUp'" class="pick-up-block">
+        <h3 ng-show="vm.showPickUpTitle">[% translate 'Pick Up Location' %]</h3>
+        <isc-warehouse-info warehouse="vm.pickUpWarehouse"></isc-warehouse-info>
+        <a href="" id="tst_{{::vm.prefix}}_fulfillmentMethod_changeLink" ng-click="vm.openWarehouseSelectionModal()" class="warehouse-selection-link">[% translate 'Change' %]</a>
+    </div>
+</div>

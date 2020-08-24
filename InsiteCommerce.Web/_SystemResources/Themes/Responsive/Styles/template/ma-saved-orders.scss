@@ -1,0 +1,96 @@
+.ma-saved-orders {
+    body [role="main"] .section-container .content {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: 0;
+    }
+
+    .btns {
+        margin-top: 0.5em;
+        float: left;
+        width: 100%;
+    }
+
+    .btns .btn {
+        float: right;
+    }
+    /* MA search */
+    .search-orders h3 {
+        margin-top: 0;
+    }
+    /* Date Picker Positioning */
+    .search-date {
+        position: relative;
+    }
+
+    .picker {
+        right: 0% !important;
+    }
+
+    .search-date-to .picker__holder {
+        right: 0% !important;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-saved-orders {
+        .btns .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .search-date .small-6 {
+            position: inherit;
+        }
+
+        .search-open-inv {
+            margin: 0.5em 0 1em 0;
+        }
+    }
+}
+
+
+@media all and (min-width: 768px) {
+    .ma-saved-orders {
+        .btns .btn {
+            margin-left: 1em;
+        }
+
+        .search-orders .columns {
+            float: left;
+        }
+
+        label.accord-head {
+            display: inline-block;
+        }
+
+        .search-orders .search-col-1 {
+            width: 38.333%;
+        }
+
+        .search-orders .search-col-2 {
+            width: 44.333%;
+        }
+
+        .search-orders .search-date em {
+            display: inline-block;
+            float: left;
+            line-height: 38px;
+            margin-right: 0.75em;
+        }
+
+        .search-orders .search-date input {
+            width: 100px;
+            display: inline-block;
+        }
+
+        .search-orders .search-date .row .small-6 {
+            width: auto;
+        }
+
+        .search-orders .search-date [class*="column"] + [class*="column"]:last-child {
+            float: left;
+            padding: 0;
+        }
+    }
+}

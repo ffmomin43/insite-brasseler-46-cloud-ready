@@ -1,0 +1,148 @@
+﻿<div ng-controller="OrderApprovalListController as vm" ng-cloak>
+    <form>
+        <section class="accordion search-orders">
+            <div class="cm">
+                <input type="checkbox" id="accord-1" class="accord-check" />
+                <label for="accord-1" class="accord-head">[% translate 'Search Orders' %]</label>
+                <article class="accord-content">
+                    <div class="row">
+                        <div class="medium-12 large-4 columns search-col-1">
+                            <div class="search-ship-to">
+                                <label>[% translate 'Ship To Address' %]</label>
+                                <select ng-model="vm.searchFilter.shipToId" ng-options="shipTo.id as shipTo.label for shipTo in vm.shipTos">
+                                    <option value="">[% translate 'Select' %]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="medium-12 large-4 columns search-col-2">
+                            <div class="search-order-num">
+                                <label>[% translate 'Order #' %]</label>
+                                <input type="text" name="OrderNumber" id="OrderNumber" ng-model="vm.searchFilter.ordernumber" />
+                            </div>
+                        </div>
+                        <div class="medium-12 large-4 columns search-col-3">
+                            <div class="search-total">
+                                <label>[% translate 'Order Total' %]</label>
+                                <div class="row">
+                                    <div class="small-6 columns">
+                                        <select id="OrderTotalOperator" name="OrderTotalOperator" ng-model="vm.searchFilter.ordertotaloperator">
+                                            <option value="">[% translate 'Select' %]</option>
+                                            <option value="Greater Than">[% translate 'Greater Than' %]</option>
+                                            <option value="Less Than">[% translate 'Less Than' %]</option>
+                                            <option value="Equal To">[% translate 'Equal To' %]</option>
+                                        </select>
+                                    </div>
+                                    <div class="small-6 columns">
+                                        <input type="text" name="OrderTotal" id="OrderTotal" value="" ng-model="vm.searchFilter.ordertotal" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="search-date">
+                                <label>[% translate 'Date Range' %]</label>
+                                <div class="row">
+                                    <div class="small-6 columns">
+                                        <em>[% translate 'From' %]</em>
+                                        <input type="text" name="FromDate" id="FromDate" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.fromdate" />
+                                    </div>
+                                    <div class="small-6 columns">
+                                        <em>[% translate 'To_date' %]</em>
+                                        <input type="text" name="ToDate" id="ToDate" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.todate" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button type="submit" class="btn primary btn-search" ng-click="vm.search()">[% translate 'Search' %]</button>
+                        <button type="submit" class="btn secondary btn-clear" ng-click="vm.clear()">[% translate 'Clear' %]</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </form>
+    <p class="error" ng-if="vm.validationMessage" ng-bind="vm.validationMessage"></p>
+
+    <div ng-show="vm.approvalCarts.length > 0">
+
+        <h3 class="results-count">
+            <span class="result-num" ng-bind="vm.pagination.totalItemCount"></span>
+            <span class="result-lbl">[% translate 'orders' %]</span>
+        </h3>
+
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getCarts()"></isc-pager>
+        <div class="overflow-table small">
+            <table class="info-tbl">
+            <thead>
+                <tr>
+                    <th class="col-date">
+                        <span class="sticky-first">
+                            <a href="" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'OrderDate', 'sort-descending': vm.searchFilter.sort === 'OrderDate DESC'}"
+                               ng-click="vm.changeSort('OrderDate')">
+                                [% translate 'Date' %]
+                            </a>
+                        </span>
+                    </th>
+                    <th class="col-ordernum">
+                        <a href="" class="sort"
+                           ng-class="{'sort-ascending': vm.searchFilter.sort === 'OrderNumber', 'sort-descending': vm.searchFilter.sort === 'OrderNumber DESC'}"
+                           ng-click="vm.changeSort('OrderNumber')">
+                            [% translate 'Order #' %]
+                        </a>
+                    </th>
+                    <th class="col-shipto">
+                        <a href="" class="sort"
+                           ng-class="{'sort-ascending': vm.searchFilter.sort === 'CustomerSequence', 'sort-descending': vm.searchFilter.sort === 'CustomerSequence DESC'}"
+                           ng-click="vm.changeSort('CustomerSequence')">
+                            [% translate 'Ship To / Pick Up' %]
+                        </a>
+                    </th>
+                    <th class="col-user">
+                        <a href="" class="sort"
+                           ng-class="{'sort-ascending': vm.searchFilter.sort === 'InitiatedByUserName', 'sort-descending': vm.searchFilter.sort === 'InitiatedByUserName DESC'}"
+                           ng-click="vm.changeSort('InitiatedByUserName')">
+                            [% translate 'User' %]
+                        </a>
+                    </th>
+                    <th class="col-reason">
+                        <a href="" class="sort"
+                           ng-class="{'sort-ascending': vm.searchFilter.sort === 'ApproverMessage', 'sort-descending': vm.searchFilter.sort === 'ApproverMessage DESC'}"
+                           ng-click="vm.changeSort('ApproverMessage')">
+                            [% translate 'Approval Reason' %]
+                        </a>
+                    </th>
+                    <th class="col-tot">
+                        <a href="" class="sort"
+                           ng-class="{'sort-ascending': vm.searchFilter.sort === 'OrderGrandTotal', 'sort-descending': vm.searchFilter.sort === 'OrderGrandTotal DESC'}"
+                           ng-click="vm.changeSort('OrderGrandTotal')">
+                            [% translate 'Total' %]
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cart in vm.approvalCarts">
+                    <td class="col-date">
+                        <span class="sticky-first">
+                            <a ng-href="[% urlForPage 'OrderApprovalDetailPage' %]?cartid={{cart.id}}" ng-bind="cart.orderDate | date:'shortDate'"></a>
+                        </span>
+                    </td>
+                    <td class="col-ordernum">
+                        <a ng-href="[% urlForPage 'OrderApprovalDetailPage' %]?cartid={{cart.id}}" ng-bind="cart.orderNumber"></a>
+                    </td>
+                    <td class="col-shipto" ng-bind="cart.shipToLabel"></td>
+                    <td class="col-user" ng-bind="cart.initiatedByUserName"></td>
+                    <td class="col-reason" ng-bind="cart.approverReason"></td>
+                    <td class="col-tot" ng-bind="cart.orderGrandTotalDisplay"></td>
+                </tr>
+            </tbody>
+        </table>
+		</div>
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" bottom="true" update-data="vm.getCarts()"></isc-pager>
+
+    </div>
+
+    <div class="search-no-results" ng-show="vm.approvalCarts.length === 0">
+        <h3>[% translate 'No order approvals found.' %]</h3>
+    </div>
+</div>

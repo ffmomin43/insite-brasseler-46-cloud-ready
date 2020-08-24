@@ -1,0 +1,1039 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A67BA6C9-D880-4A77-8943-6D2D21824688}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brasseler</RootNamespace>
+    <AssemblyName>Brasseler</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BrasselerScripts\Account\brasseler.account-settings.controller.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.account.directives.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.address-validate.controller.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.change-account-password.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.create-account.controller.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.my-account-address.controller.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.select-customer.controller.js" />
+    <Content Include="BrasselerScripts\Account\brasseler.signin.controller.js" />
+    <Content Include="BrasselerScripts\Account\rma.js" />
+    <Content Include="BrasselerScripts\addtohomescreen.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.address-error-popup.controller.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart-brasseler.service.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart-lines.controller.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart-total-display.directive.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart.controller.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart.service.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.checkout-address.controller.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.order-confirmation.controller.js" />
+    <Content Include="BrasselerScripts\Cart\brasseler.reviewandpay.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.catalog.directives.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.categoryleftnav.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.categoryleftnav.directive.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.compareproducts.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.crosssellcarousel.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.product-images.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.product-search.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.product.service.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.productdetail.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.productlist.controller.js" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.tellafriend.controller.js" />
+    <Content Include="BrasselerScripts\Email\brasseler.email-subscription.controller.js" />
+    <Content Include="BrasselerScripts\Invoices\brasseler.invoice-detail.controller.js" />
+    <Content Include="BrasselerScripts\Invoices\brasseler.invoice-list.controller.js" />
+    <Content Include="BrasselerScripts\Layout\brasseler.topnav.controller.js" />
+    <Content Include="BrasselerScripts\Multisite\brasseler.multisite.directives.js" />
+    <Content Include="BrasselerScripts\Multisite\brasseler.multisite.service.js" />
+    <Content Include="BrasselerScripts\OrderApproval\brasseler.order-approval-detail.controller.js" />
+    <Content Include="BrasselerScripts\Orders\brasseler.order-detail.controller.js" />
+    <Content Include="BrasselerScripts\Orders\brasseler.order-list.controller.js" />
+    <Content Include="BrasselerScripts\Orders\brasseler.recent-orders-controller.js" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-detail.controller.js" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-list.controller.js" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-payment.controller.js" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices.directives.js" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices.service.js" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.add-new-card.controller.js" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.add-new-card.directives.js" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.controller.js" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.directives.js" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.service.js" />
+    <Content Include="BrasselerScripts\QuickOrder\brasseler.order-upload.controller.js" />
+    <Content Include="BrasselerScripts\QuickOrder\brasseler.quick-order-page.controller.js" />
+    <Content Include="BrasselerScripts\Rma\brasseler.rma.controller.js" />
+    <Content Include="BrasselerScripts\Rma\brasseler.rma.directives.js" />
+    <Content Include="BrasselerScripts\SavedOrders\brasseler.savedorderdetail.controller.js" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-detail.controller.js" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-list.controller.js" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-popup.controller.js" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.directives.js" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.service.js" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.sorting.js" />
+    <Content Include="BrasselerScripts\Wishlists\brasseler.copy-to-list-popup.controller.js" />
+    <Content Include="BrasselerScripts\Wishlists\brasseler.my-list-detail.controller.js" />
+    <Content Include="BrasselerScripts\Wishlists\brasseler.my-lists.controller.js" />
+    <Content Include="BrasselerStyles\brasseler_base.css" />
+    <Content Include="BrasselerStyles\template\brasseler-change-cust-ship-to.css" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-addresses.css" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-cart.css" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-order-confirm.css" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-review-pay.css" />
+    <Content Include="BrasselerStyles\template\brasseler-create-account.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-addresses.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-dashboard.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-invoice-details.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-invoice-history.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-order-approval-details.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-order-details.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-saved-order-details.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-saved-orders.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-settings.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-smart-supply-details.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-smart-supply.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-static-list.css" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-whishlist.css" />
+    <Content Include="BrasselerStyles\template\brasseler-outstanding-invoice-detail.css" />
+    <Content Include="BrasselerStyles\template\brasseler-outstanding-invoice-list.css" />
+    <Content Include="BrasselerStyles\template\brasseler-payment-options.css" />
+    <Content Include="BrasselerStyles\template\brasseler-product-comparison.css" />
+    <Content Include="BrasselerStyles\template\brasseler-product-detail.css" />
+    <Content Include="BrasselerStyles\template\brasseler-product-list.css" />
+    <Content Include="BrasselerStyles\template\brasseler-sign-in.css" />
+    <Content Include="BrasselerStyles\template\brasseler-sign-in.min.css" />
+    <Content Include="tsconfig.json" />
+    <Content Include="theme.json" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.account-settings.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.account.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.address-validate.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.change-account-password.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.create-account.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.my-account-address.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.select-customer.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Account\brasseler.signin.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.address-error-popup.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.cart-brasseler.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.cart-lines.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.cart-total-display.directive.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.cart.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.cart.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.checkout-address.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.order-confirmation.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Cart\brasseler.reviewandpay.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.catalog.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.categoryleftnav.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.categoryleftnav.directive.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.compareproducts.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.crosssellcarousel.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.product-images.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.product-search.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.product.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.productdetail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.productlist.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Catalog\brasseler.tellafriend.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Email\brasseler.email-subscription.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Invoices\brasseler.invoice-detail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Invoices\brasseler.invoice-list.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Layout\brasseler.topnav.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Multisite\brasseler.multisite.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Multisite\brasseler.multisite.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\OrderApproval\brasseler.order-approval-detail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Orders\brasseler.order-detail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Orders\brasseler.order-list.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Orders\brasseler.recent-orders-controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-detail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-list.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-payment.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\PaymentOptions\brasseler.add-new-card.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\PaymentOptions\brasseler.add-new-card.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\QuickOrder\brasseler.order-upload.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\QuickOrder\brasseler.quick-order-page.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Rma\brasseler.rma.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Rma\brasseler.rma.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SavedOrders\brasseler.savedorderdetail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-detail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-list.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-popup.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.directives.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.service.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.sorting.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Wishlists\brasseler.copy-to-list-popup.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Wishlists\brasseler.my-list-detail.controller.ts" />
+    <TypeScriptCompile Include="BrasselerScripts\Wishlists\brasseler.my-lists.controller.ts" />
+    <TypeScriptCompile Include="Scripts\insite.config.ts" />
+    <TypeScriptCompile Include="Scripts\insite.content-pager.controller.ts" />
+    <TypeScriptCompile Include="Scripts\insite.content.directives.ts" />
+    <TypeScriptCompile Include="Scripts\insite.core.ts" />
+    <TypeScriptCompile Include="Scripts\insite.error-logger.ts" />
+    <TypeScriptCompile Include="Scripts\insite.guid-helper.ts" />
+    <TypeScriptCompile Include="Scripts\insite.jquery-extensions.ts" />
+    <TypeScriptCompile Include="Scripts\insite.module.ts" />
+    <TypeScriptCompile Include="Scripts\insite.nav.ts" />
+    <TypeScriptCompile Include="Scripts\insite.responsive.ts" />
+    <TypeScriptCompile Include="Scripts\polyfills.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.account-settings.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.account.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.account.service.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.add-saved-payment-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.change-account-password.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.create-account.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.delivery-method-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.delivery-method.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.edit-saved-payment-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.external-providers.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.my-account-address.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.my-saved-payments.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.reset-password.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.select-customer.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.select-default-customer.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.select-pick-up-location-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.session.service.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.sign-in.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Account\insite.unsubscribe-from-cart-reminders.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand-categories.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand-container.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand-content.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand-image.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand-logo.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.brand.service.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.product-lines.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.shop-all-products.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Brands\insite.visit-brand-website.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Budget\insite.budget-calendar.service.ts" />
+    <TypeScriptCompile Include="Scripts\Budget\insite.budget.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Budget\insite.budget.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Budget\insite.budget.service.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.add-to-cart-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.address-error-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.cart-lines.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.cart-lines.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.cart-total-display.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.cart.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.cart.models.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.cart.service.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.checkout-address.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.order-confirmation.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Cart\insite.review-and-pay.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.availability-by-warehouse-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.catalog.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.category-left-nav.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.category-left-nav.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.compare-products-carousel.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.compare-products-carousel.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.compare-products.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.compare-products.service.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.cross-sell-carousel.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.cross-sell-carousel.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.frequently-purchased.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.increment-images-loaded.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-availability-message.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-carousel.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-comparison-hopper.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-comparison-hopper.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-image-carousel.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-image-carousel.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-images.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-images.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-price-saving.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-price.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-price.service.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-sale-price-label.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-search.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-search.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product-subscription-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.product.service.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.recently-viewed.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.related-products.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.search.service.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.tell-a-friend.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.tell-a-friend.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Catalog\insite.warehouse.service.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.access-token.service.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.base-popup.service.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.base-upload.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.common.module.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.local-storage.service.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.query-string.service.ts" />
+    <TypeScriptCompile Include="Scripts\Common\insite.session-storage.service.ts" />
+    <TypeScriptCompile Include="Scripts\ContactUs\insite.contact-us.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.api-error.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.authentication-interceptor.factory.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.carousel.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.cookie-privacy-policy-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.core.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.core.models.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.core.service.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.full-redirect.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.http-errors-interceptor.factory.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.http-wrapper.service.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.pager.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.pager.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.pagination.service.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.pickadate.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.popups.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.redirect-to-sign-in.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.settings.service.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.spinner.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Core\insite.spinner.service.ts" />
+    <TypeScriptCompile Include="Scripts\Currencies\insite.currency.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Customers\insite.customer.service.ts" />
+    <TypeScriptCompile Include="Scripts\Dashboard\insite.dashboard-links.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Dashboard\insite.dashboard-view.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Dashboard\insite.dashboard.service.ts" />
+    <TypeScriptCompile Include="Scripts\Dealers\insite.dealer-directions.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Dealers\insite.dealer-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Dealers\insite.dealer.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Dealers\insite.dealer.service.ts" />
+    <TypeScriptCompile Include="Scripts\Email\insite.email-subscription.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Email\insite.email.service.ts" />
+    <TypeScriptCompile Include="Scripts\Email\insite.share-entity-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Invoices\insite.invoice-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Invoices\insite.invoice-history-widget.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Invoices\insite.invoice-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Invoices\insite.invoice.service.ts" />
+    <TypeScriptCompile Include="Scripts\JobQuotes\insite.job-quote-details.controller.ts" />
+    <TypeScriptCompile Include="Scripts\JobQuotes\insite.job-quote.service.ts" />
+    <TypeScriptCompile Include="Scripts\JobQuotes\insite.my-job-quotes.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Languages\insite.language.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Layout\insite.first-page.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Layout\insite.header.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Layout\insite.layout.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Layout\insite.top-nav.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Messages\insite.message.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Messages\insite.message.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Messages\insite.message.service.ts" />
+    <TypeScriptCompile Include="Scripts\OrderApproval\insite.order-approval-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\OrderApproval\insite.order-approval-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\OrderApproval\insite.order-approval.service.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order-history-widget.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order-search-filter.model.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order-status-lookup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.order.service.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.recent-orders.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Orders\insite.recently-purchased.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Promotions\insite.promotion.service.ts" />
+    <TypeScriptCompile Include="Scripts\QuickOrder\insite.order-upload.controller.ts" />
+    <TypeScriptCompile Include="Scripts\QuickOrder\insite.quick-order-page.controller.ts" />
+    <TypeScriptCompile Include="Scripts\QuickOrder\insite.quick-order.controller.ts" />
+    <TypeScriptCompile Include="Scripts\QuickOrder\insite.select-variant-product-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Requisitions\insite.requisition.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Requisitions\insite.requisition.service.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.my-quotes.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-confirmation.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-details.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-header-details.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-line-calculator-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-messages.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-parameter.model.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-past-expiration-date-confirmation-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.quote-proposed-details.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.recent-quotes.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.rfq.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.rfq.directives.ts" />
+    <TypeScriptCompile Include="Scripts\Rfq\insite.rfq.service.ts" />
+    <TypeScriptCompile Include="Scripts\RMA\insite.rma.controller.ts" />
+    <TypeScriptCompile Include="Scripts\SavedOrders\insite.saved-order-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\SavedOrders\insite.saved-order-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-plus.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular-ui-router.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\ckeditor\ckeditor.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\google.analytics\ga.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\google.maps\google.maps-plus.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\google.maps\google.maps.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\jquery.validation\jquery-validation-unobtrusive.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\jquery.validation\jquery.validation.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\kendo\kendo.web.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\lodash\lodash.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\moment\moment-node.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\moment\moment.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\papaparse\papaparse.d.ts" />
+    <TypeScriptCompile Include="Scripts\Typings\xlsx\xlsx.d.ts" />
+    <TypeScriptCompile Include="Scripts\UserAdministration\insite.user-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\UserAdministration\insite.user-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\UserAdministration\insite.user-shipto.controller.ts" />
+    <TypeScriptCompile Include="Scripts\UserAdministration\insite.user.service.ts" />
+    <TypeScriptCompile Include="Scripts\Websites\insite.website.service.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.add-to-wishlist-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.characters-left-counter.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.copy-to-list-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.create-list-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.delete-list-popup.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.leave-list-popup.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.list-quantity-adjustment-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.manage-sharing-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.my-list-detail.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.my-lists.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.schedule-reminder-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.share-details-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.share-list-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.shared-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.shared-list.directive.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.static-list.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.upload-to-list-popup.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.wishlist.controller.ts" />
+    <TypeScriptCompile Include="Scripts\Wishlists\insite.wishlist.service.ts" />
+    <TypeScriptCompile Include="Scripts\_typelite\insite.models.d.ts" />
+    <Content Include="Styles\base.scss" />
+    <Content Include="Styles\flexslider.css" />
+    <Content Include="Styles\foundation.css" />
+    <Content Include="Styles\normalize.css" />
+    <Content Include="Styles\template\category-list.scss" />
+    <Content Include="Styles\template\change-cust-ship-to.scss" />
+    <Content Include="Styles\template\checkout-addresses.scss" />
+    <Content Include="Styles\template\checkout-cart.scss" />
+    <Content Include="Styles\template\checkout-order-confirm.scss" />
+    <Content Include="Styles\template\checkout-review-pay.scss" />
+    <Content Include="Styles\template\compare-hopper.scss" />
+    <Content Include="Styles\template\create-account.scss" />
+    <Content Include="Styles\template\dealer-locator.scss" />
+    <Content Include="Styles\template\expired-link.scss" />
+    <Content Include="Styles\template\ma-addresses.scss" />
+    <Content Include="Styles\template\ma-assign-edit-shipto.scss" />
+    <Content Include="Styles\template\ma-brand-categories.scss" />
+    <Content Include="Styles\template\ma-brand-details.scss" />
+    <Content Include="Styles\template\ma-brand-gallery.scss" />
+    <Content Include="Styles\template\ma-brands.scss" />
+    <Content Include="Styles\template\ma-budget-management.scss" />
+    <Content Include="Styles\template\ma-cart-reminder-unsubscribe.scss" />
+    <Content Include="Styles\template\ma-dashboard.scss" />
+    <Content Include="Styles\template\ma-frequently-purchased.scss" />
+    <Content Include="Styles\template\ma-invoice-details.scss" />
+    <Content Include="Styles\template\ma-invoice-history.scss" />
+    <Content Include="Styles\template\ma-job-quotes.scss" />
+    <Content Include="Styles\template\ma-my-list-details.scss" />
+    <Content Include="Styles\template\ma-my-lists.scss" />
+    <Content Include="Styles\template\ma-my-quotes.scss" />
+    <Content Include="Styles\template\ma-order-approval-details.scss" />
+    <Content Include="Styles\template\ma-order-approval.scss" />
+    <Content Include="Styles\template\ma-order-details.scss" />
+    <Content Include="Styles\template\ma-order-history.scss" />
+    <Content Include="Styles\template\ma-order-upload.scss" />
+    <Content Include="Styles\template\ma-product-lines.scss" />
+    <Content Include="Styles\template\ma-quote-details.scss" />
+    <Content Include="Styles\template\ma-recently-purchased.scss" />
+    <Content Include="Styles\template\ma-requisition-approval.scss" />
+    <Content Include="Styles\template\ma-rma.scss" />
+    <Content Include="Styles\template\ma-saved-order-details.scss" />
+    <Content Include="Styles\template\ma-saved-orders.scss" />
+    <Content Include="Styles\template\ma-saved-payments.scss" />
+    <Content Include="Styles\template\ma-settings.scss" />
+    <Content Include="Styles\template\ma-static-list.scss" />
+    <Content Include="Styles\template\ma-user-administration.scss" />
+    <Content Include="Styles\template\ma-user-setup.scss" />
+    <Content Include="Styles\template\ma-wishlist.scss" />
+    <Content Include="Styles\template\news-list.scss" />
+    <Content Include="Styles\template\news-page.scss" />
+    <Content Include="Styles\template\product-category.scss" />
+    <Content Include="Styles\template\product-comparison.scss" />
+    <Content Include="Styles\template\product-detail.scss" />
+    <Content Include="Styles\template\product-list.scss" />
+    <Content Include="Styles\template\quick-order-2.scss" />
+    <Content Include="Styles\template\rfq.scss" />
+    <Content Include="Styles\template\select-pick-up-location.scss" />
+    <Content Include="Styles\template\sign-in.scss" />
+    <Content Include="Views\Directives\Account\AddressDisplay.cshtml" />
+    <Content Include="Views\Directives\Account\AddressEdit.cshtml" />
+    <Content Include="Views\Directives\Account\AddressField.cshtml" />
+    <Content Include="Views\Directives\Account\AddSavedPaymentPopup.cshtml" />
+    <Content Include="Views\Directives\Account\DeliveryMethod.cshtml" />
+    <Content Include="Views\Directives\Account\DeliveryMethodPopup.cshtml" />
+    <Content Include="Views\Directives\Account\EditSavedPaymentPopup.cshtml" />
+    <Content Include="Views\Directives\Account\FullAddressDisplay.cshtml" />
+    <Content Include="Views\Directives\Account\SelectDefaultCustomer.cshtml" />
+    <Content Include="Views\Directives\Account\SelectPickUpLocationPopup.cshtml" />
+    <Content Include="Views\Directives\Account\WarehouseInfo.cshtml" />
+    <Content Include="Views\Directives\Brands\ProductBrand.cshtml" />
+    <Content Include="Views\Directives\Cart\AddressErrorPopup.cshtml" />
+    <Content Include="Views\Directives\Cart\AddToCartPopup.cshtml" />
+    <Content Include="Views\Directives\Cart\CartLines.cshtml" />
+    <Content Include="Views\Directives\Cart\CartTotalDisplay.cshtml" />
+    <Content Include="Views\Directives\Catalog\AvailabilityByWarehousePopup.cshtml" />
+    <Content Include="Views\Directives\Catalog\AvailabilityMessage.cshtml" />
+    <Content Include="Views\Directives\Catalog\BreadCrumb.cshtml" />
+    <Content Include="Views\Directives\Catalog\CrossSellCarousel.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductImageCarousel.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductImages.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductName.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductPrice.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductPriceSaving.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductSalePriceLabel.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductSubscriptionPopup.cshtml" />
+    <Content Include="Views\Directives\Catalog\ProductThumb.cshtml" />
+    <Content Include="Views\Directives\Catalog\QuantityBreakPricing.cshtml" />
+    <Content Include="Views\Directives\Catalog\SortedAttributeValueList.cshtml" />
+    <Content Include="Views\Directives\Catalog\TellAFriendField.cshtml" />
+    <Content Include="Views\Directives\Catalog\TellAFriendPopup.cshtml" />
+    <Content Include="Views\Directives\Catalog\UnitOfMeasureDisplay.cshtml" />
+    <Content Include="Views\Directives\Catalog\UnitOfMeasureSelectList.cshtml" />
+    <Content Include="Views\Directives\Common\ShareEntityField.cshtml" />
+    <Content Include="Views\Directives\Common\ShareEntityModal.cshtml" />
+    <Content Include="Views\Directives\Content\ContentPager.cshtml" />
+    <Content Include="Views\Directives\Core\ApiErrorPopup.cshtml" />
+    <Content Include="Views\Directives\Core\CookiePrivacyPolicyPopup.cshtml" />
+    <Content Include="Views\Directives\Core\Pager.cshtml" />
+    <Content Include="Views\Directives\Core\Spinner.cshtml" />
+    <Content Include="Views\Directives\History\RecentOrders.cshtml" />
+    <Content Include="Views\Directives\List\CopyToListPopup.cshtml" />
+    <Content Include="Views\Directives\List\CreateListPopup.cshtml" />
+    <Content Include="Views\Directives\List\DeleteListPopup.cshtml" />
+    <Content Include="Views\Directives\List\LeaveListPopup.cshtml" />
+    <Content Include="Views\Directives\List\ListQuantityAdjustmentPopup.cshtml" />
+    <Content Include="Views\Directives\List\ManageSharingPopup.cshtml" />
+    <Content Include="Views\Directives\List\ScheduleReminderPopup.cshtml" />
+    <Content Include="Views\Directives\List\ShareDetailsPopup.cshtml" />
+    <Content Include="Views\Directives\List\SharedList.cshtml" />
+    <Content Include="Views\Directives\List\ShareListPopup.cshtml" />
+    <Content Include="Views\Directives\List\UploadToListPopup.cshtml" />
+    <Content Include="Views\Directives\Messages\MessageList.cshtml" />
+    <Content Include="Views\Directives\PdfViews\InvoiceDetails.cshtml" />
+    <Content Include="Views\Directives\PdfViews\ListDetails.cshtml" />
+    <Content Include="Views\Directives\PdfViews\OrderDetails.cshtml" />
+    <Content Include="Views\Directives\QuickOrder\SelectChildProductPopup.cshtml" />
+    <Content Include="Views\Directives\QuickOrder\SelectVariantProductPopup.cshtml" />
+    <Content Include="Views\Directives\Rfq\ProposedDetailsGrid.cshtml" />
+    <Content Include="Views\Directives\Rfq\QuoteDetailHeader.cshtml" />
+    <Content Include="Views\Directives\Rfq\QuoteLineCalculator.cshtml" />
+    <Content Include="Views\Directives\Rfq\QuotePastExpirationDatePopup.cshtml" />
+    <Content Include="Views\Directives\Rfq\RecentQuotes.cshtml" />
+    <Content Include="Views\Directives\Rfq\RequestedDetailsGrid.cshtml" />
+    <Content Include="Views\Directives\Rfq\RfqMessageList.cshtml" />
+    <Content Include="Views\Directives\Rfq\RfqMessages.cshtml" />
+    <Content Include="Views\Directives\WishList\AddToWishlistPopup.cshtml" />
+    <Content Include="Views\Layouts\Standard.liquid" />
+    <Content Include="Views\LayoutSections\BodyEnd.liquid" />
+    <Content Include="Views\LayoutSections\BodyStart.liquid" />
+    <Content Include="Views\LayoutSections\HeadEnd.liquid" />
+    <Content Include="Views\LayoutSections\HeadStart.liquid" />
+    <Content Include="Views\NavigationMenus\Catalog\B2C.liquid" />
+    <Content Include="Views\NavigationMenus\Catalog\Standard.Liquid" />
+    <Content Include="Views\NavigationMenus\Content\B2C.liquid" />
+    <Content Include="Views\NavigationMenus\Content\Standard.liquid" />
+    <Content Include="Views\Pages\Legacy-ContentDiv.liquid" />
+    <Content Include="Views\Pages\Legacy-ExtraDivs.liquid" />
+    <Content Include="Views\Pages\Legacy-MissingDiv.liquid" />
+    <Content Include="Views\Pages\Legacy-SignIn.liquid" />
+    <Content Include="Views\Pages\Legacy-UploadLibraries.liquid" />
+    <Content Include="Views\Pages\NewsTemplate.liquid" />
+    <Content Include="Views\Pages\Standard.liquid" />
+    <Content Include="Views\Pages\Footer\Standard.liquid" />
+    <Content Include="Views\Pages\Header\Standard.liquid" />
+    <Content Include="Views\SeoCatalog\SeoProductDetail.cshtml" />
+    <Content Include="Views\SeoCatalog\SeoProductList.cshtml" />
+    <Content Include="Views\Widgets\AccountSettingsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandCategories\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandContainer\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandContent\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandGallery\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandImage\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandLogo\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrandsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\Breadcrumb\Standard.cshtml" />
+    <Content Include="Views\Widgets\BudgetView\Standard.cshtml" />
+    <Content Include="Views\Widgets\Carousel\Standard.cshtml" />
+    <Content Include="Views\Widgets\CartReminderUnsubscribeView\Standard.cshtml" />
+    <Content Include="Views\Widgets\CartView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ChangeAccountPasswordView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ChangeCustomerView\Standard.cshtml" />
+    <Content Include="Views\Widgets\CheckoutAddressView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ContactUsForm\Standard.cshtml" />
+    <Content Include="Views\Widgets\CreateAccountView\Standard.cshtml" />
+    <Content Include="Views\Widgets\CurrencySelector\Standard.cshtml" />
+    <Content Include="Views\Widgets\DealerDirectionsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\DealerLocatorView\Standard.cshtml" />
+    <Content Include="Views\Widgets\DealerView\Standard.cshtml" />
+    <Content Include="Views\Widgets\EmailSubscription\Standard.cshtml" />
+    <Content Include="Views\Widgets\FourColumn\Standard.cshtml" />
+    <Content Include="Views\Widgets\FrequentlyPurchased\Standard.cshtml" />
+    <Content Include="Views\Widgets\HeaderView\B2C.cshtml" />
+    <Content Include="Views\Widgets\HeaderView\Standard.cshtml" />
+    <Content Include="Views\Widgets\Image\Standard.cshtml" />
+    <Content Include="Views\Widgets\InvoiceDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\InvoiceHistory\Standard.cshtml" />
+    <Content Include="Views\Widgets\InvoicesView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ItemLink\Standard.cshtml" />
+    <Content Include="Views\Widgets\ItemList\Standard.cshtml" />
+    <Content Include="Views\Widgets\JobQuoteDetailsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\LanguageSelector\Standard.cshtml" />
+    <Content Include="Views\Widgets\LinkList\Standard.cshtml" />
+    <Content Include="Views\Widgets\MobileCarousel\Standard.cshtml" />
+    <Content Include="Views\Widgets\MobileCarouselSlide\Standard.cshtml" />
+    <Content Include="Views\Widgets\MobileLinkList\Standard.cshtml" />
+    <Content Include="Views\Widgets\MyAccountAddressView\Standard.cshtml" />
+    <Content Include="Views\Widgets\MyAccountView\Standard.cshtml" />
+    <Content Include="Views\Widgets\MyJobQuotesView\Standard.cshtml" />
+    <Content Include="Views\Widgets\MyListDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\MyListsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\MySavedPaymentsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\NavigationList\Standard.cshtml" />
+    <Content Include="Views\Widgets\NewsListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\NewsPageView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OneColumn\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderApprovalDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderApprovalListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderConfirmationView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderHistory\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderStatusLookupView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrdersView\Standard.cshtml" />
+    <Content Include="Views\Widgets\OrderUploadView\Standard.cshtml" />
+    <Content Include="Views\Widgets\PageTitle\Standard.cshtml" />
+    <Content Include="Views\Widgets\ProductCarousel\Standard.cshtml" />
+    <Content Include="Views\Widgets\ProductComparisonView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ProductDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ProductLines\Standard.cshtml" />
+    <Content Include="Views\Widgets\ProductListView\B2C.cshtml" />
+    <Content Include="Views\Widgets\ProductListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\QuickOrder\Standard.cshtml" />
+    <Content Include="Views\Widgets\QuickOrderView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RecentlyPurchased\Standard.cshtml" />
+    <Content Include="Views\Widgets\RecentlyViewed\Standard.cshtml" />
+    <Content Include="Views\Widgets\RelatedProducts\Standard.cshtml" />
+    <Content Include="Views\Widgets\RequestRmaView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RequisitionView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ResetPasswordView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ReviewAndPayView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RfqConfirmationView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RfqMyQuotesView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RfqQuoteDetailsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RfqRequestQuoteView\Standard.cshtml" />
+    <Content Include="Views\Widgets\RichContent\Standard.cshtml" />
+    <Content Include="Views\Widgets\SavedOrderDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\SavedOrderListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ShopAllProducts\Standard.cshtml" />
+    <Content Include="Views\Widgets\SignInView\Standard.cshtml" />
+    <Content Include="Views\Widgets\StaticListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\ThreeColumn\Standard.cshtml" />
+    <Content Include="Views\Widgets\TwoColumn\Standard.cshtml" />
+    <Content Include="Views\Widgets\UserListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\UserSetupShipToView\Standard.cshtml" />
+    <Content Include="Views\Widgets\UserSetupView\Standard.cshtml" />
+    <Content Include="Views\Widgets\VisitBrandWebsite\Standard.cshtml" />
+    <Content Include="Views\Widgets\WebCrossSells\Standard.cshtml" />
+    <Content Include="Views\Widgets\Wishlists\Standard.cshtml" />
+    <Content Include="Views\Widgets\WishListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\Zone\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BrasselerScripts\Account\brasseler.account-settings.controller.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.account.directives.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.address-validate.controller.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.change-account-password.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.create-account.controller.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.my-account-address.controller.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.select-customer.controller.js.map" />
+    <Content Include="BrasselerScripts\Account\brasseler.signin.controller.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.address-error-popup.controller.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart-brasseler.service.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart-lines.controller.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart-total-display.directive.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart.controller.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.cart.service.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.checkout-address.controller.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.order-confirmation.controller.js.map" />
+    <Content Include="BrasselerScripts\Cart\brasseler.reviewandpay.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.catalog.directives.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.categoryleftnav.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.categoryleftnav.directive.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.compareproducts.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.crosssellcarousel.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.product-images.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.product-search.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.product.service.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.productdetail.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.productlist.controller.js.map" />
+    <Content Include="BrasselerScripts\Catalog\brasseler.tellafriend.controller.js.map" />
+    <Content Include="BrasselerScripts\Email\brasseler.email-subscription.controller.js.map" />
+    <Content Include="BrasselerScripts\Invoices\brasseler.invoice-detail.controller.js.map" />
+    <Content Include="BrasselerScripts\Invoices\brasseler.invoice-list.controller.js.map" />
+    <Content Include="BrasselerScripts\Layout\brasseler.topnav.controller.js.map" />
+    <Content Include="BrasselerScripts\Multisite\brasseler.multisite.directives.js.map" />
+    <Content Include="BrasselerScripts\Multisite\brasseler.multisite.service.js.map" />
+    <Content Include="BrasselerScripts\OrderApproval\brasseler.order-approval-detail.controller.js.map" />
+    <Content Include="BrasselerScripts\Orders\brasseler.order-detail.controller.js.map" />
+    <Content Include="BrasselerScripts\Orders\brasseler.order-list.controller.js.map" />
+    <Content Include="BrasselerScripts\Orders\brasseler.recent-orders-controller.js.map" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-detail.controller.js.map" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-list.controller.js.map" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices-payment.controller.js.map" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices.directives.js.map" />
+    <Content Include="BrasselerScripts\OutstandingInvoices\brasseler.outstanding-invoices.service.js.map" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.add-new-card.controller.js.map" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.add-new-card.directives.js.map" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.controller.js.map" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.directives.js.map" />
+    <Content Include="BrasselerScripts\PaymentOptions\brasseler.payment-options.service.js.map" />
+    <Content Include="BrasselerScripts\QuickOrder\brasseler.order-upload.controller.js.map" />
+    <Content Include="BrasselerScripts\QuickOrder\brasseler.quick-order-page.controller.js.map" />
+    <Content Include="BrasselerScripts\Rma\brasseler.rma.controller.js.map" />
+    <Content Include="BrasselerScripts\Rma\brasseler.rma.directives.js.map" />
+    <Content Include="BrasselerScripts\SavedOrders\brasseler.savedorderdetail.controller.js.map" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-detail.controller.js.map" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-list.controller.js.map" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply-popup.controller.js.map" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.directives.js.map" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.service.js.map" />
+    <Content Include="BrasselerScripts\SmartSupply\brasseler.smart-supply.sorting.js.map" />
+    <Content Include="BrasselerScripts\Wishlists\brasseler.copy-to-list-popup.controller.js.map" />
+    <Content Include="BrasselerScripts\Wishlists\brasseler.my-list-detail.controller.js.map" />
+    <Content Include="BrasselerScripts\Wishlists\brasseler.my-lists.controller.js.map" />
+    <Content Include="BrasselerStyles\brasseler_base.css.map" />
+    <Content Include="BrasselerStyles\brasseler_base.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-change-cust-ship-to.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-change-cust-ship-to.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-addresses.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-addresses.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-cart.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-cart.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-order-confirm.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-order-confirm.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-review-pay.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-checkout-review-pay.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-create-account.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-create-account.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-addresses.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-addresses.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-dashboard.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-dashboard.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-invoice-details.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-invoice-details.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-invoice-history.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-invoice-history.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-order-approval-details.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-order-approval-details.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-order-details.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-order-details.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-saved-order-details.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-saved-order-details.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-saved-orders.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-saved-orders.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-settings.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-settings.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-smart-supply-details.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-smart-supply-details.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-smart-supply.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-smart-supply.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-static-list.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-static-list.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-whishlist.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-ma-whishlist.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-outstanding-invoice-detail.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-outstanding-invoice-detail.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-outstanding-invoice-list.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-outstanding-invoice-list.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-payment-options.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-payment-options.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-product-comparison.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-product-comparison.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-product-detail.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-product-detail.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-product-list.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-product-list.scss" />
+    <Content Include="BrasselerStyles\template\brasseler-sign-in.css.map" />
+    <Content Include="BrasselerStyles\template\brasseler-sign-in.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\BreadCrumb.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pages\AccountSettingsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerCatalogNavigationPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerLanguagePeferencePage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerOutstandingInvoicesDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerOutstandingInvoicesListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerPaymentOptionsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerSmartSupplyDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BrasselerSmartSupplyListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\BudgetPage\Standard.cshtml" />
+    <Content Include="Views\Pages\CartPage\Standard.cshtml" />
+    <Content Include="Views\Pages\CatalogNavigationPage\Navigation\B2C.cshtml" />
+    <Content Include="Views\Pages\CatalogNavigationPage\Navigation\Standard.cshtml" />
+    <Content Include="Views\Pages\CatalogNavigationPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ChangeAccountPasswordPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ChangeCustomerPage\Standard.cshtml" />
+    <Content Include="Views\Pages\CheckoutAddressPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ContentPage\FullPage.cshtml" />
+    <Content Include="Views\Pages\ContentPage\Navigation\B2C.cshtml" />
+    <Content Include="Views\Pages\ContentPage\Navigation\Standard.cshtml" />
+    <Content Include="Views\Pages\CreateAccountPage\Standard.cshtml" />
+    <Content Include="Views\Pages\DealerDirectionsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\DealerLocatorPage\Standard.cshtml" />
+    <Content Include="Views\Pages\DealerPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ErrorPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ExpiredAccountActivationLinkPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ExpiredResetPasswordLinkPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ExternalLinkPage\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pages\ForbiddenErrorPage\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pages\HomePage\FullPage.cshtml" />
+    <Content Include="Views\Pages\InvoiceDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\InvoicesPage\Standard.cshtml" />
+    <Content Include="Views\Pages\JobQuoteDetailsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\MyAccountAddressPage\Standard.cshtml" />
+    <Content Include="Views\Pages\MyAccountPage\Standard.cshtml" />
+    <Content Include="Views\Pages\MyJobQuotesPage\Standard.cshtml" />
+    <Content Include="Views\Pages\MyListDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\MyListsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\NewsList\Standard.cshtml" />
+    <Content Include="Views\Pages\NewsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\NotFoundErrorPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderApprovalDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderApprovalListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderConfirmationPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrdersPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderStatusLookupPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderStatusPage\Standard.cshtml" />
+    <Content Include="Views\Pages\OrderUploadPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ProductComparisonPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ProductDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ProductListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\QuickOrderPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RequestRmaPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RequisitionConfirmationPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RequisitionPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ResetPasswordPage\Standard.cshtml" />
+    <Content Include="Views\Pages\ReviewAndPayPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RfqConfirmationPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RfqMyQuotesPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RfqQuoteDetailsPage\Standard.cshtml" />
+    <Content Include="Views\Pages\RfqRequestQuotePage\Standard.cshtml" />
+    <Content Include="Views\Pages\SavedOrderDetailPage\Standard.cshtml" />
+    <Content Include="Views\Pages\SavedOrderListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\SignInPage\Standard.cshtml" />
+    <Content Include="Views\Pages\StaticListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\TemplatePage\FullPage.cshtml" />
+    <Content Include="Views\Pages\TemplatePage\NewsTemplate.cshtml" />
+    <Content Include="Views\Pages\UserListPage\Standard.cshtml" />
+    <Content Include="Views\Pages\UserSetupPage\Standard.cshtml" />
+    <Content Include="Views\Pages\UserSetupShipToPage\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Directives\LanguagePreference\LanguagePreferenceView.cshtml" />
+    <Content Include="Views\Directives\OutstandingInvoices\BalancePopup.cshtml" />
+    <Content Include="Views\Directives\OutstandingInvoices\OutstandingInvoicesDetailView.cshtml" />
+    <Content Include="Views\Directives\OutstandingInvoices\OutstandingInvoicesListView.cshtml" />
+    <Content Include="Views\Directives\OutstandingInvoices\OutstandingInvoicesPayment.cshtml" />
+    <Content Include="Views\Directives\OutstandingInvoices\PaymentPopup.cshtml" />
+    <Content Include="Views\Directives\PaymentOptions\AddNewCardView.cshtml" />
+    <Content Include="Views\Directives\PaymentOptions\PaymentOptionsView.cshtml" />
+    <Content Include="Views\Directives\PaymentOptions\RemoveCardErrorPopup.cshtml" />
+    <Content Include="Views\Directives\PaymentOptions\UpdateCardPopup.cshtml" />
+    <Content Include="Views\Directives\Rma\RmaPopup.cshtml" />
+    <Content Include="Views\Directives\SmartSupply\AddSmartSupplyPopup.cshtml" />
+    <Content Include="Views\Directives\SmartSupply\CancellationPopup.cshtml" />
+    <Content Include="Views\Directives\SmartSupply\ShipNowPopup.cshtml" />
+    <Content Include="Views\Directives\SmartSupply\SmartSupplyDetailView.cshtml" />
+    <Content Include="Views\Directives\SmartSupply\SmartSupplyListView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pages\WishListPage\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pages\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\BrasselerEmailSubscription\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerLanguagePreferenceView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerOutstandingInvoicesDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerOutstandingInvoicesListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerPaymentOptionsView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerSmartSupplyDetailView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerSmartSupplyListView\Standard.cshtml" />
+    <Content Include="Views\Widgets\BrasselerSocialSubscription\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ErrorView\Standard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\AccountSettingsView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\CartView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ChangeAccountPasswordView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ChangeCustomerView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\CheckoutAddressView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\CreateAccountView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\HeaderView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\InvoiceDetailView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\InvoicesView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\MyAccountAddressView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\MyListDetailView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\MyListsView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\OrderApprovalDetailView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\OrderConfirmationView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\OrderDetailView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\OrdersView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\OrderUploadView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ProductComparisonView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ProductDetailView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ProductListView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\QuickOrderView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\RequestRmaView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\ReviewAndPayView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\SavedOrderDetailView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\SavedOrderListView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Widgets\SignInView\BrasselerStandard.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52642</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52642/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

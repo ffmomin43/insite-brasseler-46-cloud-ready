@@ -1,0 +1,100 @@
+.product-list {
+    .cl1-wrapper .cat-img, .cl1-wrapper .cat-cm {
+        display: inline-block;
+        width: 100%;
+        max-width: 678px;
+        overflow: hidden;
+        margin-bottom: 1em;
+    }
+
+    .cl1-wrapper .cat-list {
+        float: left;
+        clear: left;
+        width: 100%;
+    }
+
+    .cl1-wrapper .cat-block {
+        width: 100%;
+        float: left;
+        padding: .9375em;
+        white-space: nowrap;
+        margin-bottom: 1em;
+        border: 1px solid #e0e7ea;
+        background: #fff;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .cl1-wrapper .cat-block > div {
+        display: inline-block;
+        vertical-align: middle;
+        width: 30%;
+        max-width: 150px;
+    }
+
+    .cl1-wrapper .cat-block span {
+        width: 68%;
+        display: inline-block;
+        vertical-align: middle;
+        white-space: normal;
+        padding-left: 1em;
+    }
+
+    .cl1-wrapper .cat-block a {
+        display: block;
+        width: 100%;
+    }
+
+    .cl1-wrapper .cat-sep,
+    .cl1-wrapper .cat-row-sep {
+        display: none;
+    }
+
+    @media all and (min-width: 768px) {
+        .cl1-wrapper {
+            width: 62%;
+            padding-right: 0;
+        }
+    }
+
+    @media all and (min-width: 940px) {
+
+        .cl1-wrapper {
+            width: 69%;
+            padding-right: 0;
+        }
+
+        .cl1-wrapper .cat-block {
+            width: 50%;
+        }
+
+        .cl1-wrapper .cat-block:nth-child(even) span {
+            clear: left;
+        }
+
+        .cl1-wrapper .cat-block > div {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
+    @media all and (min-width: 1020px) {
+        .cl1-wrapper .cat-block > div {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    @media all and (max-width:767px) {
+
+        .cl1-wrapper {
+            padding: 0;
+        }
+
+        .cl1-wrapper .cat-block a {
+            font-size: 1.2em;
+            line-height: 1.5em;
+            font-weight: 600;
+        }
+    }
+}

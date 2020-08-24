@@ -1,0 +1,486 @@
+.product-comparison {
+    [role="compare-grid"] {
+        float: left;
+        clear: both;
+        width: 100%;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .carousel-wrapper ul {
+        list-style: none;
+        margin: 0;
+    }
+    /* Inner spans of the attribute list use the same styles as the item wraps to maintain consistency */
+    .item-wrap, .pc-value > span {
+        position: relative;
+        margin: 0 auto;
+        display: block;
+        border: 2px solid transparent;
+    }
+
+    .item-wrap, .pc-attr > span, .pc-value > span {
+        /* Set the padding the for all of the attributes in one place */
+        padding: .5em;
+    }
+
+    .pc-value > span {
+        width: 100%;
+    }
+
+    .pc-active > span {
+        font-weight: bold;
+    }
+
+    .item-wrap {
+        padding: 0;
+        padding-bottom: 60px;
+    }
+
+    .carousel-item-equalize, .rp-carousel-item-equalize {
+        padding-bottom: 50px;
+    }
+
+    .carousel-item-equalize, .rp-carousel-item-equalize {
+        position: relative;
+    }
+
+    .item-wrap .remove {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 0 !important;
+        background: #fff;
+    }
+
+    .item-wrap .price span {
+        margin: 0 0;
+    }
+
+    .item-wrap .price span.pd-price,
+    .item-wrap .price span.um,
+    .price-saving {
+        padding-right: .4em;
+    }
+
+    .item-wrap div.price {
+        margin-bottom: .5em;
+    }
+
+    .item-wrap .quantity-pricing {
+        position: relative;
+        z-index: 3;
+    }
+
+    .item-wrap .p-opt {
+        position: relative;
+        z-index: 2;
+    }
+
+    .compare-selection-controls {
+        float: left;
+        width: 180px;
+        display: none;
+    }
+
+    .pc-carousel {
+        position: relative; /* necessary for slider control positioning */
+        overflow: hidden;
+        width: 100%;
+        float: right;
+    }
+
+    .pc-carousel ul.items {
+        width: 20000em;
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        float: left;
+    }
+
+    .pc-carousel > li {
+        border: 1px solid #f6f6f6;
+        position: relative;
+        float: left;
+        text-align: center;
+        padding: .8em;
+    }
+
+    .pc-carousel [class*="column"] + [class*="column"]:last-child {
+        float: left;
+    }
+
+    .pc-carousel > li:hover {
+        cursor: pointer;
+        border-color: #b8b8b8;
+    }
+
+    .pc-carousel > li img {
+        display: inline-block;
+        max-width: 100%;
+        height: auto !important;
+        width: 160px;
+    }
+
+    .item-details {
+        padding: .5em;
+    }
+
+    .pagination {
+        display: none;
+    }
+
+    .carousel-control-box-prev, .carousel-control-box-next {
+        position: absolute;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        top: 1em;
+        width: 30px;
+        height: 16em;
+        background: none;
+    }
+
+    .carousel-control-prev {
+        left: -10px;
+    }
+
+    .carousel-control-next {
+        right: -10px;
+    }
+
+    .carousel-control-prev:hover, .carousel-control-next:hover {
+        text-decoration: none;
+        background: #f6f6f6;
+    }
+
+    .action > .btn {
+        float: right;
+        clear: right;
+        width: 100%;
+    }
+
+    .actions-panel {
+        position: absolute;
+        bottom: 2px;
+        right: 0;
+        z-index: 10000;
+        font-size: 1em;
+        padding: 0 1.5em;
+    }
+
+    .pc-controls {
+        float: left;
+        width: 100%;
+        padding: .75em;
+        border: 1px solid #e0e7ea;
+        margin-bottom: 1.5em;
+    }
+
+    .results-count, button.btn-remove {
+        vertical-align: middle;
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    button.btn-remove {
+        margin-left: .8em;
+        font-size: .8em;
+    }
+
+    div.paginator-34 {
+        max-width: 43%;
+        float: right;
+        clear: none;
+        border: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pc-tbl {
+        width: 100%;
+    }
+
+    .thumb-wrap {
+        width: 160px;
+        height: 160px;
+    }
+
+    .item-thumb img {
+        max-width: 160px;
+        max-height: 160px;
+    }
+    /* Attribute list*/
+    .pc-attr-container {
+        float: left;
+        border: 1px solid #e0e7ea;
+        padding: .8em;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .pc-attr-container > h3 {
+        margin-top: 0;
+    }
+
+    .pc-attr-list {
+        float: left;
+        width: 100%;
+        border: 1px solid #e0e7ea;
+        border-collapse: collapse;
+    }
+
+    .pc-attr-list .pc-attr {
+        float: left;
+        width: 100%;
+        display: block;
+        background: #fff;
+        border-bottom: 1px solid #e0e7ea;
+        transition: all .25s ease;
+    }
+
+    .pc-attr-list .pc-attr > span {
+        display: block;
+        float: left;
+        width: 100%;
+    }
+
+    .pc-attr-carousel-container {
+        max-height: 0px;
+        overflow: hidden;
+    }
+
+    .pc-attr-list .pc-attr:hover, .pc-attr-list .pc-attr:focus {
+        cursor: pointer;
+    }
+
+    .pc-attr-list .pc-attr.pc-active .pc-attr-carousel-container {
+        max-height: 20000em;
+    }
+
+    .pc-value {
+        float: left !important;
+        clear: both;
+        width: 100%;
+    }
+
+    .item-list .pc-active-item {
+        border: 1px solid DodgerBlue;
+    }
+
+    .pc-value .item-list {
+        max-height: 0;
+        display: block;
+        overflow: hidden;
+    }
+
+    .pc-value.pc-active > ul.item-list {
+        max-height: 20000em;
+    }
+
+    .price .quote-required {
+        margin-right: .5em;
+    }
+}
+
+@media all and (min-width:768px) {
+    .product-comparison {
+        [role="compare-grid"] {
+            font-size: .875em;
+            padding: 0.75em 1em;
+            border: 1px solid #e0e7ea;
+        }
+
+        .pc-active > span {
+            font-weight: normal;
+        }
+
+        .item-wrap {
+            padding-bottom: 0;
+        }
+
+        .carousel-item-equalize, .rp-carousel-item-equalize {
+            padding-bottom: 4.5em;
+        }
+
+        .pc-carousel, .pc-attr-carousel-container {
+            width: 80%;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+        }
+
+        .pagination {
+            display: inline-block;
+        }
+
+        .carousel-control-prev {
+            left: -32px;
+        }
+
+        .carousel-control-next {
+            right: -32px;
+        }
+
+        .actions-panel a.btn.primary.add-to-cart, .actions-panel a.btn.primary.btn-view-details {
+            top: -45px;
+        }
+
+        .actions-panel {
+            padding: 0;
+        }
+
+        .item-actions label,
+        .item-actions input,
+        .item-actions select {
+            font-size: .775em;
+        }
+
+        .item-actions .um-pack {
+            margin-bottom: 0;
+        }
+
+        .item-actions select {
+            margin: 0;
+            max-width: 90px;
+            margin-bottom: .5em;
+        }
+
+        .item-actions .btn-add-cart {
+            font-size: .875rem;
+        }
+
+        .item-actions .item-qty {
+            margin-left: 0;
+        }
+
+        .item-actions .action a + a.btn.btn-add-list {
+            margin: .5em 0 1em 0;
+        }
+
+        .pc-attr-container {
+            width: 100%;
+            padding: 0;
+        }
+
+        .pc-attr-container > h3 {
+            display: none;
+        }
+
+        .pc-attr-list .pc-attr:nth-of-type(2n) {
+            background-color: #f6f6f6;
+        }
+
+        .pc-attr-list .pc-attr > span {
+            width: 20%;
+            font-weight: bold;
+        }
+
+        .pc-attr-list .pc-attr > span,
+        .pc-attr-list .pc-value > span {
+            font-size: .875rem;
+            line-height: 1.25rem;
+        }
+
+        .pc-attr-list .pc-attr:hover, .pc-attr-list .pc-attr:focus {
+            background: #e6e6e6;
+        }
+
+        .pc-attr-carousel-container {
+            overflow: visible;
+            max-height: 20000em;
+        }
+
+        .pc-carousel .pc-value {
+            clear: none;
+        }
+
+        .pc-carousel .pc-value .item-list {
+            min-height: 0;
+            display: none;
+        }
+
+        .quote-required .f-dropdown.content {
+            min-width: 160px !important;
+            margin-left: -6px;
+        }
+
+        .actions-panel .item-actions .item-actions-wrap {
+            padding: .5em;
+        }
+
+        .product-info .um {
+            .pack-container {
+                display: initial;
+
+                .pack {
+                    width: 100%;
+                }
+            }
+        }
+
+        .actions-block {
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+@media all and (max-width:767px) {
+    .product-comparison {
+        .item-wrap {
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+        }
+
+        div.remove a.btn .foundicon-remove:before {
+            font-size: 1em;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+            top: 2em;
+            height: 6em;
+        }
+
+        button.btn-remove {
+            float: right;
+        }
+
+        .pc-attr-container {
+            padding: 0;
+            border: 0;
+            margin-top: 1em;
+        }
+
+        .pc-value {
+            border-top: 1px solid #ccc;
+        }
+
+        .pc-value > span {
+            width: 100%;
+        }
+
+        .pc-attr-list .pc-attr > span,
+        .pc-attr-list .pc-value > span {
+            background-color: SlateGray;
+            color: #fff;
+        }
+
+        .pc-attr-list .pc-value > span {
+            padding-left: 1.25em;
+        }
+
+        .pc-attr-list .pc-attr > span:hover, .pc-attr-list .pc-attr > span:focus,
+        .pc-attr-list .pc-value > span:hover, .pc-attr-list .pc-value > span:focus {
+            opacity: 0.9;
+        }
+
+        .pc-attr-list .pc-value {
+            padding: 0;
+        }
+
+        .pc-attr-list .pc-attr.pc-active .pc-attr-carousel-container {
+            overflow: visible;
+        }
+    }
+}

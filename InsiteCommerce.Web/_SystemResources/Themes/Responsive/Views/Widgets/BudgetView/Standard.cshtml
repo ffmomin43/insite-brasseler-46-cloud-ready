@@ -1,0 +1,338 @@
+﻿<div ng-controller="BudgetController as vm" ng-cloak>
+    <div ng-if="vm.isReady">
+        <div>
+            <dl class="sub-nav">
+                <dd id="tst_budgetManagement_setupTab" data-isc-tab="BudgetSetup" class="active">
+                    <a href="javascript:;">[% translate 'Budget Setup' %]</a>
+                </dd>
+                <dd id="tst_budgetManagement_maintenanceTab" data-isc-tab="BudgetMaintenance">
+                    <a href="javascript:;">[% translate 'Budget Maintenance' %]</a>
+                </dd>
+                <dd id="tst_budgetManagement_reviewTab" data-isc-tab="BudgetReview">
+                    <a href="javascript:;">[% translate 'Budget Review' %]</a>
+                </dd>
+            </dl>
+        </div>
+        <div data-isc-tab-body id="BudgetSetupContainer">
+
+            <section class="budget-enforcement-level">
+                <form>
+                    <h3>[% translate 'Budget Enforcement Level' %]</h3>
+                    <div class="row">
+                        <div class="medium-12 large-12 columns">
+                            <p class="msg-enforcement">
+                                [% siteMessage 'Budget_EnforcementLevelInstructions' %]
+                            </p>
+                        </div>
+                        <div class="medium-12 large-12 columns">
+                            <fieldset class="enforcement-level-set">
+                                <div class="row">
+                                    <div class="small-1 columns">
+                                        <input class="tst_budgetView_budgetEnforcementLevel" type="radio" name="BudgetEnforcementLevel" ng-model="vm.billTo.budgetEnforcementLevel" value="[[Model.NoneBudgetEnforcementLevel]]" id="level_0" />
+                                    </div>
+                                    <div class="small-11 columns">
+                                        <label for="level_0">[% translate 'No Enforcement' %]</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-1 columns">
+                                        <input class="tst_budgetView_budgetEnforcementLevel" type="radio" name="BudgetEnforcementLevel" ng-model="vm.billTo.budgetEnforcementLevel" value="[[Model.ShipToBudgetEnforcementLevel]]" id="level_1" />
+                                    </div>
+                                    <div class="small-11 columns">
+                                        <label for="level_1">[% translate 'Customer ship to level' %]</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-1 columns">
+                                        <input class="tst_budgetView_budgetEnforcementLevel" type="radio" name="BudgetEnforcementLevel" ng-model="vm.billTo.budgetEnforcementLevel" value="[[Model.CustomerBudgetEnforcementLevel]]" id="level_2" />
+                                    </div>
+                                    <div class="small-11 columns">
+                                        <label for="level_2">[% translate 'Customer level' %]</label>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="vm.budgetsFromOnlineOnly">
+                                    <div class="small-1 columns">
+                                        <input class="tst_budgetView_budgetEnforcementLevel" type="radio" name="BudgetEnforcementLevel" ng-model="vm.billTo.budgetEnforcementLevel" value="[[Model.UserBudgetEnforcementLevel]]" id="level_3" />
+                                    </div>
+                                    <div class="small-11 columns">
+                                        <label for="level_3">[% translate 'User level' %]</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <button id="tst_budgetView_enforcementLevel_save" type="submit" ng-click="vm.updateBudgetEnforcementLevel()" class="btn secondary btn-save">[% translate 'Save' %]</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class=" budget-periods-setup">
+                <h3>[% translate 'Budget Periods Setup' %]</h3>
+                <form>
+                    <div class="row budget-year">
+                        <div class="small-12 columns ">
+                            <div class="row budget-year budget-year-top-filter">
+                                <div class="small-12 columns budget-year-lbl budget-year-lbl-1">
+                                    <label for="budget-year">[% translate 'Budget Year' %]:</label>
+                                </div>
+                                <div class="small-12 columns budget-year-ops budget-year-ops-1">
+                                    <select id="budgetYearSelect" ng-model="vm.calendar.fiscalYear" ng-change="vm.getBudgetCalendar()" ng-options="year for year in vm.budgetYears"></select>
+                                </div>
+                                <div class="small-12 columns budget-year-lbl budget-year-lbl-2">
+                                    <label for="budget-year">[% translate 'Budget Year End' %]:</label>
+                                </div>
+                                <div class="small-12 columns budget-year-ops budget-year-ops-2">
+                                    <div class="date-picker-calendar">
+                                        <i class="icon-calendar"></i>
+                                        <input class="datepicker txt" type="text" id="FiscalYearEndDate" name="FiscalYearEndDate" value="{{vm.calendar.fiscalYearEndDate | date:'M/d/yyyy' }}" ng-class="{'input-validation-error': vm.errorPeriods.indexOf(period)>-1}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row budget-year">
+                                <div class="small-12 columns budget-year-action">
+                                    <button id="tst_budgetView_budgetPeriods_assignCalendarMonths" class="btn secondary btn-assign-calendar-months" ng-click="vm.assignCalendarMonths()" ng-disabled="vm.calendar && vm.calendar.fiscalYearEndDate" type="button">[% translate 'Assign Calendar Months' %]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns right tbl-shoulder-msg">
+                            <em>* [% translate 'No decimals' %]</em>
+                        </div>
+                    </div>
+                    <div class="overflow-table none">
+                    <table class="info-tbl budget-period-tbl">
+                        <thead>
+                            <tr>
+                                <th class="col-period">[% translate 'Period' %]</th>
+                                <th class="col-startdate">[% translate 'Start Date' %]</th>
+                                <th class="col-enddate">[% translate 'End Date' %]</th>
+                                <th class="col-remdate"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="BudgetPeriodCalendar">
+                            <tr ng-repeat="period in vm.calendar.budgetPeriods">
+                                <td class="col-period" ng-bind="$index+1"></td>
+                                <td class="col-startdate">
+                                    <div class="date-picker-calendar">
+                                        <i class="icon-calendar"></i>
+                                        <input value="{{ vm.calendar.budgetPeriods[$index] | date:'M/d/yyyy' }}"
+                                               id="tst_budgetView_budgetPeriods_startDate{{$index + 1}}" name="tst_budgetView_budgetPeriods_startDate{{$index + 1}}"
+                                               data-mindate="{{ vm.getCalendarPeriodFromDate($index) | date:'M/d/yyyy' }}"
+                                               data-maxdate="{{ vm.getCalendarPeriodToDate($index) | date:'M/d/yyyy' }}"
+                                               type="text" class="datepicker txt startdate" ng-class="{ 'input-validation-error': vm.errorPeriods.indexOf(period) > -1 }"/>
+                                    </div>
+                                </td>
+                                <td class="col-enddate">
+                                    <input id="tst_budgetView_budgetPeriods_endDate{{$index + 1}}" value="{{vm.budgetEndPeriods[$index] | date:'M/d/yyyy' }}" type="text" class="txt enddate" disabled="disabled" />
+                                </td>
+                                <td class="col-remdate"><a href="javascript: void(0);" ng-click="vm.removePeriod($index)" ng-hide="!period" class="btn tertiary btn-remove isc-deleteBreak"><i class="icon-x-1"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 large-12 columns">
+                            <button id="tst_budgetView_budgetPeriods_save" type="submit" ng-click="vm.updateBudgetCalendar()" class="btn secondary btn-save">[% translate 'Save' %]</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="cost-code-setup">
+                <h3>[% translate 'Cost Code Setup' %]</h3>
+                <input type="hidden" value="[% translate 'Active' %]" />
+                <form>
+                    <div class="row">
+                        <div class="medium-12 large-12 columns">
+                            <p class="msg-enforcement">
+                                [% siteMessage 'Budget_CostCodeInstructions' %]
+                            </p>
+                        </div>
+                        <div class="medium-12 large-12 columns">
+                            <fieldset class="set-cost-code">
+                                <legend>[% siteMessage 'Budget_CostCodeTitleInstructions' %]</legend>
+                                <label>[% translate 'Cost Code Title' %]:</label>
+                                <input ng-model="vm.billTo.costCodeTitle" type="text" />
+                            </fieldset>
+                            <div class="overflow-table none">
+                            <table class="info-tbl cost-code-tbl" id="BudgetSetup_CostCode">
+                                <thead>
+                                    <tr>
+                                        <th class="col-costcode">[% translate 'Cost Code' %]</th>
+                                        <th class="col-description">[% translate 'Description' %]</th>
+                                        <th class="col-active">
+                                            <a ng-click="vm.sortStatusColumn()" ng-class="vm.sortDirection > 0 ? 'sort-ascending' : 'sort-descending' " class="sort">[% translate 'Status' %]</a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="tst_budgetView_costCodes" ng-class="{'ordering': customerCostCode.CostCode == ''}" ng-repeat="(i,customerCostCode) in vm.billTo.costCodes">
+                                        <td class="col-costcode">
+                                            <input class="tst_budgetView_costCodes_code" ng-model="customerCostCode.costCode" type="text" />
+                                        </td>
+                                        <td class="col-description">
+                                            <input class="tst_budgetView_costCodes_description" ng-model="customerCostCode.description" type="text" />
+                                        </td>
+                                        <td class="col-active">
+                                            <input class="tst_budgetView_costCodes_active" ng-model="customerCostCode.isActive" id="code_status_[{{i}}]" type="checkbox" class="bm-cc-active" />
+                                            <label for="code_status_[{{i}}]" class="bm-cc-active-label">[% translate 'Active' %]</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="row">
+                                <div class="add-cost-code medium-6 large-6 columns isc-addPriceBreaks" ng-click="vm.addCostCode()" ng-hide="!vm.canAddCostCodeRow()">
+                                    <a id="tst_budgetView_costCodes_add" class="isc-addCostCode"><i class="icon-plus"></i>[% translate 'Cost Code' %]</a>
+                                </div>
+                                <div class="medium-6 large-6 columns">
+                                    <button id="tst_budgetView_costCodes_save" class="btn secondary btn-save " ng-click="vm.updateCostCodes()" type="submit">[% translate 'Save' %]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+        </div>
+        <div data-isc-tab-body id="BudgetMaintenanceContainer" style="display: none;">
+            <div class="row">
+                <div class="small-12 columns">
+                    <isc-budget-filter user="vm.maintenanceUser" ship-to="vm.maintenanceShipTo"
+                                       year="vm.maintenanceBudgetYear" view-budget="vm.maintenanceViewBudget()"
+                                       accounts="vm.accounts" ship-to-list="vm.shipTos" budget-years="vm.budgetYears" enforcement-level="vm.enforcementLevel"
+                                       switch-filter-input="vm.switchFilterInput(selectedValue, param, 'maintenance')">
+                    </isc-budget-filter>
+
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <div class="overflow-table none">
+                            <table id="tst_budgetManagement_budgetPeriodTable" class="info-tbl budget-period-tbl">
+                                <thead>
+                                    <tr>
+                                        <th class="col-period">[% translate 'Period' %]</th>
+                                        <th class="col-enddate">[% translate 'End Date' %]</th>
+                                        <th class="col-budget" ng-bind-template="*[% translate 'Budget' %] {{vm.billTo.customerCurrencySymbol}}"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="review in vm.maintenanceInfo.budgetLineCollection">
+                                        <td class="col-period" ng-bind="review.period"></td>
+                                        <td class="col-enddate">
+                                            <input type="text" class="datepicker txt enddate" disabled="disabled"
+                                                   value="{{ vm.getEndDate(vm.maintenanceInfo.budgetLineCollection[$index + 1]) | date:'shortDate' }}" />
+                                        </td>
+                                        <td class="col-budget">
+                                            <input type="text" ng-model="review.currentFiscalYearBudget" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <button id="tst_budgetManagement_updateBudgets" ng-click="vm.updateBudgets()" ng-show="vm.maintenanceInfo.budgetLineCollection.length > 0" class="btn secondary btn-save">[% translate 'Save' %]</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div data-isc-tab-body id="BudgetReviewContainer" style="display: none;">
+            <div class="row">
+                <div class="small-12 columns">
+                    <isc-budget-filter user="vm.reviewUser" ship-to="vm.reviewShipTo"
+                                       year="vm.reviewBudgetYear" view-budget="vm.reviewViewBudget()"
+                                       accounts="vm.accounts" ship-to-list="vm.shipTos" budget-years="vm.budgetYears" enforcement-level="vm.enforcementLevel"
+                                       switch-filter-input="vm.switchFilterInput(selectedValue, param, 'review')">
+                    </isc-budget-filter>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <div class="overflow-table none">
+                            <table class="info-tbl budget-period-tbl">
+                                <thead>
+                                    <tr>
+                                        <th class="col-period">[% translate 'Period' %]</th>
+                                        <th class="col-startdate">[% translate 'Start Date' %]</th>
+                                        <th class="col-a">[% translate 'Budget' %]</th>
+                                        <th class="col-b">[% translate 'Current Fiscal Year' %]</th>
+                                        <th class="col-c">[% translate 'Variance' %]</th>
+                                        <th class="col-d">[% translate 'Last Fiscal Year' %]</th>
+                                        <th class="col-e">[% translate 'Variance' %]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in vm.reviewInfo.budgetLineCollection">
+                                        <td class="col-period">{{row.period}}</td>
+                                        <td class="col-startdate">{{row.startDate | date: 'shortDate'}}</td>
+                                        <td class="col-a" ng-bind="row.currentFiscalYearBudgetDisplay"></td>
+                                        <td class="col-b" ng-bind="row.currentFiscalYearActualDisplay"></td>
+                                        <td class="col-c" ng-bind="row.currentFiscalYearVarianceDisplay"></td>
+                                        <td class="col-d" ng-bind="row.lastFiscalYearActualDisplay"></td>
+                                        <td class="col-e" ng-bind="row.lastFiscalYearVarianceDisplay"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <isc-popup-template title="[% translate 'Budgets Updated' %]" container-id="budgets-saved-popup">
+            [[Model.ChangesSavedMesage]]
+        </isc-popup-template>
+    </div>
+</div>
+
+<script type="text/ng-template" id="budgetPage_budgetFilter">
+    <div class="row">
+        <div class="small-12 columns enforcement-level-display">
+            <span class="enf-display-lbl">[% siteMessage 'Budget_CurrentEnforcementLevel' %]:</span>
+            <span class="enf-display-val" ng-if="enforcementLevel == '[[Model.NoneBudgetEnforcementLevel]]'">[% translate 'No Enforcement' %]</span>
+            <span class="enf-display-val" ng-if="enforcementLevel == '[[Model.ShipToBudgetEnforcementLevel]]'">[% translate 'Customer ship to level' %]</span>
+            <span class="enf-display-val" ng-if="enforcementLevel == '[[Model.CustomerBudgetEnforcementLevel]]'">[% translate 'Customer level' %]</span>
+            <span class="enf-display-val" ng-if="enforcementLevel == '[[Model.UserBudgetEnforcementLevel]]'">[% translate 'User level' %]</span>
+        </div>
+        <div class="small-12 columns">
+            <p class="msg-enforcement">
+                [% siteMessage 'Budget_CreateBudgetForLevel' %]
+            </p>
+        </div>
+        <div class="small-12 columns">
+            <fieldset class="budget-search-fields">
+                <div class="row budget-search">
+                    <div class="small-12 columns budget-selections">
+                        <div>
+                            <label>[% translate 'Select User' %]</label>
+                            <select id="tst_budgetManagement_userSelector" ng-model="user.id" ng-change="switchFilterInput({ selectedValue:user, param:'user' })" class="user-selector">
+                                <option value="">[% translate 'Select User' %]</option>
+                                <option ng-repeat="account in accounts | orderBy:'userName'" value="{{account.id}}" ng-bind="account.userName"></option>
+                            </select>
+                        </div>
+                        <div class="select-step">
+                            <span>[% translate 'Or' %]</span>
+                            <label>[% translate 'Select Ship To Address' %]</label>
+                            <select id="tst_budgetManagement_shiptoSelector" ng-model="shipTo.id" ng-change="switchFilterInput({ selectedValue:shipTo, param:'shipTo' })" class="shipto-selector">
+                                <option value="">[% translate 'Select Ship To' %]</option>
+                                <option ng-repeat="shipTo in shipToList | filter:{customerSequence: '!-1'}" value="{{shipTo.id}}" ng-bind="shipTo.label"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="small-12 columns budget-year">
+                        <div class="row">
+                            <div class="small-12 columns budget-year-lbl">
+                                <label for="budget-year">[% translate 'Budget Year' %]:</label>
+                            </div>
+                            <div class="small-12 columns budget-year-ops">
+                                <select ng-model="year" class="budget-year-selection" ng-options="value for value in budgetYears"></select>
+                            </div>
+                            <div class="small-12 columns budget-year-action">
+                                <button id="tst_budgetManagement_viewBudget" ng-click="viewBudget()" class="btn secondary btn-view-budget">[% translate 'View Budget' %]</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</script>

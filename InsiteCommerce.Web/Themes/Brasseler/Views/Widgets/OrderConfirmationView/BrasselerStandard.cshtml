@@ -1,0 +1,126 @@
+﻿<div class="large-12 columns" ng-controller="OrderConfirmationController as vm" ng-cloak>
+
+    <div class="checkout-head">
+        <h1>[% translate 'Checkout' %]</h1>
+        <div class="checkout-crumbs">
+            <div>[% translate 'Billing & Shipping' %]</div>
+            <div class="crumb-sep">&gt;</div>
+            <div>[% translate 'Review and Pay' %]</div>
+            <div class="crumb-sep">&gt;</div>
+            <div class="crumb-current">[% translate 'Confirmation' %]</div>
+        </div>
+    </div>
+
+    <div class="quote-items-note messaging" ng-if="vm.showRfqMessage">
+        <p>[% siteMessage 'Rfq_Requires_Quote_InCartMessage' %]</p>
+        <a href="[% urlForPage 'RfqRequestQuotePage' %]" class="btn primary btn-yes-rfq">[% translate 'Yes, Request a Quote' %]</a>
+        <a href="[% urlForPage 'HomePage' %]" class="btn primary btn-no">[% translate 'No, Continue Shopping' %]</a>
+    </div>
+    <div class="btns" ng-if="!vm.showRfqMessage">
+        <a href="[% urlForPage 'HomePage' %]" class="btn primary btn-continue-shopping">[% translate 'Continue Shopping' %]</a>
+    </div>
+
+    <div class="cm">[% zone 'TopContent' %]</div>
+
+    <div class="oc-num-date row">
+        <div class="large-6 columns">
+            <h2>[% translate 'Order Number' %]: <span id="tst_orderConfirmation_orderNumber" ng-bind="vm.cart.orderNumber"></span></h2>
+            <!--<h2 ng-if="vm.order.statusDisplay">[% translate 'Status' %]: <span id="tst_orderConfirmation_orderStatus" ng-bind="vm.order.statusDisplay"></span></h2>-->
+            <h2>[% translate 'Order Date' %]: <span ng-bind="vm.cart.orderDate | date:'shortDate'"></span></h2>
+            <h2 ng-if="vm.cart.poNumber.length > 0">[% translate 'PO #' %]: <span ng-bind="vm.cart.poNumber"></span></h2>
+        </div>
+        <div class="large-6 columns message-box" ng-if="vm.isGuestUser && vm.settings.allowCreateAccount">
+            <div>[% siteMessage 'OrderConfirmation_AddAccountMessage' %]</div>
+            <br />
+            <a href="[% urlForPage 'CreateAccountPage' %]" class="btn primary btn-continue-shopping">[% translate 'Create Account' %]</a>
+        </div>
+    </div>
+
+    <div class="row order-bill-ship">
+        <div class="medium-4 columns bill-info">
+            <div class="oc-head">
+                <h3>[% translate 'Billing Information' %]</h3>
+            </div>
+            <isc-address-display address="vm.cart.billTo" show-email="true"></isc-address-display>
+        </div>
+        <div class="medium-4 columns ship-info">
+            <div class="oc-head">
+                <h3>[% translate 'Shipping Information' %]</h3>
+            </div>
+            <isc-address-display address="vm.cart.shipTo" show-email="true"></isc-address-display>
+        </div>
+        <div class="medium-4 columns ship-method">
+            <div class="oc-head">
+                <h3>[% translate 'Shipping Method' %]</h3>
+            </div>
+            <div class="oc-ship-meth">
+                <span ng-bind="vm.cart.carrier.description"></span>
+                <span ng-bind="vm.cart.shipVia.description"></span>
+            </div>
+            <!--<div class="oc-head" ng-if="vm.cart.creditCardBillingAddress">
+                <h3>[% translate 'Credit Card Billing Address' %]</h3>
+            </div>
+            <div class="oc-cc-billing-address" ng-if="vm.cart.creditCardBillingAddress">
+                <isc-address-display address="vm.creditCardBillingAddress" show-email="false"></isc-address-display>
+            </div>-->
+            <div class="oc-order-notes" ng-if="vm.cart.properties['subscriptionFrequencyOpted']">
+                <h4>
+                    <a id="smartSupplyPromotionPopup" href="javascript:void(0);" data-reveal-id="smartSupplyPromotionPopupContainer">
+                        <img src="/Images/UserFiles/Subscription/smart-supply-mod.png" alt="SmartSupplyOptedInfo" />
+                    </a>
+                    <strong>[% translate 'Information' %]</strong>
+                    <br />
+                </h4>
+                <div>
+                    <strong class="head-text">[% translate 'Name: ' %]</strong>
+                    <span id="subname" ng-bind="vm.cart.properties['subscriptionName']"></span>
+                </div>
+                <div>
+                    <strong class="head-text">[% translate 'Shipping Frequency: ' %]</strong>
+                    <span id="subsFrequencyOpted" ng-repeat="frequency in vm.frequencyMap" ng-bind="frequency.name" ng-if="frequency.value == vm.cart.properties['subscriptionFrequencyOpted']"></span>
+                </div>
+                <div ng-show="vm.cart.properties['excludeInitialSS']">
+                    <h4>[% translate 'Next Ship Date' %]</h4>
+                    <span id="checkoutShipDate" ng-bind="vm.cart.properties['checkoutNextShipDate']"></span>
+                </div>
+            </div>
+            <div class="oc-order-notes" ng-if="vm.cart.notes.trim().length > 0">
+                <h4>[% translate 'Order Notes' %]:</h4>
+                <div ng-bind="vm.cart.notes"></div>
+            </div>
+        </div>
+
+        <div class="large-4 columns requested-delivery-date" ng-show="vm.cart.requestedDeliveryDateDisplay">
+            <div class="oc-head">
+                <h3>[% translate 'Requested Delivery Date' %]</h3>
+            </div>
+            <div class="oc-delivery-date">
+                <span id="tst_orderConfirmation_requestedDeliveryDate" ng-bind="vm.cart.requestedDeliveryDateDisplay | date:'shortDate'"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-details">
+        <isc-cart-lines cart="vm.cart" promotions="vm.promotions" class="large-12 columns item-list cart-items print-no-float print-overflow-visible"></isc-cart-lines>
+        <span class="smart-supply-text" ng-if="vm.isCartSubscribed">
+            Please note that only Products identified as "SmartSupply" will be auto delivered in next orders.
+        </span>
+        <div class="large-4 cart-right">
+            <isc-brasseler-cart-total-display cart="vm.cart" promotions="vm.promotions" order-taxes="vm.cart.customerOrderTaxes"></isc-brasseler-cart-total-display>
+            <div class="btns">
+                <a href="javascript: window.print();" class="hide-for-small btn secondary btn-print">[% translate 'Print' %]</a>
+                <a href="[% urlForPage 'HomePage' %]" class="btn primary btn-continue-shopping">[% translate 'Continue Shopping' %]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Account-AddressDisplay">
+    [% partialView 'Account-AddressDisplay' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+    [% partialView 'Cart-CartLines' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Cart-CartTotalDisplay">
+    [% partialView 'Cart-CartTotalDisplay' %]
+</script>

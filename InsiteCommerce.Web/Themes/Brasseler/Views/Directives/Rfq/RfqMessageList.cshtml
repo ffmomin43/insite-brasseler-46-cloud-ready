@@ -1,0 +1,7 @@
+﻿<div isc-scroll-bottom class="q-msgs">
+    <div class="q-msg" ng-repeat="message in quote.messageCollection">
+        <strong class="msg-from" ng-bind="message.displayName"></strong>
+        <em class="msg-date">{{(message.createdDate || message.dateToDisplay) | date: 'short' }}</em>
+        <span class="msg-txt" ng-bind="message.body"></span>
+    </div>
+</div>

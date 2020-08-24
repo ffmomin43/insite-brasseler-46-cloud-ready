@@ -1,0 +1,75 @@
+﻿<div ng-controller="WishListController as vm" ng-cloak>
+    <div ng-show="vm.wishListCount > 0">
+        <div class="cm">[% zone 'TopContent' %]</div>
+        <div class="select-list" ng-show="vm.wishListSettings.allowMultipleWishLists">
+            <label>[% translate 'Select List' %]</label>
+            <select id="tst_wishList_selectedWishList" ng-model="vm.selectedWishList" ng-change="vm.getSelectedWishListDetails()"
+                    ng-options="wishList.name for wishList in vm.wishListCollection track by wishList.id"></select>
+            <a class="btn tertiary btn-delete-list" ng-show="vm.wishListSettings.allowEditingOfWishLists" href="javascript:void(0);" ng-click="vm.deleteWishList()">[% translate 'Delete List' %]</a>
+        </div>
+        <div class="btns" ng-hide="!vm.selectedWishList.canAddAllToCart || vm.selectedWishList.wishListLineCollection.length === 0">
+            <button class="btn primary btn-add-cart" ng-click="vm.addAllToCart()" ng-disabled="!vm.allQtysIsValid() || vm.inProgress"> [% translate 'Add All To Cart' %]</button>
+        </div>
+        <div ng-show="vm.selectedWishList !== null">
+            <h2 ng-show="vm.selectedWishList.wishListLineCollection.length === 0">[% siteMessage 'WishLists_NoItemsInList' %]</h2>
+            <div ng-show="vm.selectedWishList.wishListLineCollection.length > 0">
+                <isc-pager pagination="vm.selectedWishList.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getSelectedWishListDetails()"></isc-pager>
+                <ul class="item-list cart-items">
+                    <li class="row item-block checkout-item isc-productContainer" ng-repeat="wishListLine in vm.selectedWishList.wishListLineCollection track by wishListLine.id" id="tst_wishList_{{::wishListLine.productId}}_{{wishListLine.unitOfMeasure}}">
+                        <isc-product-thumb product="wishListLine"></isc-product-thumb>
+                        <div class="small-9 columns item-details">
+                            <div class="details-block">
+                                <isc-product-name product="wishListLine"></isc-product-name>
+                                <div ng-show="vm.productSettings.showInventoryAvailability" class="availability">
+                                    <isc-availability-message availability="wishListLine.availability" failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory" product-settings="vm.productSettings" product-id="wishListLine.productId" unit-of-measure="wishListLine.unitOfMeasure" track-inventory="wishListLine.trackInventory"></isc-availability-message>
+                                </div>
+                                <div ng-show="wishListLine.canShowPrice && !wishListLine.pricing.failedToGetRealTimePrices">
+                                    <isc-product-price product="wishListLine"></isc-product-price>
+                                    <span class="selected-uom" ng-if="wishListLine.unitOfMeasureDescription || wishListLine.unitOfMeasureDisplay">/ {{wishListLine.unitOfMeasureDescription || wishListLine.unitOfMeasureDisplay}}</span>
+                                    <isc-product-price-saving product="wishListLine" currency-symbol="wishListLine.currencySymbol"></isc-product-price-saving>
+                                    <div class="quantity-pricing" ng-if="!wishListLine.quoteRequired">
+                                        <isc-quantity-break-pricing product-id="wishListLine.id" break-prices="wishListLine.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                    </div>
+                                </div>
+                                <div ng-if="wishListLine.canShowPrice && wishListLine.pricing.failedToGetRealTimePrices">
+                                    <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                                </div>
+                            </div>
+                            <div class="actions-block">
+                                <div class="product-info">
+                                    <div class="um-pack" ng-if="wishListLine.productUnitOfMeasures.length > 1">
+                                        <div class="um">
+                                            <label>[% translate 'U/M' %]:</label>
+                                            <isc-unit-of-measure-select-list product="wishListLine" alternate-units-of-measure="{{vm.productSettings.alternateUnitsOfMeasure}}"
+                                                                             display-pack="false" change-unit-of-measure="vm.changeUnitOfMeasure(wishListLine)"></isc-unit-of-measure-select-list>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart-block">
+                                    <div class="item-qty" ng-if="wishListLine.canEnterQuantity">
+                                        <input type="text" class="numerictextbox qty tst_wishListLine_qty" ng-model="wishListLine.qtyOrdered" isc-enter="vm.quantityKeyPress(wishListLine)" ng-blur="vm.quantityKeyPress(wishListLine)" />
+                                    </div>
+                                    <div class="action" ng-if="wishListLine.canAddToCart">
+                                        <button class="btn primary btn-add-cart" ng-click="vm.addLineToCart(wishListLine)" ng-disabled="!wishListLine.qtyOrdered || wishListLine.qtyOrdered == 0">[% translate 'Add to Cart' %]</button>
+                                    </div>
+                                </div>
+                                <a class="btn btn-remove-from-list isc-removeWishListProduct" ng-click="vm.deleteLine(wishListLine)" href="javascript:;">[% translate 'Remove From List' %]</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <isc-pager bottom="true" pagination="vm.selectedWishList.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getSelectedWishListDetails()"></isc-pager>
+            </div>
+        </div>
+        <div class="btns" ng-show="(vm.selectedWishList.canAddAllToCart || vm.selectedWishList.canAddToCart) && vm.selectedWishList.wishListLineCollection.length !== 0">
+            <button class="btn primary btn-add-cart" ng-click="vm.addAllToCart()" ng-disabled="!vm.allQtysIsValid() || vm.inProgress" ng-bind="vm.selectedWishList.canAddAllToCart ? '[% translate 'Add All To Cart' EscapeSingleQuotes %]' : '[% translate 'Add All Available to Cart' EscapeSingleQuotes %]'"></button>
+        </div>
+    </div>
+    <div class="search-no-results" ng-if="vm.wishListCount === 0">
+        <h3>[% siteMessage 'WishLists_NoWishlistsFound' %]</h3>
+    </div>
+</div>
+
+<isc-popup-template title="[% translate 'Delete Wishlist'%]" container-id="popup-deletewishlist">
+    [[Model.DeleteWishlistMessage]]
+</isc-popup-template>

@@ -1,0 +1,16 @@
+﻿[% capture ProductBrand %]
+<img ng-if="product.brand.logoSmallImagePath && showLogo === 'true'" ng-src="{{product.brand.logoSmallImagePath}}" alt="{{ product.brand.logoImageAltText || product.brand.name }}" />
+<span ng-if="!product.brand.logoSmallImagePath || showLogo !== 'true'" ng-bind="product.brand.name"></span>
+[% endcapture %]
+
+<div ng-if="product.brand" class="product-brand" id="tst_product_brand_{{::product.id}}">
+    <a ng-if="product.brand.detailPagePath" ng-href="{{product.brand.detailPagePath}}" title="{{product.brand.name}}">
+        [[ProductBrand]]
+    </a>
+    <div ng-if="!product.brand.detailPagePath">
+        [[ProductBrand]]
+    </div>
+</div>
+<div ng-if="!product.brand && carouselIncludesBrands" class="product-brand">
+    <br />
+</div>

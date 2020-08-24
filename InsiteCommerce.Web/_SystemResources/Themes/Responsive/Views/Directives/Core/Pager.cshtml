@@ -1,0 +1,69 @@
+﻿{% comment %}
+    widget for the Pager directive
+
+    example-usage:
+
+    <isc-pager pagination="products.pagination" bottom="false" update-data="updateProductData()" custom-context="customContext"></isc-pager>
+
+    pagination must be an object of the format PaginationModel
+    update-data function must refresh the page data using the updated pagination model
+    custom-context is  only used for custom ui on the product list page
+{% endcomment %}
+<div class="pager-wrapper">
+    <!-- wrapping div is used due to a get around a bug in angular 1.3 that prevents you from using ng-if on the root node of a template
+    when the directive has replace = true. https://github.com/angular/angular.js/issues/9837 -->
+    <div ng-if="vm.showPager()" class="uibar tertiary paginator-34" ng-class="{'pbtm' : vm.bottom, 'ptop' : !vm.bottom}">
+        <ul>
+            <li ng-if="!vm.bottom && vm.pagination.sortOptions != null" class="sort-list">
+                <div class="small-4 columns sorting-label">
+                    <label>[% translate 'Sort by' %]:</label>
+                </div>
+                <div class="small-8 columns sorting-select">
+                    <select id="tst_pager_sortType"
+                            ng-model="vm.pagination.sortType"
+                            ng-options="option.sortType as option.displayName for option in vm.pagination.sortOptions"
+                            ng-change="vm.updateSortOrder()"></select>
+                    <a ng-if="vm.canEditSortOrder && vm.pagination.sortType === 'SortOrder'" class="toggle-sorting-button" href="javascript:void(0)" ng-click="vm.toggleSortingMode()" 
+                       ng-bind="vm.isSortingMode ? '[% translate 'Done Sorting' EscapeSingleQuotes %]' : '[% translate 'Edit Sort Order' EscapeSingleQuotes %]'"></a>
+                </div>
+            </li>
+            <li ng-if="vm.showPerPage()" class="results-list">
+                <div class="small-6 columns per-page">
+                    <label>[% translate 'Per page' %]:</label>
+                </div>
+                <div class="small-6 columns per-page-select">
+                    <select id="tst_pager_pageSize"
+                            ng-model="vm.pagination.pageSize"
+                            ng-options="pageSizeOption for pageSizeOption in vm.pagination.pageSizeOptions"
+                            ng-change="vm.updatePageSize()"></select>
+                </div>
+            </li>
+            <li class="pagination" ng-if="vm.showPagination()">
+                <div ng-if="vm.pagination.page > 1" class="arrow page-prev">
+                    <a href="javascript:void(0)" ng-click="vm.prevPage()" class="next-prev p-prev"></a>
+                </div>
+                <div class="page-current">
+                    <input name="cpage" type="text" ng-model="vm.pagination.page" isc-enter="vm.pageInput()" class="enter-page numerictextbox" /> [% translate 'of_pager' %]
+                    <span>{{vm.pagination.numberOfPages}}</span>
+                </div>
+                <div ng-if="vm.pagination.page < vm.pagination.numberOfPages" class="arrow unavailable page-next">
+                    <a href="javascript:void(0)" ng-click="vm.nextPage()" class="next-prev p-next"></a>
+                </div>
+            </li>
+        </ul>
+
+        <div ng-if="!vm.bottom && vm.customContext" class="viewmode-selector">
+            <a id="tst_productList_selectGrid" class="vms-grid" ng-click="vm.customContext.selectView('grid')" data-view="grid">Grid</a>
+            <a id="tst_productList_selectList" class="vms-list" ng-click="vm.customContext.selectView('list')" data-view="list">List</a>
+            <a ng-show="!vm.customContext.isSearch" id="tst_productList_selectTable" class="vms-table" ng-click="vm.customContext.selectView('table')" data-view="table">Table</a>
+            <button id='tst_chooseColumnsBtn' ng-show="!vm.customContext.isSearch && (vm.customContext.sortedTableColumns.length > 0) && vm.customContext.view == 'table'" href="javascript:void(0);" data-dropdown="choosecolumns" aria-controls="choosecolumns" aria-expanded="false" class="btn tertiary btn-columns">[% translate 'Columns' %]</button>
+            <div id="choosecolumns" data-dropdown-content class="f-dropdown content">
+                <ul class="column-selection">
+                    <li ng-repeat="section in vm.customContext.sortedTableColumns">
+                        <label><input type="checkbox" ng-model="section.checked" ng-change="vm.customContext.changeTableColumn(section)" data-test-selector="chooseColumns_{{section.nameDisplay}}" data-id="{{section.id}}" />{{section.nameDisplay || (section.name === 'Brand' ? '[% translate 'Brand' EscapeSingleQuotes %]' : (section.name === 'Product Line' ? '[% translate 'Product Line' EscapeSingleQuotes %]' : section.name))}}</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

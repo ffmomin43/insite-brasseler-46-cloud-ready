@@ -1,0 +1,256 @@
+﻿<div ng-controller="OrderListController as vm" ng-cloak>
+    <section class="accordion search-orders">
+        <div class="cm">
+            <input type="checkbox" id="accord-1" class="accord-check" />
+            <label id="tst_ordersPage_searchOrdersBtn" for="accord-1" class="accord-head">[% translate 'Search Orders' %]</label>
+            <article class="accord-content">
+                <div class="row">
+                    <div class="medium-12 large-4 columns search-col-1">
+                        <div class="search-ship-to">
+                            <label>[% translate 'Ship To Address' %]</label>
+                            <input type="text" ng-model="vm.searchFilter.customerSequence" style="display:none" />
+                            <input type="text" ng-model="vm.shipTo.label" disabled="disabled" />
+                            <!--<select ng-model="vm.searchFilter.customerSequence" ng-options="shipTo.customerSequence as shipTo.label for shipTo in vm.shipTos"></select>-->
+                        </div>
+                        <div class="search-status">
+                            <label>[% translate 'Status' %]</label>
+                            <select id="Status" name="Status" ng-model="vm.searchFilter.status">
+                                <option value="">[% translate "Select" %]</option>
+                                <option>[% translate "Invoice Printed" %]</option>
+                                <option value="Processing">[% translate "Processing" %]</option>
+                                <option value="Ready to Ship">[% translate "Ready to Ship" %]</option>
+                                <option value="Preparing Shipment">[% translate "Preparing Shipment" %]</option>
+                                <option>[% translate "Shipment Confirmed" %]</option>
+                                <option value="">[% translate "Submitted" %]</option>
+                            </select>
+                            <!--<select id="tst_ordersPage_status" ng-model="vm.searchFilter.statusDisplay">
+                                <option value="">[% translate 'Select' %]</option>
+                                <option ng-repeat="(key,value) in vm.orderStatusMappings" ng-selected="vm.searchFilter.statusDisplay === key" value="{{::key}}" ng-bind="key"></option>
+                            </select>-->
+                        </div>
+                    </div>
+                    <div class="medium-12 large-4 columns search-col-2">
+                        <div class="search-po" ng-if="vm.showPoNumber">
+                            <label>[% translate 'PO #' %]</label>
+                            <input type="text" ng-model="vm.searchFilter.ponumber" />
+                        </div>
+                        <div class="search-order-num">
+                            <label>[% translate 'Order #' %]</label>
+                            <input type="text" ng-model="vm.searchFilter.ordernumber" />
+                        </div>
+                    </div>
+                    <div class="medium-12 large-4 columns search-col-3">
+                        <div class="search-total">
+                            <label>[% translate 'Order Total' %]</label>
+                            <div class="row">
+                                <div class="small-6 columns">
+                                    <select ng-model="vm.searchFilter.ordertotaloperator">
+                                        <option value="">[% translate 'Select' %]</option>
+                                        <option value="Greater Than">[% translate 'Greater Than' %]</option>
+                                        <option value="Less Than">[% translate 'Less Than' %]</option>
+                                        <option value="Equal To">[% translate 'Equal To' %]</option>
+                                    </select>
+                                </div>
+                                <div class="small-6 columns">
+                                    <input type="text" ng-model="vm.searchFilter.ordertotal" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-date">
+                            <label>[% translate 'Date Range' %]</label>
+                            <div class="row">
+                                <div class="small-6 columns search-date-from">
+                                    <em>[% translate 'From' %]</em>
+                                    <input id="tst_ordersPage_fromDate" name="tst_ordersPage_fromDate" type="text" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.fromDate" />
+                                </div>
+                                <div class="small-6 columns search-date-to">
+                                    <em>[% translate 'To_date' %]</em>
+                                    <input id="tst_ordersPage_toDate" name="tst_ordersPage_toDate" type="text" value="" class="datepicker" isc-pick-a-date="vm.searchFilter.toDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btns">
+                    <button id="tst_ordersPage_searchBtn" type="submit" class="btn primary btn-search" ng-click="vm.search()">[% translate 'Search' %]</button>
+                    <button id="tst_ordersPage_clearBtn" type="submit" class="btn secondary btn-clear" ng-click="vm.clear()">[% translate 'Clear' %]</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <p class="error" ng-if="vm.validationMessage" ng-bind="vm.validationMessage"></p>
+
+    <div ng-show="vm.orderHistory.orders.length > 0">
+
+        <h3 class="results-count">
+            <span class="result-num" ng-bind="vm.pagination.totalItemCount"></span>
+            <span class="result-lbl">[% translate 'orders' %]</span>
+        </h3>
+
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getOrders()"></isc-pager>
+
+        <div class="overflow-table small">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-date">
+                            <span class="sticky-first">
+                                <a href="javascript:void(0)" class="sort" id="tst_myaccount_orders_sort_orderdate"
+                                   ng-class="{'sort-ascending': vm.searchFilter.sort === 'OrderDate,ErpOrderNumber,WebOrderNumber', 'sort-descending': vm.searchFilter.sort === 'OrderDate DESC,ErpOrderNumber DESC,WebOrderNumber DESC'}"
+                                   ng-click="vm.changeSort('OrderDate,ErpOrderNumber,WebOrderNumber')">
+                                    [% translate 'Date' %]
+                                </a>
+                            </span>
+                        </th>
+                        <th class="col-ordernum">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'WebOrderNumber', 'sort-descending': vm.searchFilter.sort === 'WebOrderNumber DESC'}"
+                               ng-click="vm.changeSort('WebOrderNumber')">
+                                [% translate 'Order #' %]
+                            </a>
+                        </th>
+                        <th class="col-shipto">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'STCompanyName', 'sort-descending': vm.searchFilter.sort === 'STCompanyName DESC'}"
+                               ng-click="vm.changeSort('STCompanyName')">
+                                [% translate 'Ship To' %]
+                            </a>
+                        </th>
+                        <th class="col-status">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'Status', 'sort-descending': vm.searchFilter.sort === 'Status DESC'}"
+                               ng-click="vm.changeSort('Status')">
+                                [% translate 'Status' %]
+                            </a>
+                        </th>
+                        <th class="col-erp" ng-if="vm.orderHistory.showErpOrderNumber">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending':vm. searchFilter.sort === 'ERPOrderNumber', 'sort-descending': vm.searchFilter.sort === 'ERPOrderNumber DESC'}"
+                               ng-click="vm.changeSort('ERPOrderNumber')">
+                                [% translate 'ERP Order #' %]
+                            </a>
+                        </th>
+                        <th class="col-po" ng-if="vm.showPoNumber">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'CustomerPO', 'sort-descending': vm.searchFilter.sort === 'CustomerPO DESC'}"
+                               ng-click="vm.changeSort('CustomerPO')">
+                                [% translate 'PO #' %]
+                            </a>
+                        </th>
+                        <th class="col-tot">
+                            <a href="javascript:void(0)" class="sort"
+                               ng-class="{'sort-ascending': vm.searchFilter.sort === 'OrderTotal', 'sort-descending': vm.searchFilter.sort === 'OrderTotal DESC'}"
+                               ng-click="vm.changeSort('OrderTotal')">
+                                [% translate 'Total' %]
+                            </a>
+                        </th>
+                    </tr>
+                    <tr class="tst_ordersPage_orderLine" ng-repeat="order in vm.orderHistory.orders">
+                        <td class="col-date"><span class="sticky-first"><a ng-href="[% urlForPage 'OrderDetailPage' %]?orderNumber={{ order.webOrderNumber || order.erpOrderNumber }}">{{ order.orderDate | date:'shortDate' }} </a></span></td>
+                        <td class="col-ordernum"><a ng-href="[% urlForPage 'OrderDetailPage' %]?ordernumber={{ order.webOrderNumber || order.erpOrderNumber }}" ng-click="">{{ order.webOrderNumber || order.erpOrderNumber }}</a></td>
+                        <td class="col-shipto" ng-bind="order.stCompanyName"></td>
+                        <td class="col-status" ng-if="order.statusDisplay != 'Return Requested'" ng-bind="order.statusDisplay"></td>
+                        <td class="col-status" ng-if="order.statusDisplay == 'Return Requested'"><span ng-bind="order.statusDisplay"></span><br /><a href="javascript:void(0)" ng-if="order.customerNumber.charAt(0) != '3'" ng-click="vm.getRmaStatus(order.webOrderNumber || order.erpOrderNumber )">[% translate 'Reprint Return Label' %]</a></td>
+                        <td class="col-erp" ng-if="vm.orderHistory.showErpOrderNumber" ng-bind="order.erpOrderNumber.substring(0,order.erpOrderNumber.indexOf('-'))"></td>
+                        <td class="col-po" ng-if="vm.showPoNumber" ng-bind="order.customerPO" ng-click="copyToSearch(order.customerPO)"></td>
+                        <td class="col-tot" ng-bind="order.orderTotalDisplay"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <isc-pager pagination="vm.pagination" bottom="true" storage-key="vm.paginationStorageKey" update-data="vm.getOrders()"></isc-pager>
+    </div>
+    <div class="search-no-results" ng-show="vm.orderHistory.orders.length === 0">
+        <h3>[% translate 'No orders found' %].</h3>
+    </div>
+
+    <!--RMA Popup-->
+    <div id="rmaStatusLabel" style="display:none;"></div>
+    <div id="popup-rma" class="ma-rma popup-requisition reveal-modal" data-reveal data-options="close_on_background_click: false;" data-reveal-init>
+        <div class="modal-wrap rma-popup">
+            <a class="close-reveal-modal">&#215;</a>
+            <!-- <div ng-bind-html="vm.resultMessage"></div>-->
+            <div ng-show="vm.requestSubmitted">
+                <div id="print-rma-label" class="rma-view">
+                    <div ng-bind-html="vm.rmaLabel"></div>
+                    <div style='page-break-after:always'></div>
+                    <div>
+                        <h3 class="return-label-header">[% translate 'Return Shipping Label' %]</h3>
+                        <h3>Instructions:</h3>
+                        <ol>
+                            <li>[% translate 'Print your shipping label and packing slip.' %]</li>
+                            <li>[% translate 'Place the packing slip and the items you are returning in the package.' %]</li>
+                            <li>[% translate 'Remove or cover the original shipping label and affix the return shipping label to the package.' %]</li>
+                        </ol>
+                    </div >
+                    <hr />
+                    <div class="packing-slip-content">
+                        <h2 class="packing-slip">[% translate 'PACKING SLIP' %]</h2>
+                        <div class="packing-block">
+                            <label><strong>[% translate 'Date' %]:</strong> </label>
+                            <span>{{vm.rmaDate | date:'MM-dd-yyyy'}}</span> <br />
+
+                            <label><strong>[% translate 'Order Date' %]:</strong> </label>
+                            <span>{{vm.order.orderDate | date: 'MM-dd-yyyy'}}</span><br />
+
+                            <label><strong>[% translate 'Customer Number' %]:</strong> </label>
+                            <span>{{vm.order.customerSequence}}</span><br />
+
+                            <label><strong>[% translate 'Web Order Number' %]:</strong> </label>
+                            <span>{{vm.order.webOrderNumber}}</span><br />
+
+                            <label><strong>[% translate 'Invoice Number' %]:</strong> </label>
+                            <span>{{vm.order.properties['invoiceNumber']}}</span><br />
+
+                            <label><strong>[% translate 'Order Number' %]:</strong> </label>
+                            <span>{{vm.order.erpOrderNumber}}</span><br />
+                        </div>
+
+                        <div class="packing-block">
+                            <h3 class="rma-billing-info">[% translate 'BILLING INFORMATION' %]</h3>
+                            <div>{{vm.order.btCompanyName}}</div>
+                            <div>{{vm.order.btAddress1}} - {{vm.order.btAddress2}} {{vm.order.billToCity}} </div>
+                            <div>{{vm.order.billToState}} {{vm.order.billToPostalCode}} {{vm.order.btCountry}} </div>
+                        </div>
+                        <div class="packing-block">
+                            <h3>[% translate 'RMA COMMENTS' %] </h3>
+                            <div>
+                                <span ng-bind="vm.rmaNotes"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="rma-billing-info">[% translate 'RETURN DETAILS' %]</h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>[% translate 'Item' %]</th>
+                                        <th>[% translate 'Description' %]</th>
+                                        <th>[% translate 'Qty Ordered' %]</th>
+                                        <th>[% translate 'Qty to Return' %]</th>
+                                        <th>[% translate 'Return Reason Code' %]</th>
+                                    </tr>
+                                    <tr ng-repeat="orderLine in vm.order.orderLines" ng-if="orderLine.properties['QtyToReturn'] > 0">
+                                        <td ng-bind="orderLine.productErpNumber"></td>
+                                        <td ng-bind="orderLine.shortDescription"></td>
+                                        <td ng-bind="orderLine.qtyOrdered"></td>
+                                        <td ng-bind="orderLine.properties['QtyToReturn']"></td>
+                                        <td ng-bind="orderLine.properties['ReturnReason']"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <div class="btns">
+                <a href="#" class="btn primary btn-done" ng-click="vm.closePopup($event)">[% translate 'Done' %]</a>
+                <div>
+                    <a href="#" ng-click="vm.printRmaLabel()" class="btn primary btn-rma-print">[% translate 'Print' %]</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

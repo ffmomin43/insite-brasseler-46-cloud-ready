@@ -1,0 +1,20 @@
+﻿[% if IsEditingMode and CurrentPage.ContentKey == Model.PageContentKey -%]
+    <div class="widget-carousel [[Model.CssClass]]">
+        [% zone 'Carousel Slides' %]
+    </div>
+[% else -%]
+<div class="columns">
+    <div isc-carousel class="widget-carousel slideshow-wrapper flexslider [[Model.CssClass]]"
+            data-animation="[[Model.AnimationType | downcase]]"
+            data-animation_speed="[[Model.AnimationSpeed]]"
+            data-timer_speed="[[Model.TimerSpeed]]"
+            data-navigation_arrows="[[Model.DisplayArrows]]"
+            data-slide_number="[[Model.DisplaySlideNumbers]]"
+            data-bullets="[[Model.DisplayBullets]]">
+        <div class="preloader"></div>
+        <ul class="slides">
+            [% zone 'Carousel Slides' surroundWith: 'li' %]
+        </ul>
+    </div>
+</div>
+[% endif -%]

@@ -1,0 +1,426 @@
+[
+    {
+        "Name":  "Antlr",
+        "Value":  {
+                      "PackageName":  "Antlr",
+                      "PackageVersion":  "3.4.1.9004",
+                      "Libraries":  {
+                                        "Antlr3.Runtime":  "3.4.1.9004"
+                                    }
+                  }
+    },
+    {
+        "Name":  "dotnet SDK",
+        "Value":  {
+                      "PackageName":  "dotnet SDK",
+                      "PackageVersion":  null,
+                      "Libraries":  {
+                                        "System.Data":  null,
+                                        "System.Xml.Linq":  null,
+                                        "Microsoft.CSharp":  null,
+                                        "System.Data.DataSetExtensions":  null,
+                                        "System.Web":  null,
+                                        "System.Web.ApplicationServices":  null,
+                                        "System.ComponentModel.DataAnnotations":  null,
+                                        "System.Web.Mobile":  null,
+                                        "System.Web.Services":  null,
+                                        "System.Net":  null,
+                                        "System.ServiceModel":  null,
+                                        "System.Windows.Forms":  null,
+                                        "System.Xml":  null,
+                                        "System.Core":  null,
+                                        "System.Drawing":  null,
+                                        "System.Web.Entity":  null,
+                                        "mscorlib":  null,
+                                        "System.Web.DynamicData":  null,
+                                        "System.Web.Extensions":  null,
+                                        "System.ServiceModel.Web":  null,
+                                        "System.IdentityModel":  null,
+                                        "System.Runtime.Serialization":  null,
+                                        "System.Runtime.Caching":  null,
+                                        "System.Configuration":  null,
+                                        "System.EnterpriseServices":  null,
+                                        "System":  null
+                                    }
+                  }
+    },
+    {
+        "Name":  "Elasticsearch.Net",
+        "Value":  {
+                      "PackageName":  "Elasticsearch.Net",
+                      "PackageVersion":  "5.6.5",
+                      "Libraries":  {
+                                        "Elasticsearch.Net":  "5.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "EntityFramework",
+        "Value":  {
+                      "PackageName":  "EntityFramework",
+                      "PackageVersion":  "6.1.3",
+                      "Libraries":  {
+                                        "EntityFramework":  "6.0.0.0",
+                                        "EntityFramework.SqlServer":  "6.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "FluentValidation",
+        "Value":  {
+                      "PackageName":  "FluentValidation",
+                      "PackageVersion":  "5.1.0.0",
+                      "Libraries":  {
+                                        "FluentValidation":  "5.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Insite.Commerce.Public",
+        "Value":  {
+                      "PackageName":  "Insite.Commerce.Public",
+                      "PackageVersion":  null,
+                      "Libraries":  {
+                                        "Insite.Data.Entities":  null,
+                                        "Insite.WishLists":  null,
+                                        "Insite.Dealers":  null,
+                                        "Avalara.AvaTax.Adapter":  "5.7.3.1",
+                                        "Insite.Public.Integration":  null,
+                                        "Insite.Message":  null,
+                                        "Insite.Cart":  null,
+                                        "Insite.Dashboard":  null,
+                                        "Insite.ContentLibrary":  null,
+                                        "Insite.OrderApproval":  null,
+                                        "Insite.Integration.Connector.Acumatica":  null,
+                                        "Insite.TaxCalculator.Vertex":  null,
+                                        "Insite.RealTimePricing":  null,
+                                        "Insite.RealTimeInventory":  null,
+                                        "Insite.Websites":  null,
+                                        "Insite.Invoice":  null,
+                                        "Insite.Public.Core":  null,
+                                        "Insite.Promotions":  null,
+                                        "Insite.Brands":  null,
+                                        "Insite.Integration.Connector.Ifs":  null,
+                                        "Insite.Catalog":  null,
+                                        "Insite.MobileApp":  null,
+                                        "Insite.Data.Repositories":  null,
+                                        "Insite.Customers":  null,
+                                        "Insite.JobQuote":  null,
+                                        "Insite.Public.WebFramework":  null,
+                                        "Insite.Common":  null,
+                                        "Insite.PunchOut":  null,
+                                        "Insite.QuickOrder":  null,
+                                        "Insite.Integration.Connector.Prophet21":  null,
+                                        "Insite.Account":  null,
+                                        "Insite.Data.Providers.EntityFramework":  null,
+                                        "Insite.Email":  null,
+                                        "DotLiquid":  "2.0.24.0",
+                                        "Insite.Payments":  null,
+                                        "Insite.Search.Elasticsearch":  null,
+                                        "GemBox.Spreadsheet":  "33.3.30.1062",
+                                        "Insite.Budget":  null,
+                                        "Insite.Configurator":  null,
+                                        "Insite.Rfq":  null,
+                                        "Insite.Order":  null,
+                                        "Insite.Data":  null,
+                                        "Insite.Integration.Connector.APlus":  null,
+                                        "Insite.Core.Interfaces":  null,
+                                        "Insite.Requisition":  null,
+                                        "Insite.Integration.Connector.SXe":  null
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.Cors",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.Cors",
+                      "PackageVersion":  "5.2.3",
+                      "Libraries":  {
+                                        "System.Web.Cors":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.Identity.Core",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.Identity.Core",
+                      "PackageVersion":  "2.2.1",
+                      "Libraries":  {
+                                        "Microsoft.AspNet.Identity.Core":  "2.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.Mvc",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.Mvc",
+                      "PackageVersion":  "5.2.3",
+                      "Libraries":  {
+                                        "System.Web.Mvc":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.OData",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.OData",
+                      "PackageVersion":  "5.8.0",
+                      "Libraries":  {
+                                        "System.Web.OData":  "5.8.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.Razor",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.Razor",
+                      "PackageVersion":  "3.2.3",
+                      "Libraries":  {
+                                        "System.Web.Razor":  "3.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.Web.Optimization",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.Web.Optimization",
+                      "PackageVersion":  "1.1.3",
+                      "Libraries":  {
+                                        "System.Web.Optimization":  "1.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.WebApi.Core",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.WebApi.Core",
+                      "PackageVersion":  "5.2.3",
+                      "Libraries":  {
+                                        "System.Web.Http":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.WebApi.Cors",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.WebApi.Cors",
+                      "PackageVersion":  "5.2.3",
+                      "Libraries":  {
+                                        "System.Web.Http.Cors":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.WebApi.Owin",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.WebApi.Owin",
+                      "PackageVersion":  "5.2.3",
+                      "Libraries":  {
+                                        "System.Web.Http.Owin":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.WebApi.WebHost",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.WebApi.WebHost",
+                      "PackageVersion":  "5.2.3",
+                      "Libraries":  {
+                                        "System.Web.Http.WebHost":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.AspNet.WebPages",
+        "Value":  {
+                      "PackageName":  "Microsoft.AspNet.WebPages",
+                      "PackageVersion":  "3.2.3",
+                      "Libraries":  {
+                                        "System.Web.WebPages":  "3.0.0.0",
+                                        "System.Web.Helpers":  "3.0.0.0",
+                                        "System.Web.WebPages.Razor":  "3.0.0.0",
+                                        "System.Web.WebPages.Deployment":  "3.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.OData.Core",
+        "Value":  {
+                      "PackageName":  "Microsoft.OData.Core",
+                      "PackageVersion":  "6.15.0",
+                      "Libraries":  {
+                                        "Microsoft.OData.Core":  "6.15.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.OData.Edm",
+        "Value":  {
+                      "PackageName":  "Microsoft.OData.Edm",
+                      "PackageVersion":  "6.15.0",
+                      "Libraries":  {
+                                        "Microsoft.OData.Edm":  "6.15.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.Owin",
+        "Value":  {
+                      "PackageName":  "Microsoft.Owin",
+                      "PackageVersion":  "3.1.0",
+                      "Libraries":  {
+                                        "Microsoft.Owin":  "3.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.Owin.Security",
+        "Value":  {
+                      "PackageName":  "Microsoft.Owin.Security",
+                      "PackageVersion":  "3.1.0",
+                      "Libraries":  {
+                                        "Microsoft.Owin.Security":  "3.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.Owin.Security.OAuth",
+        "Value":  {
+                      "PackageName":  "Microsoft.Owin.Security.OAuth",
+                      "PackageVersion":  "3.1.0",
+                      "Libraries":  {
+                                        "Microsoft.Owin.Security.OAuth":  "3.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.Owin.Security.WsFederation",
+        "Value":  {
+                      "PackageName":  "Microsoft.Owin.Security.WsFederation",
+                      "PackageVersion":  "3.1.0",
+                      "Libraries":  {
+                                        "Microsoft.Owin.Security.WsFederation":  "3.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.Spatial",
+        "Value":  {
+                      "PackageName":  "Microsoft.Spatial",
+                      "PackageVersion":  "6.15.0",
+                      "Libraries":  {
+                                        "Microsoft.Spatial":  "6.15.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.SqlServer.Types",
+        "Value":  {
+                      "PackageName":  "Microsoft.SqlServer.Types",
+                      "PackageVersion":  "14.0.314.76",
+                      "Libraries":  {
+                                        "Microsoft.SqlServer.Types":  "14.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Microsoft.Web.Infrastructure",
+        "Value":  {
+                      "PackageName":  "Microsoft.Web.Infrastructure",
+                      "PackageVersion":  "1.0.0.0",
+                      "Libraries":  {
+                                        "Microsoft.Web.Infrastructure":  "1.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "NEST",
+        "Value":  {
+                      "PackageName":  "NEST",
+                      "PackageVersion":  "5.6.5",
+                      "Libraries":  {
+                                        "Nest":  "5.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Newtonsoft.Json",
+        "Value":  {
+                      "PackageName":  "Newtonsoft.Json",
+                      "PackageVersion":  "12.0.2",
+                      "Libraries":  {
+                                        "Newtonsoft.Json":  "12.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Owin",
+        "Value":  {
+                      "PackageName":  "Owin",
+                      "PackageVersion":  "1.0",
+                      "Libraries":  {
+                                        "Owin":  "1.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "protobuf-net",
+        "Value":  {
+                      "PackageName":  "protobuf-net",
+                      "PackageVersion":  "2.4.0",
+                      "Libraries":  {
+                                        "protobuf-net":  "2.4.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "Schema.NET",
+        "Value":  {
+                      "PackageName":  "Schema.NET",
+                      "PackageVersion":  "6.0.0",
+                      "Libraries":  {
+                                        "Schema.NET":  "6.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "SSH.NET",
+        "Value":  {
+                      "PackageName":  "SSH.NET",
+                      "PackageVersion":  "2016.1.0",
+                      "Libraries":  {
+                                        "Renci.SshNet":  "2016.1.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "System.Net.Http",
+        "Value":  {
+                      "PackageName":  "System.Net.Http",
+                      "PackageVersion":  "2.0.20126.16343",
+                      "Libraries":  {
+                                        "System.Net.Http":  "2.0.0.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "System.Net.Http.Formatting.Extension",
+        "Value":  {
+                      "PackageName":  "System.Net.Http.Formatting.Extension",
+                      "PackageVersion":  "5.2.3.0",
+                      "Libraries":  {
+                                        "System.Net.Http.Formatting":  "5.2.3.0"
+                                    }
+                  }
+    },
+    {
+        "Name":  "WebGrease",
+        "Value":  {
+                      "PackageName":  "WebGrease",
+                      "PackageVersion":  "1.5.2",
+                      "Libraries":  {
+                                        "WebGrease":  "1.5.2.14234"
+                                    }
+                  }
+    }
+]

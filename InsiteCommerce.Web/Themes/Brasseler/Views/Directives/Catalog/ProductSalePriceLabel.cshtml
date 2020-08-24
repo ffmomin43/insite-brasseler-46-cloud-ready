@@ -1,0 +1,5 @@
+﻿<span ng-if="(!product.quoteRequired && product.pricing && !product.pricing.requiresRealTimePrice && vm.showSalePriceLabel(product) || vm.showSalePriceLabelForOrderHistory(product)) && !hideSalePriceLabel" class="price-label">
+    <span ng-if="product.salePriceLabel" ng-bind="product.salePriceLabel"></span>
+    <span ng-if="!product.salePriceLabel">[% translate 'Sale Price:' %]</span>
+</span>
+<span ng-if="price" ng-bind="price"></span>

@@ -1,0 +1,233 @@
+/* Order Approval Details */
+.ma-order-approval-details .item-list, .checkout-review-pay .item-list, .checkout-order-confirm .item-list {
+  border: 1px solid #E0E0E0;
+}
+.ma-order-approval-details .checkout-item, .checkout-review-pay .checkout-item, .checkout-order-confirm .checkout-item {
+  list-style-type: none;
+  margin: 0;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+.ma-order-approval-details .checkout-item .product-details, .checkout-review-pay .checkout-item .product-details, .checkout-order-confirm .checkout-item .product-details {
+  width: 80% !important;
+  padding-right: 15px !important;
+  left: 0 !important;
+}
+@media print {
+  .ma-order-approval-details .checkout-item .product-details, .checkout-review-pay .checkout-item .product-details, .checkout-order-confirm .checkout-item .product-details {
+    width: 75% !important;
+  }
+}
+.ma-order-approval-details .checkout-item .product-details .qty-wrapper, .checkout-review-pay .checkout-item .product-details .qty-wrapper, .checkout-order-confirm .checkout-item .product-details .qty-wrapper {
+  margin-bottom: 0;
+}
+.ma-order-approval-details .checkout-item .product-details .qty-wrapper .item-opt, .checkout-review-pay .checkout-item .product-details .qty-wrapper .item-opt, .checkout-order-confirm .checkout-item .product-details .qty-wrapper .item-opt {
+  height: 34px;
+}
+.ma-order-approval-details .checkout-item .product-details .qty-wrapper .item-opt .item-subtotal, .checkout-review-pay .checkout-item .product-details .qty-wrapper .item-opt .item-subtotal, .checkout-order-confirm .checkout-item .product-details .qty-wrapper .item-opt .item-subtotal {
+  font-weight: 400;
+}
+.ma-order-approval-details .checkout-item .product-details .qty-wrapper .item-opt .item-qty strong, .checkout-review-pay .checkout-item .product-details .qty-wrapper .item-opt .item-qty strong, .checkout-order-confirm .checkout-item .product-details .qty-wrapper .item-opt .item-qty strong {
+  font-weight: 400;
+}
+.ma-order-approval-details .checkout-item .product-details .qty-wrapper .remove .btn-remove:hover, .checkout-review-pay .checkout-item .product-details .qty-wrapper .remove .btn-remove:hover, .checkout-order-confirm .checkout-item .product-details .qty-wrapper .remove .btn-remove:hover {
+  color: DodgerBlue;
+}
+.ma-order-approval-details .checkout-item .product-details .qty-wrapper .remove .btn-remove .foundicon-remove:before, .checkout-review-pay .checkout-item .product-details .qty-wrapper .remove .btn-remove .foundicon-remove:before, .checkout-order-confirm .checkout-item .product-details .qty-wrapper .remove .btn-remove .foundicon-remove:before {
+  margin-right: 5px;
+}
+.ma-order-approval-details .checkout-item .product-details .product-sku, .checkout-review-pay .checkout-item .product-details .product-sku, .checkout-order-confirm .checkout-item .product-details .product-sku {
+  margin-bottom: 7px;
+  color: #8a8a8a;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost, .checkout-review-pay .checkout-item .product-details .product-cost, .checkout-order-confirm .checkout-item .product-details .product-cost {
+  font-size: 16px;
+  display: flex;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .pd-price, .checkout-review-pay .checkout-item .product-details .product-cost .pd-price, .checkout-order-confirm .checkout-item .product-details .product-cost .pd-price {
+  display: flex;
+  padding: 5px 0;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .pd-price span, .checkout-review-pay .checkout-item .product-details .product-cost .pd-price span, .checkout-order-confirm .checkout-item .product-details .product-cost .pd-price span {
+  margin-right: 5px;
+  font-weight: bold;
+  display: flex;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .pd-price .price-old, .checkout-review-pay .checkout-item .product-details .product-cost .pd-price .price-old, .checkout-order-confirm .checkout-item .product-details .product-cost .pd-price .price-old {
+  font-weight: normal;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .selected-uom, .checkout-review-pay .checkout-item .product-details .product-cost .selected-uom, .checkout-order-confirm .checkout-item .product-details .product-cost .selected-uom {
+  font-weight: bold;
+  line-height: 36px;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .item-opt, .checkout-review-pay .checkout-item .product-details .product-cost .item-opt, .checkout-order-confirm .checkout-item .product-details .product-cost .item-opt {
+  line-height: 34px;
+  width: 54%;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .item-opt .item-subtotal, .checkout-review-pay .checkout-item .product-details .product-cost .item-opt .item-subtotal, .checkout-order-confirm .checkout-item .product-details .product-cost .item-opt .item-subtotal {
+  min-width: 0;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .item-opt .item-qty .new-qty, .checkout-review-pay .checkout-item .product-details .product-cost .item-opt .item-qty .new-qty, .checkout-order-confirm .checkout-item .product-details .product-cost .item-opt .item-qty .new-qty {
+  margin-right: 5px;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .remove, .checkout-review-pay .checkout-item .product-details .product-cost .remove, .checkout-order-confirm .checkout-item .product-details .product-cost .remove {
+  max-width: 150px;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .remove .btn-remove, .checkout-review-pay .checkout-item .product-details .product-cost .remove .btn-remove, .checkout-order-confirm .checkout-item .product-details .product-cost .remove .btn-remove {
+  background-color: transparent;
+  max-width: 200px;
+  color: #636363;
+  margin: 0;
+  padding: 0;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .remove .btn-remove .foundicon-remove, .checkout-review-pay .checkout-item .product-details .product-cost .remove .btn-remove .foundicon-remove, .checkout-order-confirm .checkout-item .product-details .product-cost .remove .btn-remove .foundicon-remove {
+  border: 1px solid #636363;
+  border-radius: 50px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+}
+.ma-order-approval-details .checkout-item .product-details .product-cost .remove .btn-remove .foundicon-remove:before, .checkout-review-pay .checkout-item .product-details .product-cost .remove .btn-remove .foundicon-remove:before, .checkout-order-confirm .checkout-item .product-details .product-cost .remove .btn-remove .foundicon-remove:before {
+  content: "\e000";
+  font-size: 0.7em;
+}
+.ma-order-approval-details .checkout-item .product-details h3, .checkout-review-pay .checkout-item .product-details h3, .checkout-order-confirm .checkout-item .product-details h3 {
+  margin-top: 0;
+}
+.ma-order-approval-details .order-subtotal, .checkout-review-pay .order-subtotal, .checkout-order-confirm .order-subtotal {
+  width: 100%;
+  border: 1px solid #DCDCDC;
+  margin-bottom: 15px;
+}
+.ma-order-approval-details .order-subtotal .sub-label, .ma-order-approval-details .order-subtotal .sub-amount, .checkout-review-pay .order-subtotal .sub-label, .checkout-review-pay .order-subtotal .sub-amount, .checkout-order-confirm .order-subtotal .sub-label, .checkout-order-confirm .order-subtotal .sub-amount {
+  font-size: 14px;
+}
+.ma-order-approval-details .order-details-top .od-head .od-lbl, .checkout-review-pay .order-details-top .od-head .od-lbl, .checkout-order-confirm .order-details-top .od-head .od-lbl {
+  max-width: 220px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+@media print {
+  .ma-order-approval-details .order-details-top .od-head .od-lbl, .checkout-review-pay .order-details-top .od-head .od-lbl, .checkout-order-confirm .order-details-top .od-head .od-lbl {
+    width: 30%;
+  }
+}
+.ma-order-approval-details .order-details-top .od-head .od-data, .checkout-review-pay .order-details-top .od-head .od-data, .checkout-order-confirm .order-details-top .od-head .od-data {
+  margin-bottom: 5px;
+}
+.ma-order-approval-details .order-details-top .oc-head h3, .checkout-review-pay .order-details-top .oc-head h3, .checkout-order-confirm .order-details-top .oc-head h3 {
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+.ma-order-approval-details .order-details-top .btn-print, .checkout-review-pay .order-details-top .btn-print, .checkout-order-confirm .order-details-top .btn-print {
+  background-color: #fff !important;
+  color: #0035A2;
+  font-weight: 400;
+  margin-left: 15px;
+  padding: 5px 0;
+  float: right;
+}
+.ma-order-approval-details .order-details-top .btn-print .font-icon, .checkout-review-pay .order-details-top .btn-print .font-icon, .checkout-order-confirm .order-details-top .btn-print .font-icon {
+  margin-right: 7px;
+}
+.ma-order-approval-details .order-details-top .btns .btn-place-order, .checkout-review-pay .order-details-top .btns .btn-place-order, .checkout-order-confirm .order-details-top .btns .btn-place-order {
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: #00359C;
+}
+.ma-order-approval-details .order-details-top .btns .btn-place-order:hover, .checkout-review-pay .order-details-top .btns .btn-place-order:hover, .checkout-order-confirm .order-details-top .btns .btn-place-order:hover {
+  background-color: #A50031;
+}
+.ma-order-approval-details .order-details-top .btns .btn-cancel-order, .checkout-review-pay .order-details-top .btns .btn-cancel-order, .checkout-order-confirm .order-details-top .btns .btn-cancel-order {
+  background: transparent;
+  color: #636363;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.ma-order-approval-details .order-details-top .btns .btn-cancel-order .foundicon-remove, .checkout-review-pay .order-details-top .btns .btn-cancel-order .foundicon-remove, .checkout-order-confirm .order-details-top .btns .btn-cancel-order .foundicon-remove {
+  border: 1px solid #636363;
+  border-radius: 50px;
+  display: inline-block;
+  margin-right: 4px;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+}
+.ma-order-approval-details .order-details-top .btns .btn-cancel-order .foundicon-remove:before, .checkout-review-pay .order-details-top .btns .btn-cancel-order .foundicon-remove:before, .checkout-order-confirm .order-details-top .btns .btn-cancel-order .foundicon-remove:before {
+  content: "\e000";
+  font-size: 0.7em;
+}
+@media print {
+  .ma-order-approval-details .order-details-top .btns, .checkout-review-pay .order-details-top .btns, .checkout-order-confirm .order-details-top .btns {
+    display: none;
+  }
+}
+.ma-order-approval-details .order-details-top .order-subtotal, .checkout-review-pay .order-details-top .order-subtotal, .checkout-order-confirm .order-details-top .order-subtotal {
+  margin-top: 15px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .ma-order-approval-details .checkout-item .product-details .product-cost .item-opt {
+    width: 42%;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 767px) {
+  .ma-order-approval-details .item-list .item-block .product-details, .checkout-review-pay .item-list .item-block .product-details, .checkout-order-confirm .item-list .item-block .product-details {
+    width: 75% !important;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .qty-wrapper .item-opt, .checkout-review-pay .item-list .item-block .product-details .qty-wrapper .item-opt, .checkout-order-confirm .item-list .item-block .product-details .qty-wrapper .item-opt {
+    margin-top: 10px;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .qty-wrapper .item-opt .item-qty, .checkout-review-pay .item-list .item-block .product-details .qty-wrapper .item-opt .item-qty, .checkout-order-confirm .item-list .item-block .product-details .qty-wrapper .item-opt .item-qty {
+    float: left;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .qty-wrapper .item-opt .item-subtotal, .checkout-review-pay .item-list .item-block .product-details .qty-wrapper .item-opt .item-subtotal, .checkout-order-confirm .item-list .item-block .product-details .qty-wrapper .item-opt .item-subtotal {
+    margin-left: 0;
+    min-width: 100%;
+    text-align: left;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .remove, .checkout-review-pay .item-list .item-block .product-details .remove, .checkout-order-confirm .item-list .item-block .product-details .remove {
+    float: left;
+    margin-bottom: 10px;
+    display: flex;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .product-cost, .checkout-review-pay .item-list .item-block .product-details .product-cost, .checkout-order-confirm .item-list .item-block .product-details .product-cost {
+    display: block;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .product-cost .pd-price, .checkout-review-pay .item-list .item-block .product-details .product-cost .pd-price, .checkout-order-confirm .item-list .item-block .product-details .product-cost .pd-price {
+    display: inline-flex;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .product-cost .item-opt, .checkout-review-pay .item-list .item-block .product-details .product-cost .item-opt, .checkout-order-confirm .item-list .item-block .product-details .product-cost .item-opt {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .product-cost .item-opt .item-qty, .checkout-review-pay .item-list .item-block .product-details .product-cost .item-opt .item-qty, .checkout-order-confirm .item-list .item-block .product-details .product-cost .item-opt .item-qty {
+    display: block;
+    text-align: left;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .product-cost .item-opt .item-qty .numerictextbox, .checkout-review-pay .item-list .item-block .product-details .product-cost .item-opt .item-qty .numerictextbox, .checkout-order-confirm .item-list .item-block .product-details .product-cost .item-opt .item-qty .numerictextbox {
+    width: 50px !important;
+  }
+  .ma-order-approval-details .item-list .item-block .product-details .product-cost .item-opt .item-subtotal, .checkout-review-pay .item-list .item-block .product-details .product-cost .item-opt .item-subtotal, .checkout-order-confirm .item-list .item-block .product-details .product-cost .item-opt .item-subtotal {
+    float: left;
+    margin-left: 0;
+  }
+  .ma-order-approval-details .btns, .checkout-review-pay .btns, .checkout-order-confirm .btns {
+    text-align: center;
+    margin-top: 15px;
+  }
+  .ma-order-approval-details .btns .btn-place-saved-order, .checkout-review-pay .btns .btn-place-saved-order, .checkout-order-confirm .btns .btn-place-saved-order {
+    float: none;
+    margin-left: 0;
+  }
+  .ma-order-approval-details .order-details-top .od-head .od-lbl, .checkout-review-pay .order-details-top .od-head .od-lbl, .checkout-order-confirm .order-details-top .od-head .od-lbl {
+    width: 50%;
+  }
+  .ma-order-approval-details .order-details-top .bill-info, .ma-order-approval-details .order-details-top .ship-info, .checkout-review-pay .order-details-top .bill-info, .checkout-review-pay .order-details-top .ship-info, .checkout-order-confirm .order-details-top .bill-info, .checkout-order-confirm .order-details-top .ship-info {
+    margin-bottom: 15px;
+  }
+}
+
+/*# sourceMappingURL=brasseler-ma-order-approval-details.css.map */

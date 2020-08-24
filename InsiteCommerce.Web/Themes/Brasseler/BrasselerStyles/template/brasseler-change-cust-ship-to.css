@@ -1,0 +1,49 @@
+.change-cust-ship-to .btns {
+  margin-top: .25em;
+}
+.change-cust-ship-to .btns a.btn {
+  margin-bottom: 1em;
+}
+.change-cust-ship-to .si-step-2 {
+  margin-bottom: 1.5em;
+}
+.change-cust-ship-to .si-step-2 .select-step {
+  margin-bottom: 1em;
+  position: relative;
+}
+.change-cust-ship-to .billto-selector .k-input, .change-cust-ship-to .shipto-selector .k-input {
+  padding-right: 2em;
+}
+.change-cust-ship-to .billto-selector + .icon-arw-down-5, .change-cust-ship-to .shipto-selector + .icon-arw-down-5 {
+  position: absolute;
+  top: 1.55em;
+  right: .25em;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media all and (max-width: 767px) {
+  .change-cust-ship-to .btns a.btn {
+    width: 100%;
+  }
+}
+@media all and (min-width: 768px) {
+  .change-cust-ship-to .btns {
+    text-align: right;
+  }
+  .change-cust-ship-to .si-step-2 .btn {
+    float: right;
+    margin-left: 1em;
+  }
+
+  .k-list-container {
+    left: 5px !important;
+    width: 620px !important;
+  }
+
+  .k-animation-container .k-list-container div ul.k-list li.k-item {
+    color: #000000 !important;
+  }
+}
+
+/*# sourceMappingURL=brasseler-change-cust-ship-to.css.map */

@@ -1,0 +1,205 @@
+﻿{
+  "$type": "Insite.Admin.EntityDefinition, Insite.Admin",
+  "PluralizedName": "brands",
+  "Label": "brand",
+  "PluralizedLabel": "Brands",
+  "CanView": true,
+  "CanEdit": true,
+  "CanCreate": true,
+  "CanDelete": true,
+  "IsImmutable": false,
+  "EnforceSingleDefault": false,
+  "EntityType": "InSiteCommerce.Brasseler.CustomAPI.Data.Entities.Brand, InSiteCommerce.Brasseler.CustomAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Properties": {
+    "$type": "System.Collections.Generic.List`1[[Insite.Admin.PropertyDefinition, Insite.Admin]], mscorlib",
+    "$values": [
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "id",
+        "Label": "Id",
+        "PropertyType": "System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "CanView": true,
+        "CanEdit": false,
+        "CanBeDisplayedInGrid": false,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        }
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "name",
+        "Label": "Name",
+        "PropertyType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "DataTypeValidator": {
+          "$type": "Insite.Admin.DataTypeValidators.StringValidator, Insite.Admin",
+          "DefaultValue": "",
+          "MaxLength": 512,
+          "RegularExpression": ""
+        },
+        "ControlType": {
+          "$type": "Insite.Admin.ControlTypes.TextFieldControl, Insite.Admin",
+          "SortOrder": -10,
+          "DisplayFilter": "",
+          "DisplayWidth": "Large",
+          "ViewName": "TextFieldControl"
+        },
+        "CanView": true,
+        "CanEdit": true,
+        "IsTranslatable": true,
+        "CanBeDisplayedInGrid": true,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        }
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "description",
+        "Label": "Description",
+        "PropertyType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "DataTypeValidator": {
+          "$type": "Insite.Admin.DataTypeValidators.StringValidator, Insite.Admin",
+          "DefaultValue": "",
+          "MaxLength": 512,
+          "RegularExpression": ""
+        },
+        "ControlType": {
+          "$type": "Insite.Admin.ControlTypes.TextFieldControl, Insite.Admin",
+          "SortOrder": -10,
+          "DisplayFilter": "",
+          "DisplayWidth": "Large",
+          "ViewName": "TextFieldControl"
+        },
+        "CanView": true,
+        "CanEdit": true,
+        "IsTranslatable": true,
+        "CanBeDisplayedInGrid": true,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        }
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "website",
+        "Label": "Website",
+        "PropertyType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "DataTypeValidator": {
+          "$type": "Insite.Admin.DataTypeValidators.StringValidator, Insite.Admin",
+          "DefaultValue": "",
+          "MaxLength": 1024,
+          "RegularExpression": ""
+        },
+        "ControlType": {
+          "$type": "Insite.Admin.ControlTypes.TextFieldControl, Insite.Admin",
+          "SortOrder": -10,
+          "DisplayFilter": "",
+          "DisplayWidth": "Large",
+          "ViewName": "TextFieldControl"
+        },
+        "CanView": true,
+        "CanEdit": true,
+        "IsTranslatable": true,
+        "CanBeDisplayedInGrid": true,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        }
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "imagePath",
+        "Label": "Image Path",
+        "PropertyType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "DataTypeValidator": {
+          "$type": "Insite.Admin.DataTypeValidators.StringValidator, Insite.Admin",
+          "DefaultValue": "",
+          "MaxLength": 1024,
+          "RegularExpression": ""
+        },
+        "ControlType": {
+          "$type": "Insite.Admin.ControlTypes.ImagePickerControl, Insite.Admin",
+          "SortOrder": 20,
+          "ViewName": "ImagePickerControl"
+        },
+        "CanView": true,
+        "CanEdit": true,
+        "CanBeDisplayedInGrid": true,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        }
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "createdBy",
+        "Label": "Created By",
+        "PropertyType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "CanView": true,
+        "CanEdit": false,
+        "CanBeDisplayedInGrid": false,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        },
+        "IsRestricted": true
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "createdOn",
+        "Label": "Created On",
+        "PropertyType": "System.DateTimeOffset, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "CanView": true,
+        "CanEdit": false,
+        "CanBeDisplayedInGrid": false,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        },
+        "IsRestricted": true
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "modifiedBy",
+        "Label": "Modified By",
+        "PropertyType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "CanView": true,
+        "CanEdit": false,
+        "CanBeDisplayedInGrid": false,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        },
+        "IsRestricted": true
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "modifiedOn",
+        "Label": "Modified On",
+        "PropertyType": "System.DateTimeOffset, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "CanView": true,
+        "CanEdit": false,
+        "CanBeDisplayedInGrid": false,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        },
+        "IsRestricted": true
+      },
+      {
+        "$type": "Insite.Admin.PropertyDefinition, Insite.Admin",
+        "Name": "customProperties",
+        "Label": "Custom Properties",
+        "PropertyType": "System.Collections.Generic.ICollection`1[[Insite.Data.Entities.CustomProperty, Insite.Data.Entities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "CanView": true,
+        "CanEdit": true,
+        "CanBeDisplayedInGrid": false,
+        "HtmlTagAttributes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib"
+        }
+      },
+    ]
+  },
+  "DisplayNameFormat": "{name}",
+  "Assignments": {
+    "$type": "System.Collections.Generic.List`1[[Insite.Core.ApplicationDictionary.Assignment, Insite.Core]], mscorlib",
+    "$values": []
+  },
+  "UniqueConstraints": {
+    "$type": "System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib",
+    "$values": []
+  },
+  "Name": "brand"
+}

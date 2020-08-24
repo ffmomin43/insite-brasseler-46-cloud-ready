@@ -1,0 +1,89 @@
+﻿<div class="row" ng-controller="AccountSettingsController as vm" ng-cloak>
+    <div ng-if="vm.settings && vm.account">
+        <div class="password-changed-success" ng-show="vm.isAccountPasswordChanged">
+            <span><i class="fa fa-check-circle"></i>[[Model.PasswordChangedMessage]]</span>
+        </div>
+        <div class="medium-6 large-6 columns change-pw">
+            <div>
+                <div class="row pw-ex">
+                    <div class="medium-5 large-5 columns">
+                        <label class="username">[% translate 'Username' %]</label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <span>{{::vm.account.userName}}</span>
+                    </div>
+                </div>
+                <div class="row pw-new">
+                    <div class="medium-5 large-5 columns">
+                        <label class="email">[% translate 'Email' %]</label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <span id="tst_accountSettings_savedAccountEmail" ng-bind="vm.savedAccountEmail"></span>
+                    </div>
+                </div>
+                <div class="row pw-retype">
+                    <div class="medium-5 small-4 large-5 columns">
+                        <label>[% translate 'Full name' %]</label>
+                    </div>
+                    <div class="medium-7 small-8 large-7 columns">
+                        <span>{{::vm.account.firstName}} {{::vm.account.lastName}}</span>
+                    </div>
+                </div>
+                <div class="row pw-retype">
+                    <div class="medium-5 small-4 large-5 columns">
+                        <label>[% translate 'Password' %]</label>
+                    </div>
+                    <div class="medium-7 small-8 large-7 columns">
+                        <a href="[% urlForPage 'ChangeAccountPasswordPage' %]">[% translate 'Change password' %]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <isc-select-default-customer account="vm.account" ng-if="!vm.settings.requireSelectCustomerOnSignIn"></isc-select-default-customer>
+        <div class="medium-6 large-6 columns manage-subs" ng-show="vm.settings.allowSubscribeToNewsLetter">
+            <h3>[% translate 'Change Email' %]</h3>
+            <div class="email-text">Changing your account email address will not change your username.</div>
+            <form id="manageSubscriptionsForm" name="vm.manageSubscriptionsForm" ng-submit="vm.changeSubscription()" novalidate>
+                <div class="row sub-email">
+                    <div class="medium-5 large-5 columns">
+                        <label for="emailAddress">[% translate 'Email Address' %]</label>
+                    </div>
+                    <div class="medium-7 large-7 columns">
+                        <input type="email" id="emailAddress" name="emailAddress" ng-model="vm.account.email" required isc-valid-email>
+                        <span id="tst_accountSettings_requiredEmailError" class="field-validation-error" ng-show="vm.manageSubscriptionsForm.$submitted && vm.manageSubscriptionsForm.emailAddress.$error.required">{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Email Address' EscapeSingleQuotes %]')}}</span>
+                        <span id="tst_accountSettings_invalidEmailError" class="field-validation-error" ng-show="vm.manageSubscriptionsForm.$submitted && vm.manageSubscriptionsForm.emailAddress.$error.email">{{'[% siteMessage 'Field_Invalid' EscapeSingleQuotes %]'.replace('{0}', '[% translate 'Email Address' EscapeSingleQuotes %]')}}</span>
+                    </div>
+
+                </div>
+                <!--<div class="row pw-unsub">
+                    <div class="small-5 columns">
+                        <label for="isUnsubscribed">[% translate 'Unsubscribe' %]</label>
+                    </div>
+                    <div class="small-7 columns">
+                        <input type="radio" id="isUnsubscribed" name="isSubscribed" ng-value="false" ng-model="vm.account.isSubscribed">
+                    </div>
+                </div>
+                <div class="row pw-sub">
+                    <div class="small-5 columns">
+                        <label for="isSubscribed">[% translate 'Subscribe' %]</label>
+                    </div>
+                    <div class="small-7 columns">
+                        <input type="radio" id="isSubscribed" name="isSubscribed" ng-value="true" ng-model="vm.account.isSubscribed">
+                    </div>
+                </div>-->
+                <p class="error">
+                    <span class="field-validation-error" ng-if="vm.changeSubscriptionError" ng-bind="vm.changeSubscriptionError"></span>
+                </p>
+                <div class="btns">
+                    <button type="submit" id="tst_accountSettings_save" class="btn primary btn-save">[% translate 'Save' %]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="ng-cloak">
+    <isc-popup-template container-id="manageSubscriptionSuccess">
+        [[Model.SubscriptionChangedMessage]]
+    </isc-popup-template>
+</div>

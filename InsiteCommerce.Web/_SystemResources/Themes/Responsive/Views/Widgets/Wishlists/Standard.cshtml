@@ -1,0 +1,18 @@
+﻿<div class="widget-wishlists [[Model.CssClass]]" ng-controller="MyListsController as vm" ng-show="vm.wishListCount > 0 && vm.hasAnyWishListsLine" ng-cloak>
+    <div class="row dash-wishlists">
+        <h3>[[Model.Title]]</h3>
+        <a id="tst_wishlistsWidget_viewAll" href="[% urlForPage 'MyListsPage' %]" ng-show="vm.listSettings.allowMultipleWishLists" class="btn secondary btn-view-all">[% translate 'View All' %]</a>
+        <div class="overflow-table medium">
+            <table class="info-tbl">
+                <tbody>
+                    <tr class="tst_wishlistsWidget_wishlist" ng-if="vm.listSettings.allowMultipleWishLists" ng-repeat="wishList in vm.wishListCollection | limitTo: 5">
+                        <td><a id="tst_wishlistsWidget_link_{{wishList.id}}" ng-href="[% urlForPage 'MyListDetailPage' %]?id={{wishList.id}}" ng-bind="wishList.name"></a></td>
+                    </tr>
+                    <tr ng-if="!vm.listSettings.allowMultipleWishLists">
+                        <td><a ng-href="[% urlForPage 'MyListDetailPage' %]?id={{vm.wishListCollection[0].id}}" ng-bind="vm.wishListCollection[0].name"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

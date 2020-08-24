@@ -1,0 +1,58 @@
+
+.ma-settings {
+    .btns {
+        width: 100%;
+        clear: both;
+
+        a.btn {
+            margin: 1em 0;
+            float: right;
+        }
+    }
+
+    .password-changed-success {
+        padding: 0.9375rem;
+        border: 1px #ccc solid;
+        margin-left: 0.9375rem;
+        margin-bottom: 0.9375rem;
+        width: 50%;
+
+        i {
+            vertical-align: -10%;
+            line-height: 1;
+            font-size: 20px;
+            color: #65a01a;
+            margin-right: 10px;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+        }
+    }
+
+    .password-requirements {
+        border: 1px #ccc solid;
+        padding: 10px;
+    }
+
+    .delivery-method {
+        margin: .5em 0;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-settings {
+        .btns {
+            width: 100%;
+            clear: both;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-settings {
+        .btns .btn {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+    }
+}

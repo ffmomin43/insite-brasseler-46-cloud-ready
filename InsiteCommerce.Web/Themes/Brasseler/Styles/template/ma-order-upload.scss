@@ -1,0 +1,278 @@
+﻿.ma-order-upload {
+    .content-managed-area {
+        height: 100px;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid rgba(0,0,0,.4);
+        background: rgba(0,0,0,.2);
+    }
+
+    .order-upload-instructions,
+    .order-upload-input {
+        margin-top: 15px;
+    }
+
+    .file-title {
+        margin-left: 10px;
+        display: inline-block;
+    }
+
+    .oui-box {
+        margin-top: 15px;
+        padding: 15px;
+        border: 1px solid rgb(188, 188, 188);
+    }
+
+    .oui-message {
+        display: none;
+
+        .upload-error {
+            color: #CC2200;
+            background-color: rgb(252, 244, 242);
+            border: 1px solid rgb(249, 201, 191);
+            padding: 10px 10px 10px 45px;
+            position: relative;
+
+            &::after {
+                display: block;
+                position: absolute;
+                left: 14px;
+                top: 13px;
+                content: "\f071";
+                font-family: 'good-oatmeal-v2';
+                font-size: 18px;
+            }
+        }
+
+        &.showing {
+            display: block;
+        }
+    }
+
+    .ou-modal .exclamation-triangle:after {
+        content: "\f071";
+        font-family: good-oatmeal-v2;
+        font-style: normal;
+        color: #CC2200;
+        font-size: 24px;
+        margin: 2px 13px 0 0;
+        float: left;
+    }
+
+    .btn.dark-blue {
+        background-color: rgb(0, 104, 193);
+    }
+
+    .oui-orders {
+        text-align: right;
+        margin-top: 30px;
+
+        .btn {
+            margin-bottom: 0;
+        }
+    }
+    /* Modals */
+    .upload-orders-modal {
+        background-color: #ddd;
+        position: fixed;
+        padding: 2em;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+
+    .modal-wrap.ou-modal {
+        margin-top: 10px;
+        max-width: 290px;
+        text-align: center;
+        padding: 17px;
+        border: 1px solid #c7c7c7;
+        max-height: 600px;
+
+        &.wide {
+            text-align: initial;
+            max-width: 700px;
+            width: 100%;
+        }
+    }
+    /*uploading order issues*/
+    .ou-modal .fa {
+        font-size: 32px;
+        margin-top: 10px;
+        color: #949494;
+    }
+
+    .ou-modal.success .fa {
+        color: #77BE43;
+        font-size: 24px;
+    }
+
+    .ou-modal.issues .fa {
+        color: #CC2200;
+        font-size: 24px;
+        margin: 2px 13px 0 0;
+        float: left;
+    }
+
+    .ou-modal h3 {
+        margin-top: 10px;
+
+        &.underline {
+            border-bottom: 1px solid rgb(188, 188, 188);
+            padding-bottom: 10px;
+        }
+    }
+
+    .ou-modal.success h3 {
+        color: #77BE43;
+    }
+
+    .ou-modal.issues h3 {
+        margin-top: 0;
+    }
+
+    .ou-modal.issues .button-container {
+        float: right;
+    }
+
+    .ou-modal.issues .btn {
+        float: right;
+    }
+
+    .ou-table-wrapper {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: visible;
+        margin-bottom: 20px;
+        max-height: 450px;
+    }
+
+    .ou-issues-table {
+        width: 100%;
+        min-width: 400px;
+        border-top: 0;
+        margin-bottom: 0;
+
+        td {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        thead tr {
+            background: white;
+            border: 1px solid rgb(188, 188, 188);
+        }
+
+        tbody td {
+            color: #CC2200;
+        }
+    }
+
+    .ou-issues-table tbody tr.odd, .ou-issues-table tbody tr.alt, .ou-issues-table tbody tr:nth-of-type(odd),
+    .ou-issues-table tbody tr.even, .ou-issues-table tbody tr.alt, .ou-issues-table tbody tr:nth-of-type(even) {
+        background: rgb(252, 244, 242);
+        border-left: 1px solid rgb(249, 201, 191);
+        border-right: 1px solid rgb(249, 201, 191);
+        border-bottom: 1px solid rgb(249, 201, 191);
+    }
+    /* Add to cart issues modal */
+    ol.add-to-cart-issues {
+        margin: 0;
+    }
+
+    li.atci-item {
+        list-style-type: none;
+        clear: both;
+        margin-bottom: 10px;
+    }
+
+    .atci-item-header {
+        background: #fcf4f2;
+        border: 1px solid #f9c9bf;
+        color: #CC2200;
+        font-weight: 600;
+        padding: 5px 20px;
+    }
+
+    .atci-item-body {
+        border: 1px solid rgb(188, 188, 188);
+        overflow: hidden;
+    }
+
+    .atci-item-thumbnail {
+        float: left;
+        width: 25%;
+        padding: 20px 0 20px 20px;
+        box-sizing: border-box;
+    }
+
+    .atci-item-info {
+        overflow: hidden;
+        padding: 15px 20px 20px 20px;
+        float: left;
+        width: 75%;
+        box-sizing: border-box;
+    }
+
+    .atci-item-info div {
+        margin-bottom: 10px;
+    }
+
+    .atci-item-info__details span {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+
+    .atci-item-info__details span.empty {
+        display: none;
+    }
+
+    .atci-item-info__details span.details-message {
+        font-weight: 600;
+    }
+    /* Top Page Message */
+    .message-highlight {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .message-highlight h3 {
+        padding: 12px;
+        margin: 0;
+        border: 1px solid rgb(188, 188, 188);
+    }
+
+    .message-highlight.cancelled {
+        background-color: rgb(255, 255, 204);
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .button-container {
+        width: 100%;
+
+        button {
+            width: 100%;
+            margin: 8px 0;
+        }
+    }
+
+    .ou-table-wrapper {
+        max-height: 350px;
+    }
+}
+
+@media screen and (min-width: 641px) {
+    .ma-order-upload {
+        .order-upload-instructions {
+            float: right;
+        }
+
+        .h-500 {
+            min-height: 500px;
+            padding-bottom: 20px;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+/* Invoice Details */
+.ma-invoice-details .order-subtotal {
+  width: 100%;
+}
+.ma-invoice-details .order-details .cart-items .item-block.checkout-item .item-code-notes {
+  margin-bottom: 0;
+}
+.ma-invoice-details .order-details .cart-items .item-block.checkout-item .reorder-item {
+  margin-bottom: 15px;
+  margin-right: 0;
+}
+.ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price {
+  display: flex;
+}
+.ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price .price {
+  display: flex;
+  padding: 0;
+  margin-bottom: 0;
+  line-height: inherit;
+}
+.ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price .price .price-sale {
+  margin-right: 4px;
+}
+.ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price .item-opt {
+  width: 100%;
+}
+.ma-invoice-details .order-details-top {
+  margin-bottom: 0;
+}
+
+@media print {
+  .ma-invoice-details .order-details .item-list {
+    overflow: visible;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 767px) {
+  .ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price {
+    display: block;
+  }
+  .ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price .item-opt {
+    display: flex;
+  }
+  .ma-invoice-details .order-details .cart-items .item-block.checkout-item .qty-price .item-opt .item-qty {
+    display: flex;
+  }
+}
+
+/*# sourceMappingURL=brasseler-ma-invoice-details.css.map */

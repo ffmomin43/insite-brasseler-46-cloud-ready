@@ -1,0 +1,14 @@
+﻿{% comment %}
+    Usage
+    <isc-unit-of-measure-display product="cartLine"> </isc-unit-of-measure-display>
+{% endcomment %}
+
+<span class="selected-uom" ng-bind="product.unitOfMeasureDescription || product.unitOfMeasureDisplay"></span>
+<div class="uom" ng-if="product.unitOfMeasure !== product.baseUnitOfMeasure && product.qtyPerBaseUnitOfMeasure > 0">
+    <span class="base-uom" ng-bind="product.qtyPerBaseUnitOfMeasure + ' ' + product.baseUnitOfMeasureDisplay">
+    </span>
+    <span ng-if="product.unitOfMeasureDisplay.length > 0">
+        <span class="um-sep" ng-show="product.quoteRequired || product.canShowPrice">/</span>
+        <span class="selected-uom" ng-bind="product.unitOfMeasureDescription || product.unitOfMeasureDisplay"></span>
+    </span>
+</div>

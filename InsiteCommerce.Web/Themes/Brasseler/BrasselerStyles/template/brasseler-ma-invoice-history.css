@@ -1,0 +1,117 @@
+.ma-invoice-history .btns {
+  margin-top: .5em;
+  float: left;
+  width: 100%;
+}
+
+.ma-invoice-history .btns .btn {
+  float: right;
+}
+
+@media all and (max-width: 767px) {
+  .ma-invoice-history .btns .btn {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .ma-invoice-history .search-date .small-6 {
+    position: inherit;
+  }
+
+  .ma-invoice-history .search-open-inv {
+    margin: .5em 0 1em 0;
+  }
+}
+@media all and (min-width: 768px) {
+  .ma-invoice-history .btns .btn {
+    margin-left: 1em;
+  }
+}
+/* MA search */
+.search-inv h3 {
+  margin-top: 0;
+}
+
+@media all and (min-width: 768px) {
+  .ma-invoice-history label.accord-head {
+    display: inline-block;
+  }
+
+  .search-inv .search-col-1 {
+    width: 30.333%;
+  }
+
+  .search-inv .search-col-2 {
+    width: 44.333%;
+  }
+
+  .search-inv .search-col-3 {
+    width: 25.333%;
+  }
+
+  .search-inv .search-date em {
+    display: inline-block;
+    float: left;
+    line-height: 38px;
+    margin-right: .75em;
+  }
+
+  .search-inv .search-date input {
+    width: 100px;
+    display: inline-block;
+  }
+
+  .search-inv .search-date .row .small-6 {
+    width: auto;
+  }
+
+  .search-inv .search-date [class*="column"] + [class*="column"]:last-child {
+    float: left;
+    padding: 0;
+  }
+
+  .search-inv .search-invoice-num input {
+    width: 70%;
+  }
+}
+/* Date Picker Positioning */
+.ma-invoice-history .search-date {
+  position: relative;
+}
+
+.ma-invoice-history .picker {
+  right: 0% !important;
+}
+
+.ma-invoice-history .search-date-to .picker__holder {
+  right: 0% !important;
+}
+
+@media only screen and (min-width: 64.063em) {
+  .invoice-search .accord-content .large-4 {
+    width: 50%;
+  }
+}
+/* Invoice History */
+@media (min-width: 768px) {
+  .ma-invoice-history .accordion.search-orders .accord-content .search-col-1, .ma-invoice-history .accordion.search-orders .accord-content .search-col-2, .ma-invoice-history .accordion.search-orders .accord-content .search-col-3 {
+    width: 50%;
+  }
+  .ma-invoice-history .accordion.search-orders .accord-content .search-col-3.PO-number {
+    width: 100%;
+  }
+  .ma-invoice-history .accordion.search-orders .search-date input {
+    width: 180px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ma-invoice-history .accordion.search-orders .accord-content .search-date input {
+    width: 115px;
+  }
+}
+/* Invoice History */
+.ma-order-approval .accordion.search-orders .accord-content .search-col-1, .ma-order-approval .accordion.search-orders .accord-content .search-col-2 {
+  width: 33.333%;
+}
+
+/*# sourceMappingURL=brasseler-ma-invoice-history.css.map */

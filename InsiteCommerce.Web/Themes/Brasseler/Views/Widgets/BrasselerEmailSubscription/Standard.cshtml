@@ -1,0 +1,16 @@
+﻿<div ng-controller="BrasselerEmailSubscriptionController as vm" class="widget-emailsubscription [[Model.CssClass]]" ng-cloak>
+    <form action="[[Model.ActonFormPostUrl]]" id="emailSubscription[[Model.ContentKey]]">
+        <input type="text" class="subscribe-box" name="[[Model.ActonEmailField]]" id="emailAddress[[Model.ContentKey]]" 
+               placeholder="[[Model.PlaceHolderText]]"
+               data-val-required="[[Model.EmailIsRequiredErrorMessage]]" data-val="true"
+               data-rule-regex="{{'[% emailRegex %]'}}"
+               data-val-regex="[[Model.EmailIsInvalidErrorMessage]]" />
+        <button ng-show="!vm.submitted" id="emailSubscriptionSubscribeButton" class="btn primary btn-subscribe" type="submit"  ng-click="vm.submit($event)">[% translate 'GO' %]</button>
+        <input type="hidden" class="acton-optin-email" name="[[Model.ActonOptInEmailField]]" id="actonOptInEmail" value="TRUE"/>
+        <span data-valmsg-replace="true" data-valmsg-for="[[Model.ActonEmailField]]"></span>
+        <span class="successMessage" style="display:none;">[[Model.SuccessMessage]]</span>
+    </form>
+    <!--BUSA-719: Change 2017 Brasseler USA footer-->
+    <div class="copy_it">&copy; 2020 Peter Brasseler Holdings, LLC &reg; - [% translate 'All Rights Reserved' %]</div>
+</div>
+

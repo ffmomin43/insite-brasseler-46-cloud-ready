@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Contact Us E-mail</title>
+    <style>
+        /* Reset all elements to help ensure cross-browser consistency */
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+        table { border-collapse: collapse; border-spacing: 0; }
+        fieldset, img { border: 0; }
+        address, caption, cite, code, dfn, em, strong, th, var { font-style: normal; font-weight: normal; }
+        ol, ul { list-style: none; }
+        caption, th { text-align: left; }
+        h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+        q:before, q:after { content: ''; }
+        abbr, acronym { border: 0; }
+        body { font: 12px Arial, Helvetica, sans-serif; }
+        a:link, a:visited, a:active { color: #666; text-decoration: none; }
+        a:hover, a:focus { color: #000; }
+        h1 { font-size: 18px; padding: 12px 0; }
+        h2 { font-size: 14px; padding: 8px 0; font-weight: bold; }
+        h4 { font-weight: bold; padding: 8px 0; }
+        .email-wrapper { width: 95%; margin: 20px auto 0 auto; }
+        .contact-info { margin-top: 20px; }
+            .contact-info table td { padding: 2px 4px; }
+        .body-copy { margin-top: 25px; }
+            .body-copy p { padding: 6px 0; }
+    </style>
+</head>
+
+<body>
+    <div class="email-wrapper">
+        <div class="contact-info">
+            <table border="0" cellspacing="0">
+                <tr>
+                    <td class="first-name-label"><h4>First Name</h4></td>
+                    <td class="first-name">[[Model.FirstName]]</td>
+                </tr>
+                <tr>
+                    <td class="last-name-label"><h4>Last Name</h4></td>
+                    <td class="last-name">[[Model.LastName]]</td>
+                </tr>
+                <tr>
+                    <td class="email-label"><h4>Email</h4></td>
+                    <td class="email-name">[[Model.Email]]</td>
+                </tr>
+                <tr>
+                    <td class="email-label"><h4>Topic</h4></td>
+                    <td class="email-name">[[Model.Topic]]</td>
+                </tr>
+            </table>
+        </div>
+        <div class="body-copy">
+            <h2>Message</h2>
+            <div style="white-space: pre-line">[[Model.Message]]</div>
+        </div>
+    </div>
+</body>
+</html>

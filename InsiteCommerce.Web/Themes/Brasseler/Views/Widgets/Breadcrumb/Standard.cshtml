@@ -1,0 +1,12 @@
+﻿<ul class="widget-breadcrumb breadcrumbs [[Model.CssClass]]">
+    [% for parent in Model.Drop.Parents -%]
+    <li class="[[parent.CssClass]]">
+        <a href="[[parent.Url]]">
+            [[parent.Title]]
+        </a>
+    </li>
+    [% endfor -%]
+    <li class="hide-for-small current">
+        [[CurrentPage.Title]]
+    </li>
+</ul>

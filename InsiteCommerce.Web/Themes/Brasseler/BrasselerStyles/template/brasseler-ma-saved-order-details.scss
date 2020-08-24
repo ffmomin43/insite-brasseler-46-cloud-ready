@@ -1,0 +1,268 @@
+﻿.ma-saved-order-details {
+    .item-list {
+        border: 1px solid #E0E0E0;
+
+        .item-block {
+            .product-details {
+                width: 75%;
+                padding-right: 15px;
+                left: 0;
+
+                .product-name {
+                    h3{
+                        margin-top:0;
+                    }
+                }
+
+                .product-cost {
+                    color: inherit;
+                    font-size: 16px;
+
+                    .price-sale, .price-old {
+                        display: inline-block;
+                    }
+                }
+
+                .product-sku {
+                    .item-num-sku {
+                        color: #8a8a8a;
+                    }
+                }
+
+                .summary-block {
+                    display: flex;
+
+                    .product-cost {
+                        width: 100%;
+                        margin: auto;
+                    }
+
+                    .item-opt {
+                        display: flex;
+                        line-height: inherit;
+                        width: 70%;
+
+                        .item-qty {
+                            margin-bottom: 0;
+
+                            .numerictextbox {
+                                margin-left: 5px;
+                                margin-right: 15px;
+                            }
+                        }
+
+                        .item-subtotal {
+                            margin: 8px 0;
+                            font-weight: bold;
+                            min-width: 0;
+                        }
+                    }
+
+                    .remove {
+                        display: inline-block;
+                        width: 40%;
+
+                        .btn-remove {
+                            background-color: transparent;
+
+                            .foundicon-remove {
+                                border: 1px solid #636363;
+                                border-radius: 50px;
+                                display: inline-block;
+                                margin-right: 4px;
+                                width: 20px;
+                                height: 20px;
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .order-subtotal {
+        border: 1px solid #dcdcdc;
+        margin-bottom: 21px;
+        margin-top: 24px;
+        width: 100%;
+
+        .sub-label, .sub-amount {
+            font-size: 14px;
+        }
+    }
+
+    .order-details-top {
+        .od-head {
+            h3 {
+                width: auto;
+                margin: 0;
+                padding-left: 15px;
+                padding-right: 0;
+            }
+        }
+
+        .btns {
+            .btn-place-saved-order {
+                width: 100%;
+                background-color: #00359c;
+            }
+
+
+            .btn-delete-saved-order {
+                background: transparent;
+                color: #636363;
+                width: 100%;
+                margin-bottom: 0;
+                padding-bottom: 0;
+
+                .foundicon-remove {
+                    border: 1px solid #636363;
+                    border-radius: 50px;
+                    display: inline-block;
+                    margin-right: 4px;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 12px;
+
+                    &::before {
+                        content: "\e000";
+                        font-size: 0.7em;
+                    }
+                }
+            }
+        }
+
+        .summary-top {
+            display: inline;
+
+            .action-btn {
+                float: right;
+                padding-right: 15px;
+
+                .btn-wishlist, .btn-print {
+                    background-color: #fff;
+                    color: #0035a2;
+                    font-weight: 400;
+                    margin-left: 15px;
+                    margin-bottom: 0;
+                    padding: 0;
+                }
+
+                .font-icon {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
+
+// Saved Order Print view
+@media print {
+    .ma-saved-order-details {
+        .btn-print-saved-order, .remove {
+            display: none !important;
+        }
+
+        .page-title {
+            margin: 0;
+        }
+
+        .item-list {
+            .item-block {
+                padding-bottom: 20px;
+            }
+        }
+    }
+    .top-nav-container {
+        [role="secondary-nav"] {
+            display: none !important;
+        }
+    }
+    header#header {
+        display: block !important;
+        margin-top: 10px !important;
+
+        .head-row {
+            .isc-nav-bar, .search-container {
+                display: none;
+            }
+        }
+    }
+}
+
+// Saved Order Deatils ui Mobile
+    @media screen and (min-width: 280px) and (max-width: 767px) {
+        .ma-saved-order-details {
+            .item-list {
+                .item-block {
+                    .product-details {
+                        .summary-block {
+                            display: block;
+
+                            .product-cost {
+                                margin-top: 10px;
+                            }
+
+                            .item-opt {
+                                width: 100%;
+                                display: block;
+                                padding: 0;
+                                margin-top: 10px;
+
+                                .item-qty {
+                                    float: left;
+
+                                    .numerictextbox {
+                                        width: 90px !important;
+                                    }
+                                }
+
+                                .item-subtotal {
+                                    float: left;
+                                    margin-top: 10px;
+                                }
+                            }
+
+                            .remove {
+                                width: 100%;
+                                float: left;
+                                text-align: left;
+                                .btn-remove{
+                                    padding-left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+// Saved Order Deatils ui Ipad
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .ma-saved-order-details {
+        .item-list {
+            .item-block {
+                .product-details {
+                    .summary-block {
+                        margin-bottom: 10px;
+
+                        .product-cost {
+                            width: 75%;
+                        }
+
+                        .item-opt {
+                            width: 100%;
+                        }
+
+                        .remove {
+                            width: 65%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,76 @@
+﻿<div ng-controller="RelatedProductsController as vm" carousel-element-id="[[Model.RelatedProductsCarouselId]]"
+     ng-init="vm.relatedProductType='[[Model.SystemListValue]]'" class="widget-related-products [[Model.CssClass]]" ng-cloak>
+    <div class="row" role="cross-sells" ng-if="vm.showRelatedProductsCarousel()" ng-cloak>
+        <h3>[[Model.Title]]</h3>
+        <div class="medium-12 large-12 columns">
+            <div class="carousel-wrapper">
+                <div class="rp-carousel csCarousel_{{vm.relatedProductType}}">
+                    <ul class="items slides">
+                        <li class="medium-3 large-3 columns isc-productContainer" ng-repeat="relatedProduct in ::vm.relatedProducts track by relatedProduct.id">
+                            <div class="item-wrap">
+
+                                <div class="rp-carousel-item-equalize">
+                                    <div class="thumb-wrap">
+                                        <div class="item-thumb">
+                                            <a ng-href="{{::relatedProduct.productDetailUrl}}">
+                                                <img ng-src="{{::relatedProduct.mediumImagePath}}" alt="{{::relatedProduct.altText}}" increment-images-loaded/>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <isc-product-brand product="relatedProduct"></isc-product-brand>
+
+                                    <div class="item-name">
+                                        <a ng-href="{{::relatedProduct.productDetailUrl}}">{{::relatedProduct.shortDescription}}</a>
+                                    </div>
+
+                                    <div class="product-info">
+                                        <div class="item-num">
+                                            <span class="item-num-sku">{{::relatedProduct.erpNumber}}</span>
+                                            <span class="item-num-mfg" ng-if="::(!!relatedProduct.manufacturerItem)">[% translate 'MFG #' %]: {{::relatedProduct.manufacturerItem}}</span>
+                                            <span class="item-num-my" ng-if="::(!!relatedProduct.customerName)">[% translate 'My Part #' %]: {{::relatedProduct.customerName}}</span>
+                                        </div>
+
+                                        <div class="price" ng-if="!vm.failedToGetRealTimePrices">
+                                            <isc-product-price product="relatedProduct" id-key="" ng-if="::relatedProduct.canShowPrice"></isc-product-price>
+                                            <span class="um displayUnitOfMeasure" ng-if="vm.showUnitOfMeasureLabel(relatedProduct)">
+                                                <span class="um-sep">/</span>
+                                                <span class="selected-uom">{{relatedProduct.unitOfMeasureDescription || relatedProduct.unitOfMeasureDisplay}}</span>
+                                            </span>
+                                            <isc-product-price-saving product="relatedProduct" currency-symbol="relatedProduct.currencySymbol"></isc-product-price-saving>
+                                            <div ng-if="vm.showQuantityBreakPricing(relatedProduct)">
+                                                <isc-quantity-break-pricing product-id="relatedProduct.id" block="relatedProducts" break-prices="relatedProduct.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                            </div>
+                                        </div>
+                                        <div class="price" ng-if="vm.failedToGetRealTimePrices">
+                                            <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                                        </div>
+                                        <div class="um-pack" ng-if="::relatedProduct.canShowUnitOfMeasure">
+                                            <div class="um">
+                                                <label ng-if="::vm.showUnitOfMeasure(relatedProduct)">[% translate 'U/M' %]:</label>
+                                                <isc-unit-of-measure-select-list product="relatedProduct" alternate-units-of-measure="{{::vm.productSettings.alternateUnitsOfMeasure}}" display-pack="true" change-unit-of-measure="vm.changeUnitOfMeasure(relatedProduct)"></isc-unit-of-measure-select-list>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="actions-block">
+                                        <div class="item-qty" ng-if="::relatedProduct.canAddToCart">
+                                            <input type="text" ng-model="relatedProduct.qtyOrdered" ng-init="relatedProduct.qtyOrdered = relatedProduct.minimumOrderQty || 1" class="qty numerictextbox"/>
+                                        </div>
+                                        <div class="action">
+                                            <button class="btn primary btn-add-cart" ng-click="vm.addToCart(relatedProduct)" ng-if="::relatedProduct.canAddToCart" ng-disabled="!relatedProduct.qtyOrdered || relatedProduct.qtyOrdered == 0 || vm.addingToCart">[% translate 'Add to Cart' %]</button>
+                                        </div>
+                                        <a href="javascript:void(0);" class="btn secondary btn-add-list isc-addToWishlistPopup" ng-click="vm.openWishListPopup(relatedProduct)" ng-if="::relatedProduct.canAddToWishlist">[% translate 'Add to List' %]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#" class="carousel-control-nav_{{vm.relatedProductType}} carousel-control-prev flex-prev"><span></span></a>
+                <a href="#" class="carousel-control-nav_{{vm.relatedProductType}} carousel-control-next flex-next"><span></span></a>
+            </div>
+        </div>
+    </div>
+</div>

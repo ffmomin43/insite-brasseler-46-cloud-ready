@@ -1,0 +1,197 @@
+.ma-user-setup {
+    .usersetup-form .required-msg {
+        margin: 1em 0;
+    }
+
+    .usersetup-form div.usersetup-form-user-section-heading {
+        font-size: 1.2em;
+        font-weight: bold;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        margin-bottom: 20px !important;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .usersetup-form div[class^="usersetup-form"] {
+        width: 100%;
+        float: left;
+        clear: left;
+        margin-bottom: 0.25em;
+    }
+
+    .usersetup-form div.usersetup-form-assign {
+        margin-bottom: 1.5rem;
+    }
+
+    .usersetup-form .usersetup-form-send-activation-email {
+        input {
+            width: auto;
+            float: left;
+            text-align: start;
+        }
+    }
+
+    .usersetup-form div.usersetup-form-activation-button {
+        margin-bottom: 1.5rem;
+
+        a {
+            width: 55%;
+            float: right;
+        }
+
+        span {
+            display: block;
+            margin-top: 10px;
+            width: 55%;
+            float: right;
+        }
+    }
+
+    .usersetup-form textarea {
+        height: 150px;
+    }
+
+    .usersetup-form .usersetup-form-details input {
+        width: auto;
+        display: inline-block;
+        float: none;
+        margin-left: 0.5em;
+    }
+
+    .usersetup-form .usersetup-form-status input {
+        width: auto;
+        float: none;
+        margin-left: 5%;
+    }
+
+    .usersetup-form .usersetup-form-status label {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    div[class*="tip-"] ul {
+        list-style-type: none;
+        display: block;
+    }
+
+    div[class*="tip-"] strong {
+        display: block;
+    }
+
+    .tip-role {
+        font-size: .875em;
+    }
+
+    .usersetup-form #username {
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .usersetup-form a.btn-tip {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: #222 !important;
+        text-decoration: none !important;
+        line-height: 22px;
+
+        &:hover, &:focus {
+            color: dodgerblue !important;
+        }
+    }
+
+    .back-btn {
+        width: 60%;
+        text-align: right;
+        margin-bottom: 0;
+    }
+
+    .usersetup-status {
+        width: 60%;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 20px;
+
+        span {
+            font-weight: 600;
+        }
+
+        .icon-box-check {
+            margin-right: 5px;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .ma-user-setup {
+        .tip-role > div {
+            display: inline-block;
+            vertical-align: top;
+            padding-right: 2%;
+        }
+
+        .tip-role > div h3 {
+            margin: 0.5em 0;
+        }
+
+        .usersetup-form {
+            width: 60%;
+        }
+
+        .usersetup-form label {
+            width: 40%;
+            float: left;
+        }
+
+        .usersetup-form input,
+        .usersetup-form #username {
+            width: 55%;
+            float: right;
+            margin-right: 0;
+        }
+
+        .usersetup-form-assign {
+            margin-top: .5em;
+        }
+
+        .btns .btn {
+            margin-left: 1em;
+        }
+
+        .usersetup-form .usersetup-form-userrole label,
+        .usersetup-form .usersetup-form-approver label {
+            width: auto;
+            margin-right: .5em;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ma-user-setup {
+        .usersetup-form-status input {
+            display: inline-block;
+        }
+
+        .usersetup-form-status label {
+            display: inline-block;
+            width: auto;
+            float: left;
+        }
+
+        .usersetup-form-assign .btn {
+            margin: 1em 0;
+            width: 100%;
+        }
+
+        .usersetup-form-userrole label,
+        .usersetup-form-approver label {
+            display: inline-block;
+            margin-right: 1em;
+        }
+
+        .btns .btn {
+            margin-bottom: 1em;
+            width: 100%;
+        }
+    }
+}

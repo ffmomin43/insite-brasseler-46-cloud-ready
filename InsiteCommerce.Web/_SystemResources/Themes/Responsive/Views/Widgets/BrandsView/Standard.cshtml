@@ -1,0 +1,21 @@
+﻿<div ng-controller="BrandListController as vm">
+    <div class="alphabet-navigation">
+        <span class="letter" ng-repeat="alphabetitem in vm.alphabet">
+            <a ng-if="alphabetitem.count !== 0" href="#" ng-click="vm.gotoAnchor('#letter-' + alphabetitem.letter)" ng-bind="::alphabetitem.letter"></a>
+            <span ng-if="alphabetitem.count === 0" ng-bind="::alphabetitem.letter"></span>
+        </span>
+    </div>
+    <div class="brand-list">
+        <div ng-repeat="alphabetitem in vm.alphabet" ng-if="alphabetitem.count > 0 && vm.brandLettersMap[alphabetitem.letter].length > 0" ng-cloak>
+            <div id="letter-{{::alphabetitem.letter}}" class="brand-letter">
+                <span ng-bind="::alphabetitem.letter"></span>
+                <a href="#" ng-click="vm.gotoAnchor()">[% translate 'Back to top' %]</a>
+            </div>
+            <div class="brand-names" style="height: {{ vm.calcHeight(vm.brandLettersMap[alphabetitem.letter].length) }}px">
+                <div class="brand-item" ng-repeat="brand in vm.brandLettersMap[alphabetitem.letter]">
+                    <a class="brand-link tst_brand_link" ng-href="{{ ::brand.detailPagePath }}" ng-bind="::brand.name"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

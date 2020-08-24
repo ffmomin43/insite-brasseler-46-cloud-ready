@@ -1,0 +1,31 @@
+.news-list {
+    h2.news-heading {
+        margin-bottom: .25em;
+    }
+
+    .news-publish-info {
+        font-size: 0.875em;
+        margin-bottom: 0.5em;
+    }
+
+    .news-publish-info strong {
+        margin-right: .5em;
+    }
+
+    .news-page-summary {
+        margin-bottom: 1em;
+    }
+
+    .news-list-page + .news-list-page {
+        border-top: 1px solid #ddd;
+    }
+    /* clearfix'n */
+    .news-list-header:after,
+    .news-listings:after,
+    .newslist-paging:after,
+    .news-list-footer:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}

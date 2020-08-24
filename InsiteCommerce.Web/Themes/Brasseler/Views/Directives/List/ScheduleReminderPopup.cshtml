@@ -1,0 +1,91 @@
+﻿<div id="popup-schedule-reminder" class="reveal-modal popup-schedule-reminder" data-reveal data-reveal-init>
+    <div class="modal-wrap" ng-show="!vm.inProgress">
+        <h2 ng-if="!vm.cancelingReminder">[% translate 'Schedule Email Reminder' %]</h2>
+        <h2 ng-if="vm.cancelingReminder">[% translate 'Cancel Email Reminder' %]</h2>
+        <div class="pop-content" ng-if="!vm.cancelingReminder">
+            <form novalidate>
+                <div class="row" ng-show="!vm.completed">
+                    <div class="instructions">
+                        <span ng-if="vm.list.schedule === null">[% siteMessage 'Lists_Send_Reminders' %]</span>
+                        <span ng-if="vm.list.schedule !== null">[% siteMessage 'Lists_Schedule_Edit_Or_Cancel' %]</span>
+                        <button id="tst_scheduleReminderPopup_showCancelReminder_btn" ng-if="vm.list.schedule !== null" ng-click="vm.showCancelReminder()" class="btn tertiary btn-cancel-reminder" type="button">[% translate 'Stop Reminder' %]</button>
+                    </div>
+                    <div class="row">
+                        <div class="large-4 columns schedule-field-label">
+                            <span>[% translate 'Repeats' %]</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <select ng-model="vm.repeatPeriod" ng-change="vm.changeRepeatPeriod()">
+                                <option value="Weekly">[% translate 'Weekly' %]</option>
+                                <option value="Monthly">[% translate 'Monthly' %]</option>
+                            </select>
+                        </div>
+                        <div class="large-4 columns schedule-field-label">
+                            <span>[% translate 'Every' %]</span>
+                        </div>
+                        <div class="large-2 columns repeat-interval-field">
+                            <input type="number" ng-model="vm.repeatInterval" ng-model-options="{ updateOn: 'blur' }"/>
+                        </div>
+                        <div class="large-6 columns repeat-interval-postfix">
+                            <span ng-if="vm.repeatPeriod === 'Weekly'">[% translate 'week(s)' %]</span>
+                            <span ng-if="vm.repeatPeriod === 'Monthly'">[% translate 'month(s)' %]</span>
+                        </div>
+                        <div class="large-4 columns schedule-field-label">
+                            <span ng-if="vm.repeatPeriod === 'Weekly'">[% translate 'Day of the week' %]</span>
+                            <span ng-if="vm.repeatPeriod === 'Monthly'">[% translate 'Day of the month' %]</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <select ng-if="vm.repeatPeriod === 'Weekly'" ng-model="vm.sendDayOfWeek" ng-options="item as item.value for item in vm.list.sendDayOfWeekPossibleValues"></select>
+                            <select ng-if="vm.repeatPeriod === 'Monthly'" ng-model="vm.sendDayOfMonth" ng-options="item as item.value for item in vm.list.sendDayOfMonthPossibleValues"></select>
+                        </div>
+                        <div class="large-4 columns schedule-field-label">
+                            <span>[% translate 'Start Date' %]</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <input type="text" class="start-date-selector datepicker" isc-pick-a-date="vm.startDate" pick-a-date-options="{clear: ''}" />
+                        </div>
+                        <div class="large-4 columns schedule-field-label">
+                            <span>[% translate 'End Date' %]</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <div><label class="radio-label"><input type="radio" name="hasEndDate" value="false" ng-model="vm.hasEndDate" /> [% translate 'No end date' %]</label></div>
+                            <div><label class="radio-label" ng-click="vm.openEndDatePicker($event)"><input type="radio" name="hasEndDate" value="true" ng-model="vm.hasEndDate" /> [% translate 'On' %]</label> <input type="text" class="end-date-selector datepicker" isc-pick-a-date="vm.endDate" /></div>
+                        </div>
+                        <div class="large-4 columns schedule-field-label">
+                            <span>[% translate 'Message' %]/[% translate 'Notes' %]</span>
+                        </div>
+                        <div class="large-8 columns">
+                            <textarea ng-model="vm.message" maxlength="300" isc-limit-number-of-characters="300"></textarea>
+                            <div class="max-field-tooltip">
+                                <isc-characters-left-counter field-model="vm.message" limit="300"></isc-characters-left-counter>
+                                [% translate 'characters left' %]
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <button id="tst_scheduleReminderPopup_cancel_btn"ng-click="vm.closeModal()" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                            <button id="tst_scheduleReminderPopup_schedule_btn" ng-click="vm.scheduleReminder()" class="btn primary btn-schedule" type="button">[% translate 'Schedule' %]</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.completed">
+                    <span id="tst_scheduleReminderPopup_saved_message">[% siteMessage 'Lists_Schedule_Saved' %]</span>
+                </div>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+        <div ng-if="vm.cancelingReminder">
+            <div class="row" ng-show="!vm.completed">
+                <div class="cancel-confirmation">
+                    <span>[% siteMessage 'Lists_Schedule_Cancel_Confirmation' %]</span>
+                </div>
+                <div class="row btns">
+                    <button id="tst_scheduleReminderPopup_cancelReminder_no_btn" ng-click="vm.hideCancelReminder()" class="btn tertiary btn-no" type="button">[% translate 'No' %]</button>
+                    <button id="tst_scheduleReminderPopup_cancelReminder_yes_btn" ng-click="vm.cancelReminder()" class="btn primary btn-yes" type="button">[% translate 'Yes' %]</button>
+                </div>
+            </div>
+            <div class="row" ng-show="vm.completed">
+                <span id="tst_scheduleReminderPopup_canceled_message">[% siteMessage 'Lists_Schedule_Canceled' %]</span>
+            </div>
+        </div>
+    </div>
+</div>

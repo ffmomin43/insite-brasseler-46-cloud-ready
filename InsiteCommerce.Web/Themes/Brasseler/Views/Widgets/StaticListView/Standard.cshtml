@@ -1,0 +1,136 @@
+﻿<div ng-controller="StaticListController as vm" ng-cloak ng-init="vm.myListDetailUrl='[% urlForPage 'MyListDetailPage' %]';">
+    <div ng-if="vm.listModel">
+        <h1 class="page-title [[Model.CssClass]]" ng-bind="vm.listModel.name"></h1>
+        <div class="btns">
+            <a href="/list/getpdf?listId={{::vm.listModel.id}}&static=true" target="_blank" class="btn secondary print-button">[% translate 'Print' %]</a>
+            <button id="tst_staticListView_openSaveList_btn" ng-disabled="vm.listModel.wishListLinesCount === 0" type="button" class="btn secondary" ng-click="vm.openSaveListModal()">[% translate 'Save List' %]</button>
+        </div>
+        <div class="list-header">
+            [% translate 'Shared by' %] <span ng-bind="vm.listModel.sharedByDisplayName"></span>
+        </div>
+        <div class="row list-info">
+            <div class="medium-4 columns item-summary">
+                <span class="item-summary-count">
+                    <span ng-bind="vm.listModel.wishListLinesCount">x</span> [% translate 'items' %]
+                </span>
+            </div>
+            <div class="medium-8 columns middle-btns">
+                <button ng-if="vm.listModel.wishListLinesCount > 0 && vm.listModel.canAddAllToCart" type="button" class="btn primary" ng-click="vm.addAllToCart(vm.listModel)"
+                        ng-disabled="!vm.allQtysIsValid() || vm.inProgress">
+                    [% translate 'Add List To Cart' %]
+                </button>
+            </div>
+        </div>
+        <div ng-if="vm.listModel.wishListLinesCount === 0" class="row no-results">
+            [% siteMessage 'Lists_NoItemsInList' %]
+        </div>
+        <div ng-if="vm.listModel.wishListLinesCount > 0">
+            <ul class="row item-list cart-items">
+                <li class="row item-block checkout-item isc-productContainer" ng-repeat="wishListLine in vm.listModel.wishListLineCollection track by wishListLine.id" id="tst_staticList_{{::wishListLine.productId}}_{{wishListLine.unitOfMeasure}}">
+                    <div class="medium-2 columns item-image-block">
+                        <div class="item-thumb">
+                            <isc-product-thumb product="wishListLine"></isc-product-thumb>
+                        </div>
+                    </div>
+                    <div class="medium-4 columns item-details">
+                        <div class="details-block">
+                            <isc-product-name product="wishListLine"></isc-product-name>
+                            <div ng-show="vm.productSettings.showInventoryAvailability" class="availability">
+                                <isc-availability-message availability="wishListLine.availability" failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory" product-settings="vm.productSettings" product-id="wishListLine.productId" unit-of-measure="wishListLine.unitOfMeasure" track-inventory="wishListLine.trackInventory"></isc-availability-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="medium-6 columns item-pricing-and-actions">
+                        <div class="item-pricing">
+                            <div ng-show="wishListLine.canShowPrice && !wishListLine.pricing.failedToGetRealTimePrices">
+                                <isc-product-price product="wishListLine"></isc-product-price>
+                                <span class="selected-uom" ng-if="wishListLine.unitOfMeasureDescription || wishListLine.unitOfMeasureDisplay">/ {{wishListLine.unitOfMeasureDescription || wishListLine.unitOfMeasureDisplay}}</span>
+                                <isc-product-price-saving product="wishListLine" currency-symbol="wishListLine.currencySymbol"></isc-product-price-saving>
+                                <div class="quantity-pricing" ng-if="!wishListLine.quoteRequired">
+                                    <isc-quantity-break-pricing product-id="wishListLine.id" break-prices="wishListLine.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                                </div>
+                            </div>
+                            <div ng-if="wishListLine.canShowPrice && wishListLine.pricing.failedToGetRealTimePrices">
+                                <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="um-pack" ng-if="wishListLine.productUnitOfMeasures.length > 1 && vm.productSettings.alternateUnitsOfMeasure">
+                                    <div class="um">
+                                        <label>[% translate 'U/M' %]:</label>
+                                        <isc-unit-of-measure-select-list product="wishListLine" alternate-units-of-measure="{{vm.productSettings.alternateUnitsOfMeasure}}"
+                                                                         display-pack="false" change-unit-of-measure="vm.changeUnitOfMeasure(wishListLine)"></isc-unit-of-measure-select-list>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-actions-block">
+                            <div class="add-to-cart-block">
+                                <div class="action" ng-if="wishListLine.canAddToCart">
+                                    <button class="btn primary btn-add-cart" ng-click="vm.addLineToCart(wishListLine)" ng-disabled="!wishListLine.qtyOrdered || wishListLine.qtyOrdered == 0">[% translate 'Add to Cart' %]</button>
+                                </div>
+                                <div class="item-qty" ng-if="wishListLine.canEnterQuantity">
+                                    <input type="text" class="numerictextbox qty tst_wishListLine_qty" ng-model="wishListLine.qtyOrdered" />
+                                </div>
+                            </div>
+                            <div class="add-to-list actions-block">
+                                <a href="javascript:void(0);" class="btn secondary btn-add-list isc-addToWishlistPopup" ng-click="vm.openWishListPopup(wishListLine)">[% translate 'Add to List' %]</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <div id="popup-save-list" class="reveal-modal popup-save-list" data-reveal data-reveal-init>
+            <div class="modal-wrap" ng-if="vm.isAuthenticated">
+                <h2>[% translate 'Save List' %]</h2>
+                <div class="pop-content">
+                    <form name="vm.saveListForm" ng-submit="vm.saveList()" novalidate>
+                        <fieldset ng-disabled="vm.saveInProgress">
+                            <div>
+                                <p class="save-instructions">[% translate 'Enter a name for the new list.' %]</p>
+                                <div class="row save-list">
+                                    <div class="large-4 columns field-label">
+                                        <span>[% translate 'New List Name' %]:</span>
+                                    </div>
+                                    <div class="large-8 columns">
+                                        <input id="tst_staticListView_listName" type="text" ng-model="vm.listName" name="listName" placeholder="[% translate 'Enter list name' %]" autofocus="autofocus" ng-maxlength="255" required />
+                                    </div>
+                                </div>
+                                <div id="error" class="error" ng-show="vm.saveListForm.$submitted && (vm.errorMessage || vm.saveListForm.listName.$error.required || vm.saveListForm.listName.$error.maxlength)">
+                                    <span ng-show="vm.errorMessage" class="field-validation-error" ng-bind="vm.errorMessage"></span>
+                                    <span ng-show="vm.saveListForm.listName.$error.required" class="field-validation-error">[% siteMessage 'Lists_List_Name_Required' %]</span>
+                                    <span ng-show="vm.saveListForm.listName.$error.maxlength" class="field-validation-error">{{::'[% siteMessage 'Lists_List_Name_Too_Long' EscapeSingleQuotes %]'.replace('{0}', 255)}}</span>
+                                </div>
+                                <div class="row btns">
+                                    <button ng-click="vm.closeModal('#popup-save-list')" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                                    <button id="tst_staticListView_saveList_btn" ng-disabled="!vm.listName && !vm.saveListForm.listName.$error.maxlength" class="btn primary" type="submit">[% translate 'Save List' %]</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+            </div>
+            <div class="modal-wrap" ng-if="!vm.isAuthenticated">
+                <h2>[% translate 'Please Sign In or Create an Account' %]</h2>
+                <div class="pop-content">
+                    <div>
+                        <div class="row">
+                            <div>
+                                <p id="tst_staticListView_signin_message">[% siteMessage 'Lists_SignIn_Required_To_Save_List' %]</p>
+                            </div>
+                        </div>
+                        <div class="row btns">
+                            <button ng-click="vm.closeModal('#popup-save-list')" class="btn tertiary btn-cancel" type="button">
+                                [% translate 'Close' %]
+                            </button>
+                        </div>
+                    </div>
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

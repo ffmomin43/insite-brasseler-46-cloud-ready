@@ -1,0 +1,7 @@
+﻿<div class="widget-linklist clearfix [[Model.CssClass]] [[Model.DirectionCssClass]]">
+    <ul>
+        [% for currentPageLink in Model.Drop.PageLinks -%]
+            <li><a class="cms-linklist-linkitem" href="[[currentPageLink.Url]]">[[currentPageLink.PageTitle]]</a></li>
+        [% endfor -%]
+    </ul>
+</div>

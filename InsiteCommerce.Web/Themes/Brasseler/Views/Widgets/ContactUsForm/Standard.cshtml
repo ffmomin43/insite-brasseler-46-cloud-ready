@@ -1,0 +1,43 @@
+﻿<div ng-controller="ContactUsController as vm" class="widget-contactform" ng-cloak>
+    <div class="cf-form [[Model.CssClass]]">
+        <form id="contactUsForm[[Model.ContentKey]]" action="[% urlFor '/ContactUs/Submit?EmailTo='%][[Model.EmailToValue]]" method="post">
+            <div class="required-msg"><span class="redTxt">*</span> [% translate 'Required' %]</div>
+            <div class="cf-form-firstname">
+                <label for="firstName[[Model.ContentKey]]">[% translate 'First Name' %]</label>
+                <input type="text" name="FirstName" id="firstName[[Model.ContentKey]]"/>
+            </div>
+            <div class="cf-form-lastname">
+                <label for="lastName[[Model.ContentKey]]">[% translate 'Last Name' %]</label>
+                <input type="text" name="LastName" id="lastName[[Model.ContentKey]]"/>
+            </div>
+            <div class="cf-form-email">
+                <label for="emailAddress[[Model.ContentKey]]">[% translate 'Email Address' %] <span class="redTxt">*</span></label>
+                <input type="text" name="EmailAddress" id="emailAddress[[Model.ContentKey]]" data-val-required="[[Model.EmailIsRequiredErrorMessage]]" data-val="true"
+                       data-val-regex-pattern="[[Model.EmailAddressRegexPattern]]"
+                       data-val-regex="[[Model.EmailIsInvalidErrorMessage]]"/>
+                <span data-valmsg-replace="true" data-valmsg-for="EmailAddress"></span>
+            </div>
+            <div class="cf-form-topic">
+                <label for="topic[[Model.ContentKey]]">[% translate 'Topic' %] <span class="redTxt">*</span></label>
+                <select id="topic[[Model.ContentKey]]" name="Topic" data-val-required="[[Model.TopicIsRequiredErrorMessage]]" data-val="true">
+                    <option value="">[% translate 'Select Topic' %]</option>
+                    [% for topic in Model.Topics -%]
+                        <option>[[topic]]</option>
+                    [% endfor -%]
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="Topic"></span>
+            </div>
+            <div class="cf-form-msg">
+                <label>[% translate 'Message' %] <span class="redTxt">*</span></label>
+                <textarea id="message[[Model.ContentKey]]" name="Message" rows="5" cols="48" data-val-required="[[Model.MessageIsRequiredErrorMessage]]" data-val="true"></textarea>
+                <span data-valmsg-replace="true" data-valmsg-for="Message"></span>
+            </div>
+            <div ng-show="!vm.submitted" class="btns">
+                <button id="tst_contactUsPage_send" type="submit" ng-click="vm.submit($event)" class="btn primary btn-send">[% translate 'Send' %]</button>
+            </div>
+            <div ng-show="vm.submitted" id="tst_contactUsPage_successMessage" class="successMessage">
+                [[Model.SuccessMessage]]
+            </div>
+        </form>
+    </div>
+</div>

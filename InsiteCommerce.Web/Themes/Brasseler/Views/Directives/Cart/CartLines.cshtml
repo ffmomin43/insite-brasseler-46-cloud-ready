@@ -1,0 +1,134 @@
+﻿<ul>
+    <li id="tst_cartLines_{{::cartLine.productId}}_{{cartLine.unitOfMeasure}}" class="row item-block checkout-item" ng-repeat="cartLine in cart.cartLines | filter: quoteRequiredFilter">
+        <isc-product-thumb product="cartLine"></isc-product-thumb>
+        <div class="small-10 columns item-details">
+            <div class="remove" ng-if="!cartLine.isPromotionItem && cart.canModifyOrder && editable">
+                <a class="btn btn-remove" ng-click="vm.removeLine(cartLine)">
+                    <i class="foundicon-remove"></i>
+                </a>
+            </div>
+            <span ng-if="cartLine.isPromotionItem && editable">[% siteMessage 'Cart_PromotionalItem' %]</span>
+
+            <isc-product-brand product="cartLine"></isc-product-brand>
+
+            <div class="item-name">
+                <a ng-href="{{cartLine.productUri}}">
+                    <span ng-bind="cartLine.shortDescription"></span>
+                </a>
+                <span ng-if="!cartLine.isFixedConfiguration" ng-repeat="sectionOption in cartLine.sectionOptions">
+                    <br /> <span ng-bind="sectionOption.sectionName + ':' + sectionOption.optionName"></span>
+                </span>
+            </div>
+
+            <isc-product-name product="cartLine" no-link="true"></isc-product-name>
+            <div ng-show="includeInventory && !cartLine.quoteRequired" class="availability">
+                <isc-availability-message availability="cartLine.availability" failed-to-get-real-time-inventory="failedToGetRealTimeInventory" product-settings="vm.productSettings" product-id="cartLine.productId" unit-of-measure="cartLine.unitOfMeasure" track-inventory="cartLine.trackInventory"></isc-availability-message>
+            </div>
+
+            <div class="row promo-applied" ng-repeat="promotion in promotions | filter: {orderLineId : cartLine.id}">
+                <div class="small-6 columns sub-label">
+                    <em><span class="tst_cartLine_lineLevelPromo" ng-bind="promotion.name"></span></em>
+                </div>
+            </div>
+            <div class="price" ng-if="!cart.cartNotPriced">
+                <isc-product-price product="cartLine"></isc-product-price>
+                <isc-unit-of-measure-display product="cartLine"> </isc-unit-of-measure-display>
+                <isc-product-price-saving product="cartLine" currency-symbol="cart.currencySymbol"></isc-product-price-saving>
+                <div class="quantity-pricing">
+                    <isc-quantity-break-pricing product-id="cartLine.id" break-prices="cartLine.breakPrices"></isc-quantity-break-pricing>
+                </div>
+            </div>
+            <div class="price" ng-if="cart.cartNotPriced">
+                <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+            </div>
+            <div class="item-opt">
+                <div ng-if="showAddToList" class="actions-block wishlist-actions-block">
+                    <a href="javascript:void(0);" class="btn secondary btn-add-list isc-addToWishlistPopup"
+                       ng-click="vm.openWishListPopup(cartLine)" ng-if="::cartLine.canAddToWishlist">[% translate 'Add to List' %]</a>
+                </div>
+                <div class="item-qty" ng-if="!editable || vm.isOutOfStockLine(inventoryCheck, cartLine)">
+                    <strong>[% translate 'QTY_quantity' %]:</strong>
+                    <span ng-bind="cartLine.qtyOrdered"></span>
+                </div>
+                <div class="item-qty" ng-if="editable && !vm.isOutOfStockLine(inventoryCheck, cartLine)">
+                    <label for="cartLineQuantity_{{$index}}">[% translate 'QTY_quantity' %]:</label>
+                    <input id="cartLineQuantity_{{$index}}"
+                           type="text"
+                           class="numerictextbox qty txt tst_cartLines_quantity"
+                           ng-class="{ 'item-opt__changed' : inventoryCheck && cartLine.hasInsufficientInventory || cartLine.isRestricted }"
+                           ng-model="cartLine.qtyOrdered"
+                           ng-keypress="vm.quantityKeyPress($event,cartLine)"
+                           ng-change="vm.updateLine(cartLine, true, '{{cartLine.qtyOrdered}}')"
+                           ng-model-options="{ updateOn: 'blur' }"
+                           ng-disabled="!cart.canModifyOrder || cartLine.isPromotionItem || vm.isUpdateInProgress || cart.type == 'Job'" />
+                </div>
+                <div class="item-subtotal"><span ng-if="!cartLine.quoteRequired && !cart.cartNotPriced" ng-bind="cartLine.pricing.extendedUnitNetPriceDisplay" data-test-selector="tst_cartLine_priceDisplay_{{cartLine.productId}}"></span></div>
+                <div class="item-qty-message" ng-show="inventoryCheck || cartLine.isRestricted || !cartLine.isActive">
+                    <span ng-show="inventoryCheck && cartLine.hasInsufficientInventory && !vm.isOutOfStockLine(inventoryCheck, cartLine)" class="message-avail--avail">
+                        {{'[% siteMessage 'Cart_ToManyQtyRequested' EscapeSingleQuotes %]'.replace('{0}', cartLine.qtyOnHand).replace('{1}', vm.getSumQtyPerUom(cartLine.productId, cart.cartLines))}}
+                    </span>
+                    <span data-test-selector="tst_cartLine_isRestricted" ng-show="cartLine.isRestricted" class="message-avail--avail">
+                        [% translate 'Restricted product' %]
+                    </span>
+                    <span ng-show="!cartLine.isActive" class="message-avail--avail">
+                        [% translate 'Inactive product' %]
+                    </span>
+                </div>
+            </div>
+
+            <div>
+                <a id="tst_cartLine_productSubscription" href="" class="btn primary btn-product-subscription"
+                   ng-show="cartLine.isSubscription && editable"
+                   ng-click="vm.openProductSubscriptionPopup(cartLine)"
+                   ng-disabled="!cart.canModifyOrder || cartLine.isPromotionItem || vm.isUpdateInProgress">
+                    [% translate 'Delivery Schedule' %]
+                </a>
+            </div>
+        </div>
+
+        <div class="large-9 columns item-code-notes" ng-if="!editable">
+            <div class="row">
+                <div class="large-6 columns cost-code" ng-if="cart.showCostCode && cartLine.costCode.length > 0">
+                    <strong><span ng-bind="cart.costCodeLabel"></span>:</strong>
+                    <span ng-bind="cartLine.costCode"></span>
+                </div>
+                <div class="large-6 columns item-notes" ng-if="cart.showLineNotes && cartLine.notes.length > 0">
+                    <strong>[% translate 'Item Notes' %]:</strong>
+                    <span ng-bind="cartLine.notes"></span>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="editable && cart.showLineNotes && !cartLine.isPromotionItem" class="actions-panel edit">
+            <a data-test-selector="tst_cartLine_lineNotesButton" href="" class="btn tertiary add-to-cart panel-trigger" data-cartnotes="true" ng-click="vm.notePanelClicked(cartLine.id)">[% translate 'Line Notes' %]</a>
+            <div class="item-actions" data-cartnotes="true" ng-class="{open : (cartLine.id == vm.openLineNoteId)}">
+                <div class="item-actions-wrap">
+                    <div class="large-9 columns item-code-notes">
+                        <div class="row">
+                            <div ng-if="cart.showCostCode" class="large-6 columns cost-code">
+                                <label for="cartLineCostCode_{{$index}}" ng-bind="cart.costCodeLabel">:</label>
+                                <select id="cartLineCostCode_{{$index}}"
+                                        ng-if="cart.canEditCostCode"
+                                        ng-model="cartLine.costCode"
+                                        ng-options="code.costCode as code.description for code in cart.costCodes"
+                                        ng-change="vm.updateLine(cartLine, false)"></select>
+                                <span ng-if="!cart.canEditCostCode" ng-bind="cart.costCodeLabel"></span>
+                            </div>
+                            <div class="large-6 columns item-notes">
+                                <label for="cartLineNotes_{{$index}}">[% translate 'Add Item Notes' %]:</label>
+                                <input data-linenote-input type="text"
+                                       id="cartLineNotes_{{$index}}"
+                                       name="cartLineNotes_{{$index}}"
+                                       ng-disabled="!cart.canModifyOrder"
+                                       ng-model="cartLine.notes"
+                                       ng-keypress="vm.notesKeyPress($event,cartLine)"
+                                       ng-blur="vm.updateLine(cartLine, false)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </li>
+</ul>

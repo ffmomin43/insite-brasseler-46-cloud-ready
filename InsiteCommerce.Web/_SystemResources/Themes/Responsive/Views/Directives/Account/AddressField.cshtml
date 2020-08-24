@@ -1,0 +1,17 @@
+﻿<span>
+    <span class="tst_addressField_label" ng-bind="fieldLabel"></span>
+    <span class="redTxt" ng-show="validation.isRequired">*</span>
+    <input type="text" ng-disabled="validation.isDisabled" ng-model="fieldValue"
+           id="{{fieldName}}"
+           name="{{fieldName}}"
+           ng-readonly="isReadOnly"
+           data-rule-required="{{validation.isRequired}}"
+           data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', fieldLabel)}}"
+           data-rule-maxlength="{{validation.maxLength}}"
+           data-msg-maxlength="{{'[% siteMessage 'Field_Too_Long' EscapeSingleQuotes %]'.replace('{0}', fieldLabel).replace('{1}', validation.maxLength)}}"
+           data-rule-email="{{isEmail === 'true' ? true : false}}"
+           data-msg-email="{{'[% siteMessage 'Field_Invalid' EscapeSingleQuotes %]'.replace('{0}', fieldLabel)}}"
+           data-rule-regex="{{isPhone === 'true' ? '[% phoneRegex %]' : isEmail === 'true' ? '[% emailRegex %]' : '.*'}}"
+           data-msg-regex="{{isPhone === 'true' ? '[% siteMessage 'AddressInfo_Phone_Validation' EscapeSingleQuotes %]' : '[% siteMessage 'AddressInfo_EmailAddress_Validation' EscapeSingleQuotes %]' }}">
+    <span class="field-validation-valid" data-valmsg-for="{{fieldName}}" data-valmsg-replace="true"></span>
+</span>

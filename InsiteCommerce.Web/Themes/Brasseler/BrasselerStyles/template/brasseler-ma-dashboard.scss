@@ -1,0 +1,525 @@
+/* ISC Dashboard Icon Pack v1 */
+
+@font-face {
+    font-family: 'ISC-Dashboard-Icon-Pack';
+    src: url('/SystemResources/Styles/Fonts/ISC-Dashboard-Icon-Pack/ISC-Dashboard-Icon-Pack.eot');
+    src: url('/SystemResources/Styles/Fonts/ISC-Dashboard-Icon-Pack/ISC-Dashboard-Icon-Pack.eot?#iefix') format('embedded-opentype'),
+        url('/SystemResources/Styles/Fonts/ISC-Dashboard-Icon-Pack/ISC-Dashboard-Icon-Pack.woff') format('woff'),
+        url('/SystemResources/Styles/Fonts/ISC-Dashboard-Icon-Pack/ISC-Dashboard-Icon-Pack.ttf') format('truetype'),
+        url('/SystemResources/Styles/Fonts/ISC-Dashboard-Icon-Pack/ISC-Dashboard-Icon-Pack.svg#ISC-Dashboard-Icon-Pack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ma-dashboard { }
+
+.ma-dashboard .btns {
+	width:100%;
+	float:left;
+	text-align:left;
+	margin-bottom:1.5em; }
+
+		@media all and (min-width: 768px) {
+
+		.ma-dashboard .btns {
+			margin-bottom:0; }
+
+		.ma-dashboard .btns label {
+			float:right;
+			display:inline-block;
+			margin-top:-3em; }
+			}
+
+/* Message Center */
+
+.msg-content-block {
+	float:left;
+	width:100%;
+	padding:0 !important;
+	}
+
+.ma-dashboard p.title {
+	padding:0;
+	margin-top:0;
+	}
+
+.msg-block {
+	width:100%;
+	float:left;
+	padding:0 !important;
+	margin:0 !important;
+	}
+
+	.msg-block  h3 {
+		float:left;
+		width:40%;
+		}
+
+	.view-read {
+		float:right;
+		display:inline-block;
+		text-align:right;
+		margin:0;
+		padding:.5em;
+		}
+
+		.view-read .btn {
+			margin:0;
+			}
+
+		.btn-mark-read {
+			margin:0 !important;
+			white-space:nowrap;
+			}
+
+.msg-overflow-wrap {
+	position:relative;
+	overflow-y:auto;
+	max-height:300px;
+	}
+
+	@media all and (min-width: 768px) {
+		.msg-overflow-wrap {
+			max-height:400px;
+			}
+		}
+
+.msg-grid {
+	position:relative;
+	display:inline-block;
+	width:100%;
+	background:#f5f5f5;
+	border:1px solid #D4D4D4;
+	}
+
+	div[class^="msg-c"], div[class*=" msg-c"] {
+		float:left;
+		display:inline-block;
+		}
+
+		.msg-row {
+			width:100%;
+			float:left;
+			clear:both;
+			padding:1em .5em;
+			}
+
+		.msg-row + .msg-row	{
+			border-top:1px solid #d8d8d8;
+			}
+
+			.msg-row:hover, .msg-row:focus {
+				background:#f8f8f8;
+				}
+
+			.msg-c1, .msg-c2 {
+				font-weight:bold;
+				}
+
+			div.msg-c1 {
+				width:100%;
+				font-style:italic;
+				position:relative;
+				padding-left:40px !important;
+				}
+
+			div.msg-c1 span {
+				display:block;
+				}
+
+			.msg-date {
+				font-size:.8em;
+				}
+
+			.msg-body {
+				float: left;
+				padding:1em 40px 0 40px;
+				display:none;
+				}
+
+			div.msg-c3 {
+				width:50%;
+				float:right;
+				text-align:right;
+				clear: right;
+				margin-top:.5em;
+				}
+
+				@media all and (min-width: 768px) {
+
+					div.msg-c1 {
+						width:80%;
+						}
+
+					div.msg-c3 {
+						width:20%;
+						text-align:center;
+						margin-top:0;
+						}
+
+					}
+
+			.expandable .msg-c1:hover, .expandable .msg-c2:hover, .expandable .msg-c3:hover {
+				cursor:pointer;
+				}
+
+			.msg-read {
+				font-style:italic;
+				color:#7f7f7f;
+				}
+
+			.expanded .msg-body {
+				display:block;
+				width:100%;
+				clear:both;
+				}
+
+	.msg-read {
+		display:none;
+		}
+
+		.show-read .msg-read {
+			display:block;
+			}
+
+
+			ul.breview-controls {
+				clear:right;
+				}
+
+		.ma-dashboard .expandable .msg-c1:before {
+			text-align:center;
+			display:inline-block;
+			font-family: 'good-oatmeal-v2';
+			font-weight: normal;
+			font-variant: normal;
+			font-style:normal;
+			text-transform: none;
+			font-size:1.2em;
+			-webkit-font-smoothing: antialiased;
+			color:#333;
+			content: "\e62d";
+			top:0;
+			left:.25em;
+			position:absolute;
+			}
+
+		.ma-dashboard .expandable:hover .msg-c1:before {
+			color:#565656;
+			}
+
+		.ma-dashboard .expandable.expanded .msg-c1:before {
+			content: "\e62c";
+			}
+
+		.ma-dashboard .expanded , .ma-dashboard .expanded , .ma-dashboard .expanded {
+			border-bottom:1px solid #d8d8d8;
+			background:#fff;
+			}
+
+/* Dashboard Tiles */
+
+.ma-dashboard .dash-tiles {
+	margin: 0;
+	}
+
+ul.tiles-list li {
+		padding:.625em;
+		position: relative;
+		}
+
+	ul.tiles-list li a {
+		list-style: none;
+		float: left;
+		position: relative;
+		top: 0;
+		border-bottom: 0;
+		padding: 0 !important;
+		background:#333;
+		white-space: nowrap;
+		min-height:150px;
+		width: 100%;
+		text-align:left !important;
+		}
+
+	ul.tiles-list li a span {
+		position:absolute;
+		bottom:0;
+		left:0;
+		width:100%;
+		padding:10px 0;
+		white-space:normal;
+		font-size:115%;
+		min-height: 2.5em;
+		color:#fff;
+		text-align: center;
+		}
+
+.db-counter {
+	position:absolute;
+	top: 5%;
+	left: 5%;
+	display:block;
+	color:#fff;
+	font-size:25px;
+	padding:10px;
+	text-align:center;
+	font-weight:700;
+	}
+
+.ma-dashboard .db-li-oapp a:before,
+.ma-dashboard .db-li-req a:before,
+.ma-dashboard .db-li-quotes a:before {
+	text-align:center;
+	width:100%;
+	margin-top: -45px;
+	height: 45px;
+	display:inline-block;
+	font-family: 'ISC-Dashboard-Icon-Pack';
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	color:#fff;
+	top: 56%;
+	position: absolute;
+	}
+
+.ma-dashboard .db-li-quotes a:before {
+	content: "\e600";
+	font-size:45px;
+	}
+
+.ma-dashboard .db-li-oapp a:before {
+	content: "\e004\00fe0e";
+	font-size:45px;
+	}
+
+.ma-dashboard .db-li-req a:before {
+	content: "\e006";
+	font-size:45px;
+	}
+
+/* Account Links */
+
+.account-links li a.btn	{
+	width:100%;
+	}
+
+/* Dashboard changes */
+
+.dash-left ul {
+	list-style:none;
+	margin-left:0;
+
+    li {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.dash-left ul h3 {
+	margin-bottom:.25em;
+}
+
+.dash-right .btns {
+	margin-top:-.5em;
+}
+
+.dash-right .btns label {
+	font-size:.875rem;
+	font-weight:bold;
+}
+
+.dash-tiles ul.tiles-list li a span {
+	font-size:1.125rem;
+	padding-left:.25em;
+	padding-right:.25em;
+}
+
+.dash-tiles .db-counter {
+	top:0;
+	left:15px;
+}
+
+.dash-orders > h3,
+.dash-quotes > h3 {
+	display:inline-block;
+}
+
+.dash-orders a.btn-view-all,
+.dash-quotes a.btn-view-all {
+	float:right;
+	font-size:.875rem;
+	margin-top:1.75em;
+	padding:0.5em .75em;
+}
+
+.dash-right {
+	padding:0;
+}
+
+.dash-right h1 {
+	margin-top:.25em;
+	margin-bottom:.75em;
+}
+
+.dash-right .dash-quick-order .qo-container {
+	border:1px solid #ddd;
+	float:left;
+	width:100%;
+	margin-top:.5em;
+}
+
+.dash-right .dash-quick-order label {
+	font-size:.875rem;
+	font-weight:700;
+	line-height:2.5rem;
+}
+
+.dash-right .qo-wrap .qo-search-box {
+	max-width:250px;
+	/*****************BUSA-394******************/
+    #qo-search-widget{
+	@media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+            width: 80% !important;
+        }
+    }
+	/*****************BUSA-394******************/
+}
+
+.dash-right .dash-quick-order h3 {
+	margin: 0 0 .5em 0;
+}
+
+.dash-quick-order,
+.dash-orders,
+.dash-quotes {
+	padding-left:0.9375rem;
+	padding-right:0.9375rem;
+}
+
+button.btn-mark-read,
+.view-read button {
+	font-size:.875rem;
+	padding:0.5em .75em;
+}
+
+div.msg-c1 {
+	width:70%;
+	padding-left:30px !important;
+}
+
+div.msg-c3 {
+	width:30%;
+}
+
+@media all and (max-width: 767px) {
+
+	.dash-left,
+	.dash-right .dash-promos  {
+		display:none;
+	}
+
+	.dash-right,
+	.dash-right .dash-msg
+	{
+		width:100%;
+	}
+}
+
+@media all and (min-width: 1040px) {
+	.dash-tiles ul li {
+		width:33.33%;
+	}
+}
+/*****************BUSA-394******************/
+.qo-widget.qo-wrap .qo-search-box{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    width: 38%;
+    margin-right: 0px;
+    }
+}
+body .qo-wrap.qo-widget .qo-qty, body .qo-wrap.qo-widget .qo-um{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    width: 22%;
+    margin-right: 2%;
+    margin-left: -12px;
+    }
+    @media all and (min-width: 1024px) {
+    margin-left: -14px;
+    }
+}
+.qo-wrap.qo-widget label{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    float: left;
+    width: auto;
+    margin-right: 6px;
+    margin-left: -18px;
+    }
+}
+.qo-wrap.qo-widget .qo-qty input, .qo-wrap.qo-widget .qo-um select{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    float: left;
+    width: 57%;
+    }
+}
+.qo-wrap.qo-widget .qo-um{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    width: auto;
+    }
+}
+.qo-wrap.qo-widget .qo-qty{
+	@media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    margin-right: 0px !important;
+    width: auto;
+    }
+}
+body .qo-wrap.qo-widget .btn{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    width: 20%;
+    margin-left: 4px;
+    }
+}
+a.btn:link, a.btn:visited, button.btn, div.remove a.btn{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    padding: .7em .6em;
+    }
+}
+#qo-search-view-list.k-list-container, #qo-search-widget-list.k-list-container, .search-autocomplete-list.k-list-container, #selectBillTo-list.k-list-container, #selectShipTo-list.k-list-container{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    width: 151px !important;
+    }
+}
+/*****************BUSA-394******************/
+
+/*****************BUSA-395******************/
+#qo-search-view-list.k-list-container .k-item div .shortDescription, #qo-search-widget-list.k-list-container .k-item div .shortDescription, .search-autocomplete-list.k-list-container .k-item div .shortDescription, #selectBillTo-list.k-list-container .k-item div .shortDescription, #selectShipTo-list.k-list-container .k-item div .shortDescription{
+    @media all and (min-width:768px) 
+	and (max-width : 1024px) 
+	and (orientation : portrait) {
+    white-space: normal;
+    }
+}
+/*****************BUSA-395******************/

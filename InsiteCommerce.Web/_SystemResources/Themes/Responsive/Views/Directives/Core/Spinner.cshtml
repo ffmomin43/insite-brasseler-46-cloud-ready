@@ -1,0 +1,5 @@
+﻿<span ng-show="vm.show === true">
+    <div class="loader-bg" ng-if="vm.size != 'inline' && !vm.replace"></div>
+    <div class="loader" ng-class="{ 'loader-content-area': vm.size == 'fullContent', 'loader-inline': vm.size == 'inline'}" ng-if="!vm.replace"></div>
+    <span ng-transclude></span>
+</span>

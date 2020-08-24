@@ -1,0 +1,192 @@
+body.checkout-addresses { }
+
+.checkout-addresses .return-link {
+	margin:1.5em 0;
+	}
+
+.checkout-addresses .checkout-head h1 {
+	display:inline-block;
+	margin-right:1em;
+	}
+
+.checkout-addresses .checkout-crumbs {
+	display:inline-block;
+	}
+
+	.checkout-addresses .checkout-crumbs div {
+		display:inline-block;
+		margin-right:1em;
+		}
+
+		.checkout-addresses .checkout-crumbs .crumb-current {
+			font-weight:bold;
+			}
+
+@media all and (max-width: 767px) {
+	.checkout-addresses .checkout-crumbs > div:not(.crumb-current) {
+		display: none;
+	}
+}
+
+.checkout-addresses .btns .btn  {
+	margin:1em 0;
+	float:right;
+	}
+
+@media all and (max-width: 767px) {
+
+	.checkout-addresses .btns .btn  {
+		width:100%;
+		}
+
+	}
+
+@media all and (min-width: 768px) {
+
+.checkout-addresses h3 {
+	margin-top:0;
+	}
+
+.checkout-addresses .ship-select {
+	min-height:110px;
+	display:inline-block;
+	}
+
+.checkout-addresses .bill-to {
+	float:left;
+	width:42%;
+	padding-top:0 !important;
+	padding-right:2em;
+	}
+
+.checkout-addresses .ship-to {
+	float:left;
+	width:42%;
+	padding-top:0 !important;
+	padding-left:2em;
+	}
+
+.checkout-addresses .newsletter-signup {
+	margin:1em 0;
+	}
+
+.checkout-addresses .select-address div.custom {
+	display:none !important;
+	}
+
+.checkout-addresses .required-msg {
+	font-size:.875em;
+	min-height:109px;
+	margin-bottom:0;
+	}
+
+.checkout-addresses .same-as-billto {
+	margin-bottom:.75em;
+	}
+
+.checkout-addresses .select-address {
+	margin-bottom:1em;
+	}
+
+}
+@media all and (min-width: 768px) {
+    .ship-to .title, .bill-to .title {
+        display: none;
+    }
+}
+//Checkout-addresses.css:start
+@media (min-width: 768px) {
+    .checkout-addresses .required-msg {
+        min-height: 0px !important;
+    }
+
+    .checkout-addresses .ship-select {
+        min-height: 0px !important;
+    }
+
+    .checkout-addresses .additional-info {
+        float: left;
+        margin-top:1.5em;
+    }
+
+    .additional-info .column-left {
+        width: 42%;
+        padding-right: 2em;
+        padding-left: 0;
+    }
+
+        .additional-info .column-left :first-of-type {
+            margin-top: 0;
+        }
+
+    .additional-info .column-right {
+        width: 42%;
+        padding-left: 2em;
+        padding-right: 0;
+        float:left !important;
+    }
+
+    .column-right .radio-buttons .radio-text {
+        margin-right: 1em;
+    }
+
+    .column-right .radio-buttons label {
+        margin-left: 0;
+    }
+}
+
+.btns .btn-continue {
+    background-color: #00359c !important;
+}
+
+    .btns .btn-continue:hover {
+        background-color: #A50031 !important;
+    }
+
+.terms-conditions-text {
+    border: 1px solid lightgrey;
+    background-color: darkgray;
+}
+//Checkout-addresses.css:end
+
+//BUSA-292 start : Shipping Address Accepts PO Box in Address 1 Field
+.bt-add1-error,.st-add1-error,.bt-add2-error,.st-add2-error{
+    display:none;
+    color: red;
+}
+
+.add1-error{
+    display:none;
+    color: red; 
+    font-size: 110%;
+  }
+//BUSA-292 end : Shipping Address Accepts PO Box in Address 1 Field
+
+/*Checkout Address ui*/
+
+.checkout-addresses {
+    .bill-to {
+        .billing-info {
+            input[type=text], select {
+                background-color: transparent;
+            }
+        }
+
+        .dissable-billing {
+            input[type=text], select {
+                background-color: #ddd;
+                cursor: default;
+            }
+        }
+    }
+
+    .ship-to {
+        .shipping-info {
+            .ship-select {
+                #shipTo {
+                    width: 230px;
+                }
+            }
+        }
+    }
+}

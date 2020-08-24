@@ -1,0 +1,19 @@
+﻿@using System.Web.Optimization
+@using Insite.WebFramework.Mvc.Extensions
+@model Insite.Dealers.Content.DealerPage
+
+<style>
+    .adp-placemark {
+        width: 287px;
+    }
+
+    .adp-directions {
+        width: 287px;
+    }
+</style>
+
+<div class="row main-row dealer-locator">
+    <div class="medium-12 large-12 columns">
+        @Html.Zone(Model, "Content")
+    </div>
+</div>

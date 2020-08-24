@@ -1,0 +1,96 @@
+﻿.product-comparison {
+    .carousel-wrapper {
+        .top-carousel {
+            .flex-viewport {
+                .tst_productComparison_slides {
+                    height: auto;
+
+                    .tst_productComparison_productContainer {
+                        padding: 0 15px;
+
+                        .item-wrap {
+                            .carousel-item-equalize {
+                                height: inherit;
+                                padding-bottom: 0;
+
+                                .product-info {
+                                    .um-pack {
+                                        .um {
+                                            display: block;
+
+                                            .pack-container {
+                                                .pack {
+                                                    margin-left: 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .action {
+                                    .btn-add-to-list {
+                                        margin-bottom: 0;
+                                    }
+
+                                    .btn-add-cart {
+                                        background-color: #00359c;
+                                        padding: 11px 5px;
+
+                                        &:hover {
+                                            background-color: #a50031;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .carousel-control-nav {
+            top: 1em;
+            width: 30px;
+            height: 16em;
+        }
+    }
+}
+
+// Product Compare UI mobile
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+    .product-comparison {
+        .carousel-wrapper {
+            .carousel-control-nav {
+                display: block !important;
+            }
+
+            .top-carousel {
+                .flex-viewport {
+                    .tst_productComparison_slides {
+                        .tst_productComparison_productContainer {
+                            .item-wrap {
+                                padding-bottom: 0;
+
+                                .carousel-item-equalize {
+                                    .actions-block {
+                                        display: inline-block;
+
+                                        .btn-add-to-list {
+                                            text-align: left;
+                                        }
+                                    }
+
+                                    .product-info {
+                                        display: table;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

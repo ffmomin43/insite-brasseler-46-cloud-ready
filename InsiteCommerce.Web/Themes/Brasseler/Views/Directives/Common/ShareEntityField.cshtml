@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="">
+        <span ng-bind="fieldLabel"></span>
+        <span class="redTxt" ng-show="isRequired">*</span>
+    </div>
+    <div class="">
+        <input type="text" ng-model="fieldValue" autofocus="autofocus"
+               id="{{fieldName}}"
+               name="{{fieldName}}"
+               data-rule-required="{{isRequired}}"
+               data-msg-required="{{'[% siteMessage 'Field_Required' EscapeSingleQuotes %]'.replace('{0}', fieldLabel)}}"
+               data-rule-regex="{{isEmail === 'true' ? '[% emailRegex %]' : ''}}"
+               data-msg-regex="{{'[% siteMessage 'Field_Invalid' EscapeSingleQuotes %]'.replace('{0}', fieldLabel)}}">
+        <span class="field-validation-valid" data-valmsg-for="{{fieldName}}" data-valmsg-replace="true"></span>
+    </div>
+</div>

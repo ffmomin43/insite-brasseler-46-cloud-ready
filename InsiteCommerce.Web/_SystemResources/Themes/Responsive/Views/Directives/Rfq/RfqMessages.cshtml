@@ -1,0 +1,14 @@
+﻿<div class="medium-6 large-6 columns col-communication">
+    <h3><span>{{quote.isSalesperson ? '[% translate 'Communicate with customer' EscapeSingleQuotes %]' : '[% translate 'Communicate with sales' EscapeSingleQuotes %]'}}:</span></h3>
+    <div class="quote-communication">
+        <div>
+            <isc-rfq-message-list></isc-rfq-message-list>
+        </div>
+        <form novalidate>
+            <div class="send-msg">
+                <textarea placeholder="[% siteMessage 'Rfq_GhostMessage' %]" ng-model="vm.rfqMessage" name="message"></textarea>
+                <button ng-disabled="!vm.rfqMessage || vm.rfqMessage.trim() === ''" ng-click="vm.sendMessage()" class="btn tertiary btn-send-message isc-btnSendMessage" type="button">[% translate 'Send Message' %]</button>
+            </div>
+        </form>
+    </div>
+</div>

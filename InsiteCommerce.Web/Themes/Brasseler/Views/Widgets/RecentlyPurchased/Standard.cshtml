@@ -1,0 +1,89 @@
+﻿<div class="widget-recently-purchased [[Model.CssClass]]" ng-controller="RecentlyPurchasedController as vm" ng-show="vm.showOrders && vm.products.length > 0" ng-cloak>
+    <div class="row">
+        <h3>[[Model.Title]]</h3>
+        <div class="medium hidden-for-small-only">
+            <table class="info-tbl">
+                <tbody>
+                    <tr>
+                        <th class="col-name">[% translate 'Item' %]</th>
+                        <th class="col-price">[% translate 'Price' %]</th>
+                        <th class="col-actions">[% translate 'Add to Cart' %]</th>
+                    </tr>
+                    <tr class="tst_recentlyPurchasedWidget_product" ng-repeat="product in vm.products" ng-show="product.id">
+                        <td class="col-name">
+                            <div class="item-thumb">
+                                <a ng-href="{{product.productDetailUrl}}">
+                                    <img ng-src="{{product.smallImagePath}}" alt="{{product.altText}}" increment-images-loaded/>
+                                </a>
+                            </div>
+                            <a id="tst_recentlyPurchasedWidget_product_{{::product.id}}" ng-href="{{product.productDetailUrl}}" ng-bind="product.shortDescription"></a>
+                            <div class="item-num">
+                                <span class="item-num-sku">{{::product.erpNumber}}</span>
+                                <span class="item-num-mfg" ng-if="::(!!product.manufacturerItem)">[% translate 'MFG #' %]: {{::product.manufacturerItem}}</span>
+                                <span class="item-num-my" ng-if="::(!!product.customerName)">[% translate 'My Part #' %]: {{::product.customerName}}</span>
+                            </div>
+                        </td>
+                        <td class="col-price">
+                            <div ng-if="!vm.failedToGetRealTimePrices">
+                                <isc-product-price product="product" id-key="{{'rp-widget_' + vm.products.indexOf(product)}}"></isc-product-price>
+                                <span class="um displayUnitOfMeasure" ng-if="vm.showUnitOfMeasureLabel(product)">
+                                    <span class="um-sep">/</span>
+                                    <span class="selected-uom">{{product.unitOfMeasureDescription || product.unitOfMeasureDisplay}}</span>
+                                </span>
+                                <br />
+                                <isc-product-price-saving product="product" currency-symbol="product.currencySymbol"></isc-product-price-saving>
+                                <div class="d-block" ng-show="product.canShowPrice && !product.quoteRequired">
+                                    <isc-quantity-break-pricing product-id="product.id" break-prices="product.pricing.unitRegularBreakPrices" block="{{'_' + vm.products.indexOf(product)}}"></isc-quantity-break-pricing>
+                                </div>
+                            </div>
+                            <div ng-if="vm.failedToGetRealTimePrices">
+                                <div>[% siteMessage 'RealTimePricing_PriceLoadFailed' %]</div>
+                            </div>
+                        </td>
+                        <td class="col-actions">
+                            <div ng-if="product.canEnterQuantity" class="item-qty">
+                                <input id="tst_recentlyPurchasedWidget_product_{{::product.id}}_qty" type="text" name="qty" ng-model="product.qtyOrdered" class="qty numerictextbox" />
+                            </div>
+                            <button id="tst_recentlyPurchasedWidget_product_{{::product.id}}_addToCart" ng-if="product.canAddToCart" href="javascript:;" class="btn primary add-to-cart" ng-click="vm.addToCart(product)" ng-disabled="vm.addingToCart">[% translate 'Add to Cart' %]</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ul class="purchased-list show-for-small-only">
+            <li class="row" ng-repeat="product in vm.products" ng-show="product.id">
+                <div class="col-name">
+                    <div class="item-thumb">
+                        <a ng-href="{{product.productDetailUrl}}">
+                            <img ng-src="{{product.smallImagePath}}" alt="{{product.altText}}" increment-images-loaded />
+                        </a>
+                    </div>
+                    <a ng-href="{{product.productDetailUrl}}" ng-bind="product.shortDescription"></a>
+                    <div class="item-num">
+                        <span class="item-num-sku">{{::product.erpNumber}}</span>
+                        <span class="item-num-mfg" ng-if="::(!!product.manufacturerItem)">[% translate 'MFG #' %]: {{::product.manufacturerItem}}</span>
+                        <span class="item-num-my" ng-if="::(!!product.customerName)">[% translate 'My Part #' %]: {{::product.customerName}}</span>
+                    </div>
+                </div>
+                <div class="col-actions">
+                    <isc-product-price product="product" id-key="rp-widget"></isc-product-price>
+                    <span class="um" ng-if="vm.showUnitOfMeasureLabel(product)">
+                        <span class="um-sep">/</span>
+                        <span class="selected-uom">{{product.unitOfMeasureDescription || product.unitOfMeasureDisplay}}</span>
+                    </span>
+                    <br />
+                    <isc-product-price-saving product="product" currency-symbol="product.currencySymbol"></isc-product-price-saving>
+                    <div class="d-block" ng-show="product.canShowPrice && !product.quoteRequired">
+                        <isc-quantity-break-pricing product-id="product.id" break-prices="product.pricing.unitRegularBreakPrices"></isc-quantity-break-pricing>
+                    </div>
+                    <div class="actions">
+                        <div ng-if="product.canEnterQuantity" class="item-qty">
+                            <input type="text" name="qty" ng-model="product.qtyOrdered" class="qty numerictextbox" />
+                        </div>
+                        <button ng-if="product.canAddToCart" class="btn primary add-to-cart" ng-click="vm.addToCart(product)" ng-disabled="vm.addingToCart">[% translate 'Add to Cart' %]</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

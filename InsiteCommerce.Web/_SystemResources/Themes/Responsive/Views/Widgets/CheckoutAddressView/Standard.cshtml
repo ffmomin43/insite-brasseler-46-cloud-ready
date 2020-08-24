@@ -1,0 +1,80 @@
+﻿<div class="large-12 columns" ng-controller="CheckoutAddressController as vm" ng-cloak
+     review-and-pay-url="[% urlForPage 'ReviewAndPayPage' %]">
+    <div class="checkout-head">
+        <h1>[% translate 'Checkout' %]</h1>
+        <div class="checkout-crumbs">
+            <div class="crumb-current">[% translate 'Billing & Shipping' %]</div>
+            <div class="crumb-sep">&gt;</div>
+            <div>[% translate 'Payment' %]</div>
+            <div class="crumb-sep">&gt;</div>
+            <div>[% translate 'Confirmation' %]</div>
+        </div>
+    </div>
+    <form id="addressForm" name="addressForm" ng-show="vm.countries">
+        <div class="section-container" data-section data-section-resized="true" style="min-height: 0;">
+            <section class="bill-to">
+                <h3>[% translate 'Billing Information' %] <a class="change-mode tst_checkoutAddress_billToEditMode_link" ng-if="!vm.editMode" ng-click="vm.enableEditMode()" href="#">[% translate 'Change' %]</a></h3>
+                <div ng-if="vm.editMode">
+                    <div class="billing-info">
+                        <div class="required-msg" style="height: 53px; margin: 0">
+                            <span class="redTxt">*</span>[% translate 'Required' %]
+                        </div>
+                        <isc-address-edit prefix="bt" show-email="true" address="vm.cart.billTo" countries="vm.countries" address-fields="vm.addressFields.billToAddressFields"
+                                          set-state-required-rule="vm.setStateRequiredRule('bt', vm.cart.billTo)"></isc-address-edit>
+                        <div class="newsletter-signup" ng-show="vm.cart.showNewsletterSignup">
+                            <label class="input-lbl">
+                                <input class="tst_checkoutAddress_isSubscribed" type="checkbox" ng-model="vm.account.isSubscribed">
+                                [% siteMessage 'Address_SignMeUp' %]
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="!vm.editMode">
+                    <isc-full-address-display address="vm.cart.billTo"></isc-full-address-display>
+                </div>
+            </section>
+            <section id="tst_checkoutAddress_shipToSection" ng-if="!vm.enableWarehousePickup || vm.session.fulfillmentMethod !== 'PickUp'" class="ship-to">
+                <h3>[% translate 'Shipping Information' %] <a class="change-mode tst_checkoutAddress_shipToEditMode_link" ng-if="!vm.editMode" ng-click="vm.enableEditMode()" href="#">[% translate 'Change' %]</a></h3>
+                <div ng-if="vm.editMode">
+                    <div class="shipping-info">
+                        <div class="ship-select">
+                            <select id="shipTo" name="shipTo" ng-model="vm.selectedShipTo" ng-options="shipTo.label for shipTo in vm.shipTos" ng-change="vm.checkSelectedShipTo()"></select>
+                        </div>
+                        <isc-address-edit prefix="st" show-email="false" address="vm.selectedShipTo" countries="vm.countries" address-fields="vm.addressFields.shipToAddressFields"
+                                          is-read-only="vm.isReadOnly" set-state-required-rule="vm.setStateRequiredRule('st', vm.selectedShipTo)"></isc-address-edit>
+                    </div>
+                </div>
+                <div ng-if="!vm.editMode">
+                    <isc-full-address-display address="vm.selectedShipTo"></isc-full-address-display>
+                </div>
+            </section>
+            <section id="tst_checkoutAddress_pickupLocationInfo" ng-if="vm.enableWarehousePickup && vm.session.fulfillmentMethod === 'PickUp' && vm.session.pickUpWarehouse" class="pick-up-location">
+                <h3>[% translate 'Pick Up Location' %]</h3>
+                <isc-warehouse-info warehouse="vm.session.pickUpWarehouse"></isc-warehouse-info>
+            </section>
+        </div>
+        <div class="btns">
+            <button id="tst_checkoutAddress_continue" type="button" class="btn primary btn-continue"
+                    ng-click="vm.continueCheckout('[% urlForPage 'ReviewAndPayPage' %]', '[% urlForPage 'CartPage' %]')"
+                    ng-disabled="vm.continueCheckoutInProgress">
+                [% translate 'Continue' %]
+            </button>
+        </div>
+    </form>
+    <isc-popup-template container-id="insufficientInventoryAtCheckout">
+        [% siteMessage 'Cart_InsufficientInventoryAtCheckout' %]
+    </isc-popup-template>
+    <isc-popup-template container-id="removedProductsFromCart">
+        [% siteMessage 'Cart_RemovedProductsFromCart' %]
+    </isc-popup-template>
+</div>
+
+<script type="text/ng-template" id="/PartialViews/Account-AddressEdit">
+    [% partialView 'Account-AddressEdit' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Account-AddressField">
+    [% partialView 'Account-AddressField' %]
+</script>
+<script type="text/ng-template" id="/PartialViews/Account-FullAddressDisplay">
+    [% partialView 'Account-FullAddressDisplay' %]
+</script>

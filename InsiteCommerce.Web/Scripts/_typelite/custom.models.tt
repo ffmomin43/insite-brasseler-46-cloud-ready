@@ -1,0 +1,50 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@ assembly name="$(TargetDir)TypeLite.dll" #>
+<#@ assembly name="$(TargetDir)TypeLite.Net4.dll" #>
+<#@ assembly name="$(TargetDir)$(TargetFileName)" #>
+<#@ import namespace="TypeLite" #> 
+<#@ import namespace="TypeLite.Net4" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@output extension=".d.ts"#>
+
+<#@include file="..\..\Manager.ttinclude"#>
+<# var manager = Manager.Create(Host, GenerationEnvironment); #>
+
+<#
+var ts = TypeScript.Definitions()
+		// add your models like this 
+		//.For<InsiteCommerce.Web.Models.ExampleModel>()
+		.WithFormatter((TypeLite.TsModels.IMemberIdentifier identifier) => {
+            if (identifier.Name == null || !identifier.Name.Any())
+            {
+                return identifier.Name;
+            }
+
+            var firstLower = 0;
+            for (var i = 0; i < identifier.Name.Count(); i++)
+            {
+                if (char.IsLower(identifier.Name[i]))
+                {
+                    firstLower = i;
+                    break;
+                }
+            }
+
+            var stringBuilder = new StringBuilder(identifier.Name);
+
+            stringBuilder[0] = char.ToLower(stringBuilder[0]);
+            for (var i = 1; i < firstLower - 1; i++)
+            {
+                stringBuilder[i] = char.ToLower(stringBuilder[i]);
+            }
+
+            return stringBuilder.ToString();
+		});
+#>
+<#= Regex.Replace( ts.Generate(TsGeneratorOutput.Properties)
+        , @":\s*System\.Collections\.Generic\.KeyValuePair\<(?<k>[^\,]+),(?<v>[^\,]+)\>\[\];"
+        , m=>": {[key: "+m.Groups["k"].Value+"]: "+m.Groups["v"].Value+"};"
+        , RegexOptions.Multiline)
+#>
+<# manager.EndBlock(); #>
+<# manager.Process(true); #>

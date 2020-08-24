@@ -1,0 +1,30 @@
+﻿<div ng-controller="MyJobQuotesController as vm" ng-cloak>
+    <div ng-show="!vm.jobs || vm.jobs.length === 0" class="search-no-results"><h3>[% siteMessage 'Rfq_NoJobsMessage' %]</h3></div>
+    <div ng-show="vm.jobs && vm.jobs.length > 0">
+        <h3 class="results-count"><span class="result-num" ng-bind="vm.jobs.length"></span> <span class="result-lbl">[% translate 'jobs' %]</span></h3>
+        <div class="overflow-table medium">
+            <table class="info-tbl my-jobs">
+                <tbody>
+                    <tr>
+                        <th class="col-num"><span class="sticky-first">[% translate 'Job #' %]</span></th>
+                        <th class="col-submitted">[% translate 'Job Name' %]</th>
+                        <th class="col-exp">[% translate 'Expires' %]</th>
+                        <th class="col-cust">[% translate 'Customer' %]</th>
+                        <th class="col-shipto">[% translate 'Ship To / Pick Up' %]</th>
+                    </tr>
+                    <tr ng-repeat="job in vm.jobs">
+                        <td class="col-num">
+                            <span class="sticky-first">
+                                <a href='[% urlForPage 'JobQuoteDetailsPage' %]?jobQuoteId={{job.id}}' title="[% translate 'View Job' %]" ng-bind="job.orderNumber"></a>
+                            </span>
+                        </td>
+                        <td class="col-submitted"><span ng-bind="job.jobName"></span></td>
+                        <td class="col-exp"><span ng-bind="job.expirationDate | date:'shortDate'"></span></td>
+                        <td class="col-cust"><span ng-bind="job.customerName"></span></td>
+                        <td class="col-shipto"><span ng-bind="job.shipToFullAddress"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

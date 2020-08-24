@@ -1,0 +1,139 @@
+﻿<div ng-controller="SavedOrderDetailController as vm" ng-init="vm.listPageUri = '[% urlForPage 'SavedOrderListPage' %]'" ng-cloak>
+    <div ng-show="vm.cart">
+        <!--<div class="hide-for-small back-btn">
+            <a href="[% urlForPage 'SavedOrderListPage' %]" class="btn tertiary btn-return">[% translate 'Return to Saved Orders' %]</a>
+        </div>-->
+        <p class="error"><!-- TODO --></p>
+        <div class="order-details-top">
+            <div class="row">
+                <div class="medium-6 summary-top">
+                    <div class="od-head">
+                        <h3 class="od-lbl">[% translate 'Date:' %]</h3>
+                        <h3 id="tst_savedOrderDetail_orderDate" class="od-data" ng-bind="vm.cart.orderDate | date:'shortDate'"></h3>
+                    </div>
+                </div>
+                <div class="medium-6 summary-top">
+                    <div class="action-btn">
+                        <button ng-if="vm.canAddAllToList" type="button" class="btn primary btn-print-saved-order btn-wishlist" ng-click="vm.addAllToList()"><span class="fa fa-star font-icon"></span>[% translate 'Add to Wishlist' %]</button>
+                        <a href="javascript: window.print();" class="hide-for-small btn secondary btn-print"><span class="fa fa-print font-icon"></span>[% translate 'Print' %]</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-4 columns bill-info">
+                    <div class="oc-head">
+                        <h3>[% translate 'Billing Information' %]</h3>
+                    </div>
+                    <isc-address-display address="vm.cart.billTo" show-email="true"></isc-address-display>
+                </div>
+                <div class="medium-4 columns ship-info">
+                    <div class="oc-head">
+                        <h3>[% translate 'Shipping Information' %]</h3>
+                    </div>
+                    <isc-address-display address="vm.cart.shipTo" show-email="false"></isc-address-display>
+                </div>
+                <isc-sample-product-popup message="vm.errorMessage"></isc-sample-product-popup>
+                <div class="medium-4 columns">
+                    <isc-cart-total-display cart="vm.cart" isCartPage="false"></isc-cart-total-display>
+
+                    <div class="btns">
+                        <button type="button"
+                                class="btn primary btn-place-saved-order"
+                                ng-if="vm.canAddToCart"
+                                ng-click="vm.placeSavedOrder('[% urlForPage 'CartPage' %]')"
+                                ng-bind="vm.canAddAllToCart ? '[% translate 'Place Saved Order' EscapeSingleQuotes %]' : '[% translate 'Add All Available To Cart' EscapeSingleQuotes %]'"></button>
+                        <button type="button" class="btn secondary btn-delete-saved-order" ng-click="vm.deleteSavedOrder('[% urlForPage 'SavedOrderListPage' %]')"><i class="foundicon-remove"></i>[% translate 'Delete Saved Order' %]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul class="large-12 columns item-list cart-items">
+                <li class="row item-block checkout-item" ng-repeat="cartLine in vm.cart.cartLines">
+                    <isc-product-thumb product="cartLine"></isc-product-thumb>
+
+                    <div class="small-9 columns product-details">
+                        <span ng-if="cartLine.isPromotionItem && editable"> [% siteMessage 'Cart_PromotionalItem' EscapeSingleQuotes %]</span>
+                        <div class="product-name">
+                            <a id="cartLinesProductShortDescriptionLink_{{$index}}" ng-href="{{cartLine.productUri}}">
+                                <u><h3 ng-bind="cartLine.shortDescription"></h3></u>
+                            </a>
+                            <span ng-if="!cartLine.isFixedConfiguration" ng-repeat="sectionOption in cartLine.sectionOptions">
+                                <br /> <span ng-bind="sectionOption.sectionName + ':' + sectionOption.optionName"></span>
+                            </span>
+                        </div>
+
+                        <div>
+                            <isc-product-name product="cartLine" no-link="true"></isc-product-name>
+                        </div>
+                        <div>
+                            <div ng-show="cartline.includeInventory && !cartLine.quoteRequired" class="product-availability">
+                                <disc-product productid="{{cartLine.productId.toString()}}"></disc-product>
+                                <div class="original-value" style='display: none'>
+                                    <isc-availability-message availability="cartLine.availability"></isc-availability-message>
+                                </div>
+                                <div class="discountinued-value" style='display: none'>
+                                    <span>[% translate "Discontinued" %]</span>
+                                </div>
+                            </div>
+                            <div class="summary-block">
+                                <div class="product-cost">
+                                    <isc-product-price product="cartLine" update-data="vm.updatePrice()"></isc-product-price>
+
+                                    <isc-unit-of-measure-display product="cartLine"> </isc-unit-of-measure-display>
+                                    <!--<div class="quantity-pricing">
+                                        <isc-quantity-break-pricing product-id="cartLine.id" break-prices="cartLine.breakPrices"></isc-quantity-break-pricing>
+                                    </div>-->
+                                </div>
+                                <div class="item-opt small-6 column">
+                                    <div class="item-qty qty-box">
+                                        <span class="new-qty">[% translate "QTY_quantity" %]</span>
+                                        <input id="cartLinesQuantutyInputEditable_{{$index}}"
+                                               name="cartLinesQuantutyInputEditable_{{$index}}"
+                                               type="text"
+                                               class="numerictextbox qty txt"
+                                               ng-model="cartLine.qtyOrdered"
+                                               ng-keypress="vm.quantityKeyPress($event,cartLine)"
+                                               ng-change="vm.updateLine(cartLine, true,'[% urlForPage 'SavedOrderListPage' %]')"
+                                               ng-model-options="{ updateOn: 'blur' }" style="width:43px;text-align:center">
+                                    </div>
+                                    <div class="item-subtotal"><span ng-if="!cartLine.quoteRequired" ng-bind="cartLine.pricing.extendedActualPriceDisplay"></span></div>
+                                </div>
+                                <div class="remove item-opt small-6">
+                                    <a id="cartLinesBtnRemoveButton_{{$index}}" class="btn btn-remove" ng-click="vm.removeLine(cartLine, '[% urlForPage 'SavedOrderListPage' %]')">
+                                        <i class="foundicon-remove"></i>&nbsp;&nbsp;[% translate "Remove" %]
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!--<div class="row order-details">
+            <isc-cart-lines cart="vm.cart"
+                            include-inventory="true"
+                            show-add-to-list="true"
+                            include-quote-required="vm.showInventoryAvailability"
+                            failed-to-get-real-time-inventory="vm.failedToGetRealTimeInventory"
+                            class="large-12 columns item-list cart-items">
+            </isc-cart-lines>
+        </div>-->
+
+    </div>
+    <div ng-show="vm.validationMessage">
+        {{vm.validationMessage}}
+    </div>
+    <script type="text/ng-template" id="/PartialViews/Account-AddressDisplay">
+        [% partialView 'Account-AddressDisplay' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Cart-CartLines">
+        [% partialView 'Cart-CartLines' %]
+    </script>
+    <script type="text/ng-template" id="/PartialViews/Cart-CartTotalDisplay">
+        [% partialView 'Cart-CartTotalDisplay' %]
+    </script>
+</div>

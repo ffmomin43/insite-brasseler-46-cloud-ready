@@ -1,0 +1,28 @@
+﻿<div class="tst_contentPager">
+    <div class="uibar tertiary paginator-34" ng-if="vm.showPager()">
+        <ul>
+            <li class="results-list">
+                <div class="small-6 columns per-page">
+                    <label>[% translate 'Per page' %]:</label>
+                </div>
+                <div class="small-6 columns per-page-select">
+                    <select ng-model="vm.pagination.pageSize"
+                            ng-options="pageSizeOption for pageSizeOption in vm.pagination.pageSizeOptions"
+                            ng-change="vm.updatePageSize()"></select>
+                </div>
+            </li>
+            <li class="pagination">
+                <div class="arrow page-prev">
+                    <a href="" ng-click="vm.previousPage()" ng-if="vm.showPreviousPageLink" class="next-prev p-prev tst_contentPager_prevLink"></a>
+                </div>
+                <div class="page-current">
+                    <input ng-model="vm.pagination.page" isc-enter="vm.pageInput()" class="enter-page numerictextbox tst_contentPager_currentPage" />  [% translate 'of_pager' %]
+                    <span>{{vm.pagination.numberOfPages}}</span>
+                </div>
+                <div class="arrow page-next">
+                    <a href="" ng-click="vm.nextPage()" ng-if="vm.showNextPageLink" class="next-prev p-next tst_contentPager_nextLink"></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

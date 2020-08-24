@@ -1,0 +1,153 @@
+﻿<div ng-controller="RequisitionsController as vm" ng-cloak
+            update-item-message="[% siteMessage 'Requisition_ItemUpdated' %]"
+            delete-item-message="[% siteMessage 'Requisition_ItemDeleted' %]"
+            delete-order-line-message="[% siteMessage 'Requisition_OrderLineDeleted' %]">
+    <div ng-if="vm.pagination.totalItemCount > 0">
+        <h3 class="results-count">
+            <span class="result-num" ng-bind="vm.pagination.totalItemCount"></span>
+            <span class="result-lbl">{{ '[% translate 'Requisitions' EscapeSingleQuotes %]'.toLowerCase() }}</span>
+        </h3>
+        <p class="error" style="visibility: hidden">Error messaging.</p>
+        <div class="btns">
+            <a href="javascript:void(0);" ng-click="vm.addAllToCart();" class="btn primary btn-add-cart isc-addRequisitionToCart">[% translate 'Add to Cart' %]</a>
+        </div>
+        <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getRequisitions()"></isc-pager>
+        <form name="requisitionForm">
+            <div class="row order-details">
+                <ul class="large-12 columns item-list cart-items" ng-repeat="requisition in vm.requisitionCollection.requisitions">
+                    <li id="tst_requisition_{{::requisition.productId}}_{{::requisition.unitOfMeasure}}" class="row item-block checkout-item">
+                        <div class="small-3 columns item-thumb">
+                            <a ng-href="{{ requisition.productUri }}">
+                                <img ng-src="{{ requisition.smallImagePath }}" alt="{{ requisition.AltText }}" />
+                            </a>
+                        </div>
+                        <div class="small-9 columns item-details">
+                            <isc-product-brand product="requisition"></isc-product-brand>
+                            <isc-product-name product="requisition"></isc-product-name>
+
+                            <div class="price">
+                                <isc-product-price product="vm.convertForPrice(requisition)"></isc-product-price>
+
+                                <isc-unit-of-measure-display product="requisition"> </isc-unit-of-measure-display>
+
+                                <div class="quantity-pricing">
+                                    <isc-quantity-break-pricing product-id="requisition.id" break-prices="requisition.breakPrices"></isc-quantity-break-pricing>
+                                </div>
+                            </div>
+
+                            <div class="item-opt">
+                                <div class="item-qty">
+                                    <strong>[% translate 'QTY_quantity' %]:</strong> <span ng-bind="requisition.qtyOrdered"></span>
+                                </div>
+                                <div class="item-subtotal" ng-bind="requisition.pricing.extendedUnitNetPriceDisplay"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row req-approve">
+                        <div class="small-6 columns view-req">
+                            <a id="tst_view_requisition_{{::requisition.productId}}_{{::requisition.unitOfMeasure}}" class="btn secondary btn-view-requisitions" ng-click="vm.openRequisition(requisition.id);" href="javascript:void(0);">[% translate 'View Requisitions' %]</a>
+                        </div>
+                        <div class="small-6 columns approve-req">
+                            <label class="input-lbl rq-approve">
+                                <input name="approved" ng-model="requisition.isApproved" ng-change="vm.changeApprovedList(requisition)" type="checkbox">[% translate 'Approve' %]
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div style="margin-top: 10px;">
+            <isc-pager pagination="vm.pagination" storage-key="vm.paginationStorageKey" update-data="vm.getRequisitions()"></isc-pager>
+        </div>
+        <div class="btns">
+            <a href="javascript:void(0);" ng-click="vm.addAllToCart();" class="btn primary btn-add-cart isc-addRequisitionToCart">[% translate 'Add to Cart' %]</a>
+        </div>
+    </div>
+    <div class="search-no-results" ng-if="vm.pagination.totalItemCount === 0" ng-cloak>
+        <h3>[% translate 'No requisitions found.' %]</h3>
+    </div>
+
+    <div id="popup-requisition" class="popup-requisition ma-requisition-approval reveal-modal" data-reveal data-options="close_on_background_click: false;" data-reveal-init>
+        <div class="modal-wrap">
+            <div class="row req-top" ng-if="vm.requisition">
+                <div class="large-4 columns">
+                    <h3>[% translate 'Viewing Requisitions For' %]:</h3>
+                </div>
+                <div class="large-8 columns">
+                    <div class="row order-details">
+                        <ul class="large-12 columns item-list cart-items">
+                            <li class="row item-block checkout-item">
+                                <div class="small-3 columns item-thumb">
+                                    <a ng-href="{{ vm.requisition.productUri }}">
+                                        <img ng-src="{{ vm.requisition.smallImagePath }}" alt="{{ vm.requisition.altText }}"/>
+                                    </a>
+                                </div>
+                                <div class="small-9 columns item-details">
+                                    <isc-product-brand product="vm.requisition"></isc-product-brand>
+                                    <isc-product-name product="vm.requisition"></isc-product-name>
+                                    <div class="price">
+                                        <isc-product-price product="vm.convertForPrice(vm.requisition)"></isc-product-price>
+                                        <isc-unit-of-measure-display product="vm.requisition"> </isc-unit-of-measure-display>
+                                        <div class="quantity-pricing">
+                                            <isc-quantity-break-pricing product-id="vm.requisition.id" break-prices="vm.requisition.breakPrices"></isc-quantity-break-pricing>
+                                        </div>
+                                    </div>
+                                    <div class="item-opt">
+                                        <div class="item-qty">
+                                            <strong>[% translate 'QTY_quantity' %]:</strong> <span ng-bind="vm.requisition.qtyOrdered"></span>
+                                        </div>
+                                        <div id="tst_popup_requisition_subtotal" class="item-subtotal" ng-bind="vm.requisition.pricing.extendedUnitNetPriceDisplay"></div>
+                                    </div>
+                                </div>
+                                <div class="medium-9 large-9 columns item-code-notes" ng-if="vm.requisition.costCode || vm.requisition.notes">
+                                    <div class="row">
+                                        <div ng-show="vm.requisition.costCode" class="medium-6 large-6 columns cost-code">
+                                            <strong>[% translate 'Cost Code' %]:</strong>
+                                            <span ng-bind="vm.requisition.costCode"></span>
+                                        </div>
+                                        <div ng-show="vm.requisition.notes" class="medium-6 large-6 columns item-notes">
+                                            <strong>[% translate 'Item Notes' %]:</strong>
+                                            <span ng-bind="vm.requisition.notes"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p ng-bind="vm.message"></p>
+            <div class="overflow-table large requisition">
+                <table class="info-tbl">
+                    <tbody>
+                        <tr>
+                            <th class="col-qty-remove"><span class="sticky-first">[% translate 'QTY_quantity' %] / [% translate 'Remove' %]</span></th>
+                            <th class="col-date">[% translate 'Date' %]</th>
+                            <th class="col-cost-code">[% translate 'Cost Code' %]</th>
+                            <th class="col-first-name">[% translate 'First Name' %]</th>
+                            <th class="col-last-name">[% translate 'Last Name' %]</th>
+                            <th class="col-username">[% translate 'Username' %]</th>
+                        </tr>
+                        <tr class="tst_popup_requisition_line" ng-repeat="requisitionLine in vm.requisition.requisitionLineCollection.requisitionLines">
+                            <td class="col-qty-remove">
+                                <span class="sticky-first">
+                                    <input name="qty" type="text" class="txt numerictextbox" ng-model="requisitionLine.qtyOrdered" ng-blur="vm.patchRequisitionLine(requisitionLine)" />
+                                    <a id="tst_popup_requisition_line_{{::$index}}_remove" class="btn tertiary btn-remove" href="javascript:void(0);" data-removerequisition="true" ng-click="vm.deleteRequisitionLine(requisitionLine)">X</a>
+                                </span>
+                            </td>
+                            <td class="col-date" ng-bind="requisitionLine.orderDate | date:'shortDate'"></td>
+                            <td class="col-cost-code" ng-bind="requisitionLine.costCode"></td>
+                            <td class="col-first-name" ng-bind="requisitionLine.firstName"></td>
+                            <td class="col-last-name" ng-bind="requisitionLine.lastName"></td>
+                            <td class="col-username" ng-bind="requisitionLine.userName"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btns">
+                <a href="javascript:void(0);" class="btn primary btn-done" onclick="javascript:$('#closeReveal').click(); return false;">[% translate 'Done' %]</a>
+            </div>
+        </div>
+        <a id="closeReveal" class="close-reveal-modal">&#215;</a>
+    </div>
+</div>

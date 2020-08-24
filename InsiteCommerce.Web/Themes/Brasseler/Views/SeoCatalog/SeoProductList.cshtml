@@ -1,0 +1,458 @@
+﻿@using Insite.Catalog.Services.Dtos
+@using Insite.Common.Dependencies
+@using Insite.Core.Interfaces.Data
+@using Insite.Core.Plugins.Inventory
+@using Insite.Core.Plugins.Pricing
+@using Insite.Core.Plugins.Utilities
+@using Insite.Core.SystemSetting.Groups.Catalog
+@using Insite.Core.SystemSetting.Groups.SiteConfigurations
+@using Insite.Data.Entities
+@using Insite.Data.Extensions
+@using Insite.RealTimeInventory.Services
+@using Insite.RealTimeInventory.Services.Parameters
+@model Insite.Catalog.Seo.SeoCatalogModel
+
+@{
+    var seoSettings = DependencyLocator.Current.GetInstance<SeoSettings>();
+    var pricingSettings = DependencyLocator.Current.GetInstance<PricingSettings>();
+    var inventorySettings = DependencyLocator.Current.GetInstance<InventorySettings>();
+
+    if (seoSettings.IncludeRealTimeInventoryAndPricingForSeo)
+    {
+        if (string.Equals(pricingSettings.Service, PricingServiceDependency.RealTime, StringComparison.InvariantCultureIgnoreCase))
+        {
+            PopulateRealTimePricingForProductDtos(Model);
+        }
+
+        if (string.Equals(inventorySettings.InventoryService, InventoryServiceRealTime.DependencyName))
+        {
+            PopulateRealTimeInventoryForProductDtos(Model);
+        }
+    }
+}
+
+@functions
+{
+    void PopulateRealTimePricingForProductDtos(Insite.Catalog.Seo.SeoCatalogModel model)
+    {
+        var unitOfWork = DependencyLocator.Current.GetInstance<IUnitOfWorkFactory>().GetUnitOfWork();
+        var realTimePricingService = DependencyLocator.Current.GetInstance<IRealTimePricingService>();
+        var currencyFormatProvider = DependencyLocator.Current.GetInstance<ICurrencyFormatProvider>();
+        var requiresRealTimePriceProducts = model.ProductCollection.ProductDtos == null ? new List<ProductDto>() : model.ProductCollection.ProductDtos.Where(o => o.Pricing != null).ToList();
+        var requiresRealTimePriceProductIds = requiresRealTimePriceProducts.Select(o => o.Id);
+        var products = unitOfWork.GetRepository<Product>().GetTableAsNoTracking().Expand(o => o.ProductUnitOfMeasures).WhereContains(o => o.Id, requiresRealTimePriceProductIds).ToList();
+        var getRealTimePricingParameter = new GetRealTimePricingParameter { ProductPriceParameters = new Dictionary<Guid, ProductPriceParameter>() };
+
+        foreach (var requiresRealTimePriceProduct in requiresRealTimePriceProducts)
+        {
+            var product = products.FirstOrDefault(o => o.Id == requiresRealTimePriceProduct.Id);
+
+            if (product != null)
+            {
+                var productUnitOfMeasure = product.ProductUnitOfMeasures.FirstOrDefault(o => o.UnitOfMeasure == requiresRealTimePriceProduct.UnitOfMeasure);
+                var qty = productUnitOfMeasure == null ? 1 : productUnitOfMeasure.QtyPerBaseUnitOfMeasure;
+                var productPriceParameter = new ProductPriceParameter
+                {
+                    ProductId = requiresRealTimePriceProduct.Id.ToString(),
+                    QtyOrdered = qty,
+                    UnitOfMeasure = requiresRealTimePriceProduct.UnitOfMeasure,
+                };
+
+                getRealTimePricingParameter.ProductPriceParameters.Add(Guid.NewGuid(), productPriceParameter);
+            }
+        }
+
+        if (getRealTimePricingParameter.ProductPriceParameters.Any())
+        {
+            var realTimePricingResults = realTimePricingService.GetPricing(getRealTimePricingParameter);
+
+            foreach (var requiresRealTimePriceProduct in requiresRealTimePriceProducts)
+            {
+                var realTimePricingResult = realTimePricingResults.RealTimePricingResults.Values.FirstOrDefault(o => o.ProductId == requiresRealTimePriceProduct.Id);
+
+                if (realTimePricingResult != null)
+                {
+                    requiresRealTimePriceProduct.Pricing.UnitNetPrice = realTimePricingResult.UnitNetPrice;
+                    requiresRealTimePriceProduct.Pricing.UnitNetPriceDisplay = currencyFormatProvider.GetString(realTimePricingResult.UnitNetPrice, null);
+                    requiresRealTimePriceProduct.Pricing.ExtendedUnitListPrice = realTimePricingResult.ExtendedUnitListPrice;
+                    requiresRealTimePriceProduct.Pricing.ExtendedUnitListPriceDisplay = currencyFormatProvider.GetString(realTimePricingResult.ExtendedUnitListPrice, null);
+                    requiresRealTimePriceProduct.Pricing.UnitRegularPrice = realTimePricingResult.UnitRegularPrice;
+                    requiresRealTimePriceProduct.Pricing.UnitRegularPriceDisplay = currencyFormatProvider.GetString(realTimePricingResult.UnitRegularPrice, null);
+                    requiresRealTimePriceProduct.Pricing.ExtendedUnitRegularPrice = realTimePricingResult.ExtendedUnitRegularPrice;
+                    requiresRealTimePriceProduct.Pricing.ExtendedUnitRegularPriceDisplay = currencyFormatProvider.GetString(realTimePricingResult.ExtendedUnitRegularPrice, null);
+                }
+            }
+        }
+    }
+
+    void PopulateRealTimeInventoryForProductDtos(Insite.Catalog.Seo.SeoCatalogModel model)
+    {
+        var unitOfWork = DependencyLocator.Current.GetInstance<IUnitOfWorkFactory>().GetUnitOfWork();
+        var realTimeInventoryService = DependencyLocator.Current.GetInstance<IRealTimeInventoryService>();
+        var requiresRealTimeInventoryProducts = model.ProductCollection.ProductDtos == null ? new List<ProductDto>() : model.ProductCollection.ProductDtos.ToList();
+        var requiresRealTimeInventoryProductIds = requiresRealTimeInventoryProducts.Select(o => o.Id).ToList();
+        var products = unitOfWork.GetRepository<Product>().GetTableAsNoTracking().Expand(o => o.ProductUnitOfMeasures).WhereContains(o => o.Id, requiresRealTimeInventoryProductIds).ToList();
+        var getInventoryParameter = new GetInventoryParameter()
+        {
+            ProductIds = requiresRealTimeInventoryProductIds,
+            Products = products
+        };
+        var getRealTimeInventoryParameter = new GetRealTimeInventoryParameter() { GetInventoryParameter = getInventoryParameter };
+        var realTimeInventoryResults = realTimeInventoryService.GetInventory(getRealTimeInventoryParameter);
+
+        foreach (var requiresRealTimeInventoryProduct in requiresRealTimeInventoryProducts)
+        {
+            var realTimeInventoryResult = realTimeInventoryResults.RealTimeInventoryResults.FirstOrDefault(o => o.Key == requiresRealTimeInventoryProduct.Id);
+
+            if (realTimeInventoryResult.Value != null)
+            {
+                var inventoryAvailability = realTimeInventoryResult.Value.InventoryAvailabilityDtos.FirstOrDefault(o => o.UnitOfMeasure.EqualsIgnoreCase(requiresRealTimeInventoryProduct.UnitOfMeasure));
+
+                if (inventoryAvailability != null && inventoryAvailability.Availability != null)
+                {
+                    requiresRealTimeInventoryProduct.Availability = inventoryAvailability.Availability;
+                }
+                else
+                {
+                    requiresRealTimeInventoryProduct.Availability = new AvailabilityDto { MessageType = AvailabilityMessageType.NoMessage };
+                }
+            }
+        }
+    }
+}
+
+<script>
+    var insite = insite || {};
+    insite.hideHeader = false;
+    insite.hideFooter = false;
+</script>
+
+<div class="row main-row product-list" id="tst_page_ProductListPageSEO">
+    <ul class="breadcrumbs">
+        @foreach (var crumb in Model.CatalogPage.BreadCrumbs)
+        {
+            <li>
+                @if (!crumb.Url.IsBlank())
+                {
+                    <a href="@crumb.Url">@crumb.Text</a>
+                }
+                else
+                {
+                    @crumb.Text
+                }
+            </li>
+        }
+    </ul>
+
+    @if (Model.CatalogPage.Category != null && Model.CatalogPage.Category.SubCategories != null && Model.CatalogPage.Category.SubCategories.Count > 0)
+    {
+        <div class="columns left-nav-2">
+            <div class="ln2-wrap">
+                <div class="nav-head">
+                    <h1>@Model.CatalogPage.Category.ShortDescription</h1>
+                    <ul>
+                        @foreach (var subCategory in Model.CatalogPage.Category.SubCategories)
+                        {
+                            <li>
+                                <a href="@subCategory.Path">@subCategory.ShortDescription</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right small-12 columns cl1-wrapper">
+            <div class="contentWrapper2">
+                <div class="content2">
+                    <div class="cm cat-cm">
+                        @Html.Raw(Model.CatalogPage.Category.HtmlContent)
+                    </div>
+                    <div class="cat-list">
+                        @foreach (var subCategory in Model.CatalogPage.Category.SubCategories)
+                        {
+                            <div class="cat-block">
+                                @* TODO handle microsites *@
+                                <div>
+                                    <a href="@subCategory.Path"><img src="@subCategory.SmallImagePath" alt="@subCategory.ImageAltText" /></a>
+                                </div>
+                                <span><a href="@subCategory.Path">@subCategory.ShortDescription</a></span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="content-wrapper">
+            @if (Model.CatalogPage.Category != null && !Model.CatalogPage.Category.LargeImagePath.IsBlank())
+            {
+                <div class="pl4-cm">
+                    <img src="@Model.CatalogPage.Category.LargeImagePath" alt="@Model.CatalogPage.Category.ImageAltText" title="@Model.CatalogPage.Category.ShortDescription" />
+                </div>
+            }
+            @{ var noResults = Model.ProductCollection == null || Model.ProductCollection.ProductDtos == null || Model.ProductCollection.ProductDtos.Count == 0; }
+            <div class="right small-12 columns">
+                <h3 class="results-count">
+                    @if (!noResults)
+                    {
+                        <span class="result-num">@Model.ProductCollection.TotalCount</span>
+                        <span class="result-lbl">@T("Items_pager").ToLower()</span>
+                    }
+                </h3>
+                @if (!noResults)
+                {
+                    <div>
+                        <div>
+                            @if (Model.ProductCollection.TotalCount > Model.ProductCollection.PageSize)
+                            {
+                                <div class="uibar tertiary paginator-34 ptop">
+                                    <ul>
+                                        @if (Model.ProductCollection.SortOptions != null && Model.ProductCollection.SortOptions.Count > 0)
+                                        {
+                                            <li class="sort-list">
+                                                <div class="small-4 columns sorting-label">
+                                                    <label>@T("Sort by"):</label>
+                                                </div>
+                                                <div class="small-8 columns sorting-select">
+                                                    <select name="select">
+                                                        @foreach (var sortOption in Model.ProductCollection.SortOptions)
+                                                        {
+                                                            <option>@sortOption.DisplayName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </li>
+                                        }
+                                        <li class="results-list">
+                                            <div class="small-6 columns per-page">
+                                                <label>@T("Per page"):</label>
+                                            </div>
+                                            <div class="small-6 columns per-page-select">
+                                                <select name="select" id="select">
+                                                    <option>@Model.ProductCollection.PageSize</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li class="pagination">
+                                            @if (!Model.PrevPageLink.IsBlank())
+                                            {
+                                                <div class="arrow page-prev">
+                                                    <a href="@Model.PrevPageLink" class="next-prev p-prev"></a>
+                                                </div>
+                                            }
+                                            <div class="page-current">
+                                                <input name="cpage" type="text" value="@Model.ProductCollection.Page" class="enter-page numerictextbox" /> @T("of_pager")
+                                                <span>@Model.ProductCollection.TotalPages</span>
+                                            </div>
+                                            @if (!Model.NextPageLink.IsBlank())
+                                            {
+                                                <div class="arrow unavailable page-next">
+                                                    <a href="@Model.NextPageLink" class="next-prev p-next"></a>
+                                                </div>
+                                            }
+                                        </li>
+                                    </ul>
+
+                                    <div class="viewmode-selector">
+                                        <a class="vms-grid">Grid</a>
+                                        <a class="vms-list">List</a>
+                                        <a class="vms-table">Table</a>
+                                    </div>
+                                </div>
+                            }
+
+                            <ul class="item-list cart-items">
+                                @foreach (var product in Model.ProductCollection.ProductDtos)
+                                {
+                                    <li class="row item-block checkout-item isc-productContainer" data-product="@product.Id">
+                                        <div class="item-thumb">
+                                            <a href="@product.ProductDetailUrl">
+                                                <img src="@product.MediumImagePath" alt="@product.AltText" />
+                                            </a>
+                                        </div>
+                                        <div class="item-details">
+                                            <div class="item-inf-wrapper">
+                                                <div class="item-description">
+                                                    @if (product.Brand != null)
+                                                    {
+                                                        <div class="product-brand">
+                                                            @if (product.Brand.DetailPagePath.IsNotBlank())
+                                                            {
+                                                                <a href="@product.Brand.DetailPagePath" title="@product.Brand.Name">
+                                                                    <span>@product.Brand.Name</span>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div>
+                                                                    <span>@product.Brand.Name</span>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    <div class="item-name">
+                                                        <a href="@product.ProductDetailUrl">@product.ShortDescription</a>
+                                                    </div>
+                                                    <div class="item-num">
+                                                        <span class="item-num-sku">@product.ERPNumber</span>
+                                                        @if (!product.ManufacturerItem.IsBlank())
+                                                        {
+                                                            <span class="item-num-mfg">@("MFG #"): @product.ManufacturerItem</span>
+                                                        }
+                                                        @if (!product.CustomerName.IsBlank())
+                                                        {
+                                                            <span class="item-num-my">@T("My Part #"): @product.CustomerName</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                @if (Model.Settings.ShowInventoryAvailability)
+                                                {
+                                                    <div class="availability">
+                                                        @product.Availability.Message
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="item-price">
+                                                @if (product.CanShowPrice)
+                                                {
+                                                    if (product.QuoteRequired)
+                                                    {
+                                                        <div class="quote-required">
+                                                            <span>@T("Requires Quote")</span>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="price pd-price">
+                                                            <span class="@(product.Pricing.IsOnSale ? "price-sale" : string.Empty)">@product.Pricing.UnitNetPriceDisplay</span>
+                                                            @if (product.Pricing.IsOnSale)
+                                                            {
+                                                                <span class="price-old">@product.Pricing.UnitRegularPriceDisplay</span>
+                                                            }
+                                                        </span>
+                                                        <span class="um displayUnitOfMeasure isc-uomDisplay">
+                                                            / @(!product.UnitOfMeasureDescription.IsBlank() ? product.UnitOfMeasureDescription : product.UnitOfMeasureDisplay)
+                                                        </span>
+                                                        <div>
+                                                            @if (product.Pricing != null && product.Pricing.UnitRegularBreakPrices != null && product.Pricing.UnitRegularBreakPrices.Count > 1)
+                                                            {
+                                                                <div class="quantity-pricing">
+                                                                    <a href="" data-dropdown="qty-price-@product.Id" class="t-dropdown">@T("Quantity Pricing")</a>
+                                                                    <div id="qty-price-@product.Id" class="f-dropdown content" data-dropdown-content>
+                                                                        <div class="tt-wrap">
+                                                                            <table class="isc-pricebreaks">
+                                                                                <tbody>
+                                                                                    @foreach (var bp in product.Pricing.UnitRegularBreakPrices.OrderBy(b => b.BreakQty))
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td class="col-1">@Math.Round(bp.BreakQty)</td>
+                                                                                            <td class="col-2"><span class="qty-price">@bp.BreakPriceDisplay</span></td>
+                                                                                            <td class="col-3">@bp.SavingsMessage</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+
+                                            @if (Model.CatalogPage.Category != null && product.AttributeTypes != null && product.AttributeTypes.Count > 0)
+                                            {
+                                                <ul class="attribute-list">
+                                                    @{ var count = 0;}
+                                                    @foreach (var attributeType in product.AttributeTypes.OrderBy(c => c.SortOrder).ThenBy(c => c.Name))
+                                                    {
+                                                        <li class="attribute-list-item">
+                                                            <span class="attrib-name">@attributeType.Label:</span>
+                                                            <span class="attrib-value">
+                                                                @{
+                                                                    var values = attributeType.AttributeValues.Select(x => x.ValueDisplay);
+                                                                    @Html.Raw(string.Join(", ", values))
+                                                                }
+                                                            </span>
+                                                        </li>
+                                                        if (++count == 3)
+                                                        {
+                                                            break;
+                                                        }
+                                                    }
+                                                </ul>
+                                            }
+                                        </div>
+                                        <div class="actions-panel">
+                                            @if (product.CanAddToCart)
+                                            {
+                                                <a href="javascript:;" class="btn primary add-to-cart panel-trigger">@T("Order_Verb")</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@product.ProductDetailUrl" class="btn primary btn-view-details">@T("View Details")</a>
+                                            }
+                                            <div class="item-actions">
+                                                <div class="item-actions-wrap">
+                                                    <div class="um-pack">
+                                                        <div class="um">
+                                                            @if (Model.Settings.AlternateUnitsOfMeasure && product.ProductUnitOfMeasures.Count > 1)
+                                                            {
+                                                                <label>@T("U/M"):</label>
+
+                                                                <div class="small-8 columns">
+                                                                    <select disabled="disabled" name="unitOfMeasure" class="uom-selector tst_unitOfMeasure_selectList" autocomplete="off">
+                                                                        @foreach (var unitOfMeasure in product.ProductUnitOfMeasures)
+                                                                        {
+                                                                            <option>
+                                                                                @(unitOfMeasure.Description.IsBlank() ? unitOfMeasure.Description : unitOfMeasure.UnitOfMeasureDisplay)
+                                                                                @(unitOfMeasure.QtyPerBaseUnitOfMeasure != 1 ? "/" + unitOfMeasure.QtyPerBaseUnitOfMeasure : "")
+                                                                            </option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+
+                                                                if (product.PackDescription.IsNotBlank())
+                                                                {
+                                                                    <div class="pack-container">
+                                                                        <span class="small-4 columns pack"><span class="pack-label">@T("Pack"):</span> @product.PackDescription</span>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    @if (product.CanEnterQuantity)
+                                                    {
+                                                        <div class="item-qty">
+                                                            <label>@T("QTY_quantity"):</label>
+                                                            <input type="text" name="qty" value="" class="qty numerictextbox" />
+                                                        </div>
+                                                    }
+                                                    <div class="action">
+                                                        @if (product.Availability.MessageType != AvailabilityMessageType.OutOfStock)
+                                                        {
+                                                            <button class="btn-add-cart btn primary">
+                                                                @T("Add To Cart")
+                                                            </button>
+                                                        }
+                                                        @if (product.CanAddToWishlist)
+                                                        {
+                                                            <a role="button" class="btn secondary btn-add-list" href="javascript:;">@T("Add to List")</a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

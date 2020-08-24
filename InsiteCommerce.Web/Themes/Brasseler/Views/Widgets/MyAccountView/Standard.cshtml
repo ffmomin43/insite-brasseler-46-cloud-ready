@@ -1,0 +1,79 @@
+﻿<div ng-controller="DashboardViewController as vm" ng-cloak
+     order-panel-type="[[Model.OrderApprovalsDashboardPanelType]]"
+     requisition-panel-type="[[Model.RequestForQuoteDashboardPanelType]]"
+     quote-panel-type="[[Model.RequisitionsDashboardPanelType]]">
+    <div class="dash-left medium-3 large-3 columns">
+        <ul class="quick-links">
+            <li class="ql-head">
+                <h3>[% translate 'Quick Links' %]</h3>
+            </li>
+            <li ng-repeat="quickLink in vm.quickLinks | orderBy:'quickLinkOrder'">
+                <a ng-href="{{quickLink.url}}" ng-attr-target="{{quickLink.openInNewTab ? '_blank' : undefined}}"
+                   ng-attr-rel="{{quickLink.openInNewTab ? 'noopener noreferrer' : undefined}}">{{quickLink.quickLinkText}}</a>
+            </li>
+        </ul>
+        <ul class="user-lists">
+            <li class="ul-head">
+                <h3>[% translate 'My Lists' %]</h3>
+            </li>
+            <li class="ul-orders" ng-repeat="wishlist in vm.wishListCollection">
+                <a ng-href="[% urlForPage 'MyListDetailPage' %]?id={{wishlist.id}}">{{wishlist.name}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="dash-right medium-9 large-9 columns">
+
+        <div class="btns">
+            <label class="input-lbl">
+                <input type="checkbox" class="isc-dashboardAsHomepage" ng-click="vm.changeDashboardHomepage($event)" ng-checked="vm.dashboardIsHomepage" />
+                [% siteMessage 'Dashboard_MakeMyHomepage' %]
+            </label>
+        </div>
+
+        <h2>[% translate 'Dashboard' %]</h2>
+
+        <isc-message-list></isc-message-list>
+
+        <div>
+            <div class="row dashboard">
+                <div class="small-12 columns left dash-tiles">
+                    <ul class="small-block-grid-2 large-block-grid-4 tiles-list">
+                        <li ng-repeat="panel in vm.panels" ng-class="vm.getCssClass(panel.panelType)">
+                            <a ng-href="{{panel.url}}" class="btn primary">
+                                <span>{{panel.text}}</span>
+                            </a>
+                            <span class="db-counter" ng-bind="panel.count"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        [% zone 'DashboardWidgets' %]
+
+        <div class="row dash-orders" ng-show="vm.canViewOrders">
+            <h3>[% translate 'Recent Orders' %]</h3>
+            <a href="[% urlForPage 'OrdersPage' %]" class="btn secondary btn-view-all">[% translate 'View All' %]</a>
+            <isc-recent-orders></isc-recent-orders>
+        </div>
+
+        <div class="row dash-quotes" ng-show="vm.canRequestQuote">
+            <h3>[% translate 'Recent Quotes' %]</h3>
+            <a href="[% urlForPage 'RfqMyQuotesPage' %]" class="btn secondary btn-view-all">[% translate 'View All' %]</a>
+            <isc-recent-quotes is-sales-person="vm.isSalesPerson"></isc-recent-quotes>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="/PartialViews/Messages-MessageList">
+        [% partialView 'Messages-MessageList' %]
+    </script>
+
+    <script type="text/ng-template" id="/PartialViews/History-RecentOrders">
+        [% partialView 'History-RecentOrders' %]
+    </script>
+
+    <script type="text/ng-template" id="/PartialViews/Rfq-RecentQuotes">
+        [% partialView 'Rfq-RecentQuotes' %]
+    </script>
+</div>

@@ -1,0 +1,10 @@
+﻿<span
+    ng-if="availability.messageType != 0 && !availability.requiresRealTimeInventory && !failedToGetRealTimeInventory" data-test-selector="tst_AvailabilityMessage_Message_{{::productId}}"
+    ng-class='{instock : (availability.messageType == 1), outstock : (availability.messageType == 2), lowstock : (availability.messageType == 3)}'>
+    {{availability.message}}
+    <a data-test-selector="tst_AvailabilityMessage_WarehouseLink_{{::productId}}" ng-if="availability && trackInventory && vm.showLink(productSettings, page) && !failedToGetRealTimeInventory" ng-click="vm.openPopup(productSettings, productId, unitOfMeasure, configuration)" href="#" class="availability-by-warehouse-link">[% translate 'View Availability by Warehouse' %]</a>
+</span>
+<span ng-if="availability.requiresRealTimeInventory && !failedToGetRealTimeInventory" data-test-selector="tst_AvailabilityMessage_LoadingSpinner_{{::productId}}" class='price-loading-spinner'></span>
+<div ng-if="failedToGetRealTimeInventory">
+    <span data-test-selector="tst_AvailabilityMessage_FailedMessage_{{::productId}}">[% siteMessage 'RealTimeInventory_InventoryLoadFailed' %]</span>
+</div>

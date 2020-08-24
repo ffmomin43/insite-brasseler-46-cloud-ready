@@ -1,0 +1,58 @@
+/* Checkout order confirm */
+.checkout-order-confirm .btns .btn-continue-shopping {
+  background-color: #555 !important;
+}
+.checkout-order-confirm .cm {
+  margin-bottom: 0;
+}
+.checkout-order-confirm .order-bill-ship .ship-method .oc-order-notes .head-text {
+  margin-right: 5px;
+}
+.checkout-order-confirm .order-bill-ship .ship-method .oc-order-notes h4 {
+  margin-bottom: 10px;
+}
+.checkout-order-confirm .cart-right .order-subtotal {
+  width: 100%;
+  margin-bottom: 24px;
+}
+.checkout-order-confirm .order-details .item-list .item-block {
+  border: 0 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+.checkout-order-confirm .order-details .item-list .item-block:last-child {
+  border-bottom: none !important;
+}
+.checkout-order-confirm .order-details .item-list .item-block .product-details .price .pd-price {
+  display: inline-flex;
+}
+.checkout-order-confirm .order-details .item-list .item-block .product-details .price .pd-price .price-sale, .checkout-order-confirm .order-details .item-list .item-block .product-details .price .pd-price .price-old {
+  margin-right: 5px;
+}
+.checkout-order-confirm .order-details .item-list .item-block .product-details .qty-wrapper {
+  float: right;
+}
+@media screen and (max-width: 767px) {
+  .checkout-order-confirm .order-details .item-list .item-block .product-details .qty-wrapper {
+    float: left;
+  }
+}
+.checkout-order-confirm .order-details .item-list .item-block .product-details .product-name h3 {
+  text-decoration: underline;
+}
+
+.smart-supply-block {
+  text-align: right;
+}
+.smart-supply-block .ss-order-text {
+  margin-right: 5px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .checkout-order-confirm .order-details .smart-supply-text {
+    padding: 0px 15px;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+}
+
+/*# sourceMappingURL=brasseler-checkout-order-confirm.css.map */

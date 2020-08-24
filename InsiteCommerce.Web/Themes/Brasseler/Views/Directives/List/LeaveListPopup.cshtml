@@ -1,0 +1,19 @@
+﻿<div id="popup-leave-list" class="reveal-modal popup-leave-list" data-reveal data-reveal-init>
+    <div class="modal-wrap">
+        <h2>[% translate 'Are you sure' %]?</h2>
+        <div class="pop-content">
+            <div class="row">
+                <div class="row">
+                    <div>
+                        <p>[% translate 'You will no longer have access to this shared list.' %]</p>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <button ng-click="closeModal({ selector: '#popup-leave-list' })" class="btn tertiary btn-cancel" type="button">[% translate 'Cancel' %]</button>
+                    <button id="tst_leaveListPopup_leaveList_btn" ng-click="leaveList({ url: redirectToUrl })" class="btn primary" type="button">[% translate 'Leave List' %]</button>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿<ul>
+    <li ng-if="brand.name" class="attribute-list-item tst_sortedAttributeValueList_brand">
+        <span class="attrib-name">[% translate 'Brand' %]:</span>
+        <span class="attrib-value" ng-bind="brand.name"></span>
+    </li>
+    <li ng-if="attributeTypes" class="attribute-list-item tst_sortedAttributeValueList_{{::attributeType.name}}" ng-repeat="attributeType in attributeTypes | orderBy : ['sortOrder','label'] | limitTo: (maximumNumber || 100)">
+        <span class="attrib-name">{{attributeType.label || attributeType.name}}:</span>
+        <span class="attrib-value">
+            <isc-no-element ng-repeat="attributeValue in attributeType.attributeValues | orderBy  : ['sortOrder','valueDisplay']">{{attributeValue.valueDisplay}}{{$last ? '' : ', '}}</isc-no-element>
+        </span>
+    </li>
+</ul>

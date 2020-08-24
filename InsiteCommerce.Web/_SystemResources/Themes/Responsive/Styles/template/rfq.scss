@@ -1,0 +1,307 @@
+/* RFQ Create Account / Sign In */
+.rfq-account-si {
+    .btns a.btn {
+        margin-bottom: 1em;
+    }
+
+    .tiny-lnk {
+        font-size: 0.875em;
+        margin: 0.25em 0;
+    }
+
+    .required-msg {
+        margin-bottom: 1em;
+    }
+
+    .newsletter {
+        margin-top: 1em;
+    }
+
+    .btns {
+        margin-top: 1em;
+        margin-bottom: 1.5em;
+        text-align: right;
+    }
+
+    .pw-note {
+        font-size: 0.875em;
+        line-height: 1.5em;
+    }
+
+    .account-msg {
+        background: #fff6c5;
+        border-color: #ffd800;
+        margin-top: 0;
+    }
+
+    .item-block .price {
+        span, .quote-required {
+            margin-right: 0;
+            text-align: right;
+        }
+
+        .pd-price, .selected-uom, .price-saving {
+            display: block;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .rfq-account-si {
+        .btns a.btn {
+            width: 100%;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .rfq-account-si {
+        .btns {
+            text-align: right;
+        }
+
+        .ca-form {
+            width: 55%;
+        }
+
+        .si-acct {
+            width: 35%;
+        }
+
+        .si-acct .btn {
+            float: left;
+            margin-bottom: 1em;
+        }
+
+        .si-acct h3 {
+            margin-top: 0;
+        }
+    }
+}
+
+/* RFQ Form */
+.rfq-form {
+    .col-notes label {
+        margin-bottom: .5em;
+    }
+
+    .col-notes .create-for {
+        margin-bottom: 1em;
+    }
+
+    .col-notes textarea {
+        min-height: 200px;
+    }
+
+    .btns {
+        margin-top: 1em;
+    }
+
+    .item-details .item-name {
+        padding-right: 2.5em;
+    }
+
+    .item-list .actions-panel .item-actions {
+        text-align: left;
+    }
+
+    .item-list .item-code-notes {
+        padding: 0;
+        float: left;
+        width: 100%;
+    }
+
+    .item-list .item-actions-wrap {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        float: left;
+        width: 100%;
+    }
+
+    .item-block {
+        .price {
+            span, .quote-required {
+                margin-right: 0;
+            }
+
+            .price-saving {
+                display: block;
+            }
+
+            .selected-uom {
+                margin-right: 1rem;
+            }
+
+            .quantity-pricing {
+                margin-left: 0 !important;
+                display: block !important;
+            }
+        }
+
+        .item-opt .item-subtotal {
+            display: none;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .rfq-form {
+        .btns a {
+            width: 100%;
+        }
+
+        .quote-required .f-dropdown.content {
+            min-width: 235px !important;
+            margin-left: -120px;
+        }
+    }
+}
+
+@media all and (min-width: 768px) {
+    .rfq-form {
+        .item-list .item-details {
+            padding-right: 1em !important;
+        }
+
+        .item-details .item-name {
+            padding-right: 3.5em;
+        }
+    }
+}
+
+/* RFQ Confirmation */
+.rfq-confirmation {
+    .btns {
+        text-align: left;
+        margin-bottom: 1.5em;
+        width: 100%;
+    }
+
+    .btns .btn + .btn {
+        margin-left: 1em;
+    }
+
+    .btns .btn-print {
+        float: right;
+    }
+
+    .col-details h2 {
+        font-size: 1em;
+        margin-top: 0;
+    }
+
+    .col-details h2 span {
+        font-weight: normal;
+    }
+
+    .actions-panel .item-actions {
+        text-align: left;
+    }
+
+    .item-code-notes {
+        padding: 0;
+        float: left;
+        width: 74.5%;
+    }
+
+    .item-actions-wrap {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        float: left;
+        width: 100%;
+    }
+
+    .item-block .price {
+        span {
+            margin-right: 0;
+        }
+
+        .quote-required {
+            text-align: right;
+        }
+
+        .price-saving {
+            display: block;
+        }
+
+        .quantity-pricing {
+            margin-left: 0 !important;
+            display: block !important;
+        }
+    }
+
+    .item-code-notes .cost-code,
+    .item-code-notes .item-notes {
+        width: 100%;
+        margin-bottom: 0.25em;
+    }
+
+    .item-code-notes .cost-code strong,
+    .item-code-notes .item-notes strong {
+        margin-right: 0.5em;
+    }
+
+    .item-list .item-block .item-opt {
+        margin-top: 0.3em;
+        line-height: 1em;
+
+        .item-subtotal {
+            display: none;
+        }
+    }
+
+    .btns.show-for-small {
+        margin-top: 1em;
+    }
+
+    .btns.show-for-small .btn {
+        width: 100%;
+        margin: 0 0 1em 0;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .rfq-confirmation {
+        .item-details {
+            padding-right: 1em !important;
+        }
+
+        .item-details .item-name {
+            padding-right: 3.5em;
+        }
+
+        .item-details div.price,
+        .item-details div.item-opt {
+            display: inline-block;
+            height: auto;
+        }
+
+        .item-details div.item-opt {
+            line-height: 1em !important;
+
+            .item-qty input {
+                width: 50px;
+            }
+        }
+
+        .item-details,
+        .item-code-notes {
+            padding-right: 1em !important;
+        }
+
+        .item-code-notes {
+            width: 79.5%;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .rfq-confirmation {
+        .quote-required .f-dropdown.content {
+            min-width: 235px !important;
+            margin-left: -120px;
+        }
+    }
+}

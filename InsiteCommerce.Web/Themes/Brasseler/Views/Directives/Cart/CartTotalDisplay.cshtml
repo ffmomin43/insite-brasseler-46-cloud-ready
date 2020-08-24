@@ -1,0 +1,51 @@
+﻿<div class="order-subtotal">
+    <div ng-if="label" class="oc-head">
+        <h3 ng-bind="label"></h3>
+    </div>
+    <div class="row">
+        <div class="small-6 columns sub-label">[% translate 'Subtotal' %]</div>
+        <div id="tst_cartTotalDisplay_orderSubTotal" class="small-6 columns sub-amount" ng-bind="cart.orderSubTotalDisplay"></div>
+    </div>
+    <div class="row promo-applied" ng-repeat="promotion in promotions | filter: discountOrderFilter">
+        <div class="small-6 columns sub-label">[% translate 'Promotion' %]: <em><span ng-bind="promotion.name" data-test-selector="tst_cartTotalDisplay_promotionName"></span></em></div>
+        -<div id="tst_cartTotalDisplay_orderDiscountPromotion" class="small-6 columns sub-amount" ng-bind="promotion.amountDisplay"></div>
+    </div>
+    <div class="row" ng-if="showSeparateShippingAndHandling && (cart.showTaxAndShipping || !isCartPage) && cart.shippingChargesDisplay.length > 0">
+        <div class="small-6 columns sub-label">[% translate 'Shipping' %]</div>
+        <div class="small-6 columns sub-amount" ng-bind="cart.shippingChargesDisplay"></div>
+    </div>
+    <div data-test-selector="tst_cartLine_shippingAndHandling" class="row" ng-if="!showSeparateShippingAndHandling && (cart.showTaxAndShipping || !isCartPage) && cart.shippingAndHandlingDisplay.length > 0">
+        <div class="small-6 columns sub-label">[% translate 'Shipping & Handling' %]</div>
+        <div data-test-selector="tst_cartLine_shippingAndHandlingPrice" class="small-6 columns sub-amount" ng-bind="cart.shippingAndHandlingDisplay"></div>
+    </div>
+    <div class="row promo-applied" ng-repeat="promotion in promotions | filter: discountShippingFilter">
+        <div class="small-6 columns sub-label">[% translate 'Promotion' %]: <em><span ng-bind="promotion.name"></span></em></div>
+        -<div id="tst_cartTotalDisplay_shippingDiscountPromotion" class="small-6 columns sub-amount" ng-bind="promotion.amountDisplay"></div>
+    </div>
+    <div class="row" ng-if="showSeparateShippingAndHandling && (cart.showTaxAndShipping || !isCartPage) && cart.handlingChargesDisplay.length > 0">
+        <div class="small-6 columns sub-label">[% translate 'Handling' %]</div>
+        <div class="small-6 columns sub-amount" ng-bind="cart.handlingChargesDisplay"></div>
+    </div>
+    <div class="row" ng-if="showMiscCharge && cart.otherChargesDisplay.length > 0">
+        <div class="small-6 columns sub-label">[% translate 'Misc. Charge' %]</div>
+        <div class="small-6 columns sub-amount" ng-bind="cart.otherChargesDisplay"></div>
+    </div>
+    <div class="row" ng-if="(cart.showTaxAndShipping || !isCartPage) && cart.totalTaxDisplay.length > 0 && orderTaxes.length == 0">
+        <div class="small-6 columns sub-label">[% translate 'Tax' %]</div>
+        <div id="cartTotalTaxDisplay" class="small-6 columns sub-amount" ng-bind="cart.totalTaxDisplay"></div>
+    </div>
+    <div class="row" ng-if="(cart.showTaxAndShipping || !isCartPage)" ng-repeat="orderTax in orderTaxes | orderBy:'sortOrder'">
+        <div class="small-6 columns sub-label">
+            <span ng-show="orderTax.taxDescription" ng-bind="orderTax.taxDescription"></span>
+            <span ng-hide="orderTax.taxDescription">[% translate 'Tax' %]</span>
+        </div>
+        <div class="small-6 columns sub-amount" ng-bind="orderTax.taxAmountDisplay"></div>
+    </div>
+    <div class="row order-total" ng-if="(cart.showTaxAndShipping || !isCartPage)">
+        <div class="small-6 columns sub-label">[% translate 'Total' %]</div>
+        <div id="tst_cartTotalDisplay_orderGrandTotal" class="small-6 columns sub-amount" ng-bind="cart.orderGrandTotalDisplay"></div>
+    </div>
+    <div class="row discount-total" ng-if="showDiscountTotal && ((promotions | filter: discountOrderFilter).length > 0 || (promotions | filter: discountShippingFilter).length > 0)">
+        <div class="small-12 columns sub-amount">[% translate 'You saved' %] {{discountTotal(promotions, cart.currencySymbol)}}</div>
+    </div>
+</div>
