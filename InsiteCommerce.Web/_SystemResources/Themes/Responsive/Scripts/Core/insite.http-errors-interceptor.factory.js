@@ -56,8 +56,7 @@ var insite;
         core.HttpErrorsInterceptor = HttpErrorsInterceptor;
         angular
             .module("insite")
-            .factory("httpErrorsInterceptor", ["$q", "$rootScope", "spinnerService",
-            function ($q, $rootScope, spinnerService) {
+            .factory("httpErrorsInterceptor", ["$q", "$rootScope", "spinnerService", function ($q, $rootScope, spinnerService) {
                 return new HttpErrorsInterceptor($q, $rootScope, spinnerService);
             }]);
     })(core = insite.core || (insite.core = {}));
