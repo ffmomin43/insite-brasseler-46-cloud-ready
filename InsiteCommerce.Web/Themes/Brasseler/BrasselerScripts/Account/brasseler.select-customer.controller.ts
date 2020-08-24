@@ -42,7 +42,7 @@
         }
 
         init() {
-            super.init();
+            super.$onInit();
 
             //BUSA_1140: Create account page is displayed when user logs into the website.
             this.returnUrl = this.queryString.get("returnUrl");

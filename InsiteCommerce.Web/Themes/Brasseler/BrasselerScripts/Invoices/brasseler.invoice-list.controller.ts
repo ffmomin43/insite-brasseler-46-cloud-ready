@@ -40,7 +40,7 @@
                 this.shipTo.label = this.shipTo.label.substr(1, this.shipTo.label.length);
                 this.getInvoices();
             });
-            super.init();
+            super.$onInit();
         }
 
         getInvoices() {

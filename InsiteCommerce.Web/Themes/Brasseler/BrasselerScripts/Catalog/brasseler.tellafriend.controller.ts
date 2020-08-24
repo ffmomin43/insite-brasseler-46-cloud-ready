@@ -9,18 +9,21 @@
         isSuccess: boolean;
         isError: boolean;
 
-        public static $inject = ["$scope", "emailService"];
+        public static $inject = ["$scope", "emailService", "$timeout", "coreService", "tellAFriendPopupService"];
 
         constructor(
             protected $scope: ng.IScope,
-            protected emailService: email.IEmailService) {
-            super($scope, emailService);
+            protected emailService: email.IEmailService,
+            protected $timeout: ng.ITimeoutService,
+            protected coreService: core.ICoreService,
+            protected tellAFriendPopupService: ITellAFriendPopupService) {
+            super($scope, emailService, $timeout, coreService, tellAFriendPopupService);
             this.init();
 
         }
 
         init(): void {
-            super.init();
+            super.$onInit();
         }
 
         shareWithFriend() {

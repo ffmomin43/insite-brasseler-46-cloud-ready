@@ -18,18 +18,20 @@ var insite;
         "use strict";
         var BrasselerAccountSettingsController = /** @class */ (function (_super) {
             __extends(BrasselerAccountSettingsController, _super);
-            function BrasselerAccountSettingsController(accountService, $localStorage, settingsService) {
-                var _this = _super.call(this, accountService, $localStorage, settingsService) || this;
+            function BrasselerAccountSettingsController(accountService, $localStorage, settingsService, coreService, sessionService) {
+                var _this = _super.call(this, accountService, $localStorage, settingsService, coreService, sessionService) || this;
                 _this.accountService = accountService;
                 _this.$localStorage = $localStorage;
                 _this.settingsService = settingsService;
-                _this.init();
+                _this.coreService = coreService;
+                _this.sessionService = sessionService;
+                _this.$onInit();
                 return _this;
             }
             BrasselerAccountSettingsController.prototype.updateAccountCompleted = function (account) {
                 this.savedAccountEmail = account.email;
             };
-            BrasselerAccountSettingsController.$inject = ["accountService", "$localStorage", "settingsService"];
+            BrasselerAccountSettingsController.$inject = ["accountService", "$localStorage", "settingsService", "coreService", "sessionService"];
             return BrasselerAccountSettingsController;
         }(account_1.AccountSettingsController));
         account_1.BrasselerAccountSettingsController = BrasselerAccountSettingsController;

@@ -13,7 +13,26 @@ module insite.catalog {
         localStorage: common.IWindowStorage;
         newWebShopperCustomerNumber = "1055357";
 
-        public static $inject = ["$scope", "coreService", "cartService", "productService", "addToWishlistPopupService", "productSubscriptionPopupService", "settingsService", "$stateParams", "sessionService", "$rootScope", "brasslerProductService", "brasselerCartService", "$localStorage", "ipCookie", "AddToExistingSmartSupplyService", "spinnerService"];
+        public static $inject = [
+            "$scope",
+            "coreService",
+            "cartService",
+            "productService",
+            "addToWishlistPopupService",
+            "productSubscriptionPopupService",
+            "settingsService",
+            "$stateParams",
+            "sessionService",
+            "$rootScope",
+            "brasslerProductService",
+            "brasselerCartService",
+            "$localStorage",
+            "ipCookie",
+            "AddToExistingSmartSupplyService",
+            "spinnerService",
+            "queryString",
+            "tellAFriendPopupService"
+        ];
 
         constructor(
             protected $scope: ng.IScope,
@@ -31,10 +50,25 @@ module insite.catalog {
             protected $localStorage: common.IWindowStorage,
             protected ipCookie: any,
             protected addToExistingSmartSupplyService: smartsupply.AddToExistingSmartSupplyService,
-            protected spinnerService: core.ISpinnerService) {
-            super($scope, coreService, cartService, productService, addToWishlistPopupService, productSubscriptionPopupService, settingsService, $stateParams, sessionService);
+            protected spinnerService: core.ISpinnerService,
+            protected queryString: common.IQueryStringService,
+            protected tellAFriendPopupService: catalog.ITellAFriendPopupService) {
+            super(
+                $scope,
+                coreService,
+                cartService,
+                productService,
+                addToWishlistPopupService,
+                productSubscriptionPopupService,
+                settingsService,
+                $stateParams,
+                sessionService,
+                spinnerService,
+                queryString,
+                tellAFriendPopupService);
+
             this.spinnerService.show();
-            super.init();
+            super.$onInit();
             this.init();
             this.spinnerService.hide();
             this.localStorage = $localStorage;

@@ -26,7 +26,7 @@ var insite;
                 _this.cartService = cartService;
                 _this.orderService = orderService;
                 _this.canReorderItems = true;
-                _super.prototype.init.call(_this);
+                _super.prototype.$onInit.call(_this);
                 return _this;
             }
             //BUSA-678: Add RMA possibility to the invoice history

@@ -14,7 +14,19 @@
         newWebShopperCustomerNumber = "1055357";
         private invalidAddressException = "Insite.Core.Exceptions.InvalidAddressException";
 
-        static $inject = ["$scope", "cartService", "productSubscriptionPopupService", "addToWishlistPopupService", "spinnerService", "sessionService", "coreService", "addressErrorPopupService", "apiErrorPopupService", "addToCartPopupService", "$rootScope"];
+        static $inject = [
+            "$scope",
+            "cartService",
+            "productSubscriptionPopupService",
+            "addToWishlistPopupService",
+            "spinnerService",
+            "sessionService",
+            "coreService",
+            "addressErrorPopupService",
+            "apiErrorPopupService",
+            "addToCartPopupService",
+            "$rootScope",
+            "settingsService"];
 
         constructor(
             protected $scope: ICartScope,
@@ -27,14 +39,15 @@
             protected addressErrorPopupService: cart.IAddressErrorPopupService,
             protected apiErrorPopupService: core.IApiErrorPopupService,
             protected addToCartPopupService: IAddToCartPopupService,
-            protected $rootScope: ng.IRootScopeService) {
-            super($scope, cartService, productSubscriptionPopupService, addToWishlistPopupService, spinnerService);
-            this.init();
+            protected $rootScope: ng.IRootScopeService,
+            protected settingsService: core.ISettingsService) {
+            super($scope, cartService, productSubscriptionPopupService, addToWishlistPopupService, spinnerService, settingsService);
+            this.$onInit();
 
         }
 
         init(): void {
-            super.init();
+            super.$onInit();
             if (this.sessionService != undefined) {
                 this.sessionService.getSession().then(session => {
                     if (session != null && session != undefined && session.billTo) {

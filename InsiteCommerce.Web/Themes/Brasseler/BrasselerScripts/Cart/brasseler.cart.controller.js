@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerCartController = /** @class */ (function (_super) {
             __extends(BrasselerCartController, _super);
-            function BrasselerCartController($scope, cartService, promotionService, settingsService, coreService, $localStorage, addToWishlistPopupService, spinnerService) {
-                var _this = _super.call(this, $scope, cartService, promotionService, settingsService, coreService, $localStorage, addToWishlistPopupService, spinnerService) || this;
+            function BrasselerCartController($scope, cartService, promotionService, settingsService, coreService, $localStorage, addToWishlistPopupService, spinnerService, sessionService) {
+                var _this = _super.call(this, $scope, cartService, promotionService, settingsService, coreService, $localStorage, addToWishlistPopupService, spinnerService, sessionService) || this;
                 _this.$scope = $scope;
                 _this.cartService = cartService;
                 _this.promotionService = promotionService;
@@ -28,6 +28,7 @@ var insite;
                 _this.$localStorage = $localStorage;
                 _this.addToWishlistPopupService = addToWishlistPopupService;
                 _this.spinnerService = spinnerService;
+                _this.sessionService = sessionService;
                 _this.isCartSubscribed = "";
                 return _this;
             }
@@ -67,7 +68,17 @@ var insite;
                     }
                 });
             };
-            BrasselerCartController.$inject = ["$scope", "cartService", "promotionService", "settingsService", "coreService", "$localStorage", "addToWishlistPopupService", "spinnerService"];
+            BrasselerCartController.$inject = [
+                "$scope",
+                "cartService",
+                "promotionService",
+                "settingsService",
+                "coreService",
+                "$localStorage",
+                "addToWishlistPopupService",
+                "spinnerService",
+                "sessionService"
+            ];
             return BrasselerCartController;
         }(cart_1.CartController));
         cart_1.BrasselerCartController = BrasselerCartController;

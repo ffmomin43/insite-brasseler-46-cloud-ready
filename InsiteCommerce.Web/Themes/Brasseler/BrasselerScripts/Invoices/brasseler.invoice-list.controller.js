@@ -44,7 +44,7 @@ var insite;
                     _this.shipTo.label = _this.shipTo.label.substr(1, _this.shipTo.label.length);
                     _this.getInvoices();
                 });
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerInvoiceListController.prototype.getInvoices = function () {
                 var _this = this;

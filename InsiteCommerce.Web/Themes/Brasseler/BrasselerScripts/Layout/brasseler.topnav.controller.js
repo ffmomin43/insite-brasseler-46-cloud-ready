@@ -18,17 +18,19 @@ var insite;
         "use strict";
         var BrasselerTopNavController = /** @class */ (function (_super) {
             __extends(BrasselerTopNavController, _super);
-            function BrasselerTopNavController($scope, $window, $attrs, sessionService, websiteService, coreService, ipCookie) {
-                var _this = _super.call(this, $scope, $window, $attrs, sessionService, websiteService, coreService) || this;
+            function BrasselerTopNavController($scope, $window, $attrs, sessionService, websiteService, coreService, settingsService, deliveryMethodPopupService, ipCookie) {
+                var _this = _super.call(this, $scope, $window, $attrs, sessionService, websiteService, coreService, settingsService, deliveryMethodPopupService) || this;
                 _this.$scope = $scope;
                 _this.$window = $window;
                 _this.$attrs = $attrs;
                 _this.sessionService = sessionService;
                 _this.websiteService = websiteService;
                 _this.coreService = coreService;
+                _this.settingsService = settingsService;
+                _this.deliveryMethodPopupService = deliveryMethodPopupService;
                 _this.ipCookie = ipCookie;
+                _this.$onInit();
                 return _this;
-                //this.init();// BUSA-1350: No need to call init() method, increases api call for api/v1/website on Home Page
             }
             BrasselerTopNavController.prototype.setLanguage = function (languageId) {
                 var _this = this;
@@ -46,7 +48,7 @@ var insite;
                     }
                 }
             };
-            BrasselerTopNavController.$inject = ["$scope", "$window", "$attrs", "sessionService", "websiteService", "coreService", "ipCookie",];
+            BrasselerTopNavController.$inject = ["$scope", "$window", "$attrs", "sessionService", "websiteService", "coreService", "settingsService", "deliveryMethodPopupService", "ipCookie",];
             return BrasselerTopNavController;
         }(layout.TopNavController));
         layout.BrasselerTopNavController = BrasselerTopNavController;

@@ -39,7 +39,7 @@ var insite;
                 return _this;
             }
             BrasselerSelectCustomerController.prototype.init = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
                 //BUSA_1140: Create account page is displayed when user logs into the website.
                 this.returnUrl = this.queryString.get("returnUrl");
                 if (!this.returnUrl || this.returnUrl.includes("CreateAccount")) {

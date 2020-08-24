@@ -1,11 +1,3 @@
-var GetOutstandingInvoicesDto = InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.GetOutstandingInvoicesDto;
-var GetOutstandingOrderDto = InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.GetOutstandingOrderDto;
-var OutstandingOrderModel = InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.OutstandingOrderModel;
-var OutstandingOrder = InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.OutstandingOrder;
-var OrderHeaderModel = InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.OrderHeaderModel;
-var ArOpenInvoicesResult = InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.AROpenInvoicesResultDto;
-var ArOpenInvoices = InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.AROpenInvoicesDto;
-var OpenInvoice = InSiteCommerce.Brasseler.CustomAPI.WebApi.Dtos.Invoices;
 var insite;
 (function (insite) {
     var outstandinginvoices;

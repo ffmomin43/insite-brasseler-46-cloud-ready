@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerQuickOrderPageController = /** @class */ (function (_super) {
             __extends(BrasselerQuickOrderPageController, _super);
-            function BrasselerQuickOrderPageController($scope, $filter, coreService, cartService, productService, searchService, settingsService, addToWishlistPopupService, sessionService, spinnerService) {
-                var _this = _super.call(this, $scope, $filter, coreService, cartService, productService, searchService, settingsService, addToWishlistPopupService) || this;
+            function BrasselerQuickOrderPageController($scope, $filter, coreService, cartService, productService, searchService, settingsService, addToWishlistPopupService, sessionService, spinnerService, selectVariantProductPopupService, $q) {
+                var _this = _super.call(this, $scope, $filter, coreService, cartService, productService, searchService, settingsService, addToWishlistPopupService, selectVariantProductPopupService, $q) || this;
                 _this.$scope = $scope;
                 _this.$filter = $filter;
                 _this.coreService = coreService;
@@ -30,6 +30,8 @@ var insite;
                 _this.addToWishlistPopupService = addToWishlistPopupService;
                 _this.sessionService = sessionService;
                 _this.spinnerService = spinnerService;
+                _this.selectVariantProductPopupService = selectVariantProductPopupService;
+                _this.$q = $q;
                 _this.isNewUser = false;
                 _this.newWebShopperCustomerNumber = "1055357";
                 console.log('inside custom method');
@@ -37,7 +39,7 @@ var insite;
                 //this.init();
             }
             BrasselerQuickOrderPageController.prototype.init = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerQuickOrderPageController.prototype.getProductCompleted = function (product) {
                 var _this = this;
@@ -64,7 +66,7 @@ var insite;
                     _this.spinnerService.hide();
                 });
             };
-            BrasselerQuickOrderPageController.$inject = ["$scope", "$filter", "coreService", "cartService", "productService", "searchService", "settingsService", "addToWishlistPopupService", "sessionService", "spinnerService"];
+            BrasselerQuickOrderPageController.$inject = ["$scope", "$filter", "coreService", "cartService", "productService", "searchService", "settingsService", "addToWishlistPopupService", "sessionService", "spinnerService", "selectVariantProductPopupService", "$q"];
             return BrasselerQuickOrderPageController;
         }(quickorder.QuickOrderPageController));
         quickorder.BrasselerQuickOrderPageController = BrasselerQuickOrderPageController;

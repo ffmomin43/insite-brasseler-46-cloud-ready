@@ -19,7 +19,7 @@
             protected cartService: cart.ICartService,
             protected orderService: order.IOrderService) {
             super(invoiceService, coreService, queryString)
-            super.init();
+            super.$onInit();
         }
 
         //BUSA-678: Add RMA possibility to the invoice history

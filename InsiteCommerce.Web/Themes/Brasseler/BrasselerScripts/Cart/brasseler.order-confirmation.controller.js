@@ -18,16 +18,17 @@ var insite;
         "use strict";
         var BrasselerOrderConfirmationController = /** @class */ (function (_super) {
             __extends(BrasselerOrderConfirmationController, _super);
-            function BrasselerOrderConfirmationController(cartService, promotionService, queryString, orderService, sessionService, settingsService) {
-                var _this = _super.call(this, cartService, promotionService, queryString, orderService, sessionService, settingsService) || this;
+            function BrasselerOrderConfirmationController(cartService, promotionService, queryString, orderService, sessionService, settingsService, addToWishlistPopupService) {
+                var _this = _super.call(this, cartService, promotionService, queryString, orderService, sessionService, settingsService, addToWishlistPopupService) || this;
                 _this.cartService = cartService;
                 _this.promotionService = promotionService;
                 _this.queryString = queryString;
                 _this.orderService = orderService;
                 _this.sessionService = sessionService;
                 _this.settingsService = settingsService;
+                _this.addToWishlistPopupService = addToWishlistPopupService;
                 _this.isCartSubscribed = false;
-                _super.prototype.init.call(_this);
+                _super.prototype.$onInit.call(_this);
                 return _this;
             }
             BrasselerOrderConfirmationController.prototype.getConfirmedCartCompleted = function (confirmedCart) {
@@ -91,7 +92,7 @@ var insite;
                     this.frequencyMap = JSON.parse(this.cart.properties["subscriptionFrequency"]);
                 }
             };
-            BrasselerOrderConfirmationController.$inject = ["cartService", "promotionService", "queryString", "orderService", "sessionService", "settingsService"];
+            BrasselerOrderConfirmationController.$inject = ["cartService", "promotionService", "queryString", "orderService", "sessionService", "settingsService", "addToWishlistPopupService"];
             return BrasselerOrderConfirmationController;
         }(cart.OrderConfirmationController));
         cart.BrasselerOrderConfirmationController = BrasselerOrderConfirmationController;

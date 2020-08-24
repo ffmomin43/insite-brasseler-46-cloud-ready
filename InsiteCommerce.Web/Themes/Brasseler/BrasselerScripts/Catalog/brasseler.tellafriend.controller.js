@@ -19,15 +19,18 @@ var insite;
         //grecaptcha is the javascript reference to the google/api.js for the recaptcha validation
         var BrasselerTellAFriendController = /** @class */ (function (_super) {
             __extends(BrasselerTellAFriendController, _super);
-            function BrasselerTellAFriendController($scope, emailService) {
-                var _this = _super.call(this, $scope, emailService) || this;
+            function BrasselerTellAFriendController($scope, emailService, $timeout, coreService, tellAFriendPopupService) {
+                var _this = _super.call(this, $scope, emailService, $timeout, coreService, tellAFriendPopupService) || this;
                 _this.$scope = $scope;
                 _this.emailService = emailService;
+                _this.$timeout = $timeout;
+                _this.coreService = coreService;
+                _this.tellAFriendPopupService = tellAFriendPopupService;
                 _this.init();
                 return _this;
             }
             BrasselerTellAFriendController.prototype.init = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerTellAFriendController.prototype.shareWithFriend = function () {
                 var _this = this;
@@ -60,7 +63,7 @@ var insite;
                 this.isError = false;
                 angular.element("#TellAFriendDialogContainer").foundation('reveal', 'close');
             };
-            BrasselerTellAFriendController.$inject = ["$scope", "emailService"];
+            BrasselerTellAFriendController.$inject = ["$scope", "emailService", "$timeout", "coreService", "tellAFriendPopupService"];
             return BrasselerTellAFriendController;
         }(catalog.TellAFriendController));
         catalog.BrasselerTellAFriendController = BrasselerTellAFriendController;

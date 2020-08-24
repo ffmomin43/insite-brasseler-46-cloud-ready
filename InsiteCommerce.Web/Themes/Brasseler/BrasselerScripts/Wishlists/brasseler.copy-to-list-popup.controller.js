@@ -27,13 +27,8 @@ var insite;
                     _this.mylistDetailModel = list;
                     _this.clearMessages();
                     _this.newListName = "";
-                    _this.wishListService.getWishLists().then(function (listCollection) { _this.getListCollectionCompleted(listCollection); }, function (error) { _this.getListCollectionFailed(error); });
+                    _this.wishListService.getWishLists().then(function (listCollection) { }, function (error) { _this.getListCollectionFailed(error); });
                 });
-            };
-            BrasselerCopyToListPopupController.prototype.getListCollectionCompleted = function (listCollection) {
-                var _this = this;
-                this.listCollection = listCollection.wishListCollection.filter(function (o) { return o.id !== _this.mylistDetailModel.id; });
-                this.coreService.displayModal(angular.element("#popup-copy-list")); //BUSA-1073 Moved popup call after service call
             };
             return BrasselerCopyToListPopupController;
         }(wishlist.CopyToListPopupController));

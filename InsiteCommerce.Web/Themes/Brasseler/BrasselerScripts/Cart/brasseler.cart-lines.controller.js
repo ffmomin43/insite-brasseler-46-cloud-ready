@@ -18,8 +18,8 @@ var insite;
         "use strict";
         var BrasselerCartLinesController = /** @class */ (function (_super) {
             __extends(BrasselerCartLinesController, _super);
-            function BrasselerCartLinesController($scope, cartService, productSubscriptionPopupService, addToWishlistPopupService, spinnerService, sessionService, coreService, addressErrorPopupService, apiErrorPopupService, addToCartPopupService, $rootScope) {
-                var _this = _super.call(this, $scope, cartService, productSubscriptionPopupService, addToWishlistPopupService, spinnerService) || this;
+            function BrasselerCartLinesController($scope, cartService, productSubscriptionPopupService, addToWishlistPopupService, spinnerService, sessionService, coreService, addressErrorPopupService, apiErrorPopupService, addToCartPopupService, $rootScope, settingsService) {
+                var _this = _super.call(this, $scope, cartService, productSubscriptionPopupService, addToWishlistPopupService, spinnerService, settingsService) || this;
                 _this.$scope = $scope;
                 _this.cartService = cartService;
                 _this.productSubscriptionPopupService = productSubscriptionPopupService;
@@ -31,18 +31,19 @@ var insite;
                 _this.apiErrorPopupService = apiErrorPopupService;
                 _this.addToCartPopupService = addToCartPopupService;
                 _this.$rootScope = $rootScope;
+                _this.settingsService = settingsService;
                 _this.openLineNoteId = "";
                 _this.isUpdateInProgress = false;
                 _this.testbool = true;
                 _this.isNewUser = false;
                 _this.newWebShopperCustomerNumber = "1055357";
                 _this.invalidAddressException = "Insite.Core.Exceptions.InvalidAddressException";
-                _this.init();
+                _this.$onInit();
                 return _this;
             }
             BrasselerCartLinesController.prototype.init = function () {
                 var _this = this;
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
                 if (this.sessionService != undefined) {
                     this.sessionService.getSession().then(function (session) {
                         if (session != null && session != undefined && session.billTo) {
@@ -186,7 +187,20 @@ var insite;
             BrasselerCartLinesController.prototype.sortFilter = function (input) {
                 return parseInt(input.value);
             };
-            BrasselerCartLinesController.$inject = ["$scope", "cartService", "productSubscriptionPopupService", "addToWishlistPopupService", "spinnerService", "sessionService", "coreService", "addressErrorPopupService", "apiErrorPopupService", "addToCartPopupService", "$rootScope"];
+            BrasselerCartLinesController.$inject = [
+                "$scope",
+                "cartService",
+                "productSubscriptionPopupService",
+                "addToWishlistPopupService",
+                "spinnerService",
+                "sessionService",
+                "coreService",
+                "addressErrorPopupService",
+                "apiErrorPopupService",
+                "addToCartPopupService",
+                "$rootScope",
+                "settingsService"
+            ];
             return BrasselerCartLinesController;
         }(cart_1.CartLinesController));
         cart_1.BrasselerCartLinesController = BrasselerCartLinesController;

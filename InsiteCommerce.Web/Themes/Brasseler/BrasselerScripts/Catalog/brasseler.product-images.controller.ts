@@ -5,17 +5,18 @@
 
     export class BrasselerProductImagesController extends ProductImagesController {
 
-        static $inject = ["$scope", "cartService" ];
+        static $inject = ["$scope", "cartService","coreService" ];
     
        constructor(protected $scope: ng.IScope,
-            protected cartService: cart.ICartService
+           protected cartService: cart.ICartService,
+           protected coreService: core.ICoreService
             ) {
-            super($scope);
+           super($scope, coreService);
             this.init();
         }
 
         init() {
-            super.init();
+            super.$onInit();
             if (this.cartService != undefined) {
                 this.cartService.getCart().then(result => {
                     grecaptcha.render('lblrecapResultp', {

@@ -48,7 +48,7 @@
             });
             //});
             //End : BUSA-695 : Saved orders page should display with updated price if admin updates price list.
-            super.init();
+            super.$onInit();
         }
 
         //BUSA-524 : Saved Orders and Wishlist Pricing update start.
@@ -87,7 +87,7 @@
                         this.addToCartPopupService.display({ isQtyAdjusted: result.properties['isQtyAdjusted'] == 'True', showAddToCartPopup: true });
                         this.$rootScope.$broadcast("cartChanged");
                     }
-                    super.init();
+                    super.$onInit();
                 });
                 this.spinnerService.show();
             }

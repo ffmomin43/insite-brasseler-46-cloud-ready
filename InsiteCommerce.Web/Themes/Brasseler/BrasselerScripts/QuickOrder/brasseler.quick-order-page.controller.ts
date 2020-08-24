@@ -2,7 +2,7 @@
     "use strict";
 
     export class BrasselerQuickOrderPageController extends QuickOrderPageController {
-        static $inject = ["$scope", "$filter", "coreService", "cartService", "productService", "searchService", "settingsService", "addToWishlistPopupService", "sessionService", "spinnerService"];
+        static $inject = ["$scope", "$filter", "coreService", "cartService", "productService", "searchService", "settingsService", "addToWishlistPopupService", "sessionService", "spinnerService", "selectVariantProductPopupService","$q"];
 
         isNewUser: boolean = false;
         newWebShopperCustomerNumber = "1055357";
@@ -17,14 +17,26 @@
             protected settingsService: core.ISettingsService,
             protected addToWishlistPopupService: wishlist.AddToWishlistPopupService,
             protected sessionService: account.ISessionService,
-            protected spinnerService: core.ISpinnerService) {
-            super($scope, $filter, coreService, cartService, productService, searchService, settingsService, addToWishlistPopupService)
+            protected spinnerService: core.ISpinnerService,
+            protected selectVariantProductPopupService: SelectVariantProductPopupService,
+            protected $q: ng.IQService) {
+            super(
+                $scope,
+                $filter,
+                coreService,
+                cartService, productService,
+                searchService,
+                settingsService,
+                addToWishlistPopupService,
+                selectVariantProductPopupService,
+                $q
+            )
             console.log('inside custom method');
             //this.init();
         }
 
         init(): void {
-            super.init();
+            super.$onInit();
         }
 
         getProductCompleted(product: ProductModel): void {

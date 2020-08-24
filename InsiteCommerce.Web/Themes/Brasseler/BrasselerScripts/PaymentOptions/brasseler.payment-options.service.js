@@ -1,5 +1,3 @@
-var UserPaymentProfileModel = InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.UserPaymentProfileModel;
-var UserPaymentProfileCollectionModel = InSiteCommerce.Brasseler.CustomAPI.WebApi.ApiModels.UserPaymentProfileCollectionModel;
 var insite;
 (function (insite) {
     var paymentoptions;

@@ -35,7 +35,7 @@ var insite;
                 return _this;
             }
             BrasselerCompareProductsController.prototype.init = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
             };
             BrasselerCompareProductsController.prototype.addToCart = function (product) {
                 var _this = this;

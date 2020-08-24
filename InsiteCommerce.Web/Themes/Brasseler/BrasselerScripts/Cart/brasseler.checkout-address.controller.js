@@ -19,8 +19,8 @@ var insite;
         "use strict";
         var BrasselerCheckoutAddressController = /** @class */ (function (_super) {
             __extends(BrasselerCheckoutAddressController, _super);
-            function BrasselerCheckoutAddressController($scope, $window, cartService, customerService, websiteService, coreService, queryString, accountService, settingsService, $timeout, $q, sessionService, $localStorage, spinnerService, $rootScope) {
-                var _this = _super.call(this, $scope, $window, cartService, customerService, websiteService, coreService, queryString, accountService, settingsService, $timeout, $q, sessionService, $localStorage, $rootScope) || this;
+            function BrasselerCheckoutAddressController($scope, $window, cartService, customerService, websiteService, coreService, queryString, accountService, settingsService, $timeout, $q, sessionService, $localStorage, spinnerService, $attrs, $rootScope) {
+                var _this = _super.call(this, $scope, $window, cartService, customerService, websiteService, coreService, queryString, accountService, settingsService, $timeout, $q, sessionService, $localStorage, $attrs, $rootScope) || this;
                 _this.$scope = $scope;
                 _this.$window = $window;
                 _this.cartService = cartService;
@@ -35,6 +35,7 @@ var insite;
                 _this.sessionService = sessionService;
                 _this.$localStorage = $localStorage;
                 _this.spinnerService = spinnerService;
+                _this.$attrs = $attrs;
                 _this.$rootScope = $rootScope;
                 //BUSA-572 start : Acct#63952- po box is invalid Address1 error message is displayed during checkout
                 _this.pattern = /(p[\_\-\.\s]?o.?[\_\.\-\s]?|postoffice|post office\s)b(\d+|\.|ox\d+|ox)?\b/igm;
@@ -45,11 +46,11 @@ var insite;
                 _this.acceptTermsConditions = false;
                 _this.selectedItem = false; //BUSA-372 : Add "same as Billing Address" check box in Checkout page for new User.
                 _this.IsSubscriptionOptedTemp = false; //BUSA-1069  : Hide "Create One Time Shipping Address" in the checkout for smart supply
-                _super.prototype.init.call(_this);
                 _this.init();
                 return _this;
             }
             BrasselerCheckoutAddressController.prototype.init = function () {
+                this.$onInit();
                 if (this.spinnerService != undefined) {
                     this.spinnerService.show();
                 }
@@ -710,6 +711,7 @@ var insite;
                 "sessionService",
                 "$localStorage",
                 "spinnerService",
+                "$attrs",
                 "$rootScope"
             ];
             return BrasselerCheckoutAddressController;

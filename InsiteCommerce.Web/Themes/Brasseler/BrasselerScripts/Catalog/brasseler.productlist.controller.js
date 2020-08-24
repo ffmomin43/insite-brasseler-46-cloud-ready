@@ -19,7 +19,7 @@ var insite;
         var BrasselerProductListController = /** @class */ (function (_super) {
             __extends(BrasselerProductListController, _super);
             function BrasselerProductListController($scope, coreService, cartService, productService, compareProductsService, $rootScope, $window, $localStorage, paginationService, $q, searchService, spinnerService, addToWishlistPopupService, settingsService, $stateParams, queryString, $location, sessionService, brasselerCartService, ipCookie) {
-                var _this = _super.call(this, $scope, coreService, cartService, productService, compareProductsService, $rootScope, $window, $localStorage, paginationService, searchService, spinnerService, addToWishlistPopupService, settingsService, $stateParams, queryString, $location) || this;
+                var _this = _super.call(this, $scope, coreService, cartService, productService, compareProductsService, $rootScope, $window, $localStorage, paginationService, searchService, spinnerService, addToWishlistPopupService, settingsService, $stateParams, queryString, $location, sessionService) || this;
                 _this.$scope = $scope;
                 _this.coreService = coreService;
                 _this.cartService = cartService;
@@ -58,7 +58,7 @@ var insite;
                 this.$scope.$on("addToCartList", function (event, data) {
                     _this.showAddToCartPopup();
                 });
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
                 // BUSA-636 : Pricing2018 Changes. Added new function to group message on PLP
                 var path = window.location.pathname;
                 var showPopUp = false;

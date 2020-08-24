@@ -3,7 +3,7 @@
 
     export class BrasselerTopNavController extends TopNavController {
 
-        static $inject = ["$scope","$window", "$attrs", "sessionService", "websiteService", "coreService", "ipCookie",];
+        static $inject = ["$scope", "$window", "$attrs", "sessionService", "websiteService", "coreService", "settingsService", "deliveryMethodPopupService", "ipCookie",];
 
         constructor(
             protected $scope: ng.IScope,
@@ -12,9 +12,20 @@
             protected sessionService: account.ISessionService,
             protected websiteService: websites.IWebsiteService,
             protected coreService: core.ICoreService,
+            protected settingsService: core.ISettingsService,
+            protected deliveryMethodPopupService: account.IDeliveryMethodPopupService,
             protected ipCookie: any) {
-            super($scope,$window, $attrs, sessionService, websiteService, coreService);
-            //this.init();// BUSA-1350: No need to call init() method, increases api call for api/v1/website on Home Page
+            super(
+                $scope,
+                $window,
+                $attrs,
+                sessionService,
+                websiteService,
+                coreService,
+                settingsService,
+                deliveryMethodPopupService
+            );
+            this.$onInit();
         }
 
         setLanguage(languageId: string): void {

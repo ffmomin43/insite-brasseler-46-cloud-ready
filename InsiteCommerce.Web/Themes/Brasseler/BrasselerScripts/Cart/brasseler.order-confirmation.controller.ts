@@ -10,7 +10,7 @@
         deactivationDate: Date;
         nextShipDate: Date;
 
-        static $inject = ["cartService", "promotionService", "queryString", "orderService", "sessionService", "settingsService"];
+        static $inject = ["cartService", "promotionService", "queryString", "orderService", "sessionService", "settingsService","addToWishlistPopupService"];
 
         constructor(
             protected cartService: ICartService,
@@ -18,9 +18,10 @@
             protected queryString: common.IQueryStringService,
             protected orderService: order.IOrderService,
             protected sessionService: account.ISessionService,
-            protected settingsService: core.ISettingsService) {
-            super(cartService, promotionService, queryString, orderService, sessionService, settingsService);
-            super.init();
+            protected settingsService: core.ISettingsService,            
+            protected addToWishlistPopupService: wishlist.AddToWishlistPopupService) {
+            super(cartService, promotionService, queryString, orderService, sessionService, settingsService, addToWishlistPopupService);
+            super.$onInit();
         }
 
         protected getConfirmedCartCompleted(confirmedCart: CartModel): void {

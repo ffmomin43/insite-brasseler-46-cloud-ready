@@ -50,8 +50,19 @@
             protected deleteListPopupService: IDeleteListPopupService,
             protected copyToListPopupService: ICopyToListPopupService
         ) {
-            super($scope, settingsService, queryString, wishListService, cartService, productService, sessionService, $timeout, $interval, coreService, spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, createListPopupService, deleteListPopupService, copyToListPopupService);
-            super.init();
+            super(
+                $scope,
+                settingsService,
+                queryString,
+                wishListService,
+                cartService,
+                productService,
+                sessionService,
+                $timeout,
+                $interval,
+                coreService,
+                spinnerService, $location, shareListPopupService, uploadToListPopupService, $localStorage, searchService, productPriceService, paginationService, createListPopupService, deleteListPopupService, copyToListPopupService);
+            super.$onInit();
         }
 
         displayPopup(htmlElement: string) {

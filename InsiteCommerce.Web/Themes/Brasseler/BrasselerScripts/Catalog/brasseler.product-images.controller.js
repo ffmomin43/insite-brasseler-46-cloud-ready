@@ -18,15 +18,16 @@ var insite;
         "use strict";
         var BrasselerProductImagesController = /** @class */ (function (_super) {
             __extends(BrasselerProductImagesController, _super);
-            function BrasselerProductImagesController($scope, cartService) {
-                var _this = _super.call(this, $scope) || this;
+            function BrasselerProductImagesController($scope, cartService, coreService) {
+                var _this = _super.call(this, $scope, coreService) || this;
                 _this.$scope = $scope;
                 _this.cartService = cartService;
+                _this.coreService = coreService;
                 _this.init();
                 return _this;
             }
             BrasselerProductImagesController.prototype.init = function () {
-                _super.prototype.init.call(this);
+                _super.prototype.$onInit.call(this);
                 if (this.cartService != undefined) {
                     this.cartService.getCart().then(function (result) {
                         grecaptcha.render('lblrecapResultp', {
@@ -35,7 +36,7 @@ var insite;
                     });
                 }
             };
-            BrasselerProductImagesController.$inject = ["$scope", "cartService"];
+            BrasselerProductImagesController.$inject = ["$scope", "cartService", "coreService"];
             return BrasselerProductImagesController;
         }(catalog.ProductImagesController));
         catalog.BrasselerProductImagesController = BrasselerProductImagesController;

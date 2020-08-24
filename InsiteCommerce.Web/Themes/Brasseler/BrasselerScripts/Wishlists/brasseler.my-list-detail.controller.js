@@ -41,7 +41,7 @@ var insite;
                 _this.createListPopupService = createListPopupService;
                 _this.deleteListPopupService = deleteListPopupService;
                 _this.copyToListPopupService = copyToListPopupService;
-                _super.prototype.init.call(_this);
+                _super.prototype.$onInit.call(_this);
                 return _this;
             }
             BrasselerMyListDetailController.prototype.displayPopup = function (htmlElement) {
