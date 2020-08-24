@@ -56,6 +56,8 @@ namespace Insite.PaymentGateway.Cenpos
             set;
         }
 
+        public bool SupportsReversalTransaction => throw new NotImplementedException();
+
         public PaymentGatewayCenpos( IUnitOfWorkFactory unitOfWorkFactory, CenposSettings cenposSettings)
         {
             this.UnitOfWork = unitOfWorkFactory.GetUnitOfWork();

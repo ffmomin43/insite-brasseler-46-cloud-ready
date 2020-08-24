@@ -8,7 +8,6 @@ using InSiteCommerce.Brasseler.SystemSetting.Groups;
 using System;
 using System.Net.Http;
 using System.Text;
-using System.Web.Script.Serialization;
 using InSiteCommerce.Brasseler.CustomAPI.Data.Entities;
 using InSiteCommerce.Brasseler.CustomAPI.WebApi.V1.ApiModels.RMA.ShipRequestModel;
 using InSiteCommerce.Brasseler.CustomAPI.WebApi.V1.ApiModels.RMA.ShipResponseModel;
@@ -17,6 +16,7 @@ using System.Linq;
 using Insite.Core.Context;
 using Insite.Order.Services.Dtos;
 using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace InSiteCommerce.Brasseler.Services.Handlers.Rma
 {

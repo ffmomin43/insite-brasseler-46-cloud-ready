@@ -3,7 +3,7 @@ using Insite.Core.Interfaces.Data;
 using Insite.Core.Plugins.Utilities;
 using Insite.Core.Services;
 using Insite.Core.WebApi;
-using Insite.PunchOut.HttpHandlers.Interfaces;
+using Insite.PunchOut.Services;
 using InSiteCommerce.Brasseler.CustomAPI.Plugins.Helper;
 using InSiteCommerce.Brasseler.CustomAPI.Services;
 using InSiteCommerce.Brasseler.CustomAPI.WebApi.V1.ApiModels;
