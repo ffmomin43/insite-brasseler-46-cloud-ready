@@ -835,6 +835,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Extention\Extention.csproj">
+      <Project>{d9ab815a-a638-4ab5-bae8-db3e4d185872}</Project>
+      <Name>Extention</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
