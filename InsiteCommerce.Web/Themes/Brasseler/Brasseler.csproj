@@ -808,80 +808,7 @@
     <Content Include="Views\Shared\_MainLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Pages\AccountSettingsPage\Standard.cshtml" />
     <Content Include="Views\Pages\BrasselerCatalogNavigationPage\Standard.cshtml" />
-    <Content Include="Views\Pages\BrasselerLanguagePeferencePage\Standard.cshtml" />
-    <Content Include="Views\Pages\BrasselerOutstandingInvoicesDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\BrasselerOutstandingInvoicesListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\BrasselerPaymentOptionsPage\Standard.cshtml" />
-    <Content Include="Views\Pages\BrasselerSmartSupplyDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\BrasselerSmartSupplyListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\BudgetPage\Standard.cshtml" />
-    <Content Include="Views\Pages\CartPage\Standard.cshtml" />
-    <Content Include="Views\Pages\CatalogNavigationPage\Navigation\B2C.cshtml" />
-    <Content Include="Views\Pages\CatalogNavigationPage\Navigation\Standard.cshtml" />
-    <Content Include="Views\Pages\CatalogNavigationPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ChangeAccountPasswordPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ChangeCustomerPage\Standard.cshtml" />
-    <Content Include="Views\Pages\CheckoutAddressPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ContentPage\FullPage.cshtml" />
-    <Content Include="Views\Pages\ContentPage\Navigation\B2C.cshtml" />
-    <Content Include="Views\Pages\ContentPage\Navigation\Standard.cshtml" />
-    <Content Include="Views\Pages\CreateAccountPage\Standard.cshtml" />
-    <Content Include="Views\Pages\DealerDirectionsPage\Standard.cshtml" />
-    <Content Include="Views\Pages\DealerLocatorPage\Standard.cshtml" />
-    <Content Include="Views\Pages\DealerPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ErrorPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ExpiredAccountActivationLinkPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ExpiredResetPasswordLinkPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ExternalLinkPage\Standard.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Pages\ForbiddenErrorPage\Standard.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Pages\HomePage\FullPage.cshtml" />
-    <Content Include="Views\Pages\InvoiceDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\InvoicesPage\Standard.cshtml" />
-    <Content Include="Views\Pages\JobQuoteDetailsPage\Standard.cshtml" />
-    <Content Include="Views\Pages\MyAccountAddressPage\Standard.cshtml" />
-    <Content Include="Views\Pages\MyAccountPage\Standard.cshtml" />
-    <Content Include="Views\Pages\MyJobQuotesPage\Standard.cshtml" />
-    <Content Include="Views\Pages\MyListDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\MyListsPage\Standard.cshtml" />
-    <Content Include="Views\Pages\NewsList\Standard.cshtml" />
-    <Content Include="Views\Pages\NewsPage\Standard.cshtml" />
-    <Content Include="Views\Pages\NotFoundErrorPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderApprovalDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderApprovalListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderConfirmationPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrdersPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderStatusLookupPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderStatusPage\Standard.cshtml" />
-    <Content Include="Views\Pages\OrderUploadPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ProductComparisonPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ProductDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ProductListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\QuickOrderPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RequestRmaPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RequisitionConfirmationPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RequisitionPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ResetPasswordPage\Standard.cshtml" />
-    <Content Include="Views\Pages\ReviewAndPayPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RfqConfirmationPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RfqMyQuotesPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RfqQuoteDetailsPage\Standard.cshtml" />
-    <Content Include="Views\Pages\RfqRequestQuotePage\Standard.cshtml" />
-    <Content Include="Views\Pages\SavedOrderDetailPage\Standard.cshtml" />
-    <Content Include="Views\Pages\SavedOrderListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\SignInPage\Standard.cshtml" />
-    <Content Include="Views\Pages\StaticListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\TemplatePage\FullPage.cshtml" />
-    <Content Include="Views\Pages\TemplatePage\NewsTemplate.cshtml" />
-    <Content Include="Views\Pages\UserListPage\Standard.cshtml" />
-    <Content Include="Views\Pages\UserSetupPage\Standard.cshtml" />
-    <Content Include="Views\Pages\UserSetupShipToPage\Standard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Directives\LanguagePreference\LanguagePreferenceView.cshtml" />
@@ -900,9 +827,6 @@
     <Content Include="Views\Directives\SmartSupply\ShipNowPopup.cshtml" />
     <Content Include="Views\Directives\SmartSupply\SmartSupplyDetailView.cshtml" />
     <Content Include="Views\Directives\SmartSupply\SmartSupplyListView.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Pages\WishListPage\Standard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pages\_ViewStart.cshtml" />
