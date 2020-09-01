@@ -1,8 +1,0 @@
-﻿@using Insite.Core.Context
-@model Insite.Rfq.Content.RfqMyQuotesPage
-
-<div class="row main-row ma-my-quotes @(SiteContext.Current.UserProfileDto.Salespersons.Count > 0 ? "ma-my-quotes" : "")">
-    <div class="medium-12 large-12 columns">
-        @Html.Zone(Model, "Content")
-    </div>
-</div>

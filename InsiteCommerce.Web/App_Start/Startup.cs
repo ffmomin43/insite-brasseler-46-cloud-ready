@@ -7,10 +7,12 @@
 namespace InsiteCommerce.Web
 {
     using System.Web.Routing;
+    using DotLiquid;
     using Insite.Core.Interfaces.Data;
     using Insite.SystemResources;
     using Insite.WebFramework.Mvc;
     using Insite.WebFramework.Routing;
+    using InSiteCommerce.Brasseler.Tags;
     using Owin;
 
     public partial class Startup
@@ -37,6 +39,9 @@ namespace InsiteCommerce.Web
 
             // load any custom dot liquid tags here
             // Template.RegisterTag<MyCustomTag>("myCustomTag");
+
+            Template.RegisterTag<BrasselerNavigationMenuTag>("BrasselerNavigationMenu");
+            Template.RegisterTag<WhiteSpaceRegex>("WhiteSpaceRegex");
         }
 
         protected override void RegisterCustomRoutes(RouteCollection routes, IRouteProvider routeProvider)
