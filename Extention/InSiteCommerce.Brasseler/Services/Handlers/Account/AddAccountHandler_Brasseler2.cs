@@ -60,7 +60,7 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
 
         public override AddAccountResult Execute(IUnitOfWork unitOfWork, AddAccountParameter parameter, AddAccountResult result)
         {
-            IDataProviderConfiguration configuration = unitOfWork.DataProvider.GetConfiguration();
+            
             UserProfileDto userProfiledto = SiteContext.Current.UserProfileDto;
             UserProfile userProfile = unitOfWork.GetRepository<UserProfile>().Get(SiteContext.Current.UserProfileDto.Id);
             var companyNameIdentifier = customSettings.CompanyNameIdentifier;
@@ -191,7 +191,7 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
                 }
 
                 unitOfWork.Save();
-                unitOfWork.DataProvider.SetConfiguration(configuration);
+                
                 AddSessionResult addSessionResult = this.SessionService.AddSession(new AddSessionParameter(parameter.UserName, parameter.Password));
                 if (addSessionResult.ResultCode != ResultCode.Success)
                     return this.CreateErrorServiceResult<AddAccountResult>(result, addSessionResult.SubCode, addSessionResult.Message);
