@@ -56,15 +56,12 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
             if (parameter.Password == "1")
             {
                 bool isMigratedUser = false;
-                var userdata = unitOfWork.GetRepository<UserProfile>().GetTable().FirstOrDefault(u => u.UserName == parameter.UserName);
+                UserProfile userdata = GetUserProfileByUsername(unitOfWork,parameter.UserName); 
                 if (userdata != null)
                 {
-                    var importUser = unitOfWork.GetRepository<CustomProperty>().GetTable().FirstOrDefault(c => c.ParentId == userdata.Id && c.Name == "IsMigratedUser" && c.Value == "true");
-                    if (importUser != null)
-                    {
-                        isMigratedUser = true;
-                    }
+                    isMigratedUser = userdata.CustomProperties.Any(x => x.Name == "IsMigratedUser" && x.Value == "true");                     
                 }
+
                 if (isMigratedUser)
                 {
                     return this.CreateErrorServiceResult<AddAccountResult>(result, result.SubCode, "IsMigratedUser");
@@ -72,9 +69,9 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
                 else
                 {
                     return this.CreateErrorServiceResult<AddAccountResult>(result, result.SubCode, "IsNotMigratedUser");
-                }
-                //return this.CreateServiceResult<AddAccountResult>(result, ResultCode.Success, result.SubCode, "IsMigratedUser");    
+                }               
             }
+
             // brasseler password logic
             if (parameter.Password != null)
             {
@@ -88,7 +85,7 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
             {
                 if (parameter.Properties["IsCustomerNumberProvided"] == "1")
                 {
-                    var isValidCustomer = 0;
+                    bool isValidCustomer = false;
 
                     //change for BUSA-403 start
                     var companyNameIdentifier = customSettings.CompanyNameIdentifier;
@@ -100,23 +97,12 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
                         string CustomerNumber = companyNameIdentifier + parameter.Properties["CustomerNumber"];
                         //change for BUSA-403 end
 
-                        string ZipCode = parameter.Properties["ZipCode"];
-                        ZipCode = ZipCode.Length <= 5 ? ZipCode : ZipCode.Substring(0, 5);
-                        var isValidCustomers =
-                            unitOfWork.GetRepository<Customer>()
-                                .GetTable()
-                                .Where(cn => cn.CustomerNumber == CustomerNumber)
-                                .Where(zip => (zip.PostalCode.Length <= 5 ? zip.PostalCode : zip.PostalCode.Substring(0, 5)) == ZipCode)
-                                .Where(a => a.IsActive == true)
-                                .Where(b => b.IsBillTo == true);
-                        isValidCustomer = isValidCustomers.Count();
-                        if (isValidCustomer > 0)
-                        {
-                            parameter.Properties["ZipCode"] = isValidCustomers.FirstOrDefault().PostalCode;
-                        }
+                        string zipCode = GetZipCode(parameter.Properties["ZipCode"]);
+
+                        isValidCustomer = IsCustomerAndZipValid(unitOfWork,CustomerNumber, zipCode);                        
                     }
 
-                    if (isValidCustomer == 0)
+                    if (isValidCustomer)
                     {
                         return this.CreateErrorServiceResult<AddAccountResult>(result, SubCode.AccountServiceAccountDoesNotExist, "Provided CustomerNumber/ZipCode is incorrect");
                     }
@@ -125,5 +111,44 @@ namespace InSiteCommerce.Brasseler.Services.Handlers.Account
 
             return this.NextHandler.Execute(unitOfWork, parameter, result);
         }
+
+        private bool IsCustomerAndZipValid(IUnitOfWork unitOfWork, string customerNumber, string zipCode)
+        {
+            if (unitOfWork is null)
+            {
+                throw new ArgumentNullException(nameof(unitOfWork));
+            }
+
+            if (string.IsNullOrEmpty(customerNumber))
+            {
+                throw new ArgumentException($"'{nameof(customerNumber)}' cannot be null or empty", nameof(customerNumber));
+            }
+
+            if (string.IsNullOrEmpty(zipCode))
+            {
+                throw new ArgumentException($"'{nameof(zipCode)}' cannot be null or empty", nameof(zipCode));
+            }
+
+            return unitOfWork.GetRepository<Customer>()
+                                 .GetTable()
+                                 .Any(cn => cn.CustomerNumber == customerNumber
+                                 && GetZipCode(cn.PostalCode) == zipCode
+                                 && cn.IsActive == true
+                                 && cn.IsBillTo == true);
+        }
+
+        private string GetZipCode(string zipCode)
+        {
+            if (string.IsNullOrWhiteSpace(zipCode))
+                return null;
+
+           return  zipCode.Length <= 5 ? zipCode : zipCode.Substring(0, 5);
+        }
+
+        private UserProfile GetUserProfileByUsername(IUnitOfWork unitOfWork,
+                                                     string userName) 
+            => unitOfWork.GetRepository<UserProfile>()
+            .GetTable()
+            .SingleOrDefault(u => u.UserName == userName);
     }
 }

@@ -45,8 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Avalara.AvaTax.Adapter, Version=5.7.3.1, Culture=neutral, PublicKeyToken=34e4ef76d6267205, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Avalara.AvaTax.Adapter.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Avalara.AvaTax.Adapter.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>..\packages\AWSSDK.Core.3.3.24.3\lib\net45\AWSSDK.Core.dll</HintPath>
@@ -85,17 +84,16 @@
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="CyberSource.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7091342136fdb0df, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\CyberSource.Base.dll</HintPath>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\CyberSource.Base.dll</HintPath>
     </Reference>
     <Reference Include="CyberSource.Clients, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\CyberSource.Clients.dll</HintPath>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\CyberSource.Clients.dll</HintPath>
     </Reference>
     <Reference Include="DiffieHellman, Version=0.0.0.0, Culture=neutral">
       <HintPath>..\packages\DiffieHellman.1.0.0\lib\net40\DiffieHellman.dll</HintPath>
     </Reference>
     <Reference Include="DotLiquid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\DotLiquid.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\DotLiquid.dll</HintPath>
     </Reference>
     <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>..\packages\Elasticsearch.Net.5.6.5\lib\net461\Elasticsearch.Net.dll</HintPath>
@@ -103,8 +101,8 @@
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Elmah.Mvc.dll</HintPath>
+    <Reference Include="Elmah.Mvc, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Elmah.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -123,8 +121,7 @@
       <HintPath>..\packages\Flurl.1.0.10\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\Flurl.dll</HintPath>
     </Reference>
     <Reference Include="GemBox.Spreadsheet, Version=33.3.30.1062, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\GemBox.Spreadsheet.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\GemBox.Spreadsheet.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.8.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.8.7\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -144,261 +141,264 @@
     <Reference Include="ImageProcessor, Version=2.6.1.19, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageProcessor.2.6.1.19\lib\net452\ImageProcessor.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Account, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Account.dll</HintPath>
+    <Reference Include="Insite.Account, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Account.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Admin, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Admin.dll</HintPath>
+    <Reference Include="Insite.Admin, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Admin.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Brands, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Brands.dll</HintPath>
+    <Reference Include="Insite.Brands, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Brands.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Budget, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Budget.dll</HintPath>
+    <Reference Include="Insite.Budget, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Budget.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Cart, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Cart.dll</HintPath>
+    <Reference Include="Insite.Cart, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Cart.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Catalog, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Catalog.dll</HintPath>
+    <Reference Include="Insite.Catalog, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Catalog.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Common, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Common.dll</HintPath>
+    <Reference Include="Insite.Common, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Configurator, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Configurator.dll</HintPath>
+    <Reference Include="Insite.Configurator, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Configurator.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.ContentAdmin, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.ContentAdmin.dll</HintPath>
+    <Reference Include="Insite.ContentAdmin, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.ContentAdmin.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.ContentLibrary, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.ContentLibrary.dll</HintPath>
+    <Reference Include="Insite.ContentLibrary, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.ContentLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Core, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Core.dll</HintPath>
+    <Reference Include="Insite.Core, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Core.Interfaces, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Core.Interfaces.dll</HintPath>
+    <Reference Include="Insite.Core.Interfaces, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Core.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.CurrencyConversion.WebserviceX, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.CurrencyConversion.WebserviceX.dll</HintPath>
+    <Reference Include="Insite.CurrencyConversion.WebserviceX, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.CurrencyConversion.WebserviceX.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Customers, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Customers.dll</HintPath>
+    <Reference Include="Insite.Customers, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Customers.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Dashboard, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Dashboard.dll</HintPath>
+    <Reference Include="Insite.Dashboard, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Dashboard.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Data, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Data.dll</HintPath>
+    <Reference Include="Insite.Data, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Data.Entities, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Data.Entities.dll</HintPath>
+    <Reference Include="Insite.Data.Entities, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Data.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Data.Providers.EntityFramework, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Data.Providers.EntityFramework.dll</HintPath>
+    <Reference Include="Insite.Data.Providers.EntityFramework, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Data.Providers.EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Data.Repositories, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Data.Repositories.dll</HintPath>
+    <Reference Include="Insite.Data.Repositories, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Data.Repositories.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Dealers, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Dealers.dll</HintPath>
+    <Reference Include="Insite.Dealers, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Dealers.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Email, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Email.dll</HintPath>
+    <Reference Include="Insite.Email, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Email.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.GeocoderProvider.FreeGeoip, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.GeocoderProvider.FreeGeoip.dll</HintPath>
+    <Reference Include="Insite.GeocoderProvider.FreeGeoip, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.GeocoderProvider.FreeGeoip.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.GeocoderProvider.Google, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.GeocoderProvider.Google.dll</HintPath>
+    <Reference Include="Insite.GeocoderProvider.Google, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.GeocoderProvider.Google.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Git, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Git.dll</HintPath>
+    <Reference Include="Insite.Git, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Git.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.HelpLinks, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.HelpLinks.dll</HintPath>
+    <Reference Include="Insite.HelpLinks, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.HelpLinks.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.IdentityServer, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.IdentityServer.dll</HintPath>
+    <Reference Include="Insite.IdentityServer, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.IdentityServer.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Integration.dll</HintPath>
+    <Reference Include="Insite.Integration, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Integration.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.Connector.Acumatica, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Integration.Connector.Acumatica.dll</HintPath>
+    <Reference Include="Insite.Integration.Connector.Acumatica, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Integration.Connector.Acumatica.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.Connector.APlus, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Integration.Connector.APlus.dll</HintPath>
+    <Reference Include="Insite.Integration.Connector.APlus, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Integration.Connector.APlus.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.Connector.Base, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Integration.Connector.Base.dll</HintPath>
+    <Reference Include="Insite.Integration.Connector.Base, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Integration.Connector.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.Connector.Ifs, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Integration.Connector.Ifs.dll</HintPath>
+    <Reference Include="Insite.Integration.Connector.Ifs, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Integration.Connector.Ifs.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.Connector.Prophet21, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Integration.Connector.Prophet21.dll</HintPath>
+    <Reference Include="Insite.Integration.Connector.Prophet21, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Integration.Connector.Prophet21.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.Connector.SXe, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Integration.Connector.SXe.dll</HintPath>
+    <Reference Include="Insite.Integration.Connector.SXe, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Integration.Connector.SXe.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Integration.WebService, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Integration.WebService.dll</HintPath>
+    <Reference Include="Insite.Integration.WebService, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Integration.WebService.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Invoice, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Invoice.dll</HintPath>
+    <Reference Include="Insite.Invoice, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Invoice.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.IocContainer.Unity, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.IocContainer.Unity.dll</HintPath>
+    <Reference Include="Insite.IocContainer.Unity, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.IocContainer.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.JobQuote, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.JobQuote.dll</HintPath>
+    <Reference Include="Insite.JobQuote, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.JobQuote.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Message, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Message.dll</HintPath>
+    <Reference Include="Insite.Message, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Message.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.MobileApp, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.MobileApp.dll</HintPath>
+    <Reference Include="Insite.MobileApp, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.MobileApp.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Order, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Order.dll</HintPath>
+    <Reference Include="Insite.Order, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Order.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.OrderApproval, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.OrderApproval.dll</HintPath>
+    <Reference Include="Insite.OrderApproval, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.OrderApproval.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.AuthorizeDotNet, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.AuthorizeDotNet.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.AuthorizeDotNet, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.AuthorizeDotNet.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.CardConnect, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.CardConnect.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.CardConnect, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.CardConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.Cenpos, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.Cenpos.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.Cenpos, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.Cenpos.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.CyberSource, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.CyberSource.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.CyberSource, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.CyberSource.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.Moneris, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.Moneris.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.Moneris, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.Moneris.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.Orbital, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.Orbital.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.Orbital, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.Orbital.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.Payeezy, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.Payeezy.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.Payeezy, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.Payeezy.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.PayflowPro, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.PayflowPro.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.PayflowPro, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.PayflowPro.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.PaypalExpress, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.PaypalExpress.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.PaypalExpress, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.PaypalExpress.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.Stripe, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.Stripe.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.Stripe, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.Stripe.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.Vantiv, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.Vantiv.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.Vantiv, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.Vantiv.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PaymentGateway.VantivExpress, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.PaymentGateway.VantivExpress.dll</HintPath>
+    <Reference Include="Insite.PaymentGateway.VantivExpress, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.PaymentGateway.VantivExpress.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Payments, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Payments.dll</HintPath>
+    <Reference Include="Insite.Payments, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Payments.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Plugins, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Plugins.dll</HintPath>
+    <Reference Include="Insite.Plugins, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Plugins.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Promotions, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Promotions.dll</HintPath>
+    <Reference Include="Insite.Promotions, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Promotions.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Public.Core, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Public.Core.dll</HintPath>
+    <Reference Include="Insite.Public.Core, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Public.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Public.Integration, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Public.Integration.dll</HintPath>
+    <Reference Include="Insite.Public.Integration, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Public.Integration.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Public.WebFramework, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Public.WebFramework.dll</HintPath>
+    <Reference Include="Insite.Public.WebFramework, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Public.WebFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.PunchOut, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.PunchOut.dll</HintPath>
+    <Reference Include="Insite.PunchOut, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.PunchOut.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.QuickOrder, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.QuickOrder.dll</HintPath>
+    <Reference Include="Insite.QuickOrder, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.QuickOrder.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.RatingService.FedEx, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.RatingService.FedEx.dll</HintPath>
+    <Reference Include="Insite.RatingService.FedEx, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.RatingService.FedEx.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.RatingService.Ups, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.RatingService.Ups.dll</HintPath>
+    <Reference Include="Insite.RatingService.Ups, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.RatingService.Ups.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.RealTimeInventory, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.RealTimeInventory.dll</HintPath>
+    <Reference Include="Insite.RealTimeInventory, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.RealTimeInventory.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.RealTimePricing, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.RealTimePricing.dll</HintPath>
+    <Reference Include="Insite.RealTimePricing, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.RealTimePricing.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Requisition, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Requisition.dll</HintPath>
+    <Reference Include="Insite.Requisition, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Requisition.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Rfq, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Rfq.dll</HintPath>
+    <Reference Include="Insite.Rfq, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Rfq.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Search.Elasticsearch, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Search.Elasticsearch.dll</HintPath>
+    <Reference Include="Insite.Search.Elasticsearch, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Search.Elasticsearch.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Spire, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Spire.dll</HintPath>
+    <Reference Include="Insite.Spire, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Spire.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.StorageProviders.Amazon, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.StorageProviders.Amazon.dll</HintPath>
+    <Reference Include="Insite.StorageProviders.Amazon, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.StorageProviders.Amazon.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.StorageProviders.Azure, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.StorageProviders.Azure.dll</HintPath>
+    <Reference Include="Insite.StorageProviders.Azure, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.StorageProviders.Azure.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Swagger, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.Swagger.dll</HintPath>
+    <Reference Include="Insite.Swagger, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.Swagger.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.SystemResources, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.SystemResources.dll</HintPath>
+    <Reference Include="Insite.SystemResources, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.SystemResources.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.TaxCalculator.Avalara, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.TaxCalculator.Avalara.dll</HintPath>
+    <Reference Include="Insite.TaxCalculator.Avalara, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.TaxCalculator.Avalara.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.TaxCalculator.CyberSource, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.TaxCalculator.CyberSource.dll</HintPath>
+    <Reference Include="Insite.TaxCalculator.CyberSource, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.TaxCalculator.CyberSource.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.TaxCalculator.Sx, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.TaxCalculator.Sx.dll</HintPath>
+    <Reference Include="Insite.TaxCalculator.Sx, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.TaxCalculator.Sx.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.TaxCalculator.Vertex, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.TaxCalculator.Vertex.dll</HintPath>
+    <Reference Include="Insite.TaxCalculator.Vertex, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.TaxCalculator.Vertex.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.UserFiles, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.UserFiles.dll</HintPath>
+    <Reference Include="Insite.UserFiles, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.UserFiles.dll</HintPath>
     </Reference>
     <Reference Include="Insite.WebFramework, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.WebFramework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.WebFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.Websites, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.Websites.dll</HintPath>
+    <Reference Include="Insite.Websites, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.Websites.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.WIS.Acumatica, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.WIS.Acumatica.dll</HintPath>
+    <Reference Include="Insite.WIS.Acumatica, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.WIS.Acumatica.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.WIS.AffiliatedDistributors, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.WIS.AffiliatedDistributors.dll</HintPath>
+    <Reference Include="Insite.WIS.AffiliatedDistributors, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.WIS.AffiliatedDistributors.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.WIS.EnterWorks, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Insite.WIS.EnterWorks.dll</HintPath>
+    <Reference Include="Insite.WIS.Broker, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.WIS.Broker.dll</HintPath>
     </Reference>
-    <Reference Include="Insite.WishLists, Version=4.6.0.64498, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64498\lib\net48\Insite.WishLists.dll</HintPath>
+    <Reference Include="Insite.WIS.EnterWorks, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Insite.WIS.EnterWorks.dll</HintPath>
+    </Reference>
+    <Reference Include="Insite.WishLists, Version=4.6.0.64535, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Insite.Commerce.Public.4.6.0.64535\lib\net48\Insite.WishLists.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Ionic.Zip.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="IronPdf, Version=4.4.9.15720, Culture=neutral, PublicKeyToken=94e1c31412563c75, processorArchitecture=MSIL">
       <HintPath>..\packages\IronPdf.4.4.9\lib\net40\IronPdf.dll</HintPath>
@@ -492,7 +492,7 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Microsoft.Web.Services3.dll</HintPath>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Microsoft.Web.Services3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
@@ -515,7 +515,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Payflow_dotNET, Version=4.3.1.0, Culture=neutral, PublicKeyToken=14aa1e8d77f2a97c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\Payflow_dotNET.dll</HintPath>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\Payflow_dotNET.dll</HintPath>
     </Reference>
     <Reference Include="PayPalCoreSDK, Version=1.7.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <HintPath>..\packages\PayPalCoreSDK.1.7.0\lib\net451\PayPalCoreSDK.dll</HintPath>
@@ -533,8 +533,7 @@
       <HintPath>..\packages\RazorGenerator.Mvc.2.4.9\lib\net40\RazorGenerator.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="RemoteActiveDirectory, Version=1.0.0.53, Culture=neutral, PublicKeyToken=d9ff2a1d43ad9af4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64498\lib\net48\RemoteActiveDirectory.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Insite.Commerce.Private.4.6.0.64535\lib\net48\RemoteActiveDirectory.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
@@ -675,8 +674,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Packages\IdentityServer3.AspNetIdentity\IdentityServer3.AspNetIdentity.cs" />
-    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\BackOrders.cs" />
     <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\Brand.cs" />
     <Compile Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\InvoiceInforTransaction.cs" />
@@ -984,32 +981,37 @@
     <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\SetBillto_Brasseler.cs" />
     <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\SetQtyOrdered.cs" />
     <Compile Include="InSiteCommerce.Brasseler\Services\Pipelines\SetShipTo_Brasseler.cs" />
+    <Compile Include="InSiteCommerce.Brasseler\Tags\BrasselerNavigationMenuItemTag.cs" />
     <Compile Include="InSiteCommerce.Brasseler\Tags\BrasselerNavigationMenuTag.cs" />
     <Compile Include="InSiteCommerce.Brasseler\Tags\WhiteSpaceRegex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\brand.json" />
     <None Include="packages.config" />
-    <None Include="Scripts\Manager.ttinclude" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\TypeLite.Net4.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
-    </Content>
+    <None Include="Themes\Responsive\Views\LayoutSections\BodyEnd.liquid" />
+    <None Include="Themes\Responsive\Views\LayoutSections\BodyStart.liquid" />
+    <None Include="Themes\Responsive\Views\LayoutSections\HeadEnd.liquid" />
+    <None Include="Themes\Responsive\Views\LayoutSections\HeadStart.liquid" />
+    <None Include="Themes\Responsive\Views\Layouts\Standard.liquid" />
+    <None Include="Themes\Responsive\Views\NavigationMenus\Catalog\B2C.liquid" />
+    <None Include="Themes\Responsive\Views\NavigationMenus\Catalog\Standard.Liquid" />
+    <None Include="Themes\Responsive\Views\NavigationMenus\Content\B2C.liquid" />
+    <None Include="Themes\Responsive\Views\NavigationMenus\Content\Standard.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Footer\Standard.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Header\Standard.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Legacy-ContentDiv.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Legacy-ExtraDivs.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Legacy-MissingDiv.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Legacy-SignIn.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Legacy-UploadLibraries.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\NewsTemplate.liquid" />
+    <None Include="Themes\Responsive\Views\Pages\Standard.liquid" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\TypeLite.Net4.d.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TypeLite.Net4.tt</DependentUpon>
-    </TypeScriptCompile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

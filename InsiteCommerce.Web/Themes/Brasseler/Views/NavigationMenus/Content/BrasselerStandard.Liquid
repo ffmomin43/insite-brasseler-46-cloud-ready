@@ -1,0 +1,25 @@
+﻿[% comment %]
+This uses NavigationMenuItemDrop as the model
+[% endcomment %]
+
+{% if Model.Children == empty %]
+    <li><a id="tst_productMenu_[[Model.Identifier]]" href="[[Model.Url]]" onclick="insite.nav.hideMenu();" >[[Model.Title]]</a></li>
+[% else %]
+    <li>
+        <span class="nav-item-container">
+            [% assign onclick = 'insite.nav.hideMenu();' %]
+            [% if Model.Level == 0 %]
+                [% assign onclick = '$(this).next().click(); return false;' %]
+            [% endif %]
+            <a id="tst_productMenu_[[Model.Identifier]]" href="[[Model.Url]]" onclick="[[onclick]]">[[Model.Title]]</a>
+            <label for="nav-[[Model.Identifier]]" class="toggle-sub" onclick="insite.nav.goToSubnav(this)">&#9658;</label>
+        </span>
+        <input type="checkbox" name="nav" id="nav-[[Model.Identifier]]" class="subnav-check" />
+        <ul id="sub-[[Model.Identifier]]" class="subnav sub-tier-panel">
+            <li class="sub-heading">[[Model.LinkText]]</li>
+            [% for childItem in Model.Children %]
+                [% navigationMenuItem childItem %]
+            [% endfor %]
+        </ul>
+    </li>
+[% endif %]

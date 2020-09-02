@@ -922,6 +922,12 @@
   <ItemGroup>
     <Content Include="Views\Widgets\SignInView\BrasselerStandard.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NavigationMenus\Catalog\BrasselerStandard.Liquid" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NavigationMenus\Content\BrasselerStandard.Liquid" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

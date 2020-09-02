@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InSiteCommerce.Brasseler.ContentLibrary.Pages
 {
-    public class BrasselerCatalogNavigationPage : ContentPage, ICreatableContent
+    public class BrasselerCatalogNavigationPage : ContentPage, ICreatableContent //ICatalogNavigationPage
     {
         public IList<BrasselerCategoryNavLink> BrasselerCategoryLinks { get; set; }
 
@@ -29,6 +29,27 @@ namespace InSiteCommerce.Brasseler.ContentLibrary.Pages
                 return "~/Views/Pages/BrasselerCatalogNavigationPage/";
             }
         }
+        //BrasselerNavigation TODO
+        //public override string NavigationViewDirectory
+        //{
+        //    get
+        //    {
+        //        return "~/Views/NavigationMenus/Catalog/";
+        //    }
+        //}
+
+        //public virtual NavLinkDto CategoryNavRoot
+        //{
+        //    get
+        //    {
+        //        return this.GetPerRequestValue<NavLinkDto>(nameof(CategoryNavRoot));
+        //    }
+        //    set
+        //    {
+        //        this.SetPerRequestValue<NavLinkDto>(nameof(CategoryNavRoot), value);
+        //    }
+        //}
+
 
     }
 

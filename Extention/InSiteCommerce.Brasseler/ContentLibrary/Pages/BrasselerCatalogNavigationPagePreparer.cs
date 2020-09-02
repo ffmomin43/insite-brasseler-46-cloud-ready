@@ -3,10 +3,8 @@ using Insite.Catalog.Services.Parameters;
 using Insite.ContentLibrary.Providers;
 using Insite.Core.Interfaces.Localization;
 using Insite.WebFramework.Content;
-using Insite.WebFramework.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace InSiteCommerce.Brasseler.ContentLibrary.Pages
@@ -45,6 +43,12 @@ namespace InSiteCommerce.Brasseler.ContentLibrary.Pages
             }
             contentItem.BrasselerCategoryLinks = CategoryLinks.Distinct().ToList();
             contentItem.IsShoppingListMenu = false;
+            //BrasselerNavigation TODO
+            //contentItem.CategoryNavRoot = new NavLinkDto()
+            //{
+            //    LinkText = contentItem.Title,
+            //    NavLinks = (IList<NavLinkDto>)categoryMenuLinks
+            //};
             contentItem.NavigationViewDirectory = "~/Views/Pages/BrasselerCatalogNavigationPage/";
         }
 

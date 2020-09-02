@@ -1,14 +1,8 @@
 ﻿using Insite.Catalog.Services;
-using Insite.Catalog.Services.Parameters;
 using Insite.Common.Providers;
 using Insite.ContentLibrary.Pages;
 using Insite.ContentLibrary.Providers;
 using Insite.WebFramework.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InSiteCommerce.Brasseler.ContentLibrary.Pages
 {
