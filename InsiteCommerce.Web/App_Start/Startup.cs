@@ -39,8 +39,9 @@ namespace InsiteCommerce.Web
 
             // load any custom dot liquid tags here
             // Template.RegisterTag<MyCustomTag>("myCustomTag");
-
             Template.RegisterTag<BrasselerNavigationMenuTag>("BrasselerNavigationMenu");
+            
+            // BrasselerNavigationTODOTemplate.RegisterTag<BrasselerNavigationMenuItemTag>("BrasselerNavigationMenuItem");
             Template.RegisterTag<WhiteSpaceRegex>("WhiteSpaceRegex");
         }
 
