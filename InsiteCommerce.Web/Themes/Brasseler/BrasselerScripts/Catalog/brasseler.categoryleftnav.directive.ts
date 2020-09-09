@@ -13,7 +13,16 @@
                     priceFilterMinimums: "=",
                     updateProductData: "&",
                     searchWithinTerms: "=",
-                    category: "="
+                    category: "=",
+                    brandIds: "=",
+                    productLineIds: "=",
+                    showBrands: "=",
+                    showProductLines: "=",
+                    previouslyPurchasedProducts: "=",
+                    searchSettings: "=",
+                    productSettings: "=",
+                    stockedItemsOnly: "=",
+                    session: "="
                 },
                 templateUrl: "/PartialViews/Catalog-BrasselerCategoryLeftNav",
                 controller: "CategoryLeftNavController",

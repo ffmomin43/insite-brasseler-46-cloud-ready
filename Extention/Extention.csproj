@@ -987,27 +987,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="InSiteCommerce.Brasseler.CustomAPI\Data\Entities\brand.json" />
     <None Include="packages.config" />
-    <None Include="Themes\Responsive\Views\LayoutSections\BodyEnd.liquid" />
-    <None Include="Themes\Responsive\Views\LayoutSections\BodyStart.liquid" />
-    <None Include="Themes\Responsive\Views\LayoutSections\HeadEnd.liquid" />
-    <None Include="Themes\Responsive\Views\LayoutSections\HeadStart.liquid" />
-    <None Include="Themes\Responsive\Views\Layouts\Standard.liquid" />
-    <None Include="Themes\Responsive\Views\NavigationMenus\Catalog\B2C.liquid" />
-    <None Include="Themes\Responsive\Views\NavigationMenus\Catalog\Standard.Liquid" />
-    <None Include="Themes\Responsive\Views\NavigationMenus\Content\B2C.liquid" />
-    <None Include="Themes\Responsive\Views\NavigationMenus\Content\Standard.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Footer\Standard.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Header\Standard.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Legacy-ContentDiv.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Legacy-ExtraDivs.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Legacy-MissingDiv.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Legacy-SignIn.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Legacy-UploadLibraries.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\NewsTemplate.liquid" />
-    <None Include="Themes\Responsive\Views\Pages\Standard.liquid" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

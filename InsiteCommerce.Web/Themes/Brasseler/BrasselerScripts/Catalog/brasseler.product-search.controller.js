@@ -29,10 +29,10 @@ var insite;
                 _this.queryString = queryString;
                 _this.$scope = $scope;
                 _this.$window = $window;
-                _this.brasselerInit();
                 return _this;
+                // TODO 2.1.1this.brasselerInit();
             }
-            BrasselerProductSearchController.prototype.brasselerInit = function () {
+            BrasselerProductSearchController.prototype.$onInit = function () {
                 _super.prototype.$onInit.call(this);
             };
             BrasselerProductSearchController.prototype.getAutocompleteProductTemplate = function (suggestion, pattern) {

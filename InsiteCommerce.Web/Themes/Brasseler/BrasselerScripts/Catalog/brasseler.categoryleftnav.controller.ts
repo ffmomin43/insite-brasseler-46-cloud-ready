@@ -35,12 +35,12 @@
             ) {
             super($timeout, $window, $scope, $rootScope, sessionService);
             // Changes For BUSA-335 Starts
-            this.clearFilters();
+            //TODO 2.1.1this.clearFilters();
             // Changes For BUSA-335 Ends
-            this.brasselerInit();
+ 
         }
 
-        brasselerInit() {
+        $onInit() {
             super.$onInit();
             this.originalAttributes = this.products.attributeTypeFacets;
         }
@@ -115,6 +115,14 @@
                     });
                 });
             }
+        }
+//TODO 2.1.1
+        protected  getSelectedBrandFilters() {
+            //this.getSelectedGenericFilters(this.products.brandFacets, this.brandFilters, this.brandIds);
+        }
+
+        protected getSelectedProductLineFilters (){
+            //this.getSelectedGenericFilters(this.products.productLineFacets, this.productLineFilters, this.productLineIds);
         }
     }
 

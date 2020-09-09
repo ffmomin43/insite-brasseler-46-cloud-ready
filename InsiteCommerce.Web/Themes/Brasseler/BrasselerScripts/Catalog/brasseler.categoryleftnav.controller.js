@@ -30,13 +30,12 @@ var insite;
                 // local collections
                 _this.attributeValues = []; // private list of attributes for the ui to display
                 _this.priceFilters = []; // private list of price ranges for the ui to display
-                // Changes For BUSA-335 Starts
-                _this.clearFilters();
-                // Changes For BUSA-335 Ends
-                _this.brasselerInit();
                 return _this;
+                // Changes For BUSA-335 Starts
+                //TODO 2.1.1this.clearFilters();
+                // Changes For BUSA-335 Ends
             }
-            BrasselerCategoryLeftNavController.prototype.brasselerInit = function () {
+            BrasselerCategoryLeftNavController.prototype.$onInit = function () {
                 _super.prototype.$onInit.call(this);
                 this.originalAttributes = this.products.attributeTypeFacets;
             };
@@ -109,6 +108,13 @@ var insite;
                         });
                     });
                 }
+            };
+            //TODO 2.1.1
+            BrasselerCategoryLeftNavController.prototype.getSelectedBrandFilters = function () {
+                //this.getSelectedGenericFilters(this.products.brandFacets, this.brandFilters, this.brandIds);
+            };
+            BrasselerCategoryLeftNavController.prototype.getSelectedProductLineFilters = function () {
+                //this.getSelectedGenericFilters(this.products.productLineFacets, this.productLineFilters, this.productLineIds);
             };
             BrasselerCategoryLeftNavController.$inject = ["$timeout", "$window", "$scope", "$rootScope", "sessionService"];
             return BrasselerCategoryLeftNavController;

@@ -140,20 +140,20 @@ var insite;
                     _this.products = result;
                     if (result.properties != null && result.properties["useVolumeGroupPricing"] != null && result.properties["useVolumeGroupPricing"].toUpperCase() == "TRUE") {
                         _this.filterProducts = _this.products.products;
-                        _this.filterProducts.forEach(function (x) {
-                            x.pricing.actualBreakPrices.forEach(function (y) {
-                                if (y.savingsMessage == "") {
-                                    _this.showQuantityPricing = false;
-                                }
-                                else {
-                                    _this.showQuantityPricing = true;
-                                }
-                            });
-                        });
-                        _this.filterProducts.forEach(function (x) {
-                            if (x.pricing.actualBreakPrices.length > 1)
-                                _this.showPricing = true;
-                        });
+                        //TODO 2.1.1
+                        //this.filterProducts.forEach(x => {
+                        //    x.pricing.actualBreakPrices.forEach(y => {
+                        //        if (y.savingsMessage == "") {
+                        //            this.showQuantityPricing = false;
+                        //        } else {
+                        //            this.showQuantityPricing = true;
+                        //        }
+                        //    });
+                        //});
+                        //this.filterProducts.forEach(x => {
+                        //    if (x.pricing.actualBreakPrices.length > 1)
+                        //        this.showPricing = true;
+                        //});
                     }
                     //*********Google Tag Manager measuring product impressions *****************
                     var dataLayer = window.dataLayer = window.dataLayer || [];

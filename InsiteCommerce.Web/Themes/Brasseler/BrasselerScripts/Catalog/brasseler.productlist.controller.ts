@@ -170,19 +170,20 @@
                     this.products = result;
                     if (result.properties != null && result.properties["useVolumeGroupPricing"] != null && result.properties["useVolumeGroupPricing"].toUpperCase() == "TRUE") {
                         this.filterProducts = this.products.products;
-                        this.filterProducts.forEach(x => {
-                            x.pricing.actualBreakPrices.forEach(y => {
-                                if (y.savingsMessage == "") {
-                                    this.showQuantityPricing = false;
-                                } else {
-                                    this.showQuantityPricing = true;
-                                }
-                            });
-                        });
-                        this.filterProducts.forEach(x => {
-                            if (x.pricing.actualBreakPrices.length > 1)
-                                this.showPricing = true;
-                        });
+                        //TODO 2.1.1
+                        //this.filterProducts.forEach(x => {
+                        //    x.pricing.actualBreakPrices.forEach(y => {
+                        //        if (y.savingsMessage == "") {
+                        //            this.showQuantityPricing = false;
+                        //        } else {
+                        //            this.showQuantityPricing = true;
+                        //        }
+                        //    });
+                        //});
+                        //this.filterProducts.forEach(x => {
+                        //    if (x.pricing.actualBreakPrices.length > 1)
+                        //        this.showPricing = true;
+                        //});
                     }
                     //*********Google Tag Manager measuring product impressions *****************
                     var dataLayer = (<any>window).dataLayer = (<any>window).dataLayer || [];

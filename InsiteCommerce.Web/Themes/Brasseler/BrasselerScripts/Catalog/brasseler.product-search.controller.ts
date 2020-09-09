@@ -25,10 +25,10 @@
             protected $scope: ng.IScope,
             protected $window: ng.IWindowService) {
             super($element, $filter, coreService, searchService, settingsService, $state, queryString, $scope, $window);
-            this.brasselerInit();
+            // TODO 2.1.1this.brasselerInit();
         }
 
-        brasselerInit() {
+        $onInit() {
             super.$onInit();
         }
 

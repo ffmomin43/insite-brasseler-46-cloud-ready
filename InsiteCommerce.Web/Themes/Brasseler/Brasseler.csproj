@@ -928,6 +928,12 @@
   <ItemGroup>
     <Content Include="Views\NavigationMenus\Content\BrasselerStandard.Liquid" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Directives\Catalog\BrasselerCategoryLeftNav.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Directives\Catalog\BrasselerSortedAttributeValueList.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
