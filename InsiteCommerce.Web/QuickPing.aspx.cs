@@ -16,7 +16,7 @@ public partial class QuickPing : Page
             var combined = CancellationTokenSource.CreateLinkedTokenSource(timeout.Token, this.Context.Request.TimedOutToken, this.Context.Response.ClientDisconnectedToken);
 
             var healthCheckManager = DependencyLocator.Current.GetInstance<IHealthCheckManager>();
-            this.HealthCheckResults = await healthCheckManager.CheckHealth(combined.Token);
+            this.HealthCheckResults = await healthCheckManager.CheckHealth();
         }));
     }
 }
